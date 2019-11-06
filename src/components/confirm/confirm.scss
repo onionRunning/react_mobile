@@ -1,0 +1,102 @@
+@import '~global/style.scss';
+$confirm-bg: rgba(79, 83, 98, 0.55); // 模态框颜色
+$confirm-wapper-bg: #fff; // 提示内容背景颜色
+$confirm-text-color: #202231; // 提示内容字体颜色
+$confirm-text-font-size: 18px; // 提示内容字体大小
+$confirm-title-color: #404040; // 标题文字颜色
+
+.confirm {
+  // 容器
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: $confirm-bg;
+  z-index: 999;
+  // 默认不显示
+  display: none;
+  // 模态框进入
+  &.confirm-enter {
+    display: block;
+  }
+
+  .confirm-wapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 410px;
+    max-width: 590px;
+    transform: translate(-50%, -50%);
+    background-color: $confirm-wapper-bg;
+    border: none;
+    border-radius: 4px;
+  }
+
+  // 标题头部样式
+  .confirm-title {
+    position: relative;
+    margin-bottom: 30px;
+    padding: 0 18px;
+    width: 100%;
+    line-height: 40px;
+    font-size: $title-font-size;
+    font-weight: 400;
+    color: $confirm-title-color;
+    background-color: rgba(240, 240, 240, 1);
+    // 文本溢出显示省略号
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    border-radius: 4px 4px 0 0;
+    .title-close-icon {
+      position: absolute;
+      top: 50%;
+      right: 20px;
+      transform: translateY(-50%);
+      line-height: normal;
+      width: 14px;
+      height: 14px;
+      cursor: pointer;
+    }
+  }
+
+  // 提示内容样式
+  .confirm-content {
+    padding: 0 30px;
+    color: $confirm-text-color;
+    text-align: center;
+    font-size: $confirm-text-font-size;
+  }
+  .confirm-btn-wapper {
+    padding: 30px 0;
+    text-align: center;
+    .confirm-btn {
+      margin: 0 15px;
+      width: 120px;
+      height: 36px;
+    }
+    .btn-cancel {
+      margin: 0 15px;
+      width: 120px;
+      height: 36px;
+      background: rgba(255, 255, 255, 1);
+      border: 1px solid rgba(217, 217, 217, 1);
+      border-radius: 4px;
+      cursor: pointer;
+      &:hover,
+      &:active {
+        border-color: $theme-color;
+        color: $theme-color;
+      }
+    }
+  }
+
+  .select-wrapper {
+    display: inline-block;
+    margin: 10px 0;
+    max-width: 150px;
+    width: 11vw;
+    vertical-align: middle;
+  }
+}

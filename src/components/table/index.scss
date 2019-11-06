@@ -1,0 +1,245 @@
+$title-font-size: 14px; // 表格头字体大小
+$font-size: 13px; // 表格内容字体大小
+$table-color: #333; // 表格字体颜色
+$table-title-bg-color: #e3e3e3; // 表格头背景颜色
+$table-body-bg-color: #f2f2f2; // 背景颜色
+$table-hover-bg-color: #f6f6f6; // 鼠标经过表格行时的样式
+
+$item-border-color: #d9d9d9; // 页码框颜色
+$item-active-color: #ff9a2f; // 当前页页码字体颜色
+$table-td-border-color: #ededed;
+$text-font-size: 14px; // 分页文字字体大小
+$theme-color: #ff9a2f; // 主题色
+
+$table-min-height: 400px; // 表格最小高度
+
+$item-hover-bg-color: #dfeedd; // 鼠标经过页码时的背景颜色
+$item-active-color: #ff9a2f; // 当前页页码字体颜色
+$item-bg-color: #fff; // 当前页页码背景颜色
+
+// 没有数据时提示内容样式
+.table-no-data {
+  margin-top: 60px;
+  text-align: center;
+  img {
+    margin-bottom: 10px;
+  }
+}
+
+// 修改表格容器
+.table-wrapper {
+  td,
+  span {
+    cursor: default;
+  }
+}
+
+// 表格没有数据时
+.table-empty-wrapper {
+  .table-no-data{
+    margin-top: 180px;
+  }
+}
+
+// 修改表格中默认显示的分页
+.ant-table-pagination.ant-pagination {
+  float: none;
+  text-align: center;
+  margin-top: 20px;
+}
+// 强制表格内容不换行
+.ant-table-thead > tr > th {
+  white-space: nowrap;
+  background-color: #e3e3e3 !important;
+}
+.ant-table-thead > tr > th,
+.ant-table-tbody > tr > td {
+  padding: 5px;
+}
+
+// 设置表格头单元格居中
+.ant-table-thead > tr > th.ant-table-column-has-actions.ant-table-column-has-sorters,
+.ant-table-thead > tr > th.ant-table-column-has-actions.ant-table-column-has-filters {
+  padding-right: 0 !important;
+}
+
+// 鼠标经过表格行的样式
+.ant-table-thead > tr.ant-table-row-hover > td,
+.ant-table-tbody > tr.ant-table-row-hover > td,
+.ant-table-thead > tr:hover > td,
+.ant-table-tbody > tr:hover > td {
+  background: $table-hover-bg-color;
+}
+.ant-table-thead > tr.ant-table-row-hover:not(.ant-table-expanded-row) > td,
+.ant-table-tbody > tr.ant-table-row-hover:not(.ant-table-expanded-row) > td,
+.ant-table-thead > tr:hover:not(.ant-table-expanded-row) > td,
+.ant-table-tbody > tr:hover:not(.ant-table-expanded-row) > td {
+  background: $table-hover-bg-color;
+}
+
+//表格border
+.ant-table-bordered .ant-table-thead > tr > th {
+  height: 50px;
+  border-right: 1px solid $table-title-bg-color;
+}
+.ant-table-bordered .ant-table-tbody > tr > td {
+  border-right: 1px solid $table-td-border-color;
+}
+
+// 设置antd没有数据时的提示
+.ant-table-bordered.ant-table-empty .ant-table-placeholder {
+  display: none;
+}
+
+// 头部排序按钮样式
+// .ant-table-thead > tr > th .ant-table-column-sorter {
+//   position: static;
+//   display: inline-block;
+//   vertical-align: middle;
+//   margin-left: 5px;
+// }
+
+// 分页
+.pagination-wrapper {
+  display: flex;
+  justify-content: center;
+}
+// 修改分页默认样式
+.ant-pagination-item {
+  // width: 32px;
+  min-width: 32px;
+  padding: 0 5px;
+  height: 32px;
+  line-height: 32px;
+  border: none;
+  font-family: 'PingFang-SC-Regular';
+  font-size: $text-font-size;
+  font-weight: 400;
+  border-radius: 4px;
+  border: 1px solid $item-border-color;
+  a {
+    margin: 0;
+  }
+  &:hover {
+    background-color: $item-bg-color !important;
+    border: 1px solid $theme-color;
+    a {
+      color: $theme-color !important;
+    }
+  }
+  &:active {
+    a {
+      color: $theme-color !important;
+    }
+  }
+  &.ant-pagination-item-active {
+    &:hover {
+      background-color: $item-bg-color !important;
+    }
+  }
+}
+.ant-pagination-item-active {
+  border: 1px solid $theme-color;
+  background: #fff !important;
+
+  a {
+    color: $item-active-color !important;
+  }
+  &:focus {
+    background: #fff !important;
+    a {
+      color: $item-active-color !important;
+    }
+  }
+  &:hover {
+    background: #fff !important;
+    a {
+      color: $item-active-color !important;
+    }
+  }
+}
+
+// 修改前后翻页按钮样式
+.ant-pagination-prev .ant-pagination-item-link,
+.ant-pagination-next .ant-pagination-item-link {
+  border: 1px solid $item-border-color;
+}
+.ant-pagination-prev:focus .ant-pagination-item-link,
+.ant-pagination-next:focus .ant-pagination-item-link,
+.ant-pagination-prev:hover .ant-pagination-item-link,
+.ant-pagination-next:hover .ant-pagination-item-link {
+  color: $theme-color !important;
+  border: 1px solid $theme-color;
+}
+
+// 修改选择每页显示的条数样式
+.ant-select-selection:focus,
+.ant-select-selection:active {
+  border-color: $theme-color !important;
+  box-shadow: 0 0 0 2px rgba(223, 238, 221, 0.2);
+}
+.ant-select-selection:hover {
+  border-color: $theme-color !important;
+}
+.ant-select-dropdown-menu-item:hover {
+  background: $item-hover-bg-color;
+}
+// 跳转到具体某一页的样式修改
+.ant-pagination-options-quick-jumper input {
+  width: 100px;
+}
+.ant-pagination-options-quick-jumper input:hover {
+  border-color: $theme-color !important;
+}
+.ant-pagination-options-quick-jumper input:focus {
+  border-color: $theme-color !important;
+  box-shadow: 0 0 0 2px rgba(223, 238, 221, 0.2);
+}
+
+.ant-pagination-jump-prev .ant-pagination-item-container .ant-pagination-item-link-icon,
+.ant-pagination-jump-next .ant-pagination-item-container .ant-pagination-item-link-icon {
+  color: $theme-color;
+}
+
+.ant-table-thead > tr > th {
+  padding: 6px !important;
+}
+
+.ant-table-thead > tr > th {
+  background-color: #e3e3e3;
+  text-align: center;
+  padding: 10px;
+}
+
+.ant-table-tbody > tr > td {
+  text-align: center;
+  font-size: 12px;
+  height: 48px;
+  word-break: break-word;
+}
+
+.ant-table-thead > tr > th.ant-table-column-sort {
+  background-color: #e3e3e3;
+}
+
+.ant-table-thead > tr > th.ant-table-column-has-actions.ant-table-column-has-sorters:hover {
+  background-color: #e3e3e3;
+  opacity: 0.8;
+}
+
+.ant-input-lg {
+  height: 36px;
+}
+
+.ant-pagination-item-active:focus, .ant-pagination-item-active:hover {
+  border-color: #ff9a2f;
+}
+
+// 添加最小高度
+.ant-table-wrapper {
+  &.min-height {
+    .ant-table {
+      // min-height: 516px;
+    }
+  }
+}

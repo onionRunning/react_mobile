@@ -1,0 +1,129 @@
+$theme-color: #FF9A2F; // 主色调
+$border-color: #ccc; // 输入框颜色
+$text-font-size: 14px; // 字体大小
+$calendar-hover-bg-color: #FF9A2F; // 鼠标放到日期上面的样式
+$calendar-hover-color: #fff; // 鼠标放到日期上面文字颜色
+$input-focused-color: #333; // 选中时的字体颜色
+$input-width: 140px;
+$calendar-header-color: #E3E3E3; // 头部颜色
+$calendar-header-hover-width: 20px; // 头部鼠标经过的图标的宽度
+$calendar-header-input-placeholder: #ccc; // 输入框placeholder颜色
+$calendar-date-hover-bg: #E3E3E3; // 在日期上面鼠标滑动时的颜色
+$calendar-date-color: rgba(0, 0, 0, 0.65); // 默认的日期字体颜色
+
+// 包裹时间选择器的标签
+.date-picker-wrapper {
+  display: inline-block;
+}
+
+// 修改默认样式
+.CalendarDay {
+  border: none;
+}
+// 输入框宽度
+.ant-calendar-picker {
+  max-width: 200px;
+  width: 7.5vw;
+}
+// 输入框边框颜色
+.ant-input {
+  border-color: $border-color;
+  font-size: $text-font-size;
+  font-weight: 400;
+  &::-webkit-input-placeholder {
+    color: $calendar-header-input-placeholder;
+  }
+  &:hover {
+    border-color: $theme-color !important;
+  }
+  &:focus {
+    border-color: $theme-color;
+    box-shadow: 0 0 0 2px rgba(30, 165, 15, 0.2);
+  }
+}
+
+.ant-calendar-input-wrap {
+  display: none;
+}
+.ant-calendar {
+  margin-top: 50px;
+  font-size: $text-font-size;
+  font-weight: 400;
+}
+// 日期选择框头部
+.ant-calendar-header {
+  background-color: $calendar-header-color;
+}
+.ant-calendar-header a {
+  &::after {
+    display: inline-block;
+    width: $calendar-header-hover-width;
+    height: $calendar-header-hover-width;
+    line-height: $calendar-header-hover-width;
+  }
+  &:hover {
+    color: $theme-color;
+    &::after {
+      border-radius: 12px;
+      color: $calendar-hover-color;
+      background-color: $calendar-hover-bg-color;
+    }
+  }
+}
+// 默认日期,获选中日期样式
+.ant-calendar-today .ant-calendar-date,
+.ant-calendar-selected-day .ant-calendar-date {
+  color: $calendar-date-color;
+  border-color: $calendar-date-hover-bg;
+  border-radius: 13px;
+  background-color: $calendar-date-hover-bg;
+  font-weight: 400;
+  &:hover {
+    color: $calendar-hover-color;
+    background-color: $theme-color;
+  }
+  &:active {
+    color: $calendar-hover-color;
+    background-color: $calendar-date-hover-bg;
+  }
+}
+
+.ant-calendar-date {
+  border-radius: 11px;
+  &:hover {
+    background-color: $calendar-date-hover-bg;
+  }
+  &:active {
+    color: $calendar-date-color;
+    background-color: $calendar-date-hover-bg;
+  }
+}
+.ant-calendar-selected-date .ant-calendar-date,
+.ant-calendar-selected-start-date .ant-calendar-date,
+.ant-calendar-selected-end-date .ant-calendar-date {
+  color: $calendar-hover-color;
+  background-color: $theme-color;
+  border-radius: 13px;
+}
+.ant-calendar-selected-date .ant-calendar-date:hover,
+.ant-calendar-selected-start-date .ant-calendar-date:hover,
+.ant-calendar-selected-end-date .ant-calendar-date:hover {
+  background-color: $theme-color;
+}
+
+// 选择月份和年份时颜色
+.ant-calendar-month-panel-selected-cell .ant-calendar-month-panel-month,
+.ant-calendar-year-panel-selected-cell .ant-calendar-year-panel-year {
+  background: $calendar-hover-bg-color;
+  &:hover {
+    background: $calendar-hover-bg-color;
+  }
+}
+
+// 选择今日的文字颜色
+.ant-calendar .ant-calendar-today-btn,
+.ant-calendar .ant-calendar-clear-btn {
+  &:hover {
+    color: $theme-color;
+  }
+}

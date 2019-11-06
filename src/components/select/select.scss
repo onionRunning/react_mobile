@@ -1,0 +1,47 @@
+$border-color: #ccc; // 输入框border颜色
+$text-font-size: 14px; // 字体大小
+$select-height: 36px; // select高度
+$border-radius: 4px; // border边框圆角大小
+
+.select-wrapper {
+  display: inline-block;
+  margin:0;
+  max-width:170px;
+  width: 11vw;
+  vertical-align: middle;
+}
+
+// 调整select插件默认样式
+.Select-control {
+  height: $select-height;
+  border-color: $border-color;
+  border-radius: $border-radius;
+}
+.Select-placeholder{
+  color:#ccc;
+}
+.Select-placeholder,
+.Select--single > .Select-control .Select-value {
+  line-height: $select-height;
+}
+.Select-arrow {
+  margin-top: 8px;
+}
+
+.Select,
+.Select div,
+.Select input,
+.Select span {
+  text-align: left;
+}
+
+.call-relation .Select-menu-outer {
+  width: 100%
+}
+
+.Select-option {
+  height: 42px;
+}
+
+
+

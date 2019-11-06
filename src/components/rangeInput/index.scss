@@ -1,0 +1,27 @@
+$filter-input-radius: 8px; // 筛选输入框的圆角
+$filter-input-small-width: 140px; // 小输入框宽度
+$filter-input-large-width: 200px; // 大输入框宽度
+$range-line-color: #ccc; // 连接线颜色
+
+.filter-input-small {
+  max-width: $filter-input-small-width;
+}
+.filter-input-large {
+  max-width: $filter-input-large-width;
+}
+.filter-item {
+  display: inline-block;
+  margin: 5px 10px;
+}
+.form-label-key {
+  margin-right: 10px;
+}
+
+.range-line {
+  display: inline-block;
+  margin: 0 5px;
+  width: 15px;
+  height: 1px;
+  background: $range-line-color;
+  vertical-align: middle;
+}

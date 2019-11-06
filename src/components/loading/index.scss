@@ -1,0 +1,33 @@
+@import '~global/style.scss';
+.loading {
+  @include auto-center();
+  background-color: transparent;
+  border-radius: 5px;
+  text-align: center;
+  z-index: 2000;
+  .icon {
+    margin: 0 auto;
+    width: 50px;
+    height: 50px;
+    /*chrome*/
+    transform: rotate(0deg) translateZ(0);
+    transition-duration: 0ms;
+    animation-name: loading;
+    animation-duration: 2.5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+@keyframes loading {
+  from {
+    -webkit-transform: rotate(0deg) translateZ(0);
+  }
+  to {
+    -webkit-transform: rotate(360deg) translateZ(0);
+  }
+}

@@ -1,0 +1,22 @@
+.bread-crumb-com {
+  & > span {
+    padding-left: 30px;
+    background: url('./images/house_icon.png') no-repeat left center;
+    background-size: 18px 18px;
+  }
+  span {
+    cursor: pointer;
+    &:hover {
+      color: #FF9A2F;
+    }
+  }
+  .my-position {
+    cursor: default;
+    &:hover {
+      color: #000000a6;
+    }
+  }
+  .bread-crumb-current {
+    color: #FF9A2F;
+  }
+}

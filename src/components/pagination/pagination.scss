@@ -1,0 +1,100 @@
+@import '~src/Global/style.scss';
+$item-hover-bg-color: #dfeedd; // 鼠标经过页码时的背景颜色
+$item-active-color: #fff; // 当前页页码字体颜色
+$item-active-bg-color: #1ea50f; // 当前页页码背景颜色
+
+.pagination-wrapper {
+  display: flex;
+  justify-content: center;
+}
+// 修改分页默认样式
+// .ant-pagination-item {
+//   width: 22px;
+//   min-width: 22px;
+//   height: 22px;
+//   line-height: 22px;
+//   border: none;
+//   font-size: $text-font-size;
+//   font-weight: 400;
+//   border-radius: 15px;
+//   a {
+//     margin: 0;
+//   }
+//   &:hover {
+//     background-color: $item-hover-bg-color;
+//     a {
+//       color: $font-deep-color;
+//     }
+//   }
+//   &:active {
+//     a {
+//       color: $font-deep-color;
+//     }
+//   }
+//   &.ant-pagination-item-active {
+//     &:hover {
+//       background-color: $item-active-bg-color;
+//     }
+//   }
+// }
+// .ant-pagination-item-active {
+//   background: $item-active-bg-color;
+//   a {
+//     color: $item-active-color;
+//   }
+//   &:focus {
+//     a {
+//       color: $item-active-color;
+//     }
+//   }
+//   &:hover {
+//     a {
+//       color: $item-active-color;
+//     }
+//   }
+// }
+
+// // 修改前后翻页按钮样式
+// .ant-pagination-prev .ant-pagination-item-link,
+// .ant-pagination-next .ant-pagination-item-link {
+//   border: none;
+// }
+// .ant-pagination-prev:focus .ant-pagination-item-link,
+// .ant-pagination-next:focus .ant-pagination-item-link,
+// .ant-pagination-prev:hover .ant-pagination-item-link,
+// .ant-pagination-next:hover .ant-pagination-item-link {
+//   color: $theme-color;
+// }
+// .ant-pagination-prev a,
+// .ant-pagination-next a {
+//   color: $theme-color;
+// }
+// // 修改选择每页显示的条数样式
+// .ant-select-selection:focus,
+// .ant-select-selection:active {
+//   border-color: $theme-color !important;
+//   box-shadow: 0 0 0 2px rgba(223, 238, 221, 0.2);
+// }
+// .ant-select-selection:hover {
+//   border-color: $theme-color !important;
+// }
+// .ant-select-dropdown-menu-item:hover {
+//   background: $item-hover-bg-color;
+// }
+// // 跳转到具体某一页的样式修改
+// .ant-pagination-options-quick-jumper input:hover {
+//   border-color: $theme-color !important;
+// }
+// .ant-pagination-options-quick-jumper input:focus {
+//   border-color: $theme-color !important;
+//   box-shadow: 0 0 0 2px rgba(223, 238, 221, 0.2);
+// }
+
+// .ant-pagination-jump-prev
+//   .ant-pagination-item-container
+//   .ant-pagination-item-link-icon,
+// .ant-pagination-jump-next
+//   .ant-pagination-item-container
+//   .ant-pagination-item-link-icon {
+//   color: $theme-color;
+// }
