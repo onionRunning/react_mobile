@@ -64,7 +64,7 @@ class DatePickerDemo extends Component<Props, State> {
           disabled={disabled}
           defaultValue={defaultValue ? moment(defaultValue, formatDate) : undefined}
           disabledDate={disabledDate}
-          onChange={this.onChange}
+          onChange={this.onChange as any}
           allowClear={allowClear}
         />
       </div>
