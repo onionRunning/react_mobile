@@ -1,5 +1,4 @@
 ### 代码要求
-
 1. 函数注释
 ```
 /**
@@ -74,8 +73,6 @@ interface IState {
 20. 无用代码 和静态文件 需要删除 , 
 
 21. 包管理器优先使用: yarn
-
 各自负责的模块可以用:
-
 sudo npm i codecheck -g
 min-codecheck c 进行检测
