@@ -1,16 +1,17 @@
-import React from 'react'
+import React, { lazy } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import { observer, inject } from 'mobx-react'
-
-import LoginContainer from 'containers/login'
 import Hint from 'components/hint'
 import Confirm from 'components/confirm'
 import Loading from 'components/loading'
 import ImgViewer from 'components/imgViewer'
-import Auth from 'containers/auth'
 
 import Common from '../stores/common'
 // todo
+
+const LoginContainer = lazy(() => import('containers/login'))
+const Auth = lazy(() => import('containers/auth'))
+
 interface Props {
   common: Common
 }

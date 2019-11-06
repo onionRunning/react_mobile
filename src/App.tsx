@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import { createBrowserHistory } from 'history'
 import { Provider } from 'mobx-react'
 import { RouterStore, syncHistoryWithStore } from 'mobx-react-router'
@@ -13,11 +13,13 @@ const history = syncHistoryWithStore(browserHistory, routingStore)
 class App extends React.Component {
   public render() {
     return (
-      <Provider {...RootStore}>
-        <Router history={history}>
-          <Route component={Routes} />
-        </Router>
-      </Provider>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Provider {...RootStore}>
+          <Router history={history}>
+            <Route component={Routes} />
+          </Router>
+        </Provider>
+      </Suspense>
     )
   }
 }

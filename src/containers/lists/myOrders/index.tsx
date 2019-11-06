@@ -7,7 +7,7 @@ import { tableTitle } from './const'
 import { Pagination } from 'components/table/config'
 import { intoDetail } from 'global/constants'
 import { gotoDetail, debounce, getDefaultProductName } from 'global/method'
-import './index.scss'
+import styles from './index.module.scss'
 import { OrderListItem } from 'api/response'
 import { userPermission } from 'design/permission'
 import { ListItem } from 'components/select'
@@ -67,9 +67,9 @@ export class MyOrders extends Component<Props, State> {
       total: total
     }
     return (
-      <div className="list">
-        <h3>My Order</h3>
-        <div className="my-order-condition-wrapper">
+      <div className={styles.page}>
+        <h3 className={styles.title}>My Order</h3>
+        <div className={styles.header}>
           <Select list={productOption} onChange={this.handleChangeSelect} />
           {p10202 && (
             <button className="sub-btn-blue get-my-order-btn" onClick={this.grabOrder} id={'my-order-pick-btn'}>
@@ -77,7 +77,7 @@ export class MyOrders extends Component<Props, State> {
             </button>
           )}
         </div>
-        <div className="list-wapper">
+        <div className={styles.content}>
           <Table
             tableTitle={tableTitle}
             tableData={data}

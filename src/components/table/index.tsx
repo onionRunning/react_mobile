@@ -1,16 +1,11 @@
 import React, { Component } from 'react'
 import { noop } from 'lodash'
-import Table, {
-  ColumnProps,
-  TableRowSelection,
-  PaginationConfig,
-  SorterResult,
-  TableCurrentDataSource
-} from 'antd/lib/table'
+import { ColumnProps, TableRowSelection, PaginationConfig, SorterResult, TableCurrentDataSource } from 'antd/lib/table'
+import { Table } from 'antd'
 import { defaultPagination, Pagination } from './config'
 import noDataImg from './images/icon-no@2x.png'
-import 'antd/es/table/style/index.css'
-import './index.scss'
+// import 'antd/es/table/style/index.css'
+import styles from './index.module.scss'
 
 interface Props<T> {
   rowKey?: string | (() => string)
@@ -65,7 +60,7 @@ class TableComponent<T> extends Component<Props<T>> {
         />
         {/* 没有数据提示 */}
         {!loading && !tableData.length && (
-          <div className="table-no-data">
+          <div className={styles['table-no-data']}>
             <img src={noDataImg} alt="no data" />
             <p>No data</p>
           </div>

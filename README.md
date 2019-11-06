@@ -36,7 +36,7 @@ ps. 你觉的哪些可以添加的在下列中添加你的想法
 
 4. 性能优化
 
-    - lazy load
+    - lazy load (使用 Suspense + lazy 实现)
     - 首屏优化
     - webpack 打包优化
     - express 代理层优化 
@@ -45,3 +45,5 @@ ps. 你觉的哪些可以添加的在下列中添加你的想法
 5. web 端监控
     - 监控报错
     - 性能监控
+
+6. scss module
