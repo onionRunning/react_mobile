@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
+import ListTitle from 'components/listTitle'
 import styles from './index.module.scss'
 
 interface Props extends RouteComponentProps {
@@ -23,7 +24,7 @@ class User extends Component<Props, State> {
   render() {
     return (
       <div className={styles.page}>
-        <h3 className={styles.header}>User management</h3>
+        <ListTitle>User management</ListTitle>
       </div>
     )
   }

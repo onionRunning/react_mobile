@@ -11,6 +11,7 @@ import styles from './index.module.scss'
 import { OrderListItem } from 'api/response'
 import { userPermission } from 'design/permission'
 import { ListItem } from 'components/select'
+import ListTitle from 'components/listTitle'
 
 type MixProps = RouteComponentProps
 interface Props extends MixProps {
@@ -68,7 +69,7 @@ export class MyOrders extends Component<Props, State> {
     }
     return (
       <div className={styles.page}>
-        <h3 className={styles.title}>My Order</h3>
+        <ListTitle>My Order</ListTitle>
         <div className={styles.header}>
           <Select list={productOption} onChange={this.handleChangeSelect} />
           {p10202 && (
