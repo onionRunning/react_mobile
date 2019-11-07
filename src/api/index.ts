@@ -55,8 +55,8 @@ export class Api {
   }
 
   // 新版本登陆
-  postLogin = (payload: params.LoginParams) => {
-    return this.post<response.LoginResponse>(`/back_mgr/login`, payload)
+  postLogin = (payload: params.loginParams.LoginReq) => {
+    return this.post<params.loginParams.LoginRes>(`/back_mgr/login`, payload)
   }
 
   // 修改密码

@@ -58,10 +58,10 @@ const notice = (type: NoticeType, text: string, onClose: () => void, duration = 
 }
 
 export default {
-  info: (text: NoticeType, onClose?: () => void, duration?: number) => notice('info', text, onClose!, duration),
-  success: (text: NoticeType, onClose?: () => void, duration?: number) => notice('success', text, onClose!, duration),
-  error: (text: NoticeType, onClose?: () => void, duration?: number) => notice('error', text, onClose!, duration),
-  warning: (text: NoticeType, onClose?: () => void, duration?: number) => notice('warning', text, onClose!, duration),
+  info: (text: string, onClose?: () => void, duration?: number) => notice('info', text, onClose!, duration),
+  success: (text: string, onClose?: () => void, duration?: number) => notice('success', text, onClose!, duration),
+  error: (text: string, onClose?: () => void, duration?: number) => notice('error', text, onClose!, duration),
+  warning: (text: string, onClose?: () => void, duration?: number) => notice('warning', text, onClose!, duration),
   hide: () => {
     if (Message) {
       return Message.destroy()

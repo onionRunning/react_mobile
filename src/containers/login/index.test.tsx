@@ -2,7 +2,8 @@ import React from 'react'
 import { shallow, ShallowWrapper } from 'enzyme'
 import { Login } from './index'
 import { mockRouteProps } from 'test/mock'
-// import * as TYPE from 'stores/actionTypes'
+import * as utils from './utils'
+import errors from 'global/errors'
 
 describe('Login', () => {
   // const mockClear = jest.spyOn(global.sessionStorage.__proto__, 'clear')
@@ -69,9 +70,9 @@ describe('Login', () => {
       account: '371975156@qq.com',
       password: '123456'
     }
-    expect(instance.vertify(user1)).toBe('Please enter a valid email address')
-    expect(instance.vertify(user2)).toBe('The input cannot be empty')
-    expect(instance.vertify(user3)).toBe('')
+    expect(utils.vertify(user1)).toBe(errors.INPUT_EMPTY_ERR)
+    expect(utils.vertify(user2)).toBe(errors.INPUT_EMPTY_ERR)
+    expect(utils.vertify(user3)).toBe(undefined)
   })
 
   it('handleSubmit', () => {
@@ -130,5 +131,28 @@ describe('Login', () => {
     instance.handleLogin('false')
     global.sessionStorage.setItem('isFirstLogin', 'true')
     instance.handleLogin('true')
+  })
+
+  // new
+  it('authCheck1', () => {
+    instance.authCheck(false, '')
+    expect(sessionStorage.getItem('token')).toEqual(null)
+  })
+  it('authCheck2', () => {
+    instance.authCheck(false, 'xx')
+    expect(sessionStorage.getItem('token')).toEqual(null)
+  })
+  it('authCheck3', () => {
+    instance.authCheck(true, 'xx')
+    expect(mockProps.history.replace).toBeCalledWith('/auth')
+  })
+  it('updateStates', () => {
+    instance.updateStates('account', '123')
+    expect(instance.state.account).toBe('123')
+  })
+  it('saveLocalData', () => {
+    const data = { success: true, data: { id: 13, access_no: [1] } }
+    utils.saveLocalData(data as any)
+    expect(sessionStorage.getItem('userId')).toBe('13')
   })
 })
