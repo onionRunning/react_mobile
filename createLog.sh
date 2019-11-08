@@ -1,10 +1,12 @@
-rm -rf temp.txt
+#!/bin/bash
+
+echo '123' > temp.txt
 git log -1 --name-only > lastgitcommit.text
 node gitdifftest.js
 
 for line in `cat temp.txt`
 do
 if [ $line == 'error' ]
-  then echo "错误"; exit 1;
+  then echo "禁止push"; exit 1;
 fi
 done
