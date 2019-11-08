@@ -1,3 +1,12 @@
+commit 622af05a160b1281682ae3cca65a65bda2b0f615
+Author: hhh <huanghuihui@mintechai.com>
+Date:   Fri Nov 8 18:00:03 2019 +0800
+
+    更新规则
+
+gitdifftest.js
+lastgitcommit.text
+
 commit fe5bf9913ca2d50dc02c0ea4e2999144607246a6
 Merge: 05934ff a848413
 Author: hhh <huanghuihui@mintechai.com>
@@ -45,14 +54,4 @@ src/containers/lists/settings/user/userList/index.module.scss
 src/containers/lists/settings/user/userList/index.tsx
 src/interface/user/index.ts
 src/stores/root.ts
-src/stores/user/index.ts
-
-commit 05934fffe5d05ebf9c2e7ba524cd8f3f67103160
-Author: hhh <huanghuihui@mintechai.com>
-Date:   Fri Nov 8 15:23:15 2019 +0800
-
-    x
-
-src/design/vertify.ts
-src/interface/user/index.ts
 src/stores/user/index.ts

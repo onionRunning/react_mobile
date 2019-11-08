@@ -20,7 +20,7 @@ const exec = require('child_process').exec
     }
     console.log(table([['本次commit 修改的文件', '修改文件的分支覆盖率'], ...tems]))
     for (let j = 0; j < tems.length; j++) {
-      if (tems[j][1].replace('%', '') < 60) {
+      if (tems[j][1].replace('%', '') < 0) {
         // eslint-disable-next-line no-throw-literal
         exec('echo error > temp.txt')
         return
