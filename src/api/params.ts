@@ -1,7 +1,6 @@
-export interface TestReq {
-  test: string
-}
+import * as loginParams from 'interface/login'
 
+export { loginParams }
 // 请求参数
 // 登陆参数
 export interface LoginParams {

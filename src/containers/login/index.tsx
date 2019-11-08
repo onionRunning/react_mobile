@@ -1,46 +1,23 @@
 import React, { Component } from 'react'
-import { RouteComponentProps } from 'react-router-dom'
 import { trim } from 'lodash'
-import logo from 'assets/logo@2x.png'
+import md5 from 'blueimp-md5'
+import { LoginReq } from 'interface/login'
 import api from 'api'
 import { createRequest } from 'api/request'
-import { LoginParams } from 'api/params'
-
-import { isEmail, getStringLength } from 'global/method'
-import { KeyOfByType } from 'global/type'
-import errors from 'global/errors'
-
 import { userPermission } from 'design/permission'
-
+import * as utils from './utils'
+import logo from 'assets/logo@2x.png'
 import './index.scss'
 
-const initState = {
-  focusedAccount: false,
-  focusedPassword: false,
-  account: '',
-  password: '',
-  passwordVisable: false, // 密码是否可见，默认不可见
-  passwordInputType: 'password', // 默认不显示输入的密码
-  passwordVisableIcon: '' // 密码可见\不可见时的icon
-}
-
-type State = typeof initState
-
-type Props = RouteComponentProps
-
-type StringStateKey = KeyOfByType<State, string>
-
-type BoolStateKey = KeyOfByType<State, boolean>
-
-export class Login extends Component<Props, State> {
-  constructor(props: Props) {
+export class Login extends Component<utils.Props, utils.State> {
+  constructor(props: utils.Props) {
     super(props)
-    this.state = initState
+    this.state = utils.initState
   }
   componentDidMount() {
     const token = sessionStorage.getItem('token')
     const isFirstLogin = sessionStorage.getItem('isFirstLogin') === 'false'
-    isFirstLogin && token ? this.props.history.replace('/auth') : sessionStorage.clear()
+    this.authCheck(isFirstLogin, token)
   }
 
   render() {
@@ -84,6 +61,14 @@ export class Login extends Component<Props, State> {
       </div>
     )
   }
+  authCheck = (isFirstLogin: boolean, token: string | null) => {
+    if (isFirstLogin && token) {
+      this.props.history.replace('/auth')
+      return
+    }
+    sessionStorage.clear()
+  }
+
   // 用户输入帐号,密码
   handleInput = (
     e: React.ChangeEvent<{
@@ -91,46 +76,31 @@ export class Login extends Component<Props, State> {
       name: string
     }>
   ) => {
-    const value = e.target.value
-    const name = e.target.name
-    this.updateStringState(
-      name as StringStateKey,
-      name === 'account' ? value.substr(0, 320) : value.replace(/[\u4E00-\u9FA5]/g, '').substr(0, 16)
+    const { name, value } = e.target
+    this.updateStates(
+      name as utils.StringStateKey,
+      name === utils.ACCOUNT
+        ? value.substr(0, utils.MAX_LENGTH)
+        : value.replace(/[\u4E00-\u9FA5]/g, '').substr(0, utils.VALID_LENGTH)
     )
   }
 
   // 聚焦 - 失焦
   onFocusIpt = (name: string, bool: boolean) => () => {
-    this.updateBoolState(name as BoolStateKey, bool)
+    this.updateStates(name as utils.BoolStateKey, bool)
   }
 
   // 用户修改密码输入框是否可见
   handleVisablePassword = () => {
     const { passwordVisable } = this.state
-    const type = !passwordVisable ? 'text' : 'password'
-    const icon = !passwordVisable ? 'icon-eye-visable' : ''
-    const bool = !passwordVisable ? true : false
+    const type = !passwordVisable ? utils.TEXT : utils.PASSWORD
+    const icon = !passwordVisable ? utils.SHOW_EYES : utils.RMPTY
     this.setState({
       passwordInputType: type,
-      passwordVisable: bool,
+      passwordVisable: !passwordVisable,
       passwordVisableIcon: icon
     })
   }
-
-  // 校验函数
-  vertify = (user: LoginParams) => {
-    const isRightEmail = isEmail(user.account)
-
-    switch (true) {
-      case !isRightEmail || getStringLength(user.account) > 320:
-        return errors.INPUT_VALID_EMAIL
-      case !user.account || !user.password:
-        return errors.INPUT_EMPTY_ERR
-      default:
-        return ''
-    }
-  }
-
   // 提交登录请求
   handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -138,40 +108,32 @@ export class Login extends Component<Props, State> {
       account: trim(this.state.account),
       password: trim(this.state.password)
     }
-
-    const info = this.vertify(user)
-
+    const info = utils.vertify(user)
     if (info) {
-      this.startErrHint(info)
+      // this.startErrHint(info)
       return
     }
-
-    // this.props.dispatch(createLogin(user, this.handleLogin))
+    this.finnalSubmit(user)
   }
-  // 处理登录请求发送获得的结果
+  // 触发登陆逻辑
+  finnalSubmit = async (user: LoginReq) => {
+    const res = await api.postLogin({ ...user, password: md5(user.password!) })
+    if (res.success) {
+      utils.saveLocalData(res)
+      this.handleLogin(res.data!.is_first_login!)
+    }
+  }
+  // 登陆成功后
   handleLogin = (isFirstLogin: string) => {
-    // this.props.dispatch(getProductDetailList())
     api.changeRequest(createRequest())
     userPermission.update(JSON.parse(sessionStorage.getItem('permissionArr')!))
-    this.props.history.replace(`${isFirstLogin === 'true' ? '/password' : '/auth'}`)
+    if (isFirstLogin) {
+      this.props.history.replace('/password')
+      return
+    }
+    this.props.history.replace('/auth')
   }
-  //startErrHint
-  startErrHint = (err: string) => {
-    console.log(err)
-    // this.props.dispatch({
-    //   type: TYPE.SEND_ERROR,
-    //   error: err
-    // })
-  }
-
-  updateStringState = (key: StringStateKey, value: string) => {
-    this.setState(prevState => ({
-      ...prevState,
-      [key]: value
-    }))
-  }
-
-  updateBoolState = (key: BoolStateKey, value: boolean) => {
+  updateStates = (key: utils.BoolStateKey | utils.StringStateKey, value: string | boolean) => {
     this.setState(prevState => ({
       ...prevState,
       [key]: value
