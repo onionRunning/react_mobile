@@ -1,51 +1,58 @@
-commit b8a509d59469158a7ae4f86637e17476fa8b5be4
-Author: wangcong <wangcong@mintq.com>
-Date:   Fri Nov 8 14:49:13 2019 +0800
-
-    fix
-
-createLog.sh
-gitdifftest.js
-lastgitcommit.text
-temp.txt
-
-commit 357450e6692e16defa6689bcc842e514626f5236
-Author: wangcong <wangcong@mintq.com>
-Date:   Fri Nov 8 14:32:19 2019 +0800
-
-    fix
-
-lastgitcommit.text
-package.json
-src/interface/common/index.ts
-temp.txt
-
-commit c6091ee9ea2518589cce259cddbed346f0adf55f
-Merge: f9e180c f688573
-Author: wangcong <wangcong@mintq.com>
-Date:   Fri Nov 8 14:26:50 2019 +0800
-
-    Merge branch 'master' of gitlab2018.com:philippines/jrocketmanager
-
-commit f9e180cdbbc463d722baeeb3bc7d5957e87cfb75
-Author: wangcong <wangcong@mintq.com>
-Date:   Fri Nov 8 14:26:43 2019 +0800
-
-    fix:code 覆盖率检查
-
-bin/app.js
-bin/www
-craco.config.js
-createLog.sh
-gitdifftest.js
-lastgitcommit.text
-package.json
-temp.txt
-
-commit f6885734c86021432fcae15fbee2137b151102ee
+commit fe5bf9913ca2d50dc02c0ea4e2999144607246a6
+Merge: 05934ff a848413
 Author: hhh <huanghuihui@mintechai.com>
-Date:   Fri Nov 8 11:00:41 2019 +0800
+Date:   Fri Nov 8 17:56:59 2019 +0800
 
-    fix test
+    解决冲突
 
-src/components/pagination/index.tsx
+commit a8484137c426272cf59b643d98c50c42672419c4
+Merge: 2f86c90 2bb616c
+Author: 王聪 <wangcong@mintq.com>
+Date:   Fri Nov 8 17:53:22 2019 +0800
+
+    合并分支 'master-hhh' 到 'master'
+    
+    修改筛选框的样式
+    
+    查看合并请求 philippines/jrocketmanager!1
+
+commit 2bb616ce78b22f2a41558958610ffffd314d60eb
+Author: hhh <huanghuihui@mintechai.com>
+Date:   Fri Nov 8 17:38:43 2019 +0800
+
+    修复测试
+
+src/components/rangeDatePicker/index.test.tsx
+src/components/rangeInput/index.test.tsx
+src/components/table/index.tsx
+
+commit 7dac68444d166f77657687c67e8fc25aa9fad7ed
+Author: hhh <huanghuihui@mintechai.com>
+Date:   Fri Nov 8 17:35:59 2019 +0800
+
+    修改筛选框的样式
+
+src/components/listCondition/index.module.scss
+src/components/listCondition/index.tsx
+src/components/pagination/index.module.scss
+src/components/rangeDatePicker/index.module.scss
+src/components/rangeDatePicker/index.tsx
+src/components/rangeInput/index.module.scss
+src/components/rangeInput/index.tsx
+src/components/table/index.tsx
+src/containers/lists/settings/user/userList/config.ts
+src/containers/lists/settings/user/userList/index.module.scss
+src/containers/lists/settings/user/userList/index.tsx
+src/interface/user/index.ts
+src/stores/root.ts
+src/stores/user/index.ts
+
+commit 05934fffe5d05ebf9c2e7ba524cd8f3f67103160
+Author: hhh <huanghuihui@mintechai.com>
+Date:   Fri Nov 8 15:23:15 2019 +0800
+
+    x
+
+src/design/vertify.ts
+src/interface/user/index.ts
+src/stores/user/index.ts

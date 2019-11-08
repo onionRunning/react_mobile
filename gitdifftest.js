@@ -11,7 +11,7 @@ const exec = require('child_process').exec
     const fin = nstr.slice(6, nstr.length - 1)
     const tems = []
     for (let i = 0; i < fin.length; i++) {
-      if (!fin[i].includes('interface') && !fin[i].includes('.test.') && fin[i].includes('src')) {
+      if (!fin[i].includes('.scss') && !fin[i].includes('interface') && !fin[i].includes('.test.') && fin[i].includes('src')) {
         const src = './coverage/lcov-report/' + fin[i] + '.html'
         const content = (await fs.readFileSync(src)).toString().split('\n')[27]
         const branchRadio = content.match(/<span class="strong">(.+)<\/span>/)[1]
