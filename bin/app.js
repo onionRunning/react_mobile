@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const express = require('express')
 const path = require('path')
 const proxy = require('http-proxy-middleware')
@@ -14,9 +15,8 @@ const csProxyHost = 'http://ind-gicollect:3000' // 旧产品催收系统的docke
 const ncsProxyHost = 'http://ind-gcollection:3000' // 新产品催收系统的docker port
 // const ncsProxyHost = 'http://172.16.0.30:32012'
 
-const nImgAsset = 'http://fastdfs:8080'  // 新产品文件服务器的docker port
+const nImgAsset = 'http://fastdfs:8080' // 新产品文件服务器的docker port
 // const nImgAsset = 'http://172.16.0.30:30000'
-
 
 const pino = PinoLogger({
   prettyPrint: {
@@ -141,12 +141,11 @@ app.use(
         status: proxyRes.statusCode
       })
     },
-    pathRewrite:{
-      '^/ncollect':"/collect"
+    pathRewrite: {
+      '^/ncollect': '/collect'
     }
   })
 )
-
 
 app.use('/assert', proxy({ target: proxyHost })) // 图片资源代理到网关
 

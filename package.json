@@ -122,7 +122,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
-      "pre-push": "yarn test:ci"
+      "pre-push": "yarn test:cov && ./createLog.sh && yarn dev"
     }
   }
 }
