@@ -1,7 +1,7 @@
 .wrap {
     position: fixed;
     left: 50%;
-    top: 10%;
+    top: 5%;
     transform: translateX(-50%);
     z-index: 999;
     display: flex;
@@ -33,7 +33,7 @@
     opacity: 0.9;
 
     >i {
-        background: url('../../assets/message/info.png') no-repeat;
+        background: url('./img/info.png') no-repeat;
         background-size: contain;
     }
 }
@@ -44,7 +44,7 @@
     opacity: 0.9;
 
     >i {
-        background: url('../../assets/message/sucess.png') no-repeat;
+        background: url('./img/sucess.png') no-repeat;
         background-size: contain;
     }
 }
@@ -55,7 +55,7 @@
     opacity: 0.9;
 
     >i {
-        background: url('../../assets/message/warning.png') no-repeat;
+        background: url('./img/warning.png') no-repeat;
         background-size: contain;
     }
 }
@@ -66,7 +66,7 @@
     opacity: 0.9;
 
     >i {
-        background: url('../../assets/message/error.png') no-repeat;
+        background: url('./img/error.png') no-repeat;
         background-size: contain;
     }
 }

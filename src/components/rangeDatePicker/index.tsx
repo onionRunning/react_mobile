@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { noop } from 'lodash'
 import DatePicker from 'components/datePicker'
-import './index.scss'
+import styles from './index.module.scss'
 import moment, { Moment } from 'moment'
 import { timeStampBeauty } from 'global/method'
 
@@ -60,8 +60,8 @@ class RangeDatePicker extends Component<Props, State> {
   render() {
     const { item, defaultValue, disabled } = this.props
     return (
-      <div className={`filter-item ${item.className}`}>
-        {item.label && <label className="form-label-key">{item.label}</label>}
+      <div className={styles.wrap}>
+        {item.label && <label className={styles.label}>{item.label}</label>}
         <DatePicker
           disabledDate={this.disableStart}
           placeholder={item.range!.start.placeholder}
@@ -70,7 +70,7 @@ class RangeDatePicker extends Component<Props, State> {
           onChange={this.onChangeTime(item.range!.start, 'start')}
           id={item.range!.start.id}
         />
-        <i className="range-line" />
+        <i className={styles.line} />
         <DatePicker
           disabledDate={this.disableEnd}
           disabled={disabled}

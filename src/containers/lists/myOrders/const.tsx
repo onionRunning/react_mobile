@@ -1,16 +1,5 @@
-import React from 'react'
 import { formatTime, Trim } from 'global/method'
-
-type SortType = 'descend' | 'ascend'
-interface TableTile {
-  title: string
-  dataIndex: string
-  key: string
-  width?: number
-  render?: (...arg: any[]) => React.ReactNode
-  sorter?: boolean
-  defaultSortOrder?: SortType
-}
+import { TableTile } from 'global/interface'
 
 export const setName = (name: string) => Trim(name)
 export const setTime = (text: string) => formatTime(text)

@@ -38,11 +38,11 @@ class Notification extends Component<Record<string, any>, State> {
       })
     }
 
-    // if (notice.duration > 0) {
-    //     setTimeout(() => {
-    //         this.removeNotice(notice.key!)
-    //     }, notice.duration);
-    // }
+    if (notice.duration > 0) {
+      setTimeout(() => {
+        this.removeNotice(notice.key!)
+      }, notice.duration)
+    }
   }
 
   removeNotice = (key: string) => {

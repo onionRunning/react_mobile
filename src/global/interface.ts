@@ -18,3 +18,15 @@ export interface Res<T> {
   info: string
   data: T
 }
+
+type SortType = 'descend' | 'ascend'
+export interface TableTile {
+  title: string
+  dataIndex: string
+  key: string
+  width?: number
+  render?: (...arg: any[]) => React.ReactNode
+  sorter?: boolean
+  defaultSortOrder?: SortType
+  align?: 'left' | 'right' | 'center'
+}

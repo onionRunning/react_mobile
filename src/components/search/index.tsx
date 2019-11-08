@@ -20,7 +20,7 @@ const Search = Input.Search
 
 class SearchComponent extends Component<Props, State> {
   static defaultProps = {
-    size: 'large', // 默认是大搜索框
+    // size: 'large', // 默认是大搜索框
     placeholder: 'Please enter search', // 默认设置的输入提示
     maxLength: null, // 搜索框默认输入长度限制
     onChange: noop, // 实时监听改变内容

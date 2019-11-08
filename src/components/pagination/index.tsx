@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { noop } from 'lodash'
 import { Pagination } from 'antd'
-import './pagination.scss'
 
 interface Props {
   totalCount: number
@@ -21,7 +20,7 @@ class Paginator extends Component<Props> {
   render() {
     const { onShowSizeChange, pageSizeOptions, totalCount, onChange, current } = this.props
     return (
-      <div className="pagination-wrapper">
+      <div>
         <Pagination
           showSizeChanger
           showQuickJumper

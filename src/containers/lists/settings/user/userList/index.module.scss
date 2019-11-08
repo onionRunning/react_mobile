@@ -5,5 +5,32 @@
 .title {
     font-weight: normal;
     line-height: 40px;
-    margin: 0;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #E6E6E6;
+}
+
+.operator {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+}
+
+.action {
+    text-align: center;
+
+    >a,
+    span {
+        margin-right: 10px;
+        color: #2777e5;
+        cursor: pointer;
+
+        &:hover {
+            color: #5099f2;
+        }
+    }
 }
