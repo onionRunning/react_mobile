@@ -26,12 +26,12 @@ class RangeInput extends Component<Props> {
   render() {
     const { item, onChange } = this.props
     return (
-      <div key={item.key} className={styles.wrap} id={item.key}>
+      <>
         <label className={styles.label}>{item.label}</label>
         <Input maxLength={item.range!.maxLength} msg={item.range!.start} onChange={onChange} />
         <i className={styles.line} />
         <Input maxLength={item.range!.maxLength} msg={item.range!.end} onChange={onChange} />
-      </div>
+      </>
     )
   }
 }
