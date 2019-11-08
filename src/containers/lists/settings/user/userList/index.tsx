@@ -98,7 +98,7 @@ class User extends Component<Props, State> {
         {p40102 && <Link to={`/auth/users_details/${record.id}`}>detail</Link>}
         {name !== 'admin' && p40103 && <Link to={`/auth/users_edit/${record.id}`}>edit</Link>}
         {name !== 'admin' && p40104 && (
-          <span onClick={this.operateUser(record)} id={`${temp}-${index}`}>
+          <span onClick={this.operateUser()} id={`${temp}-${index}`}>
             {temp}
           </span>
         )}
