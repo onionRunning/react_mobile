@@ -1,16 +1,20 @@
 import React, { Component } from 'react'
 import { RouteComponentProps, Link } from 'react-router-dom'
+import { observer, inject } from 'mobx-react'
 import ListTitle from 'components/listTitle'
 import ListCondition from 'components/listCondition'
-import Button from 'components/button'
+// import Button from 'components/button'
 import Table from 'components/table'
-import Message from 'components/Message'
-import { condition, getTableTitle } from './config'
+// import Message from 'components/Message'
+import { condition, btnItems, getTableTitle } from './config'
 import styles from './index.module.scss'
 import { userPermission } from 'design/permission'
+import UserStore from 'stores/user'
+import { TableSortType, UserListReq, UserListItem } from 'interface/user'
+import { PaginationConfig, SorterResult } from 'antd/lib/table'
 
 interface Props extends RouteComponentProps {
-  temp: null
+  user: UserStore
 }
 
 interface Item {
@@ -18,77 +22,49 @@ interface Item {
   value: string
 }
 
-interface UserListParams {
-  page: number
-  pageSize: number
-  multi_condition?: string
-  frozen?: 'normal' | 'frozen'
-}
-
 interface State {
-  params: UserListParams
+  request: UserListReq
 }
 
-const data = [
-  {
-    id: '1',
-    name: 'admin',
-    account: 'zs@qq.com',
-    phone: '13600000001',
-    created_time: '2019-07-18 16:40:01',
-    status: 'normal'
-  },
-  {
-    id: '2',
-    name: 'admin2',
-    account: 'zs@qq.com',
-    phone: '13600000002',
-    created_time: '2019-07-18 16:40:02',
-    status: 'normal'
-  }
-]
-
+@observer
 class User extends Component<Props, State> {
   constructor(props: Props) {
     super(props)
     this.state = {
-      params: {
+      request: {
         page: 1,
-        pageSize: 10
+        per_page: 10,
+        sort: 'desc'
       }
     }
+  }
+  componentDidMount = () => {
+    this.getUserList()
   }
 
   render() {
     const tableTitle = getTableTitle(this.renderOperate)
+    const { userList, pagination } = this.props.user
     return (
       <div className={styles.page}>
         <ListTitle>User management</ListTitle>
-        <div className={styles.header}>
-          <ListCondition data={condition} onChange={this.handleChange} />
-          <div className={styles.operator}>
-            <Button onClick={() => Message.info('primary')} type="primary">
+        {/* <div className={styles.header}> */}
+        <ListCondition data={condition} btnItems={btnItems} onChange={this.handleChange} btnClick={this.btnClick} />
+        {/* <div className={styles.operator}>
+            <Button onClick={this.handleInquire} type="primary">
               Inquire
             </Button>
             <Button onClick={() => Message.info('blue')} type="blue">
               Add user
             </Button>
           </div>
-        </div>
-        <Table
-          tableTitle={tableTitle}
-          tableData={data}
-          pagination={{
-            current: 1,
-            page_size: 10,
-            total: 20
-          }}
-        />
+        </div> */}
+        <Table tableTitle={tableTitle} tableData={userList} pagination={pagination} onChange={this.handleTableChange} />
       </div>
     )
   }
 
-  renderOperate = (record: any, _: any, index: number) => {
+  renderOperate = (record: UserListItem, _: any, index: number) => {
     // const { p40102, p40103, p40104, p40105 } = userPermission.finnalPermission!.user_func
     const { p40102, p40103, p40104 } = userPermission.finnalPermission!.user_func
     const temp = record.status === 'normal' ? 'freeze' : 'unfreeze'
@@ -111,6 +87,42 @@ class User extends Component<Props, State> {
     )
   }
 
+  // 获取列表数据
+  getUserList = async () => {
+    const { request } = this.state
+    console.log(request.page)
+    await this.props.user.getUserListData(request)
+  }
+
+  // 选择筛选项时更新state
+  handleChange = (item: Item) => {
+    console.log(item)
+    this.setState({
+      request: {
+        ...this.state.request,
+        [item.key]: item.value
+      }
+    })
+  }
+
+  btnClick = (v: any) => {
+    console.log(v)
+    v === 'inquire' && this.handleInquire()
+  }
+
+  // 查询列表，重置页码
+  handleInquire = () => {
+    this.setState(
+      {
+        request: {
+          ...this.state.request,
+          page: 1
+        }
+      },
+      this.getUserList
+    )
+  }
+
   // 冻结 or 解冻用户,出现弹窗
   operateUser = () => () => {
     // const bool = operate.status === 'frozen' ? true : false
@@ -125,15 +137,38 @@ class User extends Component<Props, State> {
     // )
   }
 
-  handleChange = (item: Item) => {
-    console.log(item)
-    this.setState({
-      params: {
-        ...this.state.params,
-        [item.key]: item.value
-      }
-    })
+  // 分页，排序
+  handleTableChange = (
+    pagination: PaginationConfig,
+    filters: Record<keyof UserListItem, string[]>,
+    sorter: SorterResult<UserListItem>
+  ) => {
+    const { order } = sorter
+    const { current, pageSize } = pagination
+    this.setState(
+      {
+        request: {
+          ...this.state.request,
+          page: current!,
+          per_page: pageSize!,
+          sort: this.transformSort(order)
+        }
+      },
+      this.getUserList
+    )
+  }
+
+  // 转换排序字段
+  transformSort = (order: TableSortType) => {
+    switch (order) {
+      case 'descend':
+        return 'desc'
+      case 'ascend':
+        return 'asc'
+      default:
+        return ''
+    }
   }
 }
 
-export default User
+export default inject('user')(User)

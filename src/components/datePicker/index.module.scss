@@ -16,6 +16,12 @@ $calendar-date-color: rgba(0, 0, 0, 0.65); // 默认的日期字体颜色
   display: inline-block;
 }
 
+:global {
+  .ant-calendar-picker-input.ant-input {
+    width: 120px;
+  }
+}
+
 
 // 选择今日的文字颜色
 // :global {
