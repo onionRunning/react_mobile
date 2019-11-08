@@ -1,15 +1,6 @@
-commit eaa90262c2f996ab501ee0283a4f74342a887ba2
+commit c6091ee9ea2518589cce259cddbed346f0adf55f
+Merge: f9e180c f688573
 Author: wangcong <wangcong@mintq.com>
-Date:   Thu Nov 7 19:22:39 2019 +0800
+Date:   Fri Nov 8 14:26:50 2019 +0800
 
-    fix:login 页代码修改
-
-src/App.tsx
-src/api/index.ts
-src/api/params.ts
-src/components/Message/index.tsx
-src/containers/login/index.test.tsx
-src/containers/login/index.tsx
-src/containers/login/utils.ts
-src/interface/common/index.ts
-src/interface/login/index.ts
+    Merge branch 'master' of gitlab2018.com:philippines/jrocketmanager
