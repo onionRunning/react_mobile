@@ -3,6 +3,8 @@ import { shallow, ShallowWrapper } from 'enzyme'
 import { Login } from './index'
 import { mockRouteProps } from 'test/mock'
 import * as utils from './utils'
+import { LoginRes } from 'interface/login'
+import { Res } from 'interface/common'
 import errors from 'global/errors'
 
 describe('Login', () => {
@@ -151,7 +153,12 @@ describe('Login', () => {
     expect(instance.state.account).toBe('123')
   })
   it('saveLocalData', () => {
-    const data = { success: true, data: { id: 13, access_no: [1] } }
+    const dd: LoginRes = { id: '13', access_no: [1] }
+    const data: Res<LoginRes> = {
+      success: true,
+      info: '',
+      data: dd
+    }
     utils.saveLocalData(data as any)
     expect(sessionStorage.getItem('userId')).toBe('13')
   })

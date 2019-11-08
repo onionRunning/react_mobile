@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo '123' > temp.txt
-git log -1 --name-only > lastgitcommit.text
+git log -5 --name-only > lastgitcommit.text
 node gitdifftest.js
 
 for line in `cat temp.txt`
