@@ -93,15 +93,25 @@
 
 .wrap {
   display: flex;
-  align-items: center;
-  margin-right: 10px;
+  flex-wrap: wrap;
 }
 
 .item {
-  display: inline-block;
   margin-right: 10px;
+  margin-bottom: 15px;
   .item_label {
     margin-right: 10px;
+  }
+}
+
+.operator {
+  margin-left: 15px;
+  margin-bottom: 15px;
+  > button {
+    margin-right: 20px;
+    &:nth-last-of-type(1) {
+      margin-right: 0;
+    }
   }
 }
 

@@ -43,8 +43,8 @@ class TableComponent<T> extends Component<Props<T>> {
   render() {
     const { tableTitle, tableData, onChange, pagination, rowSelection, scroll, loading, rowKey } = this.props
     // 合并分页内容,设置默认参数 (分页的存在: 判断数据的长度)
+    console.log('pagination', pagination)
     let _pagination = tableData.length > 0 && pagination ? { ...pagination, ...defaultPagination } : false
-    console.log(_pagination)
     return (
       <div className={styles.wrapper}>
         <Table

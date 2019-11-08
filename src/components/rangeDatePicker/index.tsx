@@ -60,7 +60,7 @@ class RangeDatePicker extends Component<Props, State> {
   render() {
     const { item, defaultValue, disabled } = this.props
     return (
-      <div className={styles.wrap}>
+      <>
         {item.label && <label className={styles.label}>{item.label}</label>}
         <DatePicker
           disabledDate={this.disableStart}
@@ -79,7 +79,7 @@ class RangeDatePicker extends Component<Props, State> {
           onChange={this.onChangeTime(item.range!.end, 'end')}
           id={item.range!.end.id}
         />
-      </div>
+      </>
     )
   }
 

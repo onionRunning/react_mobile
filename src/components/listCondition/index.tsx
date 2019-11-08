@@ -13,12 +13,14 @@ import { formType } from 'global/constants'
 import styles from './index.module.scss'
 import { Moment } from 'moment'
 import { timeStampBeauty } from 'global/method'
+import Button from 'components/button'
 
 type MixType = Msg & Item
 
 interface BtnItem {
   text: string
   type: 'default' | 'primary' | 'black' | 'blue'
+  key: string
   className?: string
   authorityId?: string
   noShow?: boolean
@@ -40,7 +42,9 @@ export interface Data extends MixType {
 
 interface Props {
   data: Data[]
+  btnItems?: BtnItem[]
   onChange?: (...args: any) => any
+  btnClick?: (type: string) => void
   productSelectOptions?: ListItem[]
   operatorSelectOptions?: ListItem[]
 }
@@ -48,10 +52,23 @@ interface Props {
 class QueryCondition extends Component<Props> {
   static defaultProps = {
     data: [], // 默认数据为空
+    btnItems: [
+      {
+        type: 'primary', // 默认是主题色按钮
+        key: 'inquire',
+        text: 'Inquire', // 默认的按钮文字
+        id: 'inquire-btn'
+      }
+    ],
     onChange: noop // 输入筛选,或者改变筛选条件
   }
   render() {
-    return <div className={styles.wrap}>{this.renderConditionInput()}</div>
+    return (
+      <div className={styles.wrap}>
+        {this.renderConditionInput()}
+        <div className={styles.operator}>{this.renderButtons()}</div>
+      </div>
+    )
   }
   // 渲染输入内容
   renderConditionInput = () => {
@@ -67,7 +84,11 @@ class QueryCondition extends Component<Props> {
           )
         // 带范围的输入框
         case formType.RANGE_INPUT:
-          return <RangeInput key={item.key} item={item} onChange={onChange} />
+          return (
+            <div key={item.key} className={styles.item}>
+              <RangeInput key={item.key} item={item} onChange={onChange} />
+            </div>
+          )
         // 下拉菜单
         case formType.SELECT:
           const list = this.getSelectOption(item)
@@ -106,10 +127,13 @@ class QueryCondition extends Component<Props> {
           )
         // 时间范围选择
         case formType.RANGE_TIME:
-          return <RangeDatePicker key={item.key} item={item} onChange={onChange} disabledDate={item.disabledDate} />
+          return (
+            <div key={item.key} className={styles.item}>
+              <RangeDatePicker key={item.key} item={item} onChange={onChange} disabledDate={item.disabledDate} />
+            </div>
+          )
         default:
           return (
-            // <div key={item.key} className={styles.item} id={item.key}>
             <div key={item.key} className={styles.item} id={item.key}>
               {item.label && <label className={styles.item_label}>{item.label}</label>}
               <Search
@@ -121,6 +145,22 @@ class QueryCondition extends Component<Props> {
             </div>
           )
       }
+    })
+  }
+
+  // 渲染跟在后面的button按钮
+  renderButtons = () => {
+    const { btnItems } = this.props
+    // 如果没有不需要按钮,则直接返回
+    if (!btnItems) return ''
+    // 否则渲染按钮列表
+    return btnItems.map(btnItem => {
+      if (btnItem.noShow) return ''
+      return (
+        <Button key={btnItem.key} type={btnItem.type} onClick={this.btnClick(btnItem.key)}>
+          {btnItem.text}
+        </Button>
+      )
     })
   }
 
@@ -147,6 +187,11 @@ class QueryCondition extends Component<Props> {
     let el = { ...item }
     el.value = value
     this.props.onChange!(el)
+  }
+
+  btnClick = (type: string) => (e: React.MouseEvent) => {
+    this.props.btnClick!(type)
+    e.stopPropagation()
   }
 }
 
