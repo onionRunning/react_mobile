@@ -20,16 +20,18 @@ class Paginator extends Component<Props> {
   render() {
     const { onShowSizeChange, pageSizeOptions, totalCount, onChange, current } = this.props
     return (
-      <Pagination
-        showSizeChanger
-        showQuickJumper
-        current={current}
-        defaultCurrent={1}
-        pageSizeOptions={pageSizeOptions}
-        total={totalCount}
-        onChange={onChange}
-        onShowSizeChange={onShowSizeChange}
-      />
+      <div>
+        <Pagination
+          showSizeChanger
+          showQuickJumper
+          current={current}
+          defaultCurrent={1}
+          pageSizeOptions={pageSizeOptions}
+          total={totalCount}
+          onChange={onChange}
+          onShowSizeChange={onShowSizeChange}
+        />
+      </div>
     )
   }
 }
