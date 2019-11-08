@@ -7,6 +7,7 @@ $item-active-bg-color: #1ea50f; // 当前页页码背景颜色
   display: flex;
   justify-content: center;
 }
+
 // 修改分页默认样式
 // .ant-pagination-item {
 //   width: 22px;
@@ -98,3 +99,10 @@ $item-active-bg-color: #1ea50f; // 当前页页码背景颜色
 //   .ant-pagination-item-link-icon {
 //   color: $theme-color;
 // }
+
+:global {
+  .ant-table-pagination.ant-pagination {
+    float: none;
+    text-align: center;
+  }
+}

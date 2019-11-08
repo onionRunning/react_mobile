@@ -1,0 +1,107 @@
+// $color: #df0012; // 条件查询主色
+// $range-line-color: #ccc; // 范围连接线颜色
+// $filter-input-radius: 8px; // 筛选输入框的圆角
+// $filter-input-small-width: 140px; // 小输入框宽度
+// $filter-input-large-width: 200px; // 大输入框宽度
+// $filter-select-width: 150px; // 下拉选择框宽度
+// $filter-input-height: 40px; // 筛选框高度
+// $text-font-size: 14px; // 字体大小
+// $border-color: #ccc; // 输入框边框颜色
+// $filter-bg-color: #fff; // 筛选的背景颜色
+// $filter-border-color: #eeeeee; // 边框颜色
+
+// // 筛选样式
+// .filter-wapper {
+//   position: relative;
+//   z-index: 99;
+//   margin:0 10px;
+//   padding-left: 20px;
+//   background-color: $filter-bg-color;
+//   border-bottom: 1px solid $filter-border-color;
+//   .btn {
+//     margin-right: 20px;
+//     // padding: 0 15px;
+//     // height: 36px;
+//     // line-height: none;
+//     // font-size: 14px;
+//     &.allocation {
+//       background: #2777E5;
+//       color: #fff;
+//       border-radius: 4px;
+//       cursor: pointer,
+//     }
+//   }
+//   .btn-right {
+//     position: absolute;
+//     right: 0;
+//     margin-right: 0;
+//   }
+//   .filter-item {
+//     display: inline-block;
+//     margin: 0 10px 10px 0;
+//     vertical-align: text-top;
+//     &.filter-inquire-item {
+//       margin: 0 10px;
+//     }
+//     .select-wrapper {
+//       display: inline-block;
+//       margin:  0;
+//       max-width: 180px;
+//       width: 11vw;
+//       vertical-align: middle;
+//     }
+//     .ant-input-search{
+//       .ant-input-lg{
+//         width: 300px;
+//       }
+//     }
+
+//   }
+// }
+
+// .filter-input-small,
+// .filter-input-large {
+//   box-sizing: border-box;
+//   padding: 0 12px;
+//   height: 36px;
+//   line-height: 36px;
+//   font-size: $text-font-size;
+//   border: 1px solid $border-color;
+//   border-radius: 4px;
+// }
+// .filter-input-small {
+//   max-width: $filter-input-small-width;
+// }
+// .filter-input-large {
+//   max-width: $filter-input-large-width;
+// }
+
+// .filter-select {
+//   display: inline-block;
+//   margin: 10px 0;
+//   width: 150px;
+//   vertical-align: middle;
+// }
+// .filter-line {
+//   display: inline-block;
+//   margin: 0 5px;
+//   vertical-align: middle;
+//   width: 20px;
+//   height: 1px;
+//   background: #999;
+// }
+
+.wrap {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.item {
+  display: inline-block;
+  margin-right: 10px;
+  .item_label {
+    margin-right: 10px;
+  }
+}
+

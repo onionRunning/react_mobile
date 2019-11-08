@@ -1,137 +1,137 @@
-@import '~global/style.scss';
+// @import '~global/style.scss';
 
-$filter-input-radius: 8px; // 筛选输入框的圆角
-$filter-input-small-width: 140px; // 小输入框宽度
-$filter-input-large-width: 200px; // 大输入框宽度
-$filter-select-width: 150px; // 下拉选择框宽度
-$filter-input-height: 40px; // 筛选框高度
-$sort-icon-color: #8a8fa1; // 排序按钮默认颜色
-$sort-icon-keydown-color: #333; // 排序按钮按下颜色
-$list-bg-color: #fff; // 大的主题背景色
+// $filter-input-radius: 8px; // 筛选输入框的圆角
+// $filter-input-small-width: 140px; // 小输入框宽度
+// $filter-input-large-width: 200px; // 大输入框宽度
+// $filter-select-width: 150px; // 下拉选择框宽度
+// $filter-input-height: 40px; // 筛选框高度
+// $sort-icon-color: #8a8fa1; // 排序按钮默认颜色
+// $sort-icon-keydown-color: #333; // 排序按钮按下颜色
+// $list-bg-color: #fff; // 大的主题背景色
 
-.list {
-  box-sizing: border-box;
-  height: 100%;
-  flex:1;
-  background: #fff;
-  h3 {
-    padding: 10px;
-    font-size: $title-font-size-large;
-    background-color: $list-bg-color;
-  }
-  // 角色管理和用户管理筛选
-  .list-condition {
-    position: relative;
-    text-align: center;
-    background-color: #fff;
-    .add-btn {
-      position: absolute;
-      right: 20px;
-      top: 0;
-    }
-  }
+// .list {
+//   box-sizing: border-box;
+//   height: 100%;
+//   flex:1;
+//   background: #fff;
+//   h3 {
+//     padding: 10px;
+//     font-size: $title-font-size-large;
+//     background-color: $list-bg-color;
+//   }
+//   // 角色管理和用户管理筛选
+//   .list-condition {
+//     position: relative;
+//     text-align: center;
+//     background-color: #fff;
+//     .add-btn {
+//       position: absolute;
+//       right: 20px;
+//       top: 0;
+//     }
+//   }
 
-  // 表格容器
-  .list-wapper {
-    padding: 10px;
-    min-height: 600px;
-    overflow-x: auto;
-    background-color: $list-bg-color;
-    &::-webkit-scrollbar-thumb {
-      background-color: $table-line-color;
-      &:hover {
-        background-color: $table-line-color;
-      }
-    }
-    // 修改表格内容
-    .ant-table {
-      // min-height: 400px;
-    }
-  }
+//   // 表格容器
+//   .list-wapper {
+//     padding: 10px;
+//     min-height: 600px;
+//     overflow-x: auto;
+//     background-color: $list-bg-color;
+//     &::-webkit-scrollbar-thumb {
+//       background-color: $table-line-color;
+//       &:hover {
+//         background-color: $table-line-color;
+//       }
+//     }
+//     // 修改表格内容
+//     .ant-table {
+//       // min-height: 400px;
+//     }
+//   }
 
-  // 表格样式
-  .table {
-    width: 100%;
-    text-align: center;
-    border-collapse: collapse;
-    border: 1px solid $list-bg-border-color;
-    cursor: default;
-    .table-title {
-      background-color: $thead-bg-color;
-      &:hover {
-        background-color: $thead-bg-color;
-      }
-      th {
-        padding: 0 10px;
-        white-space: nowrap;
-      }
-      .table-sort-icon {
-        display: inline-block;
-        margin-left: 5px;
-        vertical-align: middle;
-        &::before {
-          content: '';
-          display: block;
-          margin-bottom: 4px;
-          width: 0;
-          height: 0;
-          border-width: 3px;
-          border-color: transparent transparent $sort-icon-color transparent;
-          border-style: solid;
-        }
-        &::after {
-          content: '';
-          display: block;
-          width: 0;
-          height: 0;
-          border-width: 3px;
-          border-color: $sort-icon-color transparent transparent;
-          border-style: solid;
-        }
-        &.asc {
-          &::before {
-            border-color: transparent transparent $sort-icon-keydown-color
-              transparent;
-          }
-        }
-        &.desc {
-          &::after {
-            border-color: $sort-icon-keydown-color transparent transparent;
-          }
-        }
-      }
-    }
-    tr {
-      position: relative;
-      height: 38px;
-      background-color: $tbody-bg-color;
-      &:hover {
-        background-color: $table-raw-hover-color;
-      }
-      td {
-        font-size: $text-font-size;
-      }
-    }
-    td {
-      padding: 0 10px;
-      border: 1px solid $table-line-color;
-    }
-  }
+//   // 表格样式
+//   .table {
+//     width: 100%;
+//     text-align: center;
+//     border-collapse: collapse;
+//     border: 1px solid $list-bg-border-color;
+//     cursor: default;
+//     .table-title {
+//       background-color: $thead-bg-color;
+//       &:hover {
+//         background-color: $thead-bg-color;
+//       }
+//       th {
+//         padding: 0 10px;
+//         white-space: nowrap;
+//       }
+//       .table-sort-icon {
+//         display: inline-block;
+//         margin-left: 5px;
+//         vertical-align: middle;
+//         &::before {
+//           content: '';
+//           display: block;
+//           margin-bottom: 4px;
+//           width: 0;
+//           height: 0;
+//           border-width: 3px;
+//           border-color: transparent transparent $sort-icon-color transparent;
+//           border-style: solid;
+//         }
+//         &::after {
+//           content: '';
+//           display: block;
+//           width: 0;
+//           height: 0;
+//           border-width: 3px;
+//           border-color: $sort-icon-color transparent transparent;
+//           border-style: solid;
+//         }
+//         &.asc {
+//           &::before {
+//             border-color: transparent transparent $sort-icon-keydown-color
+//               transparent;
+//           }
+//         }
+//         &.desc {
+//           &::after {
+//             border-color: $sort-icon-keydown-color transparent transparent;
+//           }
+//         }
+//       }
+//     }
+//     tr {
+//       position: relative;
+//       height: 38px;
+//       background-color: $tbody-bg-color;
+//       &:hover {
+//         background-color: $table-raw-hover-color;
+//       }
+//       td {
+//         font-size: $text-font-size;
+//       }
+//     }
+//     td {
+//       padding: 0 10px;
+//       border: 1px solid $table-line-color;
+//     }
+//   }
 
-  .operating {
-    // display: inline-block;
-    display: block;
-    // margin: 0 10px;
-    cursor: pointer;
-    &:hover{
-       text-decoration: underline;
-    }
-  }
+//   .operating {
+//     // display: inline-block;
+//     display: block;
+//     // margin: 0 10px;
+//     cursor: pointer;
+//     &:hover{
+//        text-decoration: underline;
+//     }
+//   }
 
-  // 分页背景颜色
-  .pagination-wrapper {
-    padding-top: 20px;
-    padding-bottom: 30px;
-    background-color: $list-bg-color;
-  }
-}
+//   // 分页背景颜色
+//   .pagination-wrapper {
+//     padding-top: 20px;
+//     padding-bottom: 30px;
+//     background-color: $list-bg-color;
+//   }
+// }

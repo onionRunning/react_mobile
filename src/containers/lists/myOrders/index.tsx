@@ -10,8 +10,9 @@ import { gotoDetail, debounce, getDefaultProductName } from 'global/method'
 import styles from './index.module.scss'
 import { OrderListItem } from 'api/response'
 import { userPermission } from 'design/permission'
-import { ListItem } from 'components/select'
+import { ListItem, SelectOption } from 'components/select'
 import ListTitle from 'components/listTitle'
+import Button from 'components/button'
 
 type MixProps = RouteComponentProps
 interface Props extends MixProps {
@@ -71,11 +72,16 @@ export class MyOrders extends Component<Props, State> {
       <div className={styles.page}>
         <ListTitle>My Order</ListTitle>
         <div className={styles.header}>
-          <Select list={productOption} onChange={this.handleChangeSelect} />
+          <div className={styles.condition}>
+            <Select list={productOption} onChange={this.handleChangeSelect} />
+          </div>
           {p10202 && (
-            <button className="sub-btn-blue get-my-order-btn" onClick={this.grabOrder} id={'my-order-pick-btn'}>
+            <Button type="blue" onClick={this.grabOrder}>
               Pick up the order
-            </button>
+            </Button>
+            // <button className="sub-btn-blue get-my-order-btn" onClick={this.grabOrder} id={'my-order-pick-btn'}>
+            //   Pick up the order
+            // </button>
           )}
         </div>
         <div className={styles.content}>
@@ -108,9 +114,8 @@ export class MyOrders extends Component<Props, State> {
   }
 
   // 选择产品
-  handleChangeSelect = (selectedOption: ListItem) => {
-    let { value } = selectedOption
-    sessionStorage.setItem('productName', value)
+  handleChangeSelect = (selectOption: SelectOption) => {
+    let { value } = selectOption
     this.setState(
       {
         request: {

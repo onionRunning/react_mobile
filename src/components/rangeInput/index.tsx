@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Input, { Msg } from 'components/input'
 import { noop } from 'lodash'
+import styles from './index.module.scss'
 
 export interface Item {
   key?: string
@@ -25,10 +26,10 @@ class RangeInput extends Component<Props> {
   render() {
     const { item, onChange } = this.props
     return (
-      <div key={item.key} className="filter-item" id={item.key}>
-        <label className="form-label-key">{item.label}</label>
+      <div key={item.key} className={styles.wrap} id={item.key}>
+        <label className={styles.label}>{item.label}</label>
         <Input maxLength={item.range!.maxLength} msg={item.range!.start} onChange={onChange} />
-        <i className="range-line" />
+        <i className={styles.line} />
         <Input maxLength={item.range!.maxLength} msg={item.range!.end} onChange={onChange} />
       </div>
     )

@@ -17,7 +17,15 @@ $range-line-color: #ccc; // 连接线颜色
   margin-right: 10px;
 }
 
-.range-line {
+.wrap {
+  display: inline-block;
+  margin-right: 10px;
+  .label {
+    margin-right: 10px;
+  }
+}
+
+.line {
   display: inline-block;
   margin: 0 5px;
   width: 15px;

@@ -320,28 +320,28 @@ $text-font-size-small: 12px;
   display: none !important;
 }
 
-:global {
-  .ant-table-thead > tr > th {
-    background-color: #e3e3e3;
-    text-align: center;
-    padding: 10px;
-  }
-  .ant-table-tbody > tr > td {
-    text-align: center;
-    font-size: 12px;
-    height: 48px;
-  }
-  .ant-table-thead > tr > th.ant-table-column-sort {
-    background-color: #e3e3e3;
-  }
-  .ant-table-thead > tr > th.ant-table-column-has-actions.ant-table-column-has-sorters:hover {
-    background-color: #e3e3e3;
-    opacity: 0.8;
-  }
-  .ant-input-lg {
-    height: 36px;
-  }
-}
+// :global {
+//   .ant-table-thead > tr > th {
+//     background-color: #e3e3e3;
+//     text-align: center;
+//     padding: 10px;
+//   }
+//   .ant-table-tbody > tr > td {
+//     text-align: center;
+//     font-size: 12px;
+//     height: 48px;
+//   }
+//   .ant-table-thead > tr > th.ant-table-column-sort {
+//     background-color: #e3e3e3;
+//   }
+//   .ant-table-thead > tr > th.ant-table-column-has-actions.ant-table-column-has-sorters:hover {
+//     background-color: #e3e3e3;
+//     opacity: 0.8;
+//   }
+//   .ant-input-lg {
+//     height: 36px;
+//   }
+// }
 
 // 块级元素转成行内元素
 .inline-block {

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { noop } from 'lodash'
-import TreeSelect, { TreeNode } from 'antd/lib/tree-select'
+import { TreeSelect } from 'antd'
+import { TreeNode } from 'antd/lib/tree-select'
 import './treeSelect.scss'
 
 type TreeValue = string | number | any[]

@@ -4,7 +4,6 @@ import { ColumnProps, TableRowSelection, PaginationConfig, SorterResult, TableCu
 import { Table } from 'antd'
 import { defaultPagination, Pagination } from './config'
 import noDataImg from './images/icon-no@2x.png'
-// import 'antd/es/table/style/index.css'
 import styles from './index.module.scss'
 
 interface Props<T> {
@@ -45,8 +44,9 @@ class TableComponent<T> extends Component<Props<T>> {
     const { tableTitle, tableData, onChange, pagination, rowSelection, scroll, loading, rowKey } = this.props
     // 合并分页内容,设置默认参数 (分页的存在: 判断数据的长度)
     let _pagination = tableData.length > 0 && pagination ? { ...pagination, ...defaultPagination } : false
+    console.log(_pagination)
     return (
-      <div className={tableData.length > 0 ? 'table-wrapper' : 'table-wrapper table-empty-wrapper'}>
+      <div className={styles.wrapper}>
         <Table
           scroll={scroll}
           columns={tableTitle}
@@ -60,7 +60,7 @@ class TableComponent<T> extends Component<Props<T>> {
         />
         {/* 没有数据提示 */}
         {!loading && !tableData.length && (
-          <div className={styles['table-no-data']}>
+          <div className={styles.no_data}>
             <img src={noDataImg} alt="no data" />
             <p>No data</p>
           </div>

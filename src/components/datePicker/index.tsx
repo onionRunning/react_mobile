@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { noop } from 'lodash'
 import moment, { Moment } from 'moment'
-import DatePicker from 'antd/lib/date-picker'
+import { DatePicker } from 'antd'
 
-import './date.scss'
+import styles from './index.module.scss'
 
 interface Props {
   placeholder?: string
@@ -33,7 +33,7 @@ class DatePickerDemo extends Component<Props, State> {
     defaultValue: '', // 默认显示日期
     onChange: noop, // 处理更改时间
     allowClear: true,
-    size: 'large'
+    size: 'default'
   }
   constructor(props: Props) {
     super(props)
@@ -49,13 +49,13 @@ class DatePickerDemo extends Component<Props, State> {
       formatDate,
       allowClear,
       className = '',
-      size = 'large',
+      size,
       style = {},
       disabledDate,
       id
     } = this.props
     return (
-      <div className={`date-picker-wrapper`} id={id}>
+      <div className={styles.wrapper} id={id}>
         <DatePicker
           size={size}
           style={style}
