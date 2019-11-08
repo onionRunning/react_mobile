@@ -28,6 +28,6 @@ describe('RangeInput', () => {
   })
 
   it('render', () => {
-    expect(component.find('div').length).toBeGreaterThan(0)
+    expect(component.find('i').length).toBeGreaterThan(0)
   })
 })
