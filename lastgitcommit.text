@@ -1,3 +1,29 @@
+commit cc0a0967e9331e239776d375eaf1bce080518213
+Author: wangcong <wangcong@mintq.com>
+Date:   Mon Nov 11 10:45:09 2019 +0800
+
+    add:我的订单
+
+lastgitcommit.text
+package.json
+src/api/index.ts
+src/api/params.ts
+src/containers/auth/index.tsx
+src/containers/lists/myOrders/const.test.tsx
+src/containers/lists/myOrders/const.tsx
+src/containers/lists/myOrders/index.test.tsx
+src/containers/lists/myOrders/index.tsx
+src/containers/lists/orders/const.ts
+src/containers/lists/orders/myOrders/index.module.scss
+src/containers/lists/orders/myOrders/index.tsx
+src/containers/lists/orders/myOrders/utils.tsx
+src/containers/login/index.test.tsx
+src/containers/login/index.tsx
+src/containers/login/utils.ts
+src/interface/orders/index.ts
+src/stores/orders/index.ts
+src/stores/root.ts
+
 commit 2d93416c937420298d40c4c36b698f8289f9761e
 Author: hhh <huanghuihui@mintechai.com>
 Date:   Mon Nov 11 09:40:10 2019 +0800
@@ -35,10 +61,3 @@ Date:   Fri Nov 8 18:00:03 2019 +0800
 
 gitdifftest.js
 lastgitcommit.text
-
-commit fe5bf9913ca2d50dc02c0ea4e2999144607246a6
-Merge: 05934ff a848413
-Author: hhh <huanghuihui@mintechai.com>
-Date:   Fri Nov 8 17:56:59 2019 +0800
-
-    解决冲突
