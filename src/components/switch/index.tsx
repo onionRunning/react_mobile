@@ -10,6 +10,7 @@ interface Props {
   unCheckedChildren?: React.ReactNode
   onChangeSwitch?: (checked: boolean, event: MouseEvent) => any
   id?: string
+  style?: object
 }
 
 class SwitchDemo extends Component<Props> {
@@ -21,9 +22,9 @@ class SwitchDemo extends Component<Props> {
     onChangeSwitch: noop // 处理开关按钮
   }
   render() {
-    const { label, checked, checkedChildren, unCheckedChildren, onChangeSwitch, id } = this.props
+    const { label, checked, checkedChildren, unCheckedChildren, onChangeSwitch, id, style } = this.props
     return (
-      <div className="filter-item filter-switch-item">
+      <div className="filter-item filter-switch-item" style={style}>
         <label className="filter-switch-label">
           {label}
           {!label ? '' : ':'}
