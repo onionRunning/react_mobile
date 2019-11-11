@@ -123,6 +123,7 @@ export class Login extends Component<utils.Props, utils.State> {
       this.handleLogin(res.data!.is_first_login!)
     }
   }
+  // 测试
   // 登陆成功后
   handleLogin = (isFirstLogin: string) => {
     api.changeRequest(createRequest())

@@ -1,3 +1,13 @@
+commit 49577875d552e95bfc91ebe1bca53661181d1139
+Author: hhh <huanghuihui@mintechai.com>
+Date:   Mon Nov 11 09:38:29 2019 +0800
+
+    修改配置
+
+.gitignore
+lastgitcommit.text
+temp.txt
+
 commit 880528fa43febd2bfda2471ed7c1d13b6e1131f4
 Author: hhh <huanghuihui@mintechai.com>
 Date:   Fri Nov 8 18:04:27 2019 +0800
@@ -34,13 +44,3 @@ Date:   Fri Nov 8 17:53:22 2019 +0800
     修改筛选框的样式
     
     查看合并请求 philippines/jrocketmanager!1
-
-commit 2bb616ce78b22f2a41558958610ffffd314d60eb
-Author: hhh <huanghuihui@mintechai.com>
-Date:   Fri Nov 8 17:38:43 2019 +0800
-
-    修复测试
-
-src/components/rangeDatePicker/index.test.tsx
-src/components/rangeInput/index.test.tsx
-src/components/table/index.tsx
