@@ -5,6 +5,7 @@ import { isEmail, getStringLength } from 'global/method'
 import { LoginRes } from 'interface/login'
 import { Res } from 'interface/common'
 import { LoginParams } from 'api/params'
+import Common from 'stores/common'
 
 // const 定义常量
 export const TEXT = 'text'
@@ -25,7 +26,9 @@ export const initState = {
   passwordVisableIcon: '' // 密码可见\不可见时的icon
 }
 export type State = typeof initState
-export type Props = RouteComponentProps
+export interface Props extends RouteComponentProps {
+  common: Common
+}
 export type StringStateKey = KeyOfByType<State, string>
 export type BoolStateKey = KeyOfByType<State, boolean>
 

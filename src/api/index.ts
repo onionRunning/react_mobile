@@ -56,7 +56,7 @@ export class Api {
 
   // 新版本登陆
   postLogin = (payload: params.loginParams.LoginReq) => {
-    return this.post<params.loginParams.LoginRes>(`/back_mgr/login`, payload)
+    return this.post<params.loginParams.LoginRes>(`/login`, payload)
   }
 
   // 修改密码
@@ -72,8 +72,8 @@ export class Api {
     return this.download<any>(`/back_mgr/export_application_list`, payload)
   }
   // 我的订单列表
-  myOrders = (payload: params.MyOrdersPayload) => {
-    return this.post<any>(`/back_mgr/get_my_application_list`, payload)
+  myOrders = (payload: params.orders.MyOrderReq) => {
+    return this.post<params.orders.MyOrderRes>(`/back_mgr/get_my_approval_list`, payload)
   }
 
   // 抢单

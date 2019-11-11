@@ -4,7 +4,7 @@ import Header from './header'
 import { getRedictRoute } from './utils'
 import { userPermission } from 'design/permission'
 
-const MyOrders = lazy(() => import('containers/lists/myOrders'))
+const MyOrders = lazy(() => import('containers/lists/orders/myOrders'))
 const User = lazy(() => import('containers/lists/settings/user/userList'))
 
 class Auth extends Component<RouteComponentProps<{ showType: string }>> {
