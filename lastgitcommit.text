@@ -1,3 +1,13 @@
+commit 880528fa43febd2bfda2471ed7c1d13b6e1131f4
+Author: hhh <huanghuihui@mintechai.com>
+Date:   Fri Nov 8 18:04:27 2019 +0800
+
+    更新规则
+
+gitdifftest.js
+lastgitcommit.text
+temp.txt
+
 commit 622af05a160b1281682ae3cca65a65bda2b0f615
 Author: hhh <huanghuihui@mintechai.com>
 Date:   Fri Nov 8 18:00:03 2019 +0800
@@ -34,24 +44,3 @@ Date:   Fri Nov 8 17:38:43 2019 +0800
 src/components/rangeDatePicker/index.test.tsx
 src/components/rangeInput/index.test.tsx
 src/components/table/index.tsx
-
-commit 7dac68444d166f77657687c67e8fc25aa9fad7ed
-Author: hhh <huanghuihui@mintechai.com>
-Date:   Fri Nov 8 17:35:59 2019 +0800
-
-    修改筛选框的样式
-
-src/components/listCondition/index.module.scss
-src/components/listCondition/index.tsx
-src/components/pagination/index.module.scss
-src/components/rangeDatePicker/index.module.scss
-src/components/rangeDatePicker/index.tsx
-src/components/rangeInput/index.module.scss
-src/components/rangeInput/index.tsx
-src/components/table/index.tsx
-src/containers/lists/settings/user/userList/config.ts
-src/containers/lists/settings/user/userList/index.module.scss
-src/containers/lists/settings/user/userList/index.tsx
-src/interface/user/index.ts
-src/stores/root.ts
-src/stores/user/index.ts
