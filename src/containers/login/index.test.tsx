@@ -13,7 +13,10 @@ describe('Login', () => {
   const mockDispatch = jest.fn()
   const mockProps = {
     dispatch: mockDispatch,
-    ...mockRoute
+    ...mockRoute,
+    common: {
+      changeLoading: jest.fn()
+    }
   }
   let component: ShallowWrapper<Login>, instance: Login
   beforeEach(() => {
@@ -21,7 +24,7 @@ describe('Login', () => {
     global.sessionStorage.setItem('token', 'test')
     global.sessionStorage.setItem('isFirstLogin', 'false')
     global.sessionStorage.setItem('permissionArr', '[]')
-    component = shallow(<Login {...mockProps} />)
+    component = shallow(<Login {...mockProps} />).dive()
     instance = component.instance() as Login
   })
 

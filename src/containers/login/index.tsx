@@ -1,14 +1,18 @@
 import React, { Component } from 'react'
 import { trim } from 'lodash'
+import { inject, observer } from 'mobx-react'
 import md5 from 'blueimp-md5'
 import { LoginReq } from 'interface/login'
 import api from 'api'
 import { createRequest } from 'api/request'
 import { userPermission } from 'design/permission'
+import message from 'components/Message'
 import * as utils from './utils'
 import logo from 'assets/logo@2x.png'
 import './index.scss'
 
+@inject('common')
+@observer
 export class Login extends Component<utils.Props, utils.State> {
   constructor(props: utils.Props) {
     super(props)
@@ -110,17 +114,19 @@ export class Login extends Component<utils.Props, utils.State> {
     }
     const info = utils.vertify(user)
     if (info) {
-      // this.startErrHint(info)
+      message.error(info)
       return
     }
     this.finnalSubmit(user)
   }
   // 触发登陆逻辑
   finnalSubmit = async (user: LoginReq) => {
+    this.props.common.changeLoading(true)
     const res = await api.postLogin({ ...user, password: md5(user.password!) })
     if (res.success) {
       utils.saveLocalData(res)
       this.handleLogin(res.data!.is_first_login!)
+      this.props.common.changeLoading(false)
     }
   }
   // 测试

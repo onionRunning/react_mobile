@@ -24,6 +24,5 @@ yarn-error.log*
 tmp
 temp.txt
 lastgitcommit.text
-
 # yarn lock
 yarn.lock
