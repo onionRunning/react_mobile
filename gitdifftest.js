@@ -23,10 +23,11 @@ const exec = require('child_process').exec
           // 如果读取文件
           content = (await fs.readFileSync(src)).toString().split('\n')[27]
         } catch (error) {
+          content = ''
           console.log(error)
           // exec('echo error > temp.txt')
         }
-        const branchRadio = content.match(/<span class="strong">(.+)<\/span>/)[1]
+        const branchRadio = content && content.match(/<span class="strong">(.+)<\/span>/)[1]
         tems.push([fin[i], branchRadio])
       }
     }

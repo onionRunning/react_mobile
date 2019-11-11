@@ -1,3 +1,13 @@
+commit 6694e2bbe6c28ca05a5fb18a3ad95a3a4257d649
+Author: wangcong <wangcong@mintq.com>
+Date:   Mon Nov 11 10:56:20 2019 +0800
+
+    fix:test
+
+.gitignore
+gitdifftest.js
+lastgitcommit.text
+
 commit cc0a0967e9331e239776d375eaf1bce080518213
 Author: wangcong <wangcong@mintq.com>
 Date:   Mon Nov 11 10:45:09 2019 +0800
@@ -52,12 +62,3 @@ Date:   Fri Nov 8 18:04:27 2019 +0800
 gitdifftest.js
 lastgitcommit.text
 temp.txt
-
-commit 622af05a160b1281682ae3cca65a65bda2b0f615
-Author: hhh <huanghuihui@mintechai.com>
-Date:   Fri Nov 8 18:00:03 2019 +0800
-
-    更新规则
-
-gitdifftest.js
-lastgitcommit.text
