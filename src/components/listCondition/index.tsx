@@ -154,7 +154,7 @@ class QueryCondition extends Component<Props> {
     // 如果没有不需要按钮,则直接返回
     if (!btnItems) return ''
     // 否则渲染按钮列表
-    return btnItems.map(btnItem => {
+    return btnItems.map((btnItem: BtnItem) => {
       if (btnItem.noShow) return ''
       return (
         <Button key={btnItem.key} type={btnItem.type} onClick={this.btnClick(btnItem.key)}>
