@@ -6,6 +6,8 @@ import { userPermission } from 'design/permission'
 
 const MyOrders = lazy(() => import('containers/lists/myOrders'))
 const User = lazy(() => import('containers/lists/settings/user/userList'))
+const Lendings = lazy(() => import('containers/lists/lendings'))
+const Repayments = lazy(() => import('containers/lists/repayments'))
 
 class Auth extends Component<RouteComponentProps<{ showType: string }>> {
   componentDidMount() {
@@ -27,6 +29,8 @@ class Auth extends Component<RouteComponentProps<{ showType: string }>> {
           <Redirect exact={true} from={match.url} to={`${match.url}${getRedictRoute(finnalPermission) || '/no'}`} />
           <Route path={`${match.url}/my_orders`} component={MyOrders} />
           <Route path={`${match.url}/users`} component={User} />
+          <Route path={`${match.url}/lendings`} component={Lendings} />
+          <Route path={`${match.url}/repayments`} component={Repayments} />
         </Switch>
       </>
     )
