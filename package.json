@@ -38,7 +38,8 @@
     "test:cov": "CI=true yarn test --coverage",
     "fix": "yarn fix:prettier && yarn fix:tslint",
     "fix:prettier": "prettier --single-quote --write 'src/**/*.{js,jsx,ts,tsx,json,css}'",
-    "fix:lint": "eslint --fix --ext .jsx,.js,.tsx,.ts ./src"
+    "fix:lint": "eslint --fix --ext .jsx,.js,.tsx,.ts ./src",
+    "sh:lint": "./createLog.sh"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -122,7 +123,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
-      "pre-push": "yarn test:cov && ./createLog.sh"
+      "pre-push": "yarn test:cov && yarn sh:lint"
     }
   }
 }

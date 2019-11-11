@@ -1,11 +1,12 @@
 $border-color: #ccc; // 输入框border颜色
 $text-font-size: 14px; // 字体大小
-$select-height: 36px; // select高度
+$select-height: 34px; // select高度
 $border-radius: 4px; // border边框圆角大小
 
 .tree-select-wrapper {
   display: inline-block;
-  margin: 10px 0;
+  // margin: 10px 0;
+  // margin-top: -2px;
   max-width: 150px;
   width: 11vw;
   vertical-align: middle;

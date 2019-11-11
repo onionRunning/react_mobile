@@ -1,3 +1,4 @@
+import { ReactText } from 'react'
 // 证件类型
 export const AllIdType = [
   {
@@ -35,14 +36,16 @@ export const AllIdType = [
 ]
 
 // 时间筛选框
-export const TimeRange = {
-  start: {
-    placeholder: 'start time',
-    key: 'start_date'
-  },
-  end: {
-    placeholder: 'end time',
-    key: 'end_date'
+export const TimeRange = (startKey: string, endKey: string) => {
+  return {
+    start: {
+      placeholder: 'start time',
+      key: startKey
+    },
+    end: {
+      placeholder: 'end time',
+      key: endKey
+    }
   }
 }
 
@@ -140,3 +143,30 @@ export const OrderTypes = [
     ]
   }
 ]
+export const DEFAULT_CHOSE = [
+  {
+    label: 'All', // 所有来源
+    value: ''
+  }
+]
+// interface
+export interface FillInfo {
+  [p: string]: string | number | ReactText
+}
+
+// consts 常量申明
+export const DEFAULT_PAGE = 1
+export const DEFAULT_PER_PAGE = 10
+
+export const ASC = 'ascend'
+export const ASC_CHOSE = 'asc'
+export const DESC = 'descend'
+export const DESC_CHOSE = 'desc'
+// 默认0页
+// default function
+
+export const getSortValue = (order: string) => {
+  if (order === ASC) return ASC_CHOSE
+  if (order === DESC) return DESC_CHOSE
+  return ''
+}

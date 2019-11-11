@@ -1,8 +1,8 @@
 // 我的订单模块
 // 入参
 export interface MyOrderReq {
-  page: number
-  per_page: number
+  page?: number
+  per_page?: number
   loan_days?: number
   operator_id?: number
   // 排序字段
@@ -29,4 +29,14 @@ export interface MyOrderRes {
   application_list: MyOrderLists[]
   page_count: number
   total_count: number
+}
+// 我的订单抢单逻辑
+export interface GrabOrderReq {
+  operator_id?: number
+  operator_name?: string
+}
+
+export interface CallBacks {
+  successCb: Function
+  errCb: Function
 }

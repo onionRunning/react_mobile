@@ -4,6 +4,7 @@ import Header from './header'
 import { getRedictRoute } from './utils'
 import { userPermission } from 'design/permission'
 
+const OrderLists = lazy(() => import('containers/lists/orders/orderLists'))
 const MyOrders = lazy(() => import('containers/lists/orders/myOrders'))
 const User = lazy(() => import('containers/lists/settings/user/userList'))
 
@@ -25,6 +26,7 @@ class Auth extends Component<RouteComponentProps<{ showType: string }>> {
         <Header {...this.props} baseUrl={match.url} />
         <Switch>
           <Redirect exact={true} from={match.url} to={`${match.url}${getRedictRoute(finnalPermission) || '/no'}`} />
+          <Route path={`${match.url}/orders`} component={OrderLists} />
           <Route path={`${match.url}/my_orders`} component={MyOrders} />
           <Route path={`${match.url}/users`} component={User} />
         </Switch>

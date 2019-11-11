@@ -4,3 +4,10 @@ export interface Res<T> {
   data?: T
 }
 // test
+
+export interface Page {
+  page_size?: number
+  total_page?: number
+  total?: number
+  current?: number
+}

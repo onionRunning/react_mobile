@@ -1,3 +1,12 @@
+commit fa421d6c7de941afa41411806e479be806b46f66
+Author: wangcong <wangcong@mintq.com>
+Date:   Mon Nov 11 10:58:00 2019 +0800
+
+    fix:test
+
+gitdifftest.js
+lastgitcommit.text
+
 commit 6694e2bbe6c28ca05a5fb18a3ad95a3a4257d649
 Author: wangcong <wangcong@mintq.com>
 Date:   Mon Nov 11 10:56:20 2019 +0800
@@ -50,15 +59,5 @@ Date:   Mon Nov 11 09:38:29 2019 +0800
     修改配置
 
 .gitignore
-lastgitcommit.text
-temp.txt
-
-commit 880528fa43febd2bfda2471ed7c1d13b6e1131f4
-Author: hhh <huanghuihui@mintechai.com>
-Date:   Fri Nov 8 18:04:27 2019 +0800
-
-    更新规则
-
-gitdifftest.js
 lastgitcommit.text
 temp.txt

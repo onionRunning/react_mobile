@@ -77,8 +77,8 @@ export class Api {
   }
 
   // 抢单
-  grabOrders = (payload: params.GrabOrdersPayload) => {
-    return this.post<any>(`/back_mgr/grab_application`, payload)
+  grabOrders = (payload: params.orders.GrabOrderReq) => {
+    return this.post<string>(`/back_mgr/grab_application`, payload)
   }
   // 获取app联系人信息
   getAppContract = (payload: params.GetAppContractPayload, stuffix?: string) => {
