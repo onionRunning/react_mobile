@@ -75,10 +75,12 @@ export const btnItems = () => {
   return [
     {
       type: 'primary',
+      key: 'inquery',
       text: 'Inquire'
     },
     {
       type: 'black',
+      key: 'download',
       className: 'sub-btn-blue',
       text: 'Export order',
       hasPermission: true
@@ -97,7 +99,7 @@ export const getTabTitle = (clickCallback: (...args: any) => any): any => {
       title: 'Order type', // 订单类型: 复贷订单\新订单 p4.1.1
       dataIndex: 'order_type',
       key: 'order_type',
-      render: (record: any) => {
+      render: (record: string) => {
         return record
       }
     },
@@ -112,7 +114,7 @@ export const getTabTitle = (clickCallback: (...args: any) => any): any => {
       key: 'created_at',
       defaultSortOrder: 'descend',
       sorter: true,
-      render: (record: any) => {
+      render: (record: string) => {
         return <span>{formatTime(record)}</span>
       }
     },
@@ -122,7 +124,7 @@ export const getTabTitle = (clickCallback: (...args: any) => any): any => {
       key: 'application_finish_time',
       defaultSortOrder: 'descend',
       sorter: true,
-      render: (record: any) => {
+      render: (record: string) => {
         return <span>{formatTime(record)}</span>
       }
     },
@@ -140,7 +142,7 @@ export const getTabTitle = (clickCallback: (...args: any) => any): any => {
       title: 'Status',
       dataIndex: 'application_status',
       key: 'application_status',
-      render: (record: any) => {
+      render: (record: string) => {
         return <span>{formatTf(record)}</span>
       }
     },
@@ -164,7 +166,7 @@ export const getTabTitle = (clickCallback: (...args: any) => any): any => {
       dataIndex: '',
       key: 'operating',
       width: 120,
-      render: (item: any, _: any, index: number) => {
+      render: (item: any, _: string, index: number) => {
         const { order_list_func } = userPermission.finnalPermission!
         return (
           <span onClick={clickCallback(item)} className={`blue-color operating`} id={`inquire-${index}`}>
@@ -187,7 +189,7 @@ export interface SearchType {
 export const initRequest = {
   page: 1,
   per_page: 10,
-  sort_value: 'created_at', // 需要排序字段
+  sort_value: 'created_at',
   sort_order: 'desc',
   loan_days: 0
 }

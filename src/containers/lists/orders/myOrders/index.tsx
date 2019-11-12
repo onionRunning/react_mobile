@@ -5,7 +5,7 @@ import ListCondition from 'components/listCondition'
 import Table from 'components/table'
 import Message from 'components/Message'
 import * as utils from './utils'
-import { getSortValue, DEFAULT_PAGE, DEFAULT_PER_PAGE } from '../const'
+import { getSortValue, DEFAULT_PAGE, DEFAULT_PER_PAGE, ItemProps } from '../const'
 import { strTrim } from 'global/method'
 import { MixProps } from 'global/interface'
 import { intoDetail } from 'global/constants'
@@ -131,7 +131,7 @@ export class MyOrder extends Component<Props, State> {
     this.getMyOrdersList()
   }
   // 进入详情
-  replaceDetail = (item: utils.ItemProps) => () => {
+  replaceDetail = (item: ItemProps) => () => {
     const { customer_id, order_no, product_name, mobile_id } = item
     const payload = {
       customer_id,

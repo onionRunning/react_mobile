@@ -1,63 +1,79 @@
-commit fa421d6c7de941afa41411806e479be806b46f66
+commit 335ea33eb032c037fe8c2208c2ad63502ffe5619
+Merge: 10167fb 50d1c00
 Author: wangcong <wangcong@mintq.com>
-Date:   Mon Nov 11 10:58:00 2019 +0800
+Date:   Mon Nov 11 19:35:02 2019 +0800
 
-    fix:test
+    merge:fix 冲突
 
+commit 10167fbc64df6fa50d36361531631d8c01932afa
+Author: wangcong <wangcong@mintq.com>
+Date:   Mon Nov 11 19:32:54 2019 +0800
+
+    add:订单列表
+
+back_api.md
 gitdifftest.js
-lastgitcommit.text
-
-commit 6694e2bbe6c28ca05a5fb18a3ad95a3a4257d649
-Author: wangcong <wangcong@mintq.com>
-Date:   Mon Nov 11 10:56:20 2019 +0800
-
-    fix:test
-
-.gitignore
-gitdifftest.js
-lastgitcommit.text
-
-commit cc0a0967e9331e239776d375eaf1bce080518213
-Author: wangcong <wangcong@mintq.com>
-Date:   Mon Nov 11 10:45:09 2019 +0800
-
-    add:我的订单
-
 lastgitcommit.text
 package.json
 src/api/index.ts
-src/api/params.ts
+src/components/treeSelect/treeSelect.scss
 src/containers/auth/index.tsx
-src/containers/lists/myOrders/const.test.tsx
-src/containers/lists/myOrders/const.tsx
-src/containers/lists/myOrders/index.test.tsx
-src/containers/lists/myOrders/index.tsx
+src/containers/lists/orders/const.test.ts
 src/containers/lists/orders/const.ts
 src/containers/lists/orders/myOrders/index.module.scss
+src/containers/lists/orders/myOrders/index.test.tsx
 src/containers/lists/orders/myOrders/index.tsx
+src/containers/lists/orders/myOrders/utils.test.ts
 src/containers/lists/orders/myOrders/utils.tsx
-src/containers/login/index.test.tsx
-src/containers/login/index.tsx
-src/containers/login/utils.ts
+src/containers/lists/orders/orderLists/index.scss
+src/containers/lists/orders/orderLists/index.tsx
+src/containers/lists/orders/orderLists/utils.tsx
+src/global/style.scss
+src/index.scss
+src/interface/common/index.ts
 src/interface/orders/index.ts
+src/stores/common/index.ts
 src/stores/orders/index.ts
+src/stores/orders/myOrders/index.ts
+src/stores/orders/orderLists/index.ts
 src/stores/root.ts
 
-commit 2d93416c937420298d40c4c36b698f8289f9761e
-Author: hhh <huanghuihui@mintechai.com>
-Date:   Mon Nov 11 09:40:10 2019 +0800
+commit 50d1c0035ff5fe8b6587031960b4b08be4bd34aa
+Merge: fa421d6 badb518
+Author: 卢宝宝 <lubaobao@mintechai.com>
+Date:   Mon Nov 11 16:29:05 2019 +0800
 
-    test
+    合并分支 'j-lbb' 到 'master'
+    
+    J lbb
+    
+    查看合并请求 philippines/jrocketmanager!7
 
-lastgitcommit.text
-src/containers/login/index.tsx
+commit badb518c3db013cfb68368badf671b27715dad4a
+Merge: 60b5083 fa421d6
+Author: Bonnie-lu <867454489@qq.com>
+Date:   Mon Nov 11 16:25:27 2019 +0800
 
-commit 49577875d552e95bfc91ebe1bca53661181d1139
-Author: hhh <huanghuihui@mintechai.com>
-Date:   Mon Nov 11 09:38:29 2019 +0800
+    merge master 解决合并冲突
 
-    修改配置
+commit 60b50831789e95255c7088d7fc60d010296ca646
+Author: Bonnie-lu <867454489@qq.com>
+Date:   Mon Nov 11 16:20:15 2019 +0800
 
-.gitignore
-lastgitcommit.text
-temp.txt
+    add : lendings ,repayments
+
+src/components/listCondition/index.tsx
+src/components/switch/index.tsx
+src/containers/auth/index.tsx
+src/containers/lists/lendings/const.test.tsx
+src/containers/lists/lendings/const.tsx
+src/containers/lists/lendings/index.module.scss
+src/containers/lists/lendings/index.test.tsx
+src/containers/lists/lendings/index.tsx
+src/containers/lists/repayments/config.tsx
+src/containers/lists/repayments/index.test.tsx
+src/containers/lists/repayments/index.tsx
+src/containers/lists/repayments/uitls.ts
+src/stores/lendings/index.ts
+src/stores/repayments/index.ts
+src/stores/root.ts

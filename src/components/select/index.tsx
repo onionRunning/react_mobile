@@ -66,7 +66,7 @@ class SelectDemo extends Component<Props> {
         >
           {list.map((item, index) => {
             return (
-              <Option key={index} value={item.label}>
+              <Option key={index} value={item.value}>
                 {item.label}
               </Option>
             )

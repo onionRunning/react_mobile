@@ -10,12 +10,6 @@ export interface FillInfo {
   [p: string]: string | number | ReactText
 }
 
-export interface ItemProps {
-  customer_id?: number
-  order_no?: string
-  product_name?: string
-  mobile_id?: number
-}
 // consts
 export const turnToNumber = ['operator_id', 'loan_days']
 

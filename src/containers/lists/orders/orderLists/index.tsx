@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { PaginationConfig, SorterResult } from 'antd/lib/table'
 import { RouteComponentProps } from 'react-router-dom'
-import ListCondition from 'components/listCondition'
+import { inject, observer } from 'mobx-react'
+import ListCondition, { BtnItem } from 'components/listCondition'
 import Table from 'components/table'
-import { Pagination } from 'components/table/config'
-
+import OrderListStore from 'stores/orders/orderLists'
+import Common from 'stores/common'
 import * as utils from './utils'
-import { FillInfo, getSortValue, DEFAULT_PAGE, DEFAULT_PER_PAGE } from '../const'
+import { FillInfo, getSortValue, DEFAULT_PAGE, DEFAULT_PER_PAGE, ItemProps, selectHandler } from '../const'
 import { strTrim } from 'global/method'
 import { intoDetail } from 'global/constants'
 import styles from '../myOrders/index.module.scss'
@@ -14,15 +15,15 @@ import styles from '../myOrders/index.module.scss'
 type MixProps = RouteComponentProps
 
 interface Props extends MixProps {
-  page?: Pagination
-  orderData: any[]
-  cleanTableSelectKeys?: () => void
-  status: boolean
-  product: any
-  person?: any[]
+  orderLists: OrderListStore
+  common: Common
 }
-
-export class OrderLists extends Component<Props, any> {
+interface State {
+  request: FillInfo
+}
+@inject('orderLists', 'common')
+@observer
+export class OrderLists extends Component<Props, State> {
   constructor(props: Props) {
     super(props)
     this.state = {
@@ -34,29 +35,29 @@ export class OrderLists extends Component<Props, any> {
     this.getProductDetail()
     this.getApprovalPerson()
   }
-
   componentWillUnmount() {
     this.setState({
       request: { ...utils.initRequest }
     })
   }
   render() {
-    const { page, orderData, status } = this.props
+    const { page, lists, status, users } = this.props.orderLists
     const tabTitle = utils.getTabTitle(this.replaceDetail)
+    const listData = selectHandler(utils.filterData, '', users)
     return (
       <div className={styles.page}>
         <h3>Order list</h3>
         <div className="orders-condition-wrapper">
           <ListCondition
-            data={utils.filterData}
-            btnItems={utils.btnItems() as any}
+            data={listData}
+            btnItems={utils.btnItems() as BtnItem[]}
             onChange={this.handleFilter}
             btnClick={this.handleBtnClick}
           />
         </div>
         <div className="list-wapper">
           <Table
-            tableData={orderData}
+            tableData={lists}
             tableTitle={tabTitle}
             pagination={page}
             onChange={this.tableChange}
@@ -82,8 +83,9 @@ export class OrderLists extends Component<Props, any> {
   }
   // 按钮点击
   handleBtnClick = (type: string) => {
-    type === 'query' && this.getOrdersList({ page: 1 })
-    type === 'loaddown' && this.downloadOrder()
+    console.log(type, 'type')
+    type === 'inquery' && this.getOrdersList({ page: 1 })
+    type === 'download' && this.downloadOrder()
   }
 
   // 翻页 + 排序
@@ -100,12 +102,14 @@ export class OrderLists extends Component<Props, any> {
       request: { ...this.state.request, ...sorts }
     })
   }
-
-  // 请求订单列表     // 校验
-  getOrdersList = (v?: any) => {
-    console.log('v', v)
+  // 请求订单
+  getOrdersList = async (v?: FillInfo) => {
+    this.props.common.composeLoading(this.tempFunc(v))
   }
-
+  // 中间函数
+  tempFunc = (v?: FillInfo) => () => {
+    this.props.orderLists.getOrderLists({ ...this.state.request, ...v })
+  }
   // 获取产品配置信息
   getProductDetail = () => {
     console.log('v', 'product')
@@ -113,14 +117,14 @@ export class OrderLists extends Component<Props, any> {
 
   // 获取操作人列表
   getApprovalPerson = () => {
-    console.log('get_user')
+    this.props.orderLists.getOperateUser()
   }
 
   // 下载订单列表
   downloadOrder = () => {
     console.log('download')
   }
-  replaceDetail = (item: any) => () => {
+  replaceDetail = (item: ItemProps) => () => {
     const { customer_id, order_no, product_name, mobile_id } = item
     const payload = {
       customer_id,

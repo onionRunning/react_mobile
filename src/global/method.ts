@@ -1,6 +1,7 @@
 import { isString, isArray, trim } from 'lodash'
 import { OrderListItem, RepaymentResItem } from 'api/response'
 import moment from 'moment'
+import { order_type } from './constants'
 
 export const _trim = trim
 
@@ -340,4 +341,14 @@ export const fixedTwo = (num: string | number): number => {
   const decimal = String(numValue).split('.')[1]
   const decimalLength = decimal ? decimal.length : 0
   return Math.floor((numValue * Math.pow(10, decimalLength) * 100) / Math.pow(10, decimalLength)) / 100 // numValue * Math.pow(10, decimalLength)是为了先把小数转化为整数再计算 小数*整数可能会有bug(例如 9.7 * 100)
+}
+
+/*
+ * NewApplicationOrder => New Application 转换订单类型
+ * @param {*} str
+ */
+export const formatOfOrderType = function(str: string) {
+  // 校验传入参数
+  if (str === undefined || str === null || !isString(str)) return ''
+  return order_type[trim(str) as keyof typeof order_type]
 }
