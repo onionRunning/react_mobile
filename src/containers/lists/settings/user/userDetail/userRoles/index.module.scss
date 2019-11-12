@@ -1,0 +1,78 @@
+.user-role-list {
+    .user-left {
+        display: inline-block
+    }
+
+    .user-left {
+        // padding-left: 100px;
+        margin-top: 16px;
+    }
+
+    .user-right {
+        // display: inline-block;
+        // display: flex;
+        // flex-wrap: wrap;
+        vertical-align: top;
+        padding-left: 120px;
+        min-height: 250px;
+    }
+
+    text-align: left;
+
+    .userclick-item,
+    .light-click-item {
+        // width: 25%;
+        display: inline-block;
+        margin: 16px 0;
+        cursor: pointer;
+        height: 30px;
+
+        .click-bg {
+            margin-left: 50px;
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            border: 1px solid #6a6a6a;
+            position: relative;
+            top: 3px;
+        }
+
+        span {
+            margin-left: 16px;
+            display: inline-block;
+            // max-width: 200px;
+            word-wrap: break-word;
+            vertical-align: top;
+        }
+    }
+
+    .light-check .click-bg {
+        background: url('~assets/role-select.png') no-repeat;
+        background-size: 100%;
+        border: none;
+    }
+}
+
+.wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+    .title {
+        display: inline-block;
+        margin-top: 16px;
+    }
+
+    .content {
+        vertical-align: top;
+        padding-left: 120px;
+        min-height: 250px;
+
+        .item {
+            display: inline-block;
+            margin: 15px 0;
+            height: 30px;
+            min-width: 136px;
+        }
+    }
+}

@@ -75,3 +75,19 @@
         border: 1px solid #5378c2;
     }
 }
+
+.gray {
+    color: #fff;
+    border: 1px solid #66697a;
+    background-color: #66697a;
+
+    &:hover {
+        background-color: #787a86;
+        border: 1px solid #787a86;
+    }
+
+    &:active {
+        background-color: #525563;
+        border: 1px solid #525563;
+    }
+}

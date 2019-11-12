@@ -1,0 +1,12 @@
+.wrap {
+    padding: 20px 0;
+    text-align: center;
+
+    >button {
+        margin-right: 20px;
+
+        &:nth-last-of-type(1) {
+            margin-right: 0;
+        }
+    }
+}
