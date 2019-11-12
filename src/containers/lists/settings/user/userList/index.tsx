@@ -3,14 +3,12 @@ import { RouteComponentProps, Link } from 'react-router-dom'
 import { observer, inject } from 'mobx-react'
 import ListTitle from 'components/listTitle'
 import ListCondition from 'components/listCondition'
-// import Button from 'components/button'
 import Table from 'components/table'
-// import Message from 'components/Message'
-import { condition, btnItems, getTableTitle } from './config'
+import { statusType, condition, btnItems, getTableTitle } from './config'
 import styles from './index.module.scss'
 import { userPermission } from 'design/permission'
 import UserStore from 'stores/user'
-import { TableSortType, UserListReq, UserListItem } from 'interface/user'
+import { StatusType, TableSortType, UserListReq, UserListItem, ChangeUserReq } from 'interface/user'
 import { PaginationConfig, SorterResult } from 'antd/lib/table'
 
 interface Props extends RouteComponentProps {
@@ -26,6 +24,7 @@ interface State {
   request: UserListReq
 }
 
+@inject('user')
 @observer
 class User extends Component<Props, State> {
   constructor(props: Props) {
@@ -48,38 +47,33 @@ class User extends Component<Props, State> {
     return (
       <div className={styles.page}>
         <ListTitle>User management</ListTitle>
-        {/* <div className={styles.header}> */}
-        <ListCondition data={condition} btnItems={btnItems} onChange={this.handleChange} btnClick={this.btnClick} />
-        {/* <div className={styles.operator}>
-            <Button onClick={this.handleInquire} type="primary">
-              Inquire
-            </Button>
-            <Button onClick={() => Message.info('blue')} type="blue">
-              Add user
-            </Button>
-          </div>
-        </div> */}
+        <ListCondition
+          data={condition}
+          btnItems={btnItems}
+          onChange={this.handleChange}
+          btnClick={this.handleBtnclick}
+        />
         <Table tableTitle={tableTitle} tableData={userList} pagination={pagination} onChange={this.handleTableChange} />
       </div>
     )
   }
 
-  renderOperate = (record: UserListItem, _: any, index: number) => {
+  renderOperate = (text: string, record: UserListItem, index: number) => {
     // const { p40102, p40103, p40104, p40105 } = userPermission.finnalPermission!.user_func
     const { p40102, p40103, p40104 } = userPermission.finnalPermission!.user_func
-    const temp = record.status === 'normal' ? 'freeze' : 'unfreeze'
-    const { name } = record
+    const { id, name, status } = record
+    const statusText = this.transformStatus(status)
     return (
       <div className={styles.action}>
-        {p40102 && <Link to={`/auth/users_details/${record.id}`}>detail</Link>}
-        {name !== 'admin' && p40103 && <Link to={`/auth/users_edit/${record.id}`}>edit</Link>}
+        {p40102 && <Link to={`/auth/users_page/detail/${id}`}>detail</Link>}
+        {name !== 'admin' && p40103 && <Link to={`/auth/users_page/edit/${id}`}>edit</Link>}
         {name !== 'admin' && p40104 && (
-          <span onClick={this.operateUser()} id={`${temp}-${index}`}>
-            {temp}
+          <span onClick={this.operateUser(id, status)} id={`${statusText}-${index}`}>
+            {statusText}
           </span>
         )}
         {/* {name !== 'admin' && p40105 && (
-          <a onClick={this.resetUsers(record.id)} id={`reset-pwd-${index}`}>
+          <a onClick={this.resetUsers(id)} id={`reset-pwd-${index}`}>
             Reset Password
           </a>
         )} */}
@@ -90,13 +84,11 @@ class User extends Component<Props, State> {
   // 获取列表数据
   getUserList = async () => {
     const { request } = this.state
-    console.log(request.page)
     await this.props.user.getUserListData(request)
   }
 
   // 选择筛选项时更新state
   handleChange = (item: Item) => {
-    console.log(item)
     this.setState({
       request: {
         ...this.state.request,
@@ -105,9 +97,9 @@ class User extends Component<Props, State> {
     })
   }
 
-  btnClick = (v: any) => {
-    console.log(v)
-    v === 'inquire' && this.handleInquire()
+  handleBtnclick = (type: string) => {
+    type === 'inquire' && this.handleInquire()
+    type === 'add' && this.handleAdd()
   }
 
   // 查询列表，重置页码
@@ -123,18 +115,18 @@ class User extends Component<Props, State> {
     )
   }
 
+  handleAdd = () => {
+    this.props.history.push('/auth/users_page/add')
+  }
+
   // 冻结 or 解冻用户,出现弹窗
-  operateUser = () => () => {
-    // const bool = operate.status === 'frozen' ? true : false
-    // const titles = operate.status === 'normal' ? 'disabling' : 'enabling'
-    // this.props.dispatch(
-    //   Action.createConfirm({
-    //     title: 'Confirmation prompt',
-    //     text: `Do you confirm ${titles} user ?`,
-    //     onOk: this.rightFunc(operate.id, !bool),
-    //     onCancel: this.closeConfirm
-    //   })
-    // )
+  operateUser = (id: number, status: StatusType) => async () => {
+    const request: ChangeUserReq = {
+      id,
+      frozen: this.getOppositeStatus(status)!
+    }
+    let isSuccess = await this.props.user.changeUserStatus(request)
+    isSuccess && this.getUserList()
   }
 
   // 分页，排序
@@ -158,6 +150,15 @@ class User extends Component<Props, State> {
     )
   }
 
+  // 转换状态，用于按钮文本显示
+  transformStatus = (status: StatusType) => {
+    if (status === statusType.NORMAL) {
+      return 'freeze'
+    } else {
+      return 'unfreeze'
+    }
+  }
+
   // 转换排序字段
   transformSort = (order: TableSortType) => {
     switch (order) {
@@ -169,6 +170,18 @@ class User extends Component<Props, State> {
         return ''
     }
   }
+
+  // 获取相反的状态
+  getOppositeStatus = (status: StatusType) => {
+    switch (status) {
+      case statusType.NORMAL:
+        return 'frozen'
+      case statusType.FROZEN:
+        return 'normal'
+    }
+  }
 }
 
-export default inject('user')(User)
+// export default inject('user')(User)
+
+export default User

@@ -209,6 +209,8 @@ export interface RoleList {
   notes: string
   access_id: string
   created_time: number
+  label?: string
+  value?: number
 }
 
 // 角色详情

@@ -4,9 +4,10 @@ import Header from './header'
 import { getRedictRoute } from './utils'
 import { userPermission } from 'design/permission'
 
+const UserList = lazy(() => import('containers/lists/settings/user/userList'))
+const UserDetail = lazy(() => import('containers/lists/settings/user/userDetail'))
 const OrderLists = lazy(() => import('containers/lists/orders/orderLists'))
 const MyOrders = lazy(() => import('containers/lists/orders/myOrders'))
-const User = lazy(() => import('containers/lists/settings/user/userList'))
 const Lendings = lazy(() => import('containers/lists/lendings'))
 const Repayments = lazy(() => import('containers/lists/repayments'))
 
@@ -30,7 +31,8 @@ class Auth extends Component<RouteComponentProps<{ showType: string }>> {
           <Redirect exact={true} from={match.url} to={`${match.url}${getRedictRoute(finnalPermission) || '/no'}`} />
           <Route path={`${match.url}/orders`} component={OrderLists} />
           <Route path={`${match.url}/my_orders`} component={MyOrders} />
-          <Route path={`${match.url}/users`} component={User} />
+          <Route path={`${match.url}/users`} component={UserList} />
+          <Route path={`${match.url}/users_page/:type/:id?`} component={UserDetail} />
           <Route path={`${match.url}/lendings`} component={Lendings} />
           <Route path={`${match.url}/repayments`} component={Repayments} />
         </Switch>

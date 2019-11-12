@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { noop } from 'lodash'
 import { TreeSelect } from 'antd'
 import { TreeNode } from 'antd/lib/tree-select'
-import './treeSelect.scss'
+import styles from './index.module.scss'
 
 type TreeValue = string | number | any[]
 
@@ -38,7 +38,7 @@ class TreeSelectDemo extends Component<Props, State> {
     const { value } = this.state
     const { placeholder, list, className = '' } = this.props
     return (
-      <div className="tree-select-wrapper">
+      <div className={styles.wrap}>
         <TreeSelect
           className={`${className}`}
           placeholder={placeholder}
@@ -48,6 +48,7 @@ class TreeSelectDemo extends Component<Props, State> {
           treeDefaultExpandAll
           onChange={this.onChange}
           allowClear
+          style={{ width: 160 }}
         />
       </div>
     )
