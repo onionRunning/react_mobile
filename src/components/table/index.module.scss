@@ -49,7 +49,7 @@ $item-bg-color: #fff; // 当前页页码背景颜色
   // 重置表头的背景颜色，内容居中显示
   .ant-table-thead>tr>th {
     background-color: #e3e3e3 !important;
-    text-align: center;
+    // text-align: center;
   }
 
   // 将antd表格没有数据时样式隐藏

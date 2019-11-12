@@ -102,6 +102,10 @@ export const subTime = (t: string): string => {
   return t.slice(0, 19).replace('T', ' ')
 }
 
+export const transformTime = (number: number): string => {
+  return moment((number || 0) * 1000).format('YYYY-MM-DD HH:mm:ss')
+}
+
 /**
  * 获取url上的参数的值
  * @param name:类型
