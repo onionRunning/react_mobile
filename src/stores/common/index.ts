@@ -25,7 +25,7 @@ class Common {
   @observable loading: CommonObj = {}
   @observable confirm: CommonObj = {}
   @observable imgView: CommonObj = {}
-
+  @observable timmer: NodeJS.Timeout | undefined
   // 修改hint的状态
   @action changeHint = (type: string, text: string) => {
     this.hint = {
@@ -58,6 +58,15 @@ class Common {
   }
   @action change = () => {
     console.log('xxx')
+  }
+  @action composeLoading = async (cb: () => void) => {
+    await this.changeLoading(true)
+    if (typeof cb === 'function') {
+      await cb()
+    }
+    this.timmer = setTimeout(() => {
+      this.changeLoading(false)
+    }, 500)
   }
 }
 export default Common

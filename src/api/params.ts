@@ -1,6 +1,6 @@
 import * as loginParams from 'interface/login'
-
-export { loginParams }
+import * as orders from 'interface/orders'
+export { loginParams, orders }
 // 请求参数
 // 登陆参数
 export interface LoginParams {
