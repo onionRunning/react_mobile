@@ -2,7 +2,8 @@
 export const intoDetail = {
   ORDERS: 'orders',
   MYORDER: 'my_orders',
-  REPAYMENT: 'repayments'
+  REPAYMENT: 'repayments',
+  BLACKORDER: 'black_list'
 }
 
 // 类型转换

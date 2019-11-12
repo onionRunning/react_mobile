@@ -100,7 +100,37 @@ export const OrderAllStatus = [
     value: 'ApplicationCanceled'
   }
 ]
-
+// 黑名单列表下的类型
+export const black_type = [
+  {
+    label: 'All',
+    value: ''
+  },
+  {
+    label: 'Risk Control Reject',
+    value: 'RiskControlReject'
+  },
+  {
+    label: 'Auditing Passed',
+    value: 'AuditingPassed'
+  },
+  {
+    label: 'Initial Auditing Reject',
+    value: 'InitialAuditingReject'
+  },
+  {
+    label: 'Auto Reject',
+    value: 'AutoReject'
+  },
+  {
+    label: 'Auditing Reject',
+    value: 'AuditingReject'
+  },
+  {
+    label: 'Application Canceled',
+    value: 'ApplicationCanceled'
+  }
+]
 // 订单类型
 export const OrderTypes = [
   {

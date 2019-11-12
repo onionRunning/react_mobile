@@ -1,3 +1,24 @@
+commit 8335e29280a8e65a29d8087f8596d8c13c8a32f7
+Author: wangcong <wangcong@mintq.com>
+Date:   Tue Nov 12 12:20:17 2019 +0800
+
+    添加订单列表
+
+lastgitcommit.text
+src/api/index.ts
+src/components/listCondition/index.tsx
+src/components/select/index.tsx
+src/containers/lists/orders/addBlack/const.tsx
+src/containers/lists/orders/const.ts
+src/containers/lists/orders/myOrders/index.tsx
+src/containers/lists/orders/myOrders/utils.tsx
+src/containers/lists/orders/orderLists/index.tsx
+src/containers/lists/orders/orderLists/utils.tsx
+src/global/constants.ts
+src/global/method.ts
+src/interface/orders/index.ts
+src/stores/orders/orderLists/index.ts
+
 commit 335ea33eb032c037fe8c2208c2ad63502ffe5619
 Merge: 10167fb 50d1c00
 Author: wangcong <wangcong@mintq.com>
@@ -55,25 +76,3 @@ Author: Bonnie-lu <867454489@qq.com>
 Date:   Mon Nov 11 16:25:27 2019 +0800
 
     merge master 解决合并冲突
-
-commit 60b50831789e95255c7088d7fc60d010296ca646
-Author: Bonnie-lu <867454489@qq.com>
-Date:   Mon Nov 11 16:20:15 2019 +0800
-
-    add : lendings ,repayments
-
-src/components/listCondition/index.tsx
-src/components/switch/index.tsx
-src/containers/auth/index.tsx
-src/containers/lists/lendings/const.test.tsx
-src/containers/lists/lendings/const.tsx
-src/containers/lists/lendings/index.module.scss
-src/containers/lists/lendings/index.test.tsx
-src/containers/lists/lendings/index.tsx
-src/containers/lists/repayments/config.tsx
-src/containers/lists/repayments/index.test.tsx
-src/containers/lists/repayments/index.tsx
-src/containers/lists/repayments/uitls.ts
-src/stores/lendings/index.ts
-src/stores/repayments/index.ts
-src/stores/root.ts

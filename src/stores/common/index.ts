@@ -16,14 +16,18 @@ interface ImgProps {
 }
 
 interface ConfirmProps {
-  isShow: boolean
-  showSelect: () => void
+  show?: boolean
+  showSelect?: () => void
+  title?: string
+  text?: string
+  onOk?: () => void
+  onCancel?: () => void
 }
 class Common {
   // loading 是否开启
   @observable hint: CommonObj = {}
   @observable loading: CommonObj = {}
-  @observable confirm: CommonObj = {}
+  @observable confirm: ConfirmProps = {}
   @observable imgView: CommonObj = {}
   @observable timmer: NodeJS.Timeout | undefined
   // 修改hint的状态
@@ -52,8 +56,7 @@ class Common {
 
   @action changeConfirm = (temp: ConfirmProps) => {
     this.confirm = {
-      show: temp.isShow,
-      showSelect: temp.showSelect
+      ...temp
     }
   }
   @action change = () => {

@@ -1,8 +1,7 @@
 import React from 'react'
 import { formType } from 'global/constants'
 import { formatTime, formatOfOrderType } from 'global/method'
-// import { userPermission } from 'design/permission'
-import { AllIdType } from '../const'
+import { AllIdType, TimeRange, black_type, DEFAULT_CHOSE } from '../const'
 
 export const turnToNumber = ['operator_id']
 
@@ -60,24 +59,14 @@ export const tabBlackTitle = (): any => [
     }
   },
   {
-    title: 'ID type1',
+    title: 'ID type',
     dataIndex: 'id_type',
     key: 'id_type'
   },
   {
-    title: 'ID No1',
+    title: 'ID No',
     dataIndex: 'id_num',
     key: 'id_num'
-  },
-  {
-    title: 'ID type2',
-    dataIndex: 'id_type_2',
-    key: 'id_type_2'
-  },
-  {
-    title: 'ID No2',
-    dataIndex: 'id_num_2',
-    key: 'id_num_2'
   },
   {
     title: 'Status',
@@ -114,16 +103,7 @@ export const searchBlackConfig: any = [
     label: 'Review time:',
     key: 'time2',
     disabledDate: true,
-    range: {
-      start: {
-        placeholder: 'start time',
-        key: 'approved_time_start'
-      },
-      end: {
-        placeholder: 'end time',
-        key: 'approved_time_end'
-      }
-    }
+    range: TimeRange('approved_time_start', 'approved_time_end')
   },
   {
     formType: formType.SEARCH,
@@ -141,70 +121,19 @@ export const searchBlackConfig: any = [
     formType: formType.SELECT,
     label: 'Status:',
     key: 'application_status',
-    data: [
-      {
-        label: 'All',
-        value: ''
-      },
-      {
-        label: 'Risk Control Reject',
-        value: 'RiskControlReject'
-      },
-      {
-        label: 'Auditing Passed',
-        value: 'AuditingPassed'
-      },
-      {
-        label: 'Initial Auditing Reject',
-        value: 'InitialAuditingReject'
-      },
-      {
-        label: 'Auto Reject',
-        value: 'AutoReject'
-      },
-      {
-        label: 'Auditing Reject',
-        value: 'AuditingReject'
-      },
-      {
-        label: 'Application Canceled',
-        value: 'ApplicationCanceled'
-      }
-    ]
+    data: black_type
   },
   {
     formType: formType.SELECT,
     label: 'Product:', // 产品
     key: 'product_name',
-    data: [
-      {
-        label: 'All',
-        value: ''
-      },
-      {
-        label: 'Peso2go',
-        value: 'Peso2go'
-      },
-      {
-        label: 'CashNiJuan',
-        value: 'CashNiJuan'
-      },
-      {
-        label: 'JetPeso',
-        value: 'JetPeso'
-      }
-    ]
+    data: DEFAULT_CHOSE
   },
   {
     formType: formType.SELECT,
     label: 'Reviewer:', // 审核人
     key: 'operator_id',
-    data: [
-      {
-        label: 'All',
-        value: ''
-      }
-    ]
+    data: DEFAULT_CHOSE
   }
 ]
 
@@ -212,12 +141,14 @@ export const searchBlackConfig: any = [
 export const blackBtnItems = () => {
   return [
     {
-      type: 'query',
+      type: 'primary',
+      key: 'inquire',
       text: 'Inquire'
     },
     {
-      type: 'add',
+      type: 'black',
       className: 'sub-btn',
+      key: 'add_black',
       text: 'Add Black',
       hasPermission: true
     }
@@ -237,3 +168,14 @@ export const getOrderNo = (chose: number[], all: any[]) => {
     })
     .filter(item => item)
 }
+// init state
+export const initRequest = {
+  page: 1,
+  per_page: 10,
+  sort_value: 'application_finish_time', // 需要排序字段
+  sort_order: 'desc' // 排序的方法 asc desc
+}
+
+// consts
+export const EXIT = 'exit'
+export const addText = 'are you sure add black list!'

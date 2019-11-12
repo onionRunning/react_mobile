@@ -319,7 +319,7 @@ export class Api {
 
   // 黑名单管理列表
   queryBlacklistManagementLists = (payload: any) => {
-    return this.post<any>('/back_mgr/query_blacklist_mng', payload)
+    return this.post<any>('/back_mgr/get_order_page_blacklist', payload)
   }
 
   // 加入黑名单
@@ -337,7 +337,7 @@ export class Api {
     return this.download<any>('/back_mgr/query_blacklist', payload)
   }
 
-  // 加入黑名单
+  // 移除黑名单
   removeBlacklist = (payload: any) => {
     return this.post<any>('/back_mgr/remove_blacklist', payload)
   }
