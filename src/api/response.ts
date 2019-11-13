@@ -229,6 +229,8 @@ export interface PermissionsList {
   parent_no: number
   name: string
   notes: string
+  key?: number | string
+  title?: string
 }
 
 export interface CallRecordsListRes {

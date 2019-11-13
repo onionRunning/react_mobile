@@ -8,7 +8,7 @@ interface Props {
   onChange: (req: iRole.ReqType) => void
 }
 
-export class UserInfo extends Component<Props, any> {
+class UserInfo extends Component<Props, any> {
   constructor(props: Props) {
     super(props)
     this.state = {

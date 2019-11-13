@@ -35,3 +35,31 @@ export interface State {
   request: RoleRequest
   userDetail?: any
 }
+
+export type TableSortType = 'ascend' | 'descend' | ''
+
+export type SortType = 'asc' | 'desc' | ''
+
+export interface RoleListReq {
+  page: number
+  per_page: number
+  search?: string
+  sort?: SortType
+}
+
+export interface Pagination {
+  current: number
+  page_size: number
+  total: number
+}
+
+export interface RoleListItem {
+  created_time: number
+  id: number
+  notes: string
+  role_name: string
+}
+
+export interface RoleDetailReq {
+  id: number
+}

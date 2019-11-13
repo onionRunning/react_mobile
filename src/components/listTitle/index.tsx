@@ -5,8 +5,8 @@ interface Props {
   children: React.ReactNode
 }
 
-const listTitle: React.FC<Props> = ({ children }) => {
+const ListTitle: React.FC<Props> = ({ children }) => {
   return <h3 className={styles.wrap}>{children}</h3>
 }
 
-export default listTitle
+export default ListTitle

@@ -28,8 +28,8 @@ describe('userlist', () => {
     changeUserStatus: jest.fn(),
     getRoleListData: jest.fn(),
     getUserDetailData: jest.fn(),
-    addUsersDetail: jest.fn(),
-    editUsersDetail: jest.fn()
+    addUsers: jest.fn(),
+    editUsers: jest.fn()
   }
   const mockProps = {
     user,
@@ -88,22 +88,32 @@ describe('userlist', () => {
       ...instance.state.request,
       page: 1
     })
+    instance.handleBtnclick('add')
+    expect(mockProps.history.push).toBeCalledWith('/auth/users_page/add')
   })
 
-  it('handleInquire', () => {
-    instance.handleInquire()
+  it('handleClickInquire', () => {
+    instance.handleClickInquire()
     expect(instance.state.request).toEqual({
       ...instance.state.request,
       page: 1
     })
   })
 
+  it('handleClickAdd', () => {
+    instance.handleClickAdd()
+    expect(mockProps.history.push).toBeCalledWith('/auth/users_page/add')
+  })
+
   it('operateUser', () => {
     instance.operateUser(0, 'normal')()
-    expect(mockProps.user.changeUserStatus).toBeCalledWith({
-      id: 0,
-      frozen: 'frozen'
-    })
+    expect(mockProps.user.changeUserStatus).toBeCalledWith(
+      {
+        id: 0,
+        frozen: 'frozen'
+      },
+      instance.getUserList
+    )
   })
 
   it('handleTableChange', () => {

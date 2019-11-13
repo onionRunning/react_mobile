@@ -1,5 +1,5 @@
 import { observable, action } from 'mobx'
-import Message from 'components/Message'
+import Message from 'components/message'
 import api from 'api'
 import {
   Pagination,
@@ -7,11 +7,12 @@ import {
   UserListItem,
   ChangeUserReq,
   UserDetaiReq,
+  UserDetailRes,
   RoleListReq,
   AddUsersReq,
   EditUsersReq
 } from 'interface/user'
-import message from 'components/Message'
+import message from 'components/message'
 import { statusType } from 'containers/lists/settings/user/userList/config'
 
 class User {
@@ -38,12 +39,12 @@ class User {
       Message.error(err)
     }
   }
-  @action changeUserStatus = async (payload: ChangeUserReq) => {
+  @action changeUserStatus = async (payload: ChangeUserReq, callback: () => void) => {
     try {
       let res = await api.changeUserStatus(payload)
       if (res.success) {
         message.success(payload.frozen === statusType.FROZEN ? 'freeze success!' : 'unfreeze success!')
-        return true
+        callback()
       } else {
         Message.error(res.info)
       }
@@ -51,13 +52,11 @@ class User {
       Message.error(err)
     }
   }
-  @action getUserDetailData = async (payload: UserDetaiReq) => {
+  @action getUserDetailData = async (payload: UserDetaiReq, callback: (userDetail: UserDetailRes) => void) => {
     try {
       let res = await api.queryUserDetails(payload)
       if (res.success && res.data) {
-        // console.log(res)
-        // const { list = [] } = res.data
-        return res.data
+        callback(res.data)
       } else {
         Message.error(res.info)
       }
@@ -65,12 +64,12 @@ class User {
       Message.error(err)
     }
   }
-  @action getRoleListData = async (payload: RoleListReq) => {
+  @action getRoleListData = async (payload: RoleListReq, callback: (roleList: any) => void) => {
     try {
       let res = await api.getRoleList(payload)
       if (res.success && res.data) {
         const { list = [] } = res.data
-        return list
+        callback(list)
       } else {
         Message.error(res.info)
       }
@@ -78,13 +77,13 @@ class User {
       Message.error(err)
     }
   }
-  @action addUsersDetail = async (payload: AddUsersReq) => {
+  @action addUsers = async (payload: AddUsersReq, callback: () => void) => {
     try {
       let res = await api.addUsers(payload)
       console.log(res)
       if (res.success) {
         Message.success('add successfully!')
-        return true
+        callback()
       } else {
         Message.error(res.info)
       }
@@ -92,13 +91,13 @@ class User {
       Message.error(err)
     }
   }
-  @action editUsersDetail = async (payload: EditUsersReq) => {
+  @action editUsers = async (payload: EditUsersReq, callback: () => void) => {
     try {
       let res = await api.editUsers(payload)
       console.log(res)
       if (res.success) {
         Message.success('edit successfully!')
-        return true
+        callback()
       } else {
         Message.error(res.info)
       }

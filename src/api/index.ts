@@ -56,7 +56,8 @@ export class Api {
 
   // 新版本登陆
   postLogin = (payload: params.loginParams.LoginReq) => {
-    return this.post<params.loginParams.LoginRes>(`/login`, payload)
+    // return this.post<params.loginParams.LoginRes>(`/login`, payload)
+    return this.post<params.loginParams.LoginRes>(`/back_mgr/login`, payload)
   }
 
   // 修改密码
@@ -226,7 +227,7 @@ export class Api {
   }
 
   /**
-   * 角色管理
+   * 角色管理模块
    */
   // 获取角色列表
   getRoleList = (payload: params.GetRoleListReq) => {
@@ -253,10 +254,15 @@ export class Api {
     return this.post('/back_mgr/update_role', payload)
   }
 
+  /**
+   * 用户管理模块
+   */
+
   // 用户模块列表
   getUserLists = (payload: any) => {
     return this.post<any>(`/back_mgr/read_operator_list`, payload)
   }
+
   // 冻结或解冻用户
   changeUserStatus = (payload: any) => {
     return this.post<any>(`/back_mgr/frozen_operator`, payload)

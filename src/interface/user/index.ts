@@ -38,14 +38,31 @@ export interface UserDetaiReq {
   id: number
 }
 
+export interface UserDetailRes {
+  id: number
+  name: string
+  phone: string
+  email: string
+  role_info: RoleInfoItem[]
+}
+
+export interface RoleInfoItem {
+  id: number
+}
+
 export interface RoleListReq {
   page: number
   per_page: number
+  search?: string
+  sort?: SortType
 }
 
 export interface RoleListItem {
   id: number
   role_name: string
+}
+
+export interface RoleListCheckBoxItem {
   value?: number
   label?: string
 }

@@ -69,3 +69,13 @@ export let imgPath = '/'
 if (process.env.NODE_ENV === 'development') {
   imgPath = 'http://172.16.0.40:32004/'
 }
+
+export interface BtnItem {
+  text: string
+  key: string
+  type: 'default' | 'primary' | 'black' | 'blue'
+  className?: string
+  authorityId?: string
+  noShow?: boolean
+  id?: string
+}

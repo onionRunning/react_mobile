@@ -1,63 +1,93 @@
-commit fa421d6c7de941afa41411806e479be806b46f66
-Author: wangcong <wangcong@mintq.com>
-Date:   Mon Nov 11 10:58:00 2019 +0800
+commit dada852d892beca3571ca981fe64b54e779c2e44
+Merge: 5896b39 335ea33
+Author: hhh <huanghuihui@mintechai.com>
+Date:   Tue Nov 12 11:47:44 2019 +0800
 
-    fix:test
+    解决冲突
 
-gitdifftest.js
+commit 5896b39bc7f9e9f380eb096edccabd8afc22da93
+Author: hhh <huanghuihui@mintechai.com>
+Date:   Tue Nov 12 11:42:14 2019 +0800
+
+    完成用户模块
+
 lastgitcommit.text
+src/api/params.ts
+src/api/response.ts
+src/components/button/index.module.scss
+src/components/button/index.tsx
+src/components/table/index.module.scss
+src/components/treeSelect/index.module.scss
+src/components/treeSelect/index.tsx
+src/components/treeSelect/treeSelect.scss
+src/containers/auth/index.tsx
+src/containers/lists/settings/user/userDetail/btn/index.module.scss
+src/containers/lists/settings/user/userDetail/btn/index.test.tsx
+src/containers/lists/settings/user/userDetail/btn/index.tsx
+src/containers/lists/settings/user/userDetail/config.ts
+src/containers/lists/settings/user/userDetail/detailIpt/index.module.scss
+src/containers/lists/settings/user/userDetail/detailIpt/index.test.tsx
+src/containers/lists/settings/user/userDetail/detailIpt/index.tsx
+src/containers/lists/settings/user/userDetail/index.module.scss
+src/containers/lists/settings/user/userDetail/index.tsx
+src/containers/lists/settings/user/userDetail/userRoles/index.module.scss
+src/containers/lists/settings/user/userDetail/userRoles/index.test.tsx
+src/containers/lists/settings/user/userDetail/userRoles/index.tsx
+src/containers/lists/settings/user/userDetail/utils.ts
+src/containers/lists/settings/user/userList/config.ts
+src/containers/lists/settings/user/userList/index.test.tsx
+src/containers/lists/settings/user/userList/index.tsx
+src/global/method.ts
+src/interface/user/index.ts
+src/stores/user/index.ts
 
-commit 6694e2bbe6c28ca05a5fb18a3ad95a3a4257d649
+commit 335ea33eb032c037fe8c2208c2ad63502ffe5619
+Merge: 10167fb 50d1c00
 Author: wangcong <wangcong@mintq.com>
-Date:   Mon Nov 11 10:56:20 2019 +0800
+Date:   Mon Nov 11 19:35:02 2019 +0800
 
-    fix:test
+    merge:fix 冲突
 
-.gitignore
+commit 10167fbc64df6fa50d36361531631d8c01932afa
+Author: wangcong <wangcong@mintq.com>
+Date:   Mon Nov 11 19:32:54 2019 +0800
+
+    add:订单列表
+
+back_api.md
 gitdifftest.js
-lastgitcommit.text
-
-commit cc0a0967e9331e239776d375eaf1bce080518213
-Author: wangcong <wangcong@mintq.com>
-Date:   Mon Nov 11 10:45:09 2019 +0800
-
-    add:我的订单
-
 lastgitcommit.text
 package.json
 src/api/index.ts
-src/api/params.ts
+src/components/treeSelect/treeSelect.scss
 src/containers/auth/index.tsx
-src/containers/lists/myOrders/const.test.tsx
-src/containers/lists/myOrders/const.tsx
-src/containers/lists/myOrders/index.test.tsx
-src/containers/lists/myOrders/index.tsx
+src/containers/lists/orders/const.test.ts
 src/containers/lists/orders/const.ts
 src/containers/lists/orders/myOrders/index.module.scss
+src/containers/lists/orders/myOrders/index.test.tsx
 src/containers/lists/orders/myOrders/index.tsx
+src/containers/lists/orders/myOrders/utils.test.ts
 src/containers/lists/orders/myOrders/utils.tsx
-src/containers/login/index.test.tsx
-src/containers/login/index.tsx
-src/containers/login/utils.ts
+src/containers/lists/orders/orderLists/index.scss
+src/containers/lists/orders/orderLists/index.tsx
+src/containers/lists/orders/orderLists/utils.tsx
+src/global/style.scss
+src/index.scss
+src/interface/common/index.ts
 src/interface/orders/index.ts
+src/stores/common/index.ts
 src/stores/orders/index.ts
+src/stores/orders/myOrders/index.ts
+src/stores/orders/orderLists/index.ts
 src/stores/root.ts
 
-commit 2d93416c937420298d40c4c36b698f8289f9761e
-Author: hhh <huanghuihui@mintechai.com>
-Date:   Mon Nov 11 09:40:10 2019 +0800
+commit 50d1c0035ff5fe8b6587031960b4b08be4bd34aa
+Merge: fa421d6 badb518
+Author: 卢宝宝 <lubaobao@mintechai.com>
+Date:   Mon Nov 11 16:29:05 2019 +0800
 
-    test
-
-lastgitcommit.text
-src/containers/login/index.tsx
-
-commit 49577875d552e95bfc91ebe1bca53661181d1139
-Author: hhh <huanghuihui@mintechai.com>
-Date:   Mon Nov 11 09:38:29 2019 +0800
-
-    修改配置
-
-.gitignore
-lastgitcommit.text
-temp.txt
+    合并分支 'j-lbb' 到 'master'
+    
+    J lbb
+    
+    查看合并请求 philippines/jrocketmanager!7
