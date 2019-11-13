@@ -6,6 +6,16 @@ import * as utils from './utils'
 import { LoginRes } from 'interface/login'
 import { Res } from 'interface/common'
 import errors from 'global/errors'
+import api from 'api'
+jest.mock('api')
+;(api.postLogin as any).mockImplementation(() => {
+  return new Promise(resolve => {
+    resolve({
+      success: true,
+      data: {}
+    })
+  })
+})
 
 describe('Login', () => {
   // const mockClear = jest.spyOn(global.sessionStorage.__proto__, 'clear')
@@ -75,9 +85,15 @@ describe('Login', () => {
       account: '371975156@qq.com',
       password: '123456'
     }
+    const str = '6666666@qq'
+    const user4 = {
+      account: str.repeat(50) + '.com',
+      password: '666'
+    }
     expect(utils.vertify(user1)).toBe(errors.INPUT_EMPTY_ERR)
     expect(utils.vertify(user2)).toBe(errors.INPUT_EMPTY_ERR)
     expect(utils.vertify(user3)).toBe(undefined)
+    expect(utils.vertify(user4)).toBe(errors.INPUT_VALID_EMAIL)
   })
 
   it('handleSubmit', () => {
@@ -97,10 +113,6 @@ describe('Login', () => {
     })
 
     form.simulate('submit', e)
-    // expect(mockProps.dispatch).toBeCalledWith({
-    //   type: TYPE.SEND_ERROR,
-    //   error: 'Please enter a valid email address'
-    // })
 
     const user2 = {
       account: '371975156@qq.com',
@@ -125,17 +137,13 @@ describe('Login', () => {
       password: user3.password
     })
     form.simulate('submit', e)
-    // expect(mockProps.dispatch).toBeCalledWith({
-    //   type: TYPE.LOGIN_REQUEST,
-    //   payload: user3,
-    //   callback: instance.handleLogin
-    // })
   })
 
   it('handleLogin', () => {
-    instance.handleLogin('false')
-    global.sessionStorage.setItem('isFirstLogin', 'true')
     instance.handleLogin('true')
+    expect(mockProps.history.replace).toBeCalledWith('/password')
+    instance.handleLogin('false')
+    expect(mockProps.history.replace).toBeCalledWith('/auth')
   })
 
   // new
@@ -164,5 +172,9 @@ describe('Login', () => {
     }
     utils.saveLocalData(data as any)
     expect(sessionStorage.getItem('userId')).toBe('13')
+  })
+  it('finnalSubmit', async () => {
+    await instance.finnalSubmit({ account: 'x', password: 'x' })
+    expect(mockProps.common.changeLoading).toBeCalledWith(false)
   })
 })

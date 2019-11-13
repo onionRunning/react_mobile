@@ -15,7 +15,7 @@ describe('const test', () => {
   })
 
   it('render Operating', () => {
-    const tbs = utils.geTableTitle().filter(item => item.title === 'Status')[0]
+    const tbs = utils.geTableTitle().filter(item => item.title === 'Operating')[0]
     expect(tbs.render!('xxxxxxx', {}, 1)).toBeTruthy()
   })
 

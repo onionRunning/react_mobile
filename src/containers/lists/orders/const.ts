@@ -218,6 +218,7 @@ export const addFont = (val: TempInfo[], spec?: string) => {
 
 type Product = string | number
 export const handArr = (arr: Product[]) => {
+  if (!Array.isArray(arr)) return []
   return arr.map(item => {
     return { label: item, value: item }
   })
@@ -238,11 +239,11 @@ export const handleData = (config: TempInfo[], product: string) => {
   return config.findIndex(item => item.key === product)
 }
 
-export const selectHandler = (config: any[], product?: any, person?: TempInfo[]) => {
+export const handlerSelectCont = (config: any[], product?: any, person?: TempInfo[]) => {
   const nConfig = [...config]
-  const { loan_days = '', products = '' } = product ? product : {}
-  products && (nConfig[handleData(config, 'product_name')].data = addFont(handArr(products || [])))
-  loan_days && (nConfig[handleData(config, 'loan_days')].data = addFont(handArr(loan_days || []), 'special'))
+  const { loan_days, products } = product
+  products && (nConfig[handleData(config, 'product_name')].data = addFont(handArr(products)!))
+  loan_days && (nConfig[handleData(config, 'loan_days')].data = addFont(handArr(loan_days)!, 'special'))
   person && (nConfig[handleData(config, 'operator_id')].data = filterPerson(handerPerson(person!)))
   return nConfig
 }

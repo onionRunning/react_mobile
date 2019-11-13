@@ -55,7 +55,7 @@ export class BlackLists extends Component<Props, any> {
       onChange: this.changeChose, //勾选函数
       selectedRowKeys: this.state.checkRow // 用于重置
     }
-    // const nfilterConfig = selectHandler(utils.filterConfig, { ...product.products }, blackPerson)
+    // const nfilterConfig = handlerSelectCont(utils.filterConfig, { ...product.products }, blackPerson)
     return (
       <div className={styles.page}>
         <h3>BlankList Order</h3>

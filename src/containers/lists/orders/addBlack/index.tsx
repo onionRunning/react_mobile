@@ -51,7 +51,7 @@ export class BlackOrder extends Component<Props, State> {
   render() {
     const { blackMngLists, blackMngPage, blackMngStatus } = this.props.blacks
     const tabTitle = utils.tabBlackTitle()
-    // const nFilterData = selectHandler(utils.searchBlackConfig, { ...product.products }, blackPerson)
+    // const nFilterData = handlerSelectCont(utils.searchBlackConfig, { ...product.products }, blackPerson)
     const rowSelection: any = {
       onChange: this.changeChose, //勾选函数
       selectedRowKeys: this.state.checkRow // 用于重置

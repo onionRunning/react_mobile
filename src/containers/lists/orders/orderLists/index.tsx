@@ -7,7 +7,7 @@ import Table from 'components/table'
 import OrderListStore from 'stores/orders/orderLists'
 import Common from 'stores/common'
 import * as utils from './utils'
-import { FillInfo, getSortValue, DEFAULT_PAGE, DEFAULT_PER_PAGE, ItemProps, selectHandler } from '../const'
+import { FillInfo, getSortValue, DEFAULT_PAGE, DEFAULT_PER_PAGE, ItemProps, handlerSelectCont } from '../const'
 import { strTrim } from 'global/method'
 import { intoDetail } from 'global/constants'
 import styles from '../myOrders/index.module.scss'
@@ -39,11 +39,12 @@ export class OrderLists extends Component<Props, State> {
     this.setState({
       request: { ...utils.initRequest }
     })
+    this.props.orderLists.clearData()
   }
   render() {
     const { page, lists, status, users } = this.props.orderLists
     const tabTitle = utils.getTabTitle(this.replaceDetail)
-    const listData = selectHandler(utils.filterData, '', users)
+    const listData = handlerSelectCont(utils.filterData, '', users)
     return (
       <div className={styles.page}>
         <h3>Order list</h3>
@@ -83,9 +84,7 @@ export class OrderLists extends Component<Props, State> {
   }
   // 按钮点击
   handleBtnClick = (type: string) => {
-    console.log(type, 'type')
     type === 'inquery' && this.getOrdersList({ page: 1 })
-    type === 'download' && this.downloadOrder()
   }
 
   // 翻页 + 排序
@@ -112,7 +111,7 @@ export class OrderLists extends Component<Props, State> {
   }
   // 获取产品配置信息
   getProductDetail = () => {
-    console.log('v', 'product')
+    // console.log('v', 'product')
   }
 
   // 获取操作人列表
@@ -120,10 +119,7 @@ export class OrderLists extends Component<Props, State> {
     this.props.orderLists.getOperateUser()
   }
 
-  // 下载订单列表
-  downloadOrder = () => {
-    console.log('download')
-  }
+  // 跳转
   replaceDetail = (item: ItemProps) => () => {
     const { customer_id, order_no, product_name, mobile_id } = item
     const payload = {

@@ -1,7 +1,6 @@
 import React from 'react'
 import { formType } from 'global/constants'
 import { formatTime, formatTf } from 'global/method'
-import { userPermission } from 'design/permission'
 import { AllIdType, TimeRange, OrderAllStatus, OrderTypes, DEFAULT_CHOSE } from '../const'
 
 // 需要转换成数值型数据的字段
@@ -72,20 +71,7 @@ export const filterData = [
 ]
 // 筛选部分按钮配置信息
 export const btnItems = () => {
-  return [
-    {
-      type: 'primary',
-      key: 'inquery',
-      text: 'Inquire'
-    },
-    {
-      type: 'black',
-      key: 'download',
-      className: 'sub-btn-blue',
-      text: 'Export order',
-      hasPermission: true
-    }
-  ]
+  return [{ type: 'primary', key: 'inquery', text: 'Inquire' }]
 }
 
 export const getTabTitle = (clickCallback: (...args: any) => any): any => {
@@ -167,10 +153,9 @@ export const getTabTitle = (clickCallback: (...args: any) => any): any => {
       key: 'operating',
       width: 120,
       render: (item: any, _: string, index: number) => {
-        const { order_list_func } = userPermission.finnalPermission!
         return (
           <span onClick={clickCallback(item)} className={`blue-color operating`} id={`inquire-${index}`}>
-            {order_list_func.p10101 && 'Inquire'}
+            {'Inquire'}
           </span>
         )
       }
