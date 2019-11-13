@@ -4,7 +4,7 @@ import { BlackOrder } from './index'
 import Message from 'components/message'
 import errs from 'global/errors'
 import * as utils from './utils'
-jest.mock('components/Message')
+jest.mock('components/message')
 Message.error = jest.fn()
 
 describe('BlackOrder', () => {
