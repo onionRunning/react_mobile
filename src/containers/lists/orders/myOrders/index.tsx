@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
-import { PaginationConfig, SorterResult } from 'antd/lib/table'
+import { PaginationConfig } from 'antd/lib/table'
 import ListCondition from 'components/listCondition'
 import Table from 'components/table'
 import Message from 'components/message'
@@ -88,7 +88,7 @@ export class MyOrder extends Component<Props, State> {
   }
 
   // 翻页 + 排序
-  tableChange = (pag: PaginationConfig, _: object, sorter: SorterResult<any>) => {
+  tableChange = (pag: PaginationConfig, _: Record<keyof never, string[]>, sorter: utils.SorterProps) => {
     const { columnKey, order } = sorter
     const sorts = {
       page: pag.current ? pag.current : DEFAULT_PAGE,

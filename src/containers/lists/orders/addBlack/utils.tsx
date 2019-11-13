@@ -13,7 +13,7 @@ export const reflectStr = (str: string) => {
     .replace('/', ',')
 }
 // 列表选项配置(表头)
-export const tabBlackTitle = (): any => [
+export const tabBlackTitle = () => [
   {
     title: 'Loan ID',
     dataIndex: 'order_no',
@@ -86,7 +86,7 @@ export const tabBlackTitle = (): any => [
 
 // 筛选项配置
 
-export const searchBlackConfig: any = [
+export const searchBlackConfig = [
   {
     formType: formType.RANGE_TIME,
     label: 'Review time:',
@@ -148,7 +148,7 @@ export const blackBtnItems = () => {
 export const getOrderNo = (chose: number[], all: Record<string, string | number>[]) => {
   return chose
     .map(item => {
-      for (var i = 0; i < all.length; i++) {
+      for (let i = 0; i < all.length; i++) {
         if (item === all[i].id) {
           return all[i].order_no
         }
@@ -170,7 +170,3 @@ export const EXIT = 'exit'
 export const addText = 'are you sure add black list!'
 
 // interface
-export interface RowProps<T> {
-  selectedRowKeys?: string[] | number[]
-  onChange?: (selectedRowKeys: string[] | number[], selectedRows: T[]) => void
-}

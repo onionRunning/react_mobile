@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { PaginationConfig, SorterResult } from 'antd/lib/table'
+import { PaginationConfig, SorterResult, ColumnProps } from 'antd/lib/table'
 import { RouteComponentProps } from 'react-router-dom'
 import { inject, observer } from 'mobx-react'
 import ListCondition, { BtnItem } from 'components/listCondition'
@@ -44,7 +44,7 @@ export class OrderLists extends Component<Props, State> {
   render() {
     const { page, lists, status, users } = this.props.orderLists
     const tabTitle = utils.getTabTitle(this.replaceDetail)
-    const listData = handlerSelectCont(utils.filterData, '', users)
+    const listData = handlerSelectCont(utils.filterData, { products: [], loan_days: [] }, users)
     return (
       <div className={styles.page}>
         <h3>Order list</h3>
@@ -59,7 +59,7 @@ export class OrderLists extends Component<Props, State> {
         <div className="list-wapper">
           <Table
             tableData={lists}
-            tableTitle={tabTitle}
+            tableTitle={tabTitle as ColumnProps<{}>[]}
             pagination={page}
             onChange={this.tableChange}
             loading={status}
@@ -88,7 +88,7 @@ export class OrderLists extends Component<Props, State> {
   }
 
   // 翻页 + 排序
-  tableChange = (pag: PaginationConfig, _: object, sorter: SorterResult<any>) => {
+  tableChange = (pag: PaginationConfig, _: {}, sorter: SorterResult<{}>) => {
     const { columnKey, order } = sorter
     const sorts = {
       page: pag.current ? pag.current : DEFAULT_PAGE,

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { MouseEventHandler } from 'react'
 import { formType } from 'global/constants'
 import { formatTime, formatTf } from 'global/method'
 import { AllIdType, TimeRange, OrderAllStatus, OrderTypes, DEFAULT_CHOSE } from '../const'
@@ -74,7 +74,7 @@ export const btnItems = () => {
   return [{ type: 'primary', key: 'inquery', text: 'Inquire' }]
 }
 
-export const getTabTitle = (clickCallback: (...args: any) => any): any => {
+export const getTabTitle = (clickCallback: (args: {}) => MouseEventHandler<{}>) => {
   return [
     {
       title: 'Loan ID',
@@ -152,7 +152,7 @@ export const getTabTitle = (clickCallback: (...args: any) => any): any => {
       dataIndex: '',
       key: 'operating',
       width: 120,
-      render: (item: any, _: string, index: number) => {
+      render: (item: {}, _: string, index: number) => {
         return (
           <span onClick={clickCallback(item)} className={`blue-color operating`} id={`inquire-${index}`}>
             {'Inquire'}

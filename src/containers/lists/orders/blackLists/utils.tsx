@@ -1,20 +1,20 @@
-import React from 'react'
+import React, { MouseEventHandler } from 'react'
 import { formatTime } from 'global/method'
 import { formType } from 'global/constants'
 
 import { AllIdType, TimeRange, TempInfo } from '../const'
 
 // 黑名单映射关系
-export const blackReflect: any = {
+export const blackReflect = {
   ManuallyAddedBlacklist: 'BlackList 1',
   OverdueBlacklist: 'BlackList 2'
 }
-
+type BlackType = 'ManuallyAddedBlacklist' | 'OverdueBlacklist'
 // 需要转换成数值型数据的字段
 export const turnToNumber = ['operator_id']
 
 // 表格头部配置信息
-export const getTableTitle = (clickCallback: (...args: any) => any): any => [
+export const getTableTitle = (clickCallback: (args: {}) => MouseEventHandler<{}>) => [
   {
     title: 'Loan ID', // 订单编号
     dataIndex: 'order_no',
@@ -49,7 +49,7 @@ export const getTableTitle = (clickCallback: (...args: any) => any): any => [
     title: 'Blacklist Type', // 黑名单类型
     dataIndex: 'blacklist_type',
     key: 'blacklist_type',
-    render: (black_type: string) => {
+    render: (black_type: BlackType) => {
       return <span>{blackReflect[black_type]}</span>
     }
   },

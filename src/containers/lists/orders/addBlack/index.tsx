@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { PaginationConfig, SorterResult } from 'antd/lib/table'
+import { PaginationConfig, SorterResult, ColumnProps } from 'antd/lib/table'
 import { inject, observer } from 'mobx-react'
 import ListCondition, { BtnItem } from 'components/listCondition'
 import Table from 'components/table'
@@ -10,7 +10,7 @@ import * as utils from './utils'
 import { strTrim, composeFunc } from 'global/method'
 import errs from 'global/errors'
 import { MixProps } from 'global/interface'
-import { getSortValue, DEFAULT_PAGE, DEFAULT_PER_PAGE, FillInfo } from '../const'
+import { getSortValue, DEFAULT_PAGE, DEFAULT_PER_PAGE, FillInfo, RowProps } from '../const'
 
 import styles from '../myOrders/index.module.scss'
 
@@ -20,7 +20,13 @@ interface Props extends MixProps {
 }
 interface State {
   request: FillInfo
-  [p: string]: any
+  chose: Record<string, string | number>[]
+  checkRow: number[] | string[]
+  blacklist_type: string
+  addBlack: {
+    operator_name: string | null
+    operator_id: number
+  }
 }
 @inject('common', 'blacks')
 @observer
@@ -52,7 +58,7 @@ export class BlackOrder extends Component<Props, State> {
   render() {
     const { blackMngLists, blackMngPage, blackMngStatus } = this.props.blacks
     const tabTitle = utils.tabBlackTitle()
-    const rowSelection: utils.RowProps<FillInfo> = {
+    const rowSelection: RowProps<FillInfo> = {
       onChange: this.changeChose, //勾选函数
       selectedRowKeys: this.state.checkRow // 用于重置
     }
@@ -70,7 +76,7 @@ export class BlackOrder extends Component<Props, State> {
         <div className="list-wapper">
           <Table
             tableData={blackMngLists}
-            tableTitle={tabTitle}
+            tableTitle={tabTitle as ColumnProps<{}>[]}
             pagination={blackMngPage}
             onChange={this.tableChange}
             rowSelection={rowSelection}
@@ -99,7 +105,7 @@ export class BlackOrder extends Component<Props, State> {
   }
 
   // 翻页 + 排序
-  tableChange = (pag: PaginationConfig, _: object, sorter: SorterResult<any>) => {
+  tableChange = (pag: PaginationConfig, _: {}, sorter: SorterResult<{}>) => {
     const { columnKey, order } = sorter
     const sorts = {
       page: pag.current ? pag.current : DEFAULT_PAGE,
@@ -163,7 +169,7 @@ export class BlackOrder extends Component<Props, State> {
   // 开始添加黑名单
   startAddblack = () => {
     const { checkRow, addBlack } = this.state
-    const vMaps = utils.getOrderNo(checkRow, this.props.blacks.blackMngLists)
+    const vMaps = utils.getOrderNo(checkRow as number[], this.props.blacks.blackMngLists)
     const params = {
       order_no: vMaps,
       order_count: vMaps.length,

@@ -26,7 +26,7 @@ export const GRAB = hint.GRAB_SUCCESS
 
 // 表格模块
 
-export const geTableTitle = (): ColumnProps<object>[] => [
+export const geTableTitle = (): ColumnProps<{}>[] => [
   {
     // 订单编号
     title: 'Loan ID',
@@ -93,7 +93,7 @@ export const geTableTitle = (): ColumnProps<object>[] => [
     title: 'Operating',
     dataIndex: '',
     key: 'operating',
-    render: (_x: string, _record: any, index: number) => {
+    render: (_x: string, _record: {}, index: number) => {
       return (
         <span className={'blue-color operating'} id={`inquire-${index}`}>
           {'Inquire'}
@@ -104,7 +104,7 @@ export const geTableTitle = (): ColumnProps<object>[] => [
 ]
 
 // 筛选条件
-export const filterData: any = [
+export const filterData = [
   {
     formType: formType.RANGE_TIME,
     label: 'Application time:',
@@ -154,3 +154,9 @@ export const filterData: any = [
     data: []
   }
 ]
+
+// interface
+export interface SorterProps {
+  columnKey: string
+  order: 'descend' | 'ascend'
+}
