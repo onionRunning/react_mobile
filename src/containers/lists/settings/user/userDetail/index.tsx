@@ -4,11 +4,11 @@ import { observer, inject } from 'mobx-react'
 import UserStore from 'stores/user'
 
 import { Type, TitleMap, BtnMap, InputItem } from './config'
-import { UserDetaiReq, RoleListReq } from 'interface/user'
-import UserInfo from './detailIpt'
+import { UserDetailRes, RoleInfoItem, RoleListItem, RoleListCheckBoxItem } from 'interface/user'
+import UserInfo from './userInfo'
 import UserRoles from './userRoles'
 import Btn from './btn'
-import Message from 'components/Message'
+import Message from 'components/message'
 import { addVertify } from './utils'
 import styles from './index.module.scss'
 
@@ -27,8 +27,7 @@ export interface State {
     phone: string
     email: string
   }
-  userDetail: any
-  roleList: any[]
+  roleList: RoleListCheckBoxItem[]
   role_id: number[]
 }
 
@@ -43,7 +42,6 @@ class UserDetail extends Component<Props, State> {
         phone: '',
         email: ''
       },
-      userDetail: {},
       roleList: [],
       role_id: []
     }
@@ -55,13 +53,13 @@ class UserDetail extends Component<Props, State> {
 
   render() {
     const { type } = this.props.match.params
-    const { userDetail, roleList, role_id } = this.state
+    const { request, roleList, role_id } = this.state
     return (
       <div className={styles.page}>
         <header className={styles.header}>
           <span>{TitleMap[type]}</span>
         </header>
-        <UserInfo {...this.props} type={type} userDetail={userDetail} onChange={this.handleInputChange} />
+        <UserInfo {...this.props} type={type} userDetail={request} onChange={this.handleInputChange} />
         <UserRoles
           {...this.props}
           roleList={roleList}
@@ -83,16 +81,16 @@ class UserDetail extends Component<Props, State> {
 
   // 获取用户详情
   getUserDetailData = async (id: number) => {
-    const request: UserDetaiReq = {
-      id
-    }
-    const userDetail = await this.props.user.getUserDetailData(request)
-    const { name, phone, email } = userDetail
-    const selectedRole: number[] = userDetail.role_info.map((el: any) => {
+    await this.props.user.getUserDetailData({ id }, this.handleUserDetailData)
+  }
+
+  // 处理用户数据
+  handleUserDetailData = (userDetail: UserDetailRes) => {
+    const { name, phone, email, role_info } = userDetail
+    const selectedRole: number[] = role_info.map((el: RoleInfoItem) => {
       return el.id
     })
     this.setState({
-      userDetail: { ...userDetail },
       role_id: [...selectedRole],
       request: {
         name,
@@ -104,12 +102,18 @@ class UserDetail extends Component<Props, State> {
 
   // 获取角色列表
   getRoleListData = async () => {
-    const request: RoleListReq = {
-      page: 1,
-      per_page: 1000
-    }
-    const list = await this.props.user.getRoleListData(request)
-    const changedList = list!.map(el => {
+    await this.props.user.getRoleListData(
+      {
+        page: 1,
+        per_page: 1000
+      },
+      this.handleRoleListData
+    )
+  }
+
+  // 处理角色列表数据
+  handleRoleListData = (roleList: RoleListItem[]) => {
+    const changedList: RoleListCheckBoxItem[] = roleList!.map((el: any) => {
       return { label: el.role_name, value: el.id }
     })
     this.setState({
@@ -122,10 +126,6 @@ class UserDetail extends Component<Props, State> {
     this.setState({
       request: {
         ...this.state.request,
-        [item.key]: item.value
-      },
-      userDetail: {
-        ...this.state.userDetail,
         [item.key]: item.value
       }
     })
@@ -140,9 +140,14 @@ class UserDetail extends Component<Props, State> {
 
   // 点击相应的详情操作
   operateBtn = (v: string) => {
-    v === 'return' && this.props.history.goBack()
+    v === 'return' && this.goBack()
     v === 'add' && this.addUsers()
     v === 'edit' && this.editUsers()
+  }
+
+  // 返回上列表页
+  goBack = () => {
+    this.props.history.goBack()
   }
 
   // 新增用户
@@ -154,15 +159,16 @@ class UserDetail extends Component<Props, State> {
     }
     const { role_id } = this.state
     const { name, email, phone } = this.state.request
-    const request = {
-      name,
-      account: email,
-      email,
-      phone,
-      role_id
-    }
-    const isSuccess = await this.props.user.addUsersDetail(request)
-    isSuccess && this.props.history.push('/auth/users')
+    await this.props.user.addUsers(
+      {
+        name,
+        account: email,
+        email,
+        phone,
+        role_id
+      },
+      this.goBack
+    )
   }
 
   // 编辑用户
@@ -175,14 +181,15 @@ class UserDetail extends Component<Props, State> {
     const { id } = this.props.match.params
     const { role_id } = this.state
     const { name, phone } = this.state.request
-    const request = {
-      id: +id,
-      name,
-      phone,
-      role_id
-    }
-    const isSuccess = await this.props.user.editUsersDetail(request)
-    isSuccess && this.props.history.push('/auth/users')
+    await this.props.user.editUsers(
+      {
+        id: +id,
+        name,
+        phone,
+        role_id
+      },
+      this.goBack
+    )
   }
 }
 export default UserDetail

@@ -98,12 +98,12 @@ class User extends Component<Props, State> {
   }
 
   handleBtnclick = (type: string) => {
-    type === 'inquire' && this.handleInquire()
-    type === 'add' && this.handleAdd()
+    type === 'inquire' && this.handleClickInquire()
+    type === 'add' && this.handleClickAdd()
   }
 
   // 查询列表，重置页码
-  handleInquire = () => {
+  handleClickInquire = () => {
     this.setState(
       {
         request: {
@@ -115,18 +115,18 @@ class User extends Component<Props, State> {
     )
   }
 
-  handleAdd = () => {
+  // 跳转到新增页面
+  handleClickAdd = () => {
     this.props.history.push('/auth/users_page/add')
   }
 
-  // 冻结 or 解冻用户,出现弹窗
+  // 冻结、解冻用户
   operateUser = (id: number, status: StatusType) => async () => {
     const request: ChangeUserReq = {
       id,
       frozen: this.getOppositeStatus(status)!
     }
-    let isSuccess = await this.props.user.changeUserStatus(request)
-    isSuccess && this.getUserList()
+    await this.props.user.changeUserStatus(request, this.getUserList)
   }
 
   // 分页，排序
@@ -173,15 +173,12 @@ class User extends Component<Props, State> {
 
   // 获取相反的状态
   getOppositeStatus = (status: StatusType) => {
-    switch (status) {
-      case statusType.NORMAL:
-        return 'frozen'
-      case statusType.FROZEN:
-        return 'normal'
+    if (status === statusType.NORMAL) {
+      return 'frozen'
+    } else {
+      return 'normal'
     }
   }
 }
-
-// export default inject('user')(User)
 
 export default User

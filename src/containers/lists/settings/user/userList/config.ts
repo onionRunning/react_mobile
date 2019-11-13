@@ -1,17 +1,7 @@
 import { TableTile } from 'global/interface'
-import { formType } from 'global/constants'
+import { formType, BtnItem } from 'global/constants'
 import { UserListItem } from 'interface/user'
 import { transformTime } from 'global/method'
-
-interface BtnItem {
-  text: string
-  key: string
-  type: 'default' | 'primary' | 'black' | 'blue'
-  className?: string
-  authorityId?: string
-  noShow?: boolean
-  id?: string
-}
 
 export const statusType = {
   NORMAL: 'normal',
