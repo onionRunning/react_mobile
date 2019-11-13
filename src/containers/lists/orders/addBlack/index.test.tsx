@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { shallow } from 'enzyme'
 import { BlackOrder } from './index'
-import Message from 'components/Message'
+import Message from 'components/message'
 import errs from 'global/errors'
 import * as utils from './utils'
 jest.mock('components/Message')
