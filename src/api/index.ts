@@ -65,7 +65,7 @@ export class Api {
     return this.post<any>(`/back_mgr/change_password`, payload)
   }
   // 请求订单列表
-  postOrders = (payload: params.PostOrdersPayload) => {
+  postOrders = (payload: params.orders.OrderListsReq) => {
     return this.post<any>(`/back_mgr/get_application_list`, payload)
   }
   // 下载订单列表
@@ -213,7 +213,7 @@ export class Api {
 
   // 获取全部订单列表
   getOrderList = (payload: params.OrderListReqState) => {
-    return this.post<response.OrderListRes>('/back_mgr/get_application_list', params.transformOrderListReq(payload))
+    return this.post<response.OrderListRes>('/back_mgr/get_application_list_page', payload)
   }
 
   // 下载全部订单列表
@@ -223,7 +223,7 @@ export class Api {
 
   // 获取审核人列表
   getPersonApprove = () => {
-    return this.post<response.ApproveOperator>('/back_mgr/read_operator_name_list')
+    return this.post<any>('/query/user_auditor')
   }
 
   /**
@@ -325,7 +325,7 @@ export class Api {
 
   // 黑名单管理列表
   queryBlacklistManagementLists = (payload: any) => {
-    return this.post<any>('/back_mgr/query_blacklist_mng', payload)
+    return this.post<any>('/back_mgr/get_order_page_blacklist', payload)
   }
 
   // 加入黑名单
@@ -343,7 +343,7 @@ export class Api {
     return this.download<any>('/back_mgr/query_blacklist', payload)
   }
 
-  // 加入黑名单
+  // 移除黑名单
   removeBlacklist = (payload: any) => {
     return this.post<any>('/back_mgr/remove_blacklist', payload)
   }

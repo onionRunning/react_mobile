@@ -41,5 +41,6 @@ export default {
   SYSTEM_ERR: 'System error!', // 系统错误
   HINT_SAVA_EDIT: 'Please save the previous customer information first', // 请先保存上一项客户信息
   CHOOSE_ORDER_EMPTY: 'Please select the order!', // 请选择订单
-  CHOOSE_DEST_ALLOC_ORDER_EMPTY: 'Please select the order owner' // 请选择被调单人
+  CHOOSE_DEST_ALLOC_ORDER_EMPTY: 'Please select the order owner', // 请选择被调单人
+  CHOOSE_TYPE_EMPTY: 'Please select the blacklist type'
 }

@@ -17,7 +17,7 @@ import Button from 'components/button'
 
 type MixType = Msg & Item
 
-interface BtnItem {
+export interface BtnItem {
   text: string
   type: 'default' | 'primary' | 'black' | 'blue'
   key: string

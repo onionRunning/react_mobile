@@ -57,8 +57,8 @@ Date:   Mon Nov 11 19:32:54 2019 +0800
 back_api.md
 gitdifftest.js
 lastgitcommit.text
-package.json
 src/api/index.ts
+<<<<<<< HEAD
 src/components/treeSelect/treeSelect.scss
 src/containers/auth/index.tsx
 src/containers/lists/orders/const.test.ts
@@ -91,3 +91,49 @@ Date:   Mon Nov 11 16:29:05 2019 +0800
     J lbb
     
     查看合并请求 philippines/jrocketmanager!7
+=======
+src/components/confirm/index.tsx
+src/containers/auth/index.tsx
+src/containers/lists/orders/addBlack/index.tsx
+src/containers/lists/orders/addBlack/utils.tsx
+src/containers/lists/orders/blackLists/index.tsx
+src/containers/lists/orders/blackLists/utils.tsx
+src/containers/lists/orders/const.ts
+src/global/constants.ts
+src/global/errors.ts
+src/stores/common/index.ts
+src/stores/orders/blacks/index.ts
+src/stores/root.ts
+
+commit fe395e26f8f63aaebab36d174b55c69ff6108dab
+Merge: 8335e29 dada852
+Author: 黄辉辉 <huanghuihui@mintechai.com>
+Date:   Tue Nov 12 14:48:11 2019 +0800
+
+    合并分支 'master-hhh' 到 'master'
+    
+    完成用户模块
+    
+    查看合并请求 philippines/jrocketmanager!8
+
+commit 8335e29280a8e65a29d8087f8596d8c13c8a32f7
+Author: wangcong <wangcong@mintq.com>
+Date:   Tue Nov 12 12:20:17 2019 +0800
+
+    添加订单列表
+
+lastgitcommit.text
+src/api/index.ts
+src/components/listCondition/index.tsx
+src/components/select/index.tsx
+src/containers/lists/orders/addBlack/const.tsx
+src/containers/lists/orders/const.ts
+src/containers/lists/orders/myOrders/index.tsx
+src/containers/lists/orders/myOrders/utils.tsx
+src/containers/lists/orders/orderLists/index.tsx
+src/containers/lists/orders/orderLists/utils.tsx
+src/global/constants.ts
+src/global/method.ts
+src/interface/orders/index.ts
+src/stores/orders/orderLists/index.ts
+>>>>>>> master

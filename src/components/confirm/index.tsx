@@ -31,7 +31,7 @@ type ConfirmProps = Modify<
   }
 >
 
-class Confirm extends Component<ConfirmProps> {
+class Confirm extends Component<ConfirmProps | any> {
   timer?: any
 
   // 设置组件的默认状态

@@ -40,3 +40,8 @@ export interface CallBacks {
   successCb: Function
   errCb: Function
 }
+
+// 订单列表
+export interface OrderListsReq extends MyOrderReq {
+  download?: boolean
+}

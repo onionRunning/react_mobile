@@ -1,6 +1,7 @@
 import Common from './common'
 import User from './user'
 import Role from './role'
+import Black from './orders/blacks'
 import MyOrders from './orders/myOrders'
 import OrderLists from './orders/orderLists'
 import Lendigns from './lendings'
@@ -11,6 +12,7 @@ class Root {
   user: User
   role: Role
   myOrders: MyOrders
+  blacks: Black
   orderLists: OrderLists
   lendings: Lendigns
   repayments: Repayments
@@ -18,6 +20,7 @@ class Root {
     this.common = new Common()
     this.user = new User()
     this.role = new Role()
+    this.blacks = new Black()
     this.myOrders = new MyOrders()
     this.orderLists = new OrderLists()
     this.lendings = new Lendigns()

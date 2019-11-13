@@ -3,19 +3,13 @@ import { ColumnProps } from 'antd/lib/table'
 import { formatTime, formatTf } from 'global/method'
 import hint from 'global/hints'
 import { formType } from 'global/constants'
-import { userPermission } from 'design/permission'
+// import { userPermission } from 'design/permission'
 import { AllIdType, TimeRange, OrderAllStatus, OrderTypes } from '../const'
 // interface
 export interface FillInfo {
   [p: string]: string | number | ReactText
 }
 
-export interface ItemProps {
-  customer_id?: number
-  order_no?: string
-  product_name?: string
-  mobile_id?: number
-}
 // consts
 export const turnToNumber = ['operator_id', 'loan_days']
 
@@ -99,11 +93,10 @@ export const geTableTitle = (): ColumnProps<object>[] => [
     title: 'Operating',
     dataIndex: '',
     key: 'operating',
-    render: (_: string, _record: any, index: number) => {
-      const { my_order_func } = userPermission.finnalPermission!
+    render: (_x: string, _record: any, index: number) => {
       return (
         <span className={'blue-color operating'} id={`inquire-${index}`}>
-          {my_order_func.p10201 && 'Inquire'}
+          {'Inquire'}
         </span>
       )
     }

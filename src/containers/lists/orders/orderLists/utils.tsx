@@ -1,7 +1,6 @@
 import React from 'react'
 import { formType } from 'global/constants'
 import { formatTime, formatTf } from 'global/method'
-import { userPermission } from 'design/permission'
 import { AllIdType, TimeRange, OrderAllStatus, OrderTypes, DEFAULT_CHOSE } from '../const'
 
 // 需要转换成数值型数据的字段
@@ -72,18 +71,7 @@ export const filterData = [
 ]
 // 筛选部分按钮配置信息
 export const btnItems = () => {
-  return [
-    {
-      type: 'primary',
-      text: 'Inquire'
-    },
-    {
-      type: 'black',
-      className: 'sub-btn-blue',
-      text: 'Export order',
-      hasPermission: true
-    }
-  ]
+  return [{ type: 'primary', key: 'inquery', text: 'Inquire' }]
 }
 
 export const getTabTitle = (clickCallback: (...args: any) => any): any => {
@@ -97,7 +85,7 @@ export const getTabTitle = (clickCallback: (...args: any) => any): any => {
       title: 'Order type', // 订单类型: 复贷订单\新订单 p4.1.1
       dataIndex: 'order_type',
       key: 'order_type',
-      render: (record: any) => {
+      render: (record: string) => {
         return record
       }
     },
@@ -112,7 +100,7 @@ export const getTabTitle = (clickCallback: (...args: any) => any): any => {
       key: 'created_at',
       defaultSortOrder: 'descend',
       sorter: true,
-      render: (record: any) => {
+      render: (record: string) => {
         return <span>{formatTime(record)}</span>
       }
     },
@@ -122,7 +110,7 @@ export const getTabTitle = (clickCallback: (...args: any) => any): any => {
       key: 'application_finish_time',
       defaultSortOrder: 'descend',
       sorter: true,
-      render: (record: any) => {
+      render: (record: string) => {
         return <span>{formatTime(record)}</span>
       }
     },
@@ -140,7 +128,7 @@ export const getTabTitle = (clickCallback: (...args: any) => any): any => {
       title: 'Status',
       dataIndex: 'application_status',
       key: 'application_status',
-      render: (record: any) => {
+      render: (record: string) => {
         return <span>{formatTf(record)}</span>
       }
     },
@@ -164,11 +152,10 @@ export const getTabTitle = (clickCallback: (...args: any) => any): any => {
       dataIndex: '',
       key: 'operating',
       width: 120,
-      render: (item: any, _: any, index: number) => {
-        const { order_list_func } = userPermission.finnalPermission!
+      render: (item: any, _: string, index: number) => {
         return (
           <span onClick={clickCallback(item)} className={`blue-color operating`} id={`inquire-${index}`}>
-            {order_list_func.p10101 && 'Inquire'}
+            {'Inquire'}
           </span>
         )
       }
@@ -187,7 +174,7 @@ export interface SearchType {
 export const initRequest = {
   page: 1,
   per_page: 10,
-  sort_value: 'created_at', // 需要排序字段
+  sort_value: 'created_at',
   sort_order: 'desc',
   loan_days: 0
 }

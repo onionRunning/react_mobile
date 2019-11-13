@@ -100,7 +100,37 @@ export const OrderAllStatus = [
     value: 'ApplicationCanceled'
   }
 ]
-
+// 黑名单列表下的类型
+export const black_type = [
+  {
+    label: 'All',
+    value: ''
+  },
+  {
+    label: 'Risk Control Reject',
+    value: 'RiskControlReject'
+  },
+  {
+    label: 'Auditing Passed',
+    value: 'AuditingPassed'
+  },
+  {
+    label: 'Initial Auditing Reject',
+    value: 'InitialAuditingReject'
+  },
+  {
+    label: 'Auto Reject',
+    value: 'AutoReject'
+  },
+  {
+    label: 'Auditing Reject',
+    value: 'AuditingReject'
+  },
+  {
+    label: 'Application Canceled',
+    value: 'ApplicationCanceled'
+  }
+]
 // 订单类型
 export const OrderTypes = [
   {
@@ -169,4 +199,51 @@ export const getSortValue = (order: string) => {
   if (order === ASC) return ASC_CHOSE
   if (order === DESC) return DESC_CHOSE
   return ''
+}
+
+// common
+export interface ItemProps {
+  customer_id?: number
+  order_no?: string
+  product_name?: string
+  mobile_id?: number
+}
+export interface TempInfo {
+  [p: string]: string | number
+}
+
+export const addFont = (val: TempInfo[], spec?: string) => {
+  return [{ label: 'All', value: `${spec ? 0 : ''}` }, ...val]
+}
+
+type Product = string | number
+export const handArr = (arr: Product[]) => {
+  if (!Array.isArray(arr)) return []
+  return arr.map(item => {
+    return { label: item, value: item }
+  })
+}
+
+// 人员特殊处理
+export const handerPerson = (person: TempInfo[]) =>
+  person.map(item => {
+    return { label: item.name, value: item.id }
+  })
+//筛选操作人 添加System
+export const filterPerson = (arr: TempInfo[]) => {
+  const hasSystem = arr.find(item => item.value === 0)
+  return hasSystem ? arr : arr.concat([{ label: 'System', value: 0 }])
+}
+// 数据填充
+export const handleData = (config: TempInfo[], product: string) => {
+  return config.findIndex(item => item.key === product)
+}
+
+export const handlerSelectCont = (config: any[], product?: any, person?: TempInfo[]) => {
+  const nConfig = [...config]
+  const { loan_days, products } = product
+  products && (nConfig[handleData(config, 'product_name')].data = addFont(handArr(products)!))
+  loan_days && (nConfig[handleData(config, 'loan_days')].data = addFont(handArr(loan_days)!, 'special'))
+  person && (nConfig[handleData(config, 'operator_id')].data = filterPerson(handerPerson(person!)))
+  return nConfig
 }
