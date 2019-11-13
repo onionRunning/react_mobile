@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { PaginationConfig, SorterResult } from 'antd/lib/table'
 import { inject, observer } from 'mobx-react'
-import ListCondition from 'components/listCondition'
+import ListCondition, { BtnItem } from 'components/listCondition'
 import Table from 'components/table'
 import Message from 'components/Message'
 import Common from 'stores/common'
@@ -19,6 +19,7 @@ interface Props extends MixProps {
   blacks: Blacks
 }
 interface State {
+  request: FillInfo
   [p: string]: any
 }
 @inject('common', 'blacks')
@@ -51,8 +52,7 @@ export class BlackOrder extends Component<Props, State> {
   render() {
     const { blackMngLists, blackMngPage, blackMngStatus } = this.props.blacks
     const tabTitle = utils.tabBlackTitle()
-    // const nFilterData = handlerSelectCont(utils.searchBlackConfig, { ...product.products }, blackPerson)
-    const rowSelection: any = {
+    const rowSelection: utils.RowProps<FillInfo> = {
       onChange: this.changeChose, //勾选函数
       selectedRowKeys: this.state.checkRow // 用于重置
     }
@@ -62,7 +62,7 @@ export class BlackOrder extends Component<Props, State> {
         <div className="orders-condition-wrapper">
           <ListCondition
             data={utils.searchBlackConfig}
-            btnItems={utils.blackBtnItems() as any}
+            btnItems={utils.blackBtnItems() as BtnItem[]}
             onChange={this.handleFilter}
             btnClick={this.handleBtnClick}
           />
@@ -81,18 +81,12 @@ export class BlackOrder extends Component<Props, State> {
     )
   }
   // 表单筛选
-  handleFilter = (v: any) => {
+  handleFilter = (v: FillInfo) => {
     const obj = { operator_name: '' }
     let vals = strTrim(v.value)
-    if (utils.turnToNumber.includes(v.key as string)) {
-      if (vals) {
-        vals = Number(vals)
-      } else {
-        vals = 0
-      }
-    }
     if (v.key === 'operator_id') {
-      obj.operator_name = v.label
+      vals = vals ? Number(vals) : 0
+      obj.operator_name = v.label as string
     }
     this.setState({
       request: { ...this.state.request, [v.key]: vals, ...obj }
@@ -127,7 +121,7 @@ export class BlackOrder extends Component<Props, State> {
     this.props.common.composeLoading(this.tempFunc(v))
   }
   // 请求黑名单管理列表  // 校验
-  getBlacksList = (v?: any) => {
+  getBlacksList = (v?: FillInfo) => {
     this.props.blacks.getBlackMngLists({ ...this.state.request, ...v })
   }
 
@@ -142,7 +136,7 @@ export class BlackOrder extends Component<Props, State> {
   }
 
   // 调单选用的
-  changeChose = (k: any, v: any) => {
+  changeChose = (k: number[] | string[], v: Record<string, string | number>[]) => {
     this.setState({ chose: v, checkRow: k })
   }
 
@@ -160,14 +154,14 @@ export class BlackOrder extends Component<Props, State> {
       onCancel: this.closeConfirm
     })
   }
-  currentFunc = () => this.props.common.composeLoading(this.rightFunc)
+  currentFunc = () => this.props.common.composeLoading(this.startAddblack)
 
   closeConfirm = () => {
     this.props.common.changeConfirm({ show: false })
   }
 
   // 开始添加黑名单
-  rightFunc = () => {
+  startAddblack = () => {
     const { checkRow, addBlack } = this.state
     const vMaps = utils.getOrderNo(checkRow, this.props.blacks.blackMngLists)
     const params = {

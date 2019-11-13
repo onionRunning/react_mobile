@@ -12,17 +12,6 @@ export const reflectStr = (str: string) => {
     .replace('OverdueBlacklist', 'BlackList 2')
     .replace('/', ',')
 }
-
-export const BlackType: any = [
-  {
-    label: 'BlackList 1',
-    value: 'ManuallyAddedBlacklist'
-  },
-  {
-    label: 'BlackList 2',
-    value: 'OverdueBlacklist'
-  }
-]
 // 列表选项配置(表头)
 export const tabBlackTitle = (): any => [
   {
@@ -156,7 +145,7 @@ export const blackBtnItems = () => {
 }
 
 //
-export const getOrderNo = (chose: number[], all: any[]) => {
+export const getOrderNo = (chose: number[], all: Record<string, string | number>[]) => {
   return chose
     .map(item => {
       for (var i = 0; i < all.length; i++) {
@@ -179,3 +168,9 @@ export const initRequest = {
 // consts
 export const EXIT = 'exit'
 export const addText = 'are you sure add black list!'
+
+// interface
+export interface RowProps<T> {
+  selectedRowKeys?: string[] | number[]
+  onChange?: (selectedRowKeys: string[] | number[], selectedRows: T[]) => void
+}

@@ -3,11 +3,14 @@ import api from 'api'
 // import * as orders from 'interface/orders'
 import { Res, Page } from 'interface/common'
 const initPage = { page_size: 10, total_page: 0, total: 0, current: 0 }
+interface BlackLists {
+  [p: string]: string | number
+}
 class Blacks {
   // 黑名单管理列表
-  @observable blackMngLists: any[] = []
+  @observable blackMngLists: BlackLists[] = []
   // 黑名单列表
-  @observable blackLists: any[] = []
+  @observable blackLists: BlackLists[] = []
   // 黑名单管理 page
   @observable blackMngPage: Page = initPage
   // 黑名单列表 page
@@ -56,13 +59,7 @@ class Blacks {
       callBack()
     }
   }
-  // 下载黑名单列表
-  @action downloadBlackLists = async (payload: any) => {
-    const res: any = await api.removeBlacklist(payload)
-    if (res.success) {
-      // 开始下载
-    }
-  }
+
   @action clearblackMng = () => {
     this.blackMngLists = []
     this.blackMngPage = initPage

@@ -97,7 +97,6 @@ export class BlackLists extends Component<Props, any> {
   // 按钮点击
   handleBtnClick = (type: string) => {
     type === 'inquery' && this.getBlackListsReq({ page: 1 })
-    type === 'download' && this.downBlackManagementList()
     type === 'remove' && this.reomveBlacksList()
   }
 
@@ -132,7 +131,7 @@ export class BlackLists extends Component<Props, any> {
   }
 
   // 选择要移除黑名单
-  changeChose = (k: number[], v: Record<string, any>[]) => {
+  changeChose = (k: number[], v: Record<string, string | number>[]) => {
     this.setState({ chose: v, checkRow: k })
   }
 
@@ -182,15 +181,6 @@ export class BlackLists extends Component<Props, any> {
   //关闭弹窗
   closeConfirm = () => {
     this.props.common.changeConfirm({ show: false })
-  }
-
-  // 下载订单列表
-  downBlackManagementList = () => {
-    // this.props.dispatch({
-    //   type: Type.DOWN_BLACK_LIST_REQUEST,
-    //   params: { ...this.state.request, page: null, per_page: null, download_all: '1' }
-    // })
-    // download
   }
 
   replaceDetail = (item: any) => () => {

@@ -3,7 +3,7 @@ import { shallow } from 'enzyme'
 import { OrderLists } from './index'
 
 describe('MyOrder', () => {
-  let component: any, props: any, ins: OrderLists, getOrdersList
+  let component: any, props: any, ins: OrderLists, getOrdersList: any
   props = {
     orderLists: {
       getOperateUser: jest.fn(),

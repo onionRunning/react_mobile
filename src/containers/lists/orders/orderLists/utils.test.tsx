@@ -1,6 +1,6 @@
 import * as utils from './utils'
 
-const findTitle = (cont: any, name: string) => {
+const findTitle = (cont: any[], name: string) => {
   return cont.filter(item => item.title === name)[0]
 }
 describe('const test', () => {

@@ -2,7 +2,7 @@ import React from 'react'
 import { formatTime } from 'global/method'
 import { formType } from 'global/constants'
 
-import { AllIdType, TimeRange } from '../const'
+import { AllIdType, TimeRange, TempInfo } from '../const'
 
 // 黑名单映射关系
 export const blackReflect: any = {
@@ -77,7 +77,7 @@ export const getTableTitle = (clickCallback: (...args: any) => any): any => [
     title: 'Operating',
     dataIndex: '',
     key: 'operating',
-    render: (item: any, _: string, index: number) => {
+    render: (item: TempInfo, _: string, index: number) => {
       return (
         <span onClick={clickCallback(item)} className={'blue-color operating'} id={`inquire-${index}`}>
           {'Inquire'}
@@ -88,7 +88,7 @@ export const getTableTitle = (clickCallback: (...args: any) => any): any => [
 ]
 
 // 筛选项配置信息
-export const filterConfig: any = [
+export const filterConfig = [
   {
     formType: formType.RANGE_TIME,
     label: 'Add blacklist time:',
@@ -207,15 +207,6 @@ export const btnItems = () => {
 }
 
 // ===================
-// 过滤属性为"" 的对象
-export const filterObj = (obj: any) => {
-  const newObj: any = {}
-  for (let i in obj) {
-    if (obj[i] !== '') newObj[i] = obj[i]
-  }
-  return newObj
-}
-
 // consts
 
 export const initRequest = {

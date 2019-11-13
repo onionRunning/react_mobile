@@ -1,3 +1,24 @@
+commit cc333fefbfe7a96318c832a2f92373c71f8deba0
+Author: wangcong <wangcong@mintq.com>
+Date:   Wed Nov 13 12:25:58 2019 +0800
+
+    add:test
+
+lastgitcommit.text
+src/containers/lists/orders/addBlack/index.tsx
+src/containers/lists/orders/addBlack/utils.test.tsx
+src/containers/lists/orders/blackLists/index.tsx
+src/containers/lists/orders/const.test.ts
+src/containers/lists/orders/const.ts
+src/containers/lists/orders/myOrders/utils.test.ts
+src/containers/lists/orders/myOrders/utils.tsx
+src/containers/lists/orders/orderLists/index.test.tsx
+src/containers/lists/orders/orderLists/index.tsx
+src/containers/lists/orders/orderLists/utils.test.tsx
+src/containers/lists/orders/orderLists/utils.tsx
+src/containers/login/index.test.tsx
+src/stores/orders/myOrders/index.test.ts
+
 commit f01a06a33a29031d157ca4f922acff5e460799e0
 Merge: c5530f0 fe395e2
 Author: wangcong <wangcong@mintq.com>
@@ -58,10 +79,3 @@ src/global/constants.ts
 src/global/method.ts
 src/interface/orders/index.ts
 src/stores/orders/orderLists/index.ts
-
-commit dada852d892beca3571ca981fe64b54e779c2e44
-Merge: 5896b39 335ea33
-Author: hhh <huanghuihui@mintechai.com>
-Date:   Tue Nov 12 11:47:44 2019 +0800
-
-    解决冲突
