@@ -1,6 +1,6 @@
 import { observable, action } from 'mobx'
 import api from 'api/index'
-// import { RepaymentListReq } from 'api/params'
+import { RepaymentListReq } from 'interface/repayments'
 // import { Callback } from 'global/type'
 
 class Repayments {
@@ -14,16 +14,16 @@ class Repayments {
    * 获取贷款列表
    * @params LendingsPayload
    */
-  @action getRepaymentList = async (payload: any = {}) => {
+  @action getRepaymentList = async (payload: RepaymentListReq = {}) => {
     const res = await api.getRepaymentList(payload)
-    try {
-      if (res && res.success) {
-        if (res.data) {
-          this.lists = res.data
-          this.total_count = res.data.total_count
-        }
+    if (res && res.success) {
+      if (res.data) {
+        this.lists = res.data.repayment
+        this.total_count = res.data.total_count
+        this.page = payload.page!
+        this.page_count = payload.per_page!
       }
-    } catch (err) {}
+    }
   }
 }
 export default Repayments

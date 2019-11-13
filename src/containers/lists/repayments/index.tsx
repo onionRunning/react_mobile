@@ -1,22 +1,23 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import ListCondition from 'components/listCondition'
-import { turnToNumber, tableTitle, filterData } from './config'
-import Table from 'components/table'
-import { intoDetail } from 'global/constants'
-import ListTitle from 'components/listTitle'
-import { vertifyAmountTime, vertifyRangeAmount, vertifyTime, showOfflineRepay } from './uitls'
-import { Data as ChangeData } from 'components/listCondition'
-import { Trim, gotoDetail } from 'global/method'
+import { PaginationConfig, SorterResult } from 'antd/lib/table'
 
-import { RepaymentResItem } from 'api/response'
-import { RepaymentListReq } from 'api/params'
+import { intoDetail } from 'global/constants'
+import { Trim, gotoDetail } from 'global/method'
 import { MixProps } from 'global/interface'
 import { ListItem } from 'components/select'
-import { PaginationConfig, SorterResult } from 'antd/lib/table'
-import 'global/list.scss'
+import ListTitle from 'components/listTitle'
+import Table from 'components/table'
+import { Data as ChangeData } from 'components/listCondition'
+import { RepaymentListReq, RepaymentResItem } from 'interface/repayments'
 import { userPermission } from 'design/permission'
 
+// import { getBtn } from '../lendings/const'
+import { vertifyAmountTime, vertifyRangeAmount, vertifyTime } from './uitls'
+import { turnToNumber, tableTitle, filterData } from './config'
+
+import 'global/list.scss'
 interface Props extends MixProps {
   // page: 1
   data: RepaymentResItem[]
@@ -56,10 +57,18 @@ export class Repayments extends Component<Props, State> {
   }
 
   render() {
-    const { data, status, productOption } = this.props
-    // const { currentRepay, showRepayPop } = this.state
+    const {
+      status,
+      productOption,
+      repayments: { lists, page, total_count, page_count }
+    } = this.props
     tableTitle[tableTitle.length - 1].render = this.renderOperating
     // const { repayment_func } = userPermission.finnalPermission!
+    const pagination = {
+      current: page,
+      pageSize: page_count,
+      total: total_count
+    }
     return (
       <div className="list">
         <ListTitle>Repayment management</ListTitle>
@@ -75,8 +84,8 @@ export class Repayments extends Component<Props, State> {
         <div className="list-wapper">
           <Table
             tableTitle={tableTitle}
-            tableData={data}
-            // pagination={1}
+            tableData={lists}
+            pagination={pagination}
             onChange={this.tableChange}
             loading={status}
           />
@@ -87,14 +96,14 @@ export class Repayments extends Component<Props, State> {
 
   renderOperating = (record: RepaymentResItem, _: any, index: number) => {
     const { repayment_func } = userPermission.finnalPermission!
-    const {
-      need_in_collection_flag,
-      need_out_collection_flag,
-      // id,
-      repayment_schedule_status
-      // order_no,
-      // product_name
-    } = record
+    // const {
+    //   need_in_collection_flag,
+    //   need_out_collection_flag,
+    //   id,
+    //   repayment_schedule_status,
+    //   order_no,
+    //   product_name
+    // } = record
     const names = `blue-color operating`
     return (
       <div>
@@ -103,16 +112,16 @@ export class Repayments extends Component<Props, State> {
             Inquire
           </span>
         )}
-        {need_in_collection_flag && repayment_func.p30103 && (
+        {/* {need_in_collection_flag && repayment_func.p30103 && (
           <span
             className={names}
-            // onClick={this.csHandler(id!, order_no!, product_name!, 'in')}
+            onClick={this.csHandler(id!, order_no!, product_name!, 'in')}
             id={`manual-push-${index}`}
           >
             Manual push
           </span>
-        )}
-        {need_out_collection_flag && repayment_func.p30104 && (
+        )} */}
+        {/* {need_out_collection_flag && repayment_func.p30104 && (
           <span
             className={names}
             // onClick={this.csHandler(id!, order_no!, product_name!, 'out')}
@@ -120,12 +129,12 @@ export class Repayments extends Component<Props, State> {
           >
             Manual collection
           </span>
-        )}
-        {repayment_func.p30105 && showOfflineRepay(repayment_schedule_status) && (
+        )} */}
+        {/* {repayment_func.p30105 && showOfflineRepay(repayment_schedule_status) && (
           <span className={names} onClick={this.handleShowOfflineRepay(record)} id={`offline-repayment-${index}`}>
             Offline repayment
           </span>
-        )}
+        )} */}
       </div>
     )
   }

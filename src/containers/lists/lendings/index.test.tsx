@@ -213,7 +213,7 @@ describe('Lendings', () => {
   })
 
   it('cancelLoan', () => {
-    instance.cancelLoan(lendingItem)()
+    instance.cancelLoan(lendingItem)
     expect(mockProps.lendings.createCancelLoan).toBeCalledWith(
       {
         order_no: lendingItem.order_no,

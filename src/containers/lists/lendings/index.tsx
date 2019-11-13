@@ -77,7 +77,6 @@ export class Lendings extends Component<Props, State> {
     const {
       status,
       lendings: { page, lendingList, total_count, page_count }
-      // productOption
     } = this.props
     const { isAutoLend } = this.state
     const searchData: Data[] = con.filterData
@@ -92,9 +91,8 @@ export class Lendings extends Component<Props, State> {
     }
     // const btns = con.getBtn()
     const switchStyle = {
-      width: '325px',
       display: 'flex',
-      'align-items': 'center'
+      alignItems: 'center'
     }
     return (
       <div className="list">
@@ -105,7 +103,6 @@ export class Lendings extends Component<Props, State> {
             // btnItems={btns}
             onChange={this.handleFilter}
             btnClick={this.handleBtnClick}
-            // productSelectOptions={productOption}
           />
           <Switch
             checked={isAutoLend}
@@ -193,7 +190,7 @@ export class Lendings extends Component<Props, State> {
   }
 
   // 取消放款
-  cancelLoan = (item: LendingItem) => () => {
+  cancelLoan = (item: LendingItem) => {
     const { createCancelLoan } = this.props.lendings
     const payload = {
       order_no: item.order_no,
