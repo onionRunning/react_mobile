@@ -239,11 +239,20 @@ export const handleData = (config: TempInfo[], product: string) => {
   return config.findIndex(item => item.key === product)
 }
 
-export const handlerSelectCont = (config: any[], product?: any, person?: TempInfo[]) => {
+export interface ProductProps {
+  products: string[]
+  loan_days: number[]
+}
+export const handlerSelectCont = (config: any[], product?: ProductProps, person?: TempInfo[]) => {
   const nConfig = [...config]
-  const { loan_days, products } = product
+  const { loan_days, products } = product!
   products && (nConfig[handleData(config, 'product_name')].data = addFont(handArr(products)!))
   loan_days && (nConfig[handleData(config, 'loan_days')].data = addFont(handArr(loan_days)!, 'special'))
   person && (nConfig[handleData(config, 'operator_id')].data = filterPerson(handerPerson(person!)))
   return nConfig
+}
+// antd chose
+export interface RowProps<T> {
+  selectedRowKeys?: string[] | number[]
+  onChange?: (selectedRowKeys: string[] | number[], selectedRows: T[]) => void
 }

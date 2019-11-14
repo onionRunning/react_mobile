@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { PaginationConfig, SorterResult } from 'antd/lib/table'
+import { PaginationConfig, SorterResult, ColumnProps } from 'antd/lib/table'
 import { inject, observer } from 'mobx-react'
-import ListCondition from 'components/listCondition'
+import ListCondition, { BtnItem } from 'components/listCondition'
 import Table from 'components/table'
 import Message from 'components/message'
 import Common from 'stores/common'
@@ -9,7 +9,7 @@ import Blacks from 'stores/orders/blacks'
 import * as utils from './utils'
 import { strTrim, composeFunc } from 'global/method'
 import errs from 'global/errors'
-import { getSortValue, DEFAULT_PAGE, DEFAULT_PER_PAGE } from '../const'
+import { getSortValue, DEFAULT_PAGE, DEFAULT_PER_PAGE, RowProps, FillInfo } from '../const'
 import { MixProps } from 'global/interface'
 import { intoDetail } from 'global/constants'
 import styles from '../myOrders/index.module.scss'
@@ -18,9 +18,18 @@ interface Props extends MixProps {
   common: Common
   blacks: Blacks
 }
+interface State {
+  request: FillInfo
+  chose: Record<string, string | number>[]
+  checkRow: number[] | string[]
+  removeBlack: {
+    operator_name: string | null
+    operator_id: number
+  }
+}
 @inject('common', 'blacks')
 @observer
-export class BlackLists extends Component<Props, any> {
+export class BlackLists extends Component<Props, State> {
   constructor(props: Props) {
     super(props)
     this.state = {
@@ -51,18 +60,17 @@ export class BlackLists extends Component<Props, any> {
   render() {
     const { blackLists, blackListPage, blackListStatus } = this.props.blacks
     const tabTitle = utils.getTableTitle(this.replaceDetail)
-    const rowSelection: any = {
+    const rowSelection: RowProps<FillInfo> = {
       onChange: this.changeChose, //勾选函数
       selectedRowKeys: this.state.checkRow // 用于重置
     }
-    // const nfilterConfig = handlerSelectCont(utils.filterConfig, { ...product.products }, blackPerson)
     return (
       <div className={styles.page}>
         <h3>BlankList Order</h3>
         <div className="orders-condition-wrapper">
           <ListCondition
             data={utils.filterConfig}
-            btnItems={utils.btnItems() as any}
+            btnItems={utils.btnItems() as BtnItem[]}
             onChange={this.handleFilter}
             btnClick={this.handleBtnClick}
           />
@@ -70,7 +78,7 @@ export class BlackLists extends Component<Props, any> {
         <div className="list-wapper">
           <Table
             tableData={blackLists}
-            tableTitle={tabTitle}
+            tableTitle={tabTitle as ColumnProps<{}>[]}
             pagination={blackListPage}
             onChange={this.tableChange}
             rowSelection={rowSelection}
@@ -81,7 +89,7 @@ export class BlackLists extends Component<Props, any> {
     )
   }
   // 表单筛选
-  handleFilter = (v: any) => {
+  handleFilter = (v: FillInfo) => {
     let vals = strTrim(v.value)
     if (utils.turnToNumber.includes(v.key as string)) {
       if (vals) {
@@ -101,7 +109,7 @@ export class BlackLists extends Component<Props, any> {
   }
 
   // 翻页 + 排序
-  tableChange = (pag: PaginationConfig, _: any, sorter: SorterResult<any>) => {
+  tableChange = (pag: PaginationConfig, _: {}, sorter: SorterResult<{}>) => {
     const { columnKey, order } = sorter
     const sorts = {
       page: pag.current ? pag.current : DEFAULT_PAGE,
@@ -116,7 +124,7 @@ export class BlackLists extends Component<Props, any> {
   }
 
   // 请求获取黑名单管理列表
-  getBlackListsReq = (v?: any) => {
+  getBlackListsReq = (v?: FillInfo) => {
     // 黑名单管理
     this.props.blacks.getBlackLists({ ...this.state.request, ...v })
   }
@@ -131,7 +139,7 @@ export class BlackLists extends Component<Props, any> {
   }
 
   // 选择要移除黑名单
-  changeChose = (k: number[], v: Record<string, string | number>[]) => {
+  changeChose = (k: number[] | string[], v: Record<string, string | number>[]) => {
     this.setState({ chose: v, checkRow: k })
   }
 
@@ -153,10 +161,10 @@ export class BlackLists extends Component<Props, any> {
   // 开始移除黑名单
   rightFunc = () => {
     const { chose } = this.state
-    const vMaps = chose.map((item: any) => {
+    const vMaps = chose.map((item: FillInfo) => {
       return item.id
     })
-    const orders = chose.map((item: any) => {
+    const orders = chose.map((item: FillInfo) => {
       return item.order_no
     })
     const params = {
@@ -183,7 +191,7 @@ export class BlackLists extends Component<Props, any> {
     this.props.common.changeConfirm({ show: false })
   }
 
-  replaceDetail = (item: any) => () => {
+  replaceDetail = (item: FillInfo) => () => {
     const { customer_id, order_no, product_name, mobile_id } = item
     const payload = {
       customer_id,
