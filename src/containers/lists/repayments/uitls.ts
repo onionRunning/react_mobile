@@ -19,7 +19,7 @@ const useless = {
 //校验筛选条件是否全部为空
 export const areAllParamsEmpty = (req: RepaymentListReq) => {
   const obj = { ...useless, ...req, page: '', per_page: '', sort_order: '', sort_value: '' }
-  for (let k in obj) {
+  for (const k in obj) {
     if (obj[k as keyof typeof obj]) {
       return ''
     }
@@ -27,7 +27,7 @@ export const areAllParamsEmpty = (req: RepaymentListReq) => {
   return 'Please select at least one option'
 }
 
-export const IsValid = (str: any): boolean => {
+export const IsValid = (str: string | undefined): boolean => {
   return str === undefined || str === ''
 }
 
@@ -44,12 +44,13 @@ export const vertifyTime = (start: string, end: string, name: string): false | s
   if (moment(start).isAfter(moment(), 'day')) return `start of ${name} can't be more than today `
   if (!start && end) return `please choose start of ${name}`
   if (start && !end) return `please choose end of ${name}`
+  const maxDay = 30
   if (
     moment(end)
-      .subtract(30, 'days')
+      .subtract(maxDay, 'days')
       .isAfter(start)
   ) {
-    return `Number of days between start and end in ${name} can't be more than 30`
+    return `Number of days between start and end in ${name} can't be more than ${maxDay}`
   }
 
   return false
@@ -59,13 +60,14 @@ export const vertifyAmountTime = (start: string, end: string, name: string): fal
   if (!start && end) return `please choose start of ${name}`
   if (start && !end) return `please choose end of ${name}`
   if (moment(start).isAfter(moment(end), 'day')) return `start of ${name} can't be more than the end `
+  const maxDay = 30
   if (
     name !== 'Due date' &&
     moment(end)
-      .add(-30, 'd')
+      .add(-maxDay, 'd')
       .isAfter(moment(start))
   )
-    return `Number of days between start and end in ${name}  can't be more than 30`
+    return `Number of days between start and end in ${name}  can't be more than ${maxDay}`
   return false
 }
 
