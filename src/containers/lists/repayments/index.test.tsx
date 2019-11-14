@@ -110,7 +110,7 @@ describe('Repayments', () => {
 
   it('handleBtnClick', () => {
     instance.getRepaymentList = jest.fn()
-    instance.handleBtnClick('query')
+    instance.handleBtnClick('inquire')
     expect(instance.getRepaymentList).toBeCalledTimes(1)
   })
 

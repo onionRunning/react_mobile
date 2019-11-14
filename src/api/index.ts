@@ -86,8 +86,11 @@ export class Api {
     return this.postHeader<any>(`/back_mgr/get_mobile_contact_info`, payload, { stuffix })
   }
   // 获取用户信息
-  getUserInfo = (payload: params.UserInfoPayload, stuffix?: string) => {
-    return this.postHeader(`/back_mgr/get_one_order/order_list`, payload, { stuffix })
+  // getUserInfo = (payload: params.UserInfoPayload, stuffix?: string) => {
+  //   return this.postHeader(`/back_mgr/get_one_order/${stuffix}`, payload, { stuffix })
+  // }
+  getUserInfo = (payload: params.UserInfoPayload, current?: string) => {
+    return this.post(`/back_mgr/get_one_order/${current}`, payload)
   }
 
   // 获取设备信息
@@ -105,27 +108,27 @@ export class Api {
     return this.post<any>(`/back_mgr/check_duplicate`, payload)
   }
   // 获取放款单列表
-  getLendingLists = (payload: params.LendingsPayload) => {
-    return this.post<response.LendingsRes>('/back_mgr/query_loan_list', payload)
+  getLendingLists = (payload: params.lendings.LendingsPayload) => {
+    return this.post<params.lendings.LendingsRes>('/back_mgr/get_loan_list_page', payload)
   }
 
   // 手动放款or 重试
-  getLoanOrRetry = (payload: params.LoanOrRetryReq) => {
-    return this.post<any>('/back_mgr/make_loan', payload)
+  getLoanOrRetry = (payload: params.lendings.LoanOrRetryReq) => {
+    return this.post('/make_loan', payload)
   }
 
   // 取消放款
-  getCancelLoan = (payload: params.CancelLoanReq) => {
-    return this.post<any>('/back_mgr/cancel_loan', payload)
+  getCancelLoan = (payload: params.lendings.CancelLoanReq) => {
+    return this.post('/cancel_loan', payload)
   }
 
   // 获取自动放款开关
   getAutoStatus = () => {
-    return this.post<any>('/back_mgr/query_auto_loan_status')
+    return this.post('/back_mgr/query_auto_loan_status')
   }
 
   // 开启或关闭开关,手动放款
-  updateAutoStatus = (payload: params.UpdateAutoReq) => {
+  updateAutoStatus = (payload: params.lendings.UpdateAutoReq) => {
     return this.post<any>('/back_mgr/update_auto_loan_status', payload)
   }
 
@@ -187,8 +190,8 @@ export class Api {
   }
 
   // 还款订单列表
-  getRepaymentList = (payload: params.RepaymentListReq) => {
-    return this.post<response.RepaymentListRes>('/back_mgr/query_repayment_list', payload)
+  getRepaymentList = (payload: params.repayments.RepaymentListReq) => {
+    return this.post<params.repayments.RepaymentListRes>('/back_mgr/get_repayment_list', payload)
   }
 
   // 下载还款列表
