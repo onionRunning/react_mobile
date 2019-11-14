@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 import { observer, inject } from 'mobx-react'
 import UserStore from 'stores/user'
-
+import { CheckboxValueType } from 'antd/lib/checkbox/Group'
 import { Type, TitleMap, BtnMap, InputItem } from './config'
 import { UserDetailRes, RoleInfoItem, RoleListItem, RoleListCheckBoxItem } from 'interface/user'
 import UserInfo from './userInfo'
@@ -113,7 +113,7 @@ class UserDetail extends Component<Props, State> {
 
   // 处理角色列表数据
   handleRoleListData = (roleList: RoleListItem[]) => {
-    const changedList: RoleListCheckBoxItem[] = roleList!.map((el: any) => {
+    const changedList: RoleListCheckBoxItem[] = roleList!.map((el: RoleListItem) => {
       return { label: el.role_name, value: el.id }
     })
     this.setState({
@@ -132,9 +132,9 @@ class UserDetail extends Component<Props, State> {
   }
 
   // 选中角色
-  handleChange = (selectedRole: number[]) => {
+  handleChange = (selectedRole: CheckboxValueType[]) => {
     this.setState({
-      role_id: [...selectedRole]
+      role_id: [...selectedRole] as number[]
     })
   }
 

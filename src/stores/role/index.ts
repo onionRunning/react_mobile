@@ -12,7 +12,7 @@ class Role {
   }
   @action getRoleListData = async (payload: RoleListReq) => {
     try {
-      let res = await api.getRoleList(payload)
+      const res = await api.getRoleList(payload)
       if (res.success && res.data) {
         const { list = [] } = res.data
         this.roleList = [...list]
@@ -30,9 +30,8 @@ class Role {
   }
   @action getProductListData = async () => {
     try {
-      let res = await api.getProductDetail()
+      const res = await api.getProductDetail()
       if (res.success && res.data) {
-        console.log(res)
         return res.data || []
       } else {
         Message.error(res.info)
@@ -43,9 +42,8 @@ class Role {
   }
   @action getRoleDetailDate = async (payload: RoleDetailReq) => {
     try {
-      let res = await api.getRoleDetail(payload)
+      const res = await api.getRoleDetail(payload)
       if (res.success && res.data) {
-        console.log(res)
         return res.data
       } else {
         Message.error(res.info)
@@ -56,9 +54,8 @@ class Role {
   }
   @action getPermissionsListData = async () => {
     try {
-      let res = await api.getPermissionsList()
+      const res = await api.getPermissionsList()
       if (res.success && res.data) {
-        console.log(res)
         return res.data || []
       } else {
         Message.error(res.info)

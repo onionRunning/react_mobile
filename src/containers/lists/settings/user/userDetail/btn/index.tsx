@@ -4,7 +4,7 @@ import { BtnItem } from '../config'
 import styles from './index.module.scss'
 interface Props {
   btnData: BtnItem[]
-  clickProps: (b: string) => void
+  clickProps: (key: string) => void
 }
 
 export class Btn extends Component<Props> {
@@ -23,8 +23,8 @@ export class Btn extends Component<Props> {
     })
   }
 
-  handleOnClick = (v: any) => () => {
-    this.props.clickProps(v)
+  handleOnClick = (key: string) => () => {
+    this.props.clickProps(key)
   }
 }
 

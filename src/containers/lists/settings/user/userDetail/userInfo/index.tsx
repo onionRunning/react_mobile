@@ -1,14 +1,27 @@
 import React, { Component } from 'react'
 import styles from './index.module.scss'
 import * as iRole from 'interface/role'
+import { Type } from 'interface/user'
+
+interface UserDetail {
+  name: string
+  phone: string
+  email: string
+}
+
+interface State {
+  name: string
+  phone: string
+  email: string
+}
 
 interface Props {
-  userDetail?: any
-  type?: string
+  userDetail: UserDetail
+  type: string
   onChange: (req: iRole.ReqType) => void
 }
 
-class UserInfo extends Component<Props, any> {
+class UserInfo extends Component<Props, State> {
   constructor(props: Props) {
     super(props)
     this.state = {
@@ -18,7 +31,7 @@ class UserInfo extends Component<Props, any> {
     }
   }
 
-  static getDerivedStateFromProps = (props: Props, state: any) => {
+  static getDerivedStateFromProps = (props: Props, state: State) => {
     const { name = '', email = '', phone = '' } = props.userDetail
     if (email !== state.email || name !== state.name || phone !== state.phone) {
       return {
@@ -32,7 +45,8 @@ class UserInfo extends Component<Props, any> {
 
   render() {
     const { name, email, phone } = this.state
-    const isEdit = this.props.type === 'detail'
+    const isDetail = this.props.type === Type.DETAIL
+    const isAdd = this.props.type === Type.ADD
     return (
       <div className={styles.wrap}>
         <label>User Name：</label>
@@ -44,7 +58,7 @@ class UserInfo extends Component<Props, any> {
           maxLength={50}
           name="name"
           value={name}
-          disabled={isEdit}
+          disabled={isDetail}
           onChange={this.handleChange}
         />
         <label>e-mail：</label>
@@ -56,7 +70,7 @@ class UserInfo extends Component<Props, any> {
           value={email}
           name="email"
           maxLength={320}
-          disabled={this.props.type !== 'add'}
+          disabled={!isAdd}
           onChange={this.handleChange}
         />
         <label>Cellphone：</label>
@@ -68,24 +82,19 @@ class UserInfo extends Component<Props, any> {
           value={phone}
           name="phone"
           maxLength={20}
-          disabled={isEdit}
+          disabled={isDetail}
           onChange={this.handleChange}
         />
       </div>
     )
   }
-  handleChange = (
-    e: React.ChangeEvent<{
-      value: string
-      name: string
-    }>
-  ) => {
+  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     let vals = value.replace(/[\u4e00-\u9fa5]/g, '')
     if (name === 'phone') {
       vals = vals.replace(/[^\d]/g, '').substr(0, 12)
     }
-    this.setState({ [name]: vals })
+    this.setState({ name: vals })
     this.props.onChange({ key: name, value: vals })
   }
 }

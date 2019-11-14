@@ -4,10 +4,11 @@ import UserInfo from './index'
 
 describe('UserInfo', () => {
   const mockProps = {
-    name: 'test',
-    email: 'test@qq.com',
-    phone: '13600000001',
-    userDetail: {},
+    userDetail: {
+      name: 'test',
+      email: 'test@qq.com',
+      phone: '13600000001'
+    },
     type: 'edit',
     onChange: jest.fn()
   }

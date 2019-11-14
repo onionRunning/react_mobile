@@ -4,6 +4,10 @@ import { mockRouteProps } from 'test/mock'
 import UserDetail from './index'
 import UserStore from 'stores/user'
 import { Type } from './config'
+import Message from 'components/message'
+
+jest.mock('components/message')
+Message.error = jest.fn()
 
 describe('userlist', () => {
   const type: Type = 'detail'
@@ -123,6 +127,7 @@ describe('userlist', () => {
 
   it('addUsers', () => {
     instance.editUsers()
+    expect(Message.warning).toBeCalledWith('Please enter user name!')
     instance.setState({
       request: {
         name: 'test',
@@ -146,6 +151,7 @@ describe('userlist', () => {
 
   it('editUsers', () => {
     instance.editUsers()
+    expect(Message.warning).toBeCalledWith('Please enter user name!')
     instance.setState({
       request: {
         name: 'test',
