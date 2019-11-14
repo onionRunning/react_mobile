@@ -12,7 +12,7 @@ import {
   AddUsersReq,
   EditUsersReq
 } from 'interface/user'
-import message from 'components/message'
+// import message from 'components/message'
 import { statusType } from 'containers/lists/settings/user/userList/config'
 
 class User {
@@ -43,7 +43,7 @@ class User {
     try {
       let res = await api.changeUserStatus(payload)
       if (res.success) {
-        message.success(payload.frozen === statusType.FROZEN ? 'freeze success!' : 'unfreeze success!')
+        Message.success(payload.frozen === statusType.FROZEN ? 'freeze success!' : 'unfreeze success!')
         callback()
       } else {
         Message.error(res.info)

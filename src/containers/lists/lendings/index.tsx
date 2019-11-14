@@ -6,20 +6,25 @@ import ListCondition, { Data } from 'components/listCondition'
 import Table from 'components/table'
 import ListTitle from 'components/listTitle'
 import Switch from 'components/switch'
+import Message from 'components/message'
 
 import { MixProps } from 'global/interface'
 import { Trim } from 'global/method'
 import { lendings } from 'api/params'
+
 import LendingProps from 'stores/lendings'
+import Common from 'stores/common'
 
 import { userPermission } from 'design/permission'
 
 import * as con from './const'
 import styles from './index.module.scss'
+import { Noop } from 'global/type'
 
 interface Props extends MixProps {
   status?: boolean
   lendings: LendingProps
+  common: Common
 }
 
 interface State {
@@ -32,7 +37,7 @@ const initRequest = {
   sort_order: 'desc',
   sort_value: 'apply_time'
 }
-@inject('lendings')
+@inject('lendings', 'common')
 @observer
 export class Lendings extends Component<Props, State> {
   constructor(props: Props) {
@@ -165,21 +170,20 @@ export class Lendings extends Component<Props, State> {
   // 表格行按钮操作
   handleLoanCalcel = (v: lendings.LendingItem, type: string) => () => {
     type === 'cancel' ? this.cancelLoan(v) : this.makeLoanOrRetry(v.order_no)
+    // this.confrimStart(rightFunc, type)
   }
 
   // 弹窗
-  // confrimStart = (confirm: Noop, type: string) => {
-  //   const { title, text } = con.choseRight(type)
-  //   console.log('弹出弹框')
-  //   // this.props.dispatch(
-  //   //   createConfirm({
-  //   //     title: title,
-  //   //     text: text,
-  //   //     onOk: confirm,
-  //   //     onCancel: this.closeConfirm
-  //   //   })
-  //   // )
-  // }
+  confrimStart = (rightFunc: Noop, type: string) => {
+    const { title, text } = con.choseRight(type)
+    this.props.common.changeConfirm({
+      show: true,
+      title,
+      text,
+      onCancel: this.closeConfirm,
+      onOk: rightFunc
+    })
+  }
   // 放款 or 重试
   makeLoanOrRetry = (order: string) => {
     const { createLoanRetry } = this.props.lendings
@@ -212,19 +216,18 @@ export class Lendings extends Component<Props, State> {
 
   // 关闭弹窗
   closeConfirm = () => {
-    // this.props.dispatch(createCloseConfirm())
+    this.props.common.changeConfirm({ show: false })
   }
 
   // 获取放款单列表
   getLendingList = (v?: lendings.LendingsPayload) => {
     const { getLendingList } = this.props.lendings
     const { request } = this.state
-    // const auth = con.vertify(request) || con.vertifyTimes(request)
-    // if (auth) {
-    //   // TODO:全局报错相关错误信息
-    //   // this.props.dispatch(createAlertError(auth))
-    //   return
-    // }
+    const auth = con.vertify(request) || con.vertifyTimes(request)
+    if (auth) {
+      Message.error(auth)
+      return
+    }
     getLendingList({ ...request, ...v })
     this.setState({ request: { ...this.state.request } })
   }

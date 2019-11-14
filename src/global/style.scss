@@ -394,3 +394,11 @@ $text-font-size-small: 12px;
 :-moz-placeholder { /* Firefox 18- */ 
  color: hsl(0,0%,50%) !important;
 }
+
+
+.operating{
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+}
