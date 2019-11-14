@@ -2,6 +2,8 @@ import { wrapperSend, createRequest, Response, Res, ReqType, createHeaderRequest
 import { AxiosInstance } from 'axios'
 import * as response from './response'
 import * as params from './params'
+import { LoanInfoReq, LoanInfoRes } from 'interface/details/loanInfo'
+import { SMSRecordReq, SMSRecordList } from 'interface/details/smsRecord'
 
 export class Api {
   request: AxiosInstance
@@ -56,8 +58,8 @@ export class Api {
 
   // 新版本登陆
   postLogin = (payload: params.loginParams.LoginReq) => {
-    // return this.post<params.loginParams.LoginRes>(`/login`, payload)
-    return this.post<params.loginParams.LoginRes>(`/back_mgr/login`, payload)
+    return this.post<params.loginParams.LoginRes>(`/login`, payload)
+    // return this.post<params.loginParams.LoginRes>(`/back_mgr/login`, payload)
   }
 
   // 修改密码
@@ -144,9 +146,19 @@ export class Api {
     return this.post<any>('/back_mgr/verify_bank_card', req)
   }
 
-  // 获取放款详情列表信息
-  getLoanInfo = (req: params.GetLoanInfoReq, stuffix?: string) => {
-    return this.postHeader<response.LoanInfoRes[]>('/back_mgr/query_loan_flows', req, { stuffix })
+  // 获取放款信息
+  getLoanInfo = (payload: LoanInfoReq, currentList: string) => {
+    return this.post<LoanInfoRes[]>(`/back_mgr/get_loan_flow_detail/${currentList}`, payload)
+  }
+
+  // 获取短信记录
+  getSMSRecord = (payload: SMSRecordReq, currentList: string) => {
+    return this.post<SMSRecordList[]>(`/core_query/get_order_sms_flow/${currentList}`, payload)
+  }
+
+  // 获取状态记录
+  getStatusRecord = (payload: params.StatusRecordReq, currentList: string) => {
+    return this.post(`/back_mgr/get_order_status_record/${currentList}`, payload)
   }
 
   submitOrder = (payload: params.SubmitOrderPayload) => {
@@ -170,20 +182,12 @@ export class Api {
     return this.post<any>(`/back_mgr/update_call_log_record`, payload)
   }
 
-  getSMSRecord = (payload: params.GetSMSRecordReq, stuffix: string) => {
-    return this.postHeader<response.SMSRecordRes[]>('/back_mgr/get_sms_flow_record', payload, { stuffix })
-  }
-
   approvalSendMsg = (payload: params.ApprovalSendMsgReq) => {
     return this.post('/back_mgr/approval_send_sms', payload)
   }
 
   getRepaymentInfo = (payload: params.RepaymentReq, stuffix?: string) => {
     return this.postHeader<response.RepaymentRes[]>('/back_mgr/query_repayment_schedule', payload, { stuffix })
-  }
-
-  getStatusRecord = (payload: params.StatusRecordReq, stuffix?: string) => {
-    return this.postHeader<response.StatusRecordRes[]>('/back_mgr/get_order_status_record', payload, { stuffix })
   }
 
   // 还款订单列表

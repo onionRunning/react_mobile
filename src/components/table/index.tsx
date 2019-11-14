@@ -23,6 +23,7 @@ interface Props<T> {
   tableTitle?: ColumnProps<T>[]
   rowSelection?: TableRowSelection<T>
   pagination?: Pagination
+  size?: 'default' | 'middle' | 'small'
 }
 
 class TableComponent<T> extends Component<Props<T>> {
@@ -34,14 +35,15 @@ class TableComponent<T> extends Component<Props<T>> {
     rowSelection: null, // 行选择,默认没有行选择器
     pagination: false, // 默认不显示分页
     loading: false, // 显示加载中提示
-    onChange: noop // 处理表格数据变化
+    onChange: noop, // 处理表格数据变化
+    size: 'default'
   }
   shouldComponentUpdate(nextPrpos: Props<T>) {
     if (nextPrpos.tableData === null || nextPrpos.tableData === undefined) return false
     return true
   }
   render() {
-    const { tableTitle, tableData, onChange, pagination, rowSelection, scroll, loading, rowKey } = this.props
+    const { tableTitle, tableData, onChange, pagination, rowSelection, scroll, loading, rowKey, size } = this.props
     // 合并分页内容,设置默认参数 (分页的存在: 判断数据的长度)
     let _pagination = tableData.length > 0 && pagination ? { ...pagination, ...defaultPagination } : false
     return (
@@ -56,6 +58,7 @@ class TableComponent<T> extends Component<Props<T>> {
           pagination={_pagination}
           bordered
           rowKey={rowKey}
+          size={size}
         />
         {/* 没有数据提示 */}
         {!loading && !tableData.length && (

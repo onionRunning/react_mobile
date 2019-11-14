@@ -1,0 +1,23 @@
+.content-wrapper {
+  & > .title {
+    position: relative;
+    padding-left: 18px;
+    height: 38px;
+    line-height: 38px;
+    font-weight: bold;
+    color: #333;
+    font-size: 14px;
+    border-bottom: 1px solid #1EA50F;
+    &:before {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      display: block;
+      content: ' ';
+      height: 8px;
+      width: 8px;
+      background-color: #1EA50F;
+    }
+  }
+}

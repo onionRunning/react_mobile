@@ -9,42 +9,15 @@ interface UserDetail {
   email: string
 }
 
-interface State {
-  name: string
-  phone: string
-  email: string
-}
-
 interface Props {
   userDetail: UserDetail
   type: string
   onChange: (req: iRole.ReqType) => void
 }
 
-class UserInfo extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props)
-    this.state = {
-      name: '',
-      email: '',
-      phone: ''
-    }
-  }
-
-  static getDerivedStateFromProps = (props: Props, state: State) => {
-    const { name = '', email = '', phone = '' } = props.userDetail
-    if (email !== state.email || name !== state.name || phone !== state.phone) {
-      return {
-        name,
-        email,
-        phone
-      }
-    }
-    return null
-  }
-
+class UserInfo extends Component<Props> {
   render() {
-    const { name, email, phone } = this.state
+    const { name, email, phone } = this.props.userDetail
     const isDetail = this.props.type === Type.DETAIL
     const isAdd = this.props.type === Type.ADD
     return (
@@ -88,6 +61,7 @@ class UserInfo extends Component<Props, State> {
       </div>
     )
   }
+
   handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     let vals = value.replace(/[\u4e00-\u9fa5]/g, '')

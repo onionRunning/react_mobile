@@ -13,16 +13,10 @@ describe('UserInfo', () => {
     onChange: jest.fn()
   }
 
-  let component: ShallowWrapper<UserInfo>, instance: UserInfo
+  let component: ShallowWrapper<UserInfo>
 
   beforeEach(() => {
     component = shallow(<UserInfo {...mockProps} />)
-    instance = component.instance() as UserInfo
-    instance.setState({
-      name: '',
-      email: '',
-      phone: ''
-    })
   })
 
   it('render', () => {
