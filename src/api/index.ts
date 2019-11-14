@@ -56,7 +56,8 @@ export class Api {
 
   // 新版本登陆
   postLogin = (payload: params.loginParams.LoginReq) => {
-    return this.post<params.loginParams.LoginRes>(`/login`, payload)
+    // return this.post<params.loginParams.LoginRes>(`/login`, payload)
+    return this.post<params.loginParams.LoginRes>(`/back_mgr/login`, payload)
   }
 
   // 修改密码
@@ -64,7 +65,7 @@ export class Api {
     return this.post<any>(`/back_mgr/change_password`, payload)
   }
   // 请求订单列表
-  postOrders = (payload: params.PostOrdersPayload) => {
+  postOrders = (payload: params.orders.OrderListsReq) => {
     return this.post<any>(`/back_mgr/get_application_list`, payload)
   }
   // 下载订单列表
@@ -77,8 +78,8 @@ export class Api {
   }
 
   // 抢单
-  grabOrders = (payload: params.GrabOrdersPayload) => {
-    return this.post<any>(`/back_mgr/grab_application`, payload)
+  grabOrders = (payload: params.orders.GrabOrderReq) => {
+    return this.post<string>(`/back_mgr/grab_application`, payload)
   }
   // 获取app联系人信息
   getAppContract = (payload: params.GetAppContractPayload, stuffix?: string) => {
@@ -215,7 +216,7 @@ export class Api {
 
   // 获取全部订单列表
   getOrderList = (payload: params.OrderListReqState) => {
-    return this.post<response.OrderListRes>('/back_mgr/get_application_list', params.transformOrderListReq(payload))
+    return this.post<response.OrderListRes>('/back_mgr/get_application_list_page', payload)
   }
 
   // 下载全部订单列表
@@ -225,11 +226,11 @@ export class Api {
 
   // 获取审核人列表
   getPersonApprove = () => {
-    return this.post<response.ApproveOperator>('/back_mgr/read_operator_name_list')
+    return this.post<any>('/query/user_auditor')
   }
 
   /**
-   * 角色管理
+   * 角色管理模块
    */
   // 获取角色列表
   getRoleList = (payload: params.GetRoleListReq) => {
@@ -256,10 +257,15 @@ export class Api {
     return this.post('/back_mgr/update_role', payload)
   }
 
+  /**
+   * 用户管理模块
+   */
+
   // 用户模块列表
   getUserLists = (payload: any) => {
     return this.post<any>(`/back_mgr/read_operator_list`, payload)
   }
+
   // 冻结或解冻用户
   changeUserStatus = (payload: any) => {
     return this.post<any>(`/back_mgr/frozen_operator`, payload)
@@ -322,7 +328,7 @@ export class Api {
 
   // 黑名单管理列表
   queryBlacklistManagementLists = (payload: any) => {
-    return this.post<any>('/back_mgr/query_blacklist_mng', payload)
+    return this.post<any>('/back_mgr/get_order_page_blacklist', payload)
   }
 
   // 加入黑名单
@@ -340,7 +346,7 @@ export class Api {
     return this.download<any>('/back_mgr/query_blacklist', payload)
   }
 
-  // 加入黑名单
+  // 移除黑名单
   removeBlacklist = (payload: any) => {
     return this.post<any>('/back_mgr/remove_blacklist', payload)
   }

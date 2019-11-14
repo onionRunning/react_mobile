@@ -209,6 +209,8 @@ export interface RoleList {
   notes: string
   access_id: string
   created_time: number
+  label?: string
+  value?: number
 }
 
 // 角色详情
@@ -227,6 +229,8 @@ export interface PermissionsList {
   parent_no: number
   name: string
   notes: string
+  key?: number | string
+  title?: string
 }
 
 export interface CallRecordsListRes {

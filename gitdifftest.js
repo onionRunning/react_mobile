@@ -13,6 +13,7 @@ const exec = require('child_process').exec
     for (let i = 0; i < fin.length; i++) {
       if (
         !fin[i].includes('.scss') &&
+        !fin[i].includes('/api/') &&
         !fin[i].includes('interface') &&
         !fin[i].includes('.test.') &&
         fin[i].includes('src')

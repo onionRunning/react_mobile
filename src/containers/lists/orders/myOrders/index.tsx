@@ -1,39 +1,34 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
-import { PaginationConfig, SorterResult } from 'antd/lib/table'
+import { PaginationConfig } from 'antd/lib/table'
 import ListCondition from 'components/listCondition'
 import Table from 'components/table'
-import { Pagination } from 'components/table/config'
+import Message from 'components/message'
 import * as utils from './utils'
+import { getSortValue, DEFAULT_PAGE, DEFAULT_PER_PAGE, ItemProps } from '../const'
 import { strTrim } from 'global/method'
 import { MixProps } from 'global/interface'
 import { intoDetail } from 'global/constants'
-import { userPermission } from 'design/permission'
 
+import { userPermission } from 'design/permission'
+import Orders from 'stores/orders/myOrders'
+import Common from 'stores/common'
 import styles from './index.module.scss'
 
 interface Props extends MixProps {
-  page?: Pagination
-  myOrderData: any[]
-  cleanTableSelectKeys?: () => void
-  status: boolean
-  product: any
-  person?: any[]
+  myOrders: Orders
+  common: Common
 }
-const initRequest = {
-  page: 1,
-  per_page: 10,
-  loan_days: 0,
-  sort_value: 'created_at', // 需要排序字段
-  sort_order: 'asc' // 排序的方法 asc desc
+interface State {
+  request: utils.FillInfo
 }
-@inject('orders')
+@inject('myOrders', 'common')
 @observer
-export class MyOrder extends Component<Props, any> {
+export class MyOrder extends Component<Props, State> {
   constructor(props: Props) {
     super(props)
     this.state = {
-      request: { ...initRequest, operator_id: parseInt(sessionStorage.getItem('userId')!, 10) }
+      request: { ...utils.initRequest, operator_id: parseInt(sessionStorage.getItem('userId')!, 10) }
     }
   }
   componentDidMount() {
@@ -41,57 +36,65 @@ export class MyOrder extends Component<Props, any> {
     this.getProductDetail()
   }
   render() {
-    const { page, myOrderData = [], status } = this.props
+    const { myOrderLists, myOrderPage, myOrderStatus } = this.props.myOrders
     const tabTitle = utils.geTableTitle()
     const { my_order_func } = userPermission.finnalPermission!
     return (
       <div className={styles.page}>
         <h3>My Order</h3>
         <div className="orders-condition-wrapper">
-          <ListCondition data={utils.filterData} onChange={this.handleFilter} />
+          <div className={styles.list_left}>
+            <ListCondition btnClick={this.handleBtnClick} data={utils.filterData} onChange={this.handleFilter} />
+          </div>
           {my_order_func.p10202 && (
-            <button onClick={this.grabOrder} className="sub-btn-blue-large get-order-btn" id="my-order-pick-btn">
+            <button
+              onClick={this.grabOrder}
+              className={`${styles.right_posi} sub-btn-blue-large get-order-btn`}
+              id="my-order-pick-btn"
+            >
               Pick up the order
             </button>
           )}
         </div>
         <div className="list-wapper">
           <Table
-            tableData={myOrderData}
+            tableData={myOrderLists}
             tableTitle={tabTitle}
-            pagination={page}
+            pagination={myOrderPage}
             onChange={this.tableChange}
-            loading={status}
+            loading={myOrderStatus}
           />
         </div>
       </div>
     )
   }
   // 表单筛选
-  handleFilter = (v: any) => {
-    const obj: any = {}
-    v.value = strTrim(v.value) // 转string
-    if (utils.turnToNumber.includes(v.key)) {
-      // 转number
-      v.value = v.value ? Number(v.value) : v.value === '' ? 0 : v.value
+  handleFilter = (v: utils.FillInfo) => {
+    let vals = strTrim(v.value)
+    if (utils.turnToNumber.includes(v.key as string)) {
+      if (vals) {
+        vals = Number(vals)
+      } else {
+        vals = 0
+      }
     }
     this.setState({
-      request: { ...this.state.request, [v.key]: v.value, ...obj }
+      request: { ...this.state.request, [v.key]: vals }
     })
   }
   // 按钮点击
   handleBtnClick = (type: string) => {
-    type === 'query' && this.getMyOrdersList({ page: 1 })
+    type === 'inquire' && this.getMyOrdersList({ page: 1 })
   }
 
   // 翻页 + 排序
-  tableChange = (pag: PaginationConfig, _: any, sorter: SorterResult<any>) => {
+  tableChange = (pag: PaginationConfig, _: Record<keyof never, string[]>, sorter: utils.SorterProps) => {
     const { columnKey, order } = sorter
     const sorts = {
-      page: pag.current ? pag.current : 1,
-      per_page: pag.pageSize ? pag.pageSize : 10,
+      page: pag.current ? pag.current : DEFAULT_PAGE,
+      per_page: pag.pageSize ? pag.pageSize : DEFAULT_PER_PAGE,
       sort_value: columnKey ? columnKey : '',
-      sort_order: order === 'ascend' ? 'asc' : (order as string) === 'descend' ? 'desc' : ''
+      sort_order: getSortValue(order)
     }
     this.getMyOrdersList({ ...sorts })
     this.setState({
@@ -100,38 +103,35 @@ export class MyOrder extends Component<Props, any> {
   }
 
   // 请求订单列表     // 校验
-  getMyOrdersList = (v?: any) => {
-    // this.props.dispatch({
-    //   type: Type.GET_MY_ORDER_REQUEST,
-    //   params: { ...this.state.request, ...v }
-    // })
-    console.log(v)
+  getMyOrdersList = async (v?: utils.FillInfo) => {
+    this.props.common.composeLoading(this.tempFunc(v))
   }
-
+  // 中间函数
+  tempFunc = (v?: utils.FillInfo) => () => {
+    this.props.myOrders.getMyOrderLists({ ...this.state.request, ...v })
+  }
   // 获取产品配置信息
   getProductDetail = () => {
-    // this.props.dispatch({
-    //   type: Type.GET_PRODUCT_DETAIL_REQUEST
-    // })
+    // 获取产品配置
   }
   // 抢单逻辑
   grabOrder = () => {
     const id = sessionStorage.getItem('userId')
-    // this.props.dispatch({
-    //   type: Type.GRAB_ORDER_REQUEST,
-    //   params: {
-    //     operator_id: parseInt(id!, 10),
-    //     operator_name: sessionStorage.getItem('username')
-    //   },
-    //   cb: this.successCb
-    // })
-    console.log(id)
+    const params = {
+      operator_id: parseInt(id!, 10),
+      operator_name: sessionStorage.getItem('username')!
+    }
+    this.props.myOrders.getGrabOrder(params, {
+      successCb: this.successCb,
+      errCb: Message.error
+    })
   }
-
   successCb = () => {
+    Message.info(utils.GRAB)
     this.getMyOrdersList()
   }
-  replaceDetail = (item: any) => () => {
+  // 进入详情
+  replaceDetail = (item: ItemProps) => () => {
     const { customer_id, order_no, product_name, mobile_id } = item
     const payload = {
       customer_id,

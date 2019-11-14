@@ -356,8 +356,8 @@ export interface NewCheckRepeatPayload {
 
 // 获取角色列表
 export interface GetRoleListReq {
-  search?: string
-  sort: any
+  // search?: string
+  // sort: any
   page: number
   per_page: number
 }

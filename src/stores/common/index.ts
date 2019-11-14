@@ -16,16 +16,20 @@ interface ImgProps {
 }
 
 interface ConfirmProps {
-  isShow: boolean
-  showSelect: () => void
+  show?: boolean
+  showSelect?: () => void
+  title?: string
+  text?: string
+  onOk?: () => void
+  onCancel?: () => void
 }
 class Common {
   // loading 是否开启
   @observable hint: CommonObj = {}
   @observable loading: CommonObj = {}
-  @observable confirm: CommonObj = {}
+  @observable confirm: ConfirmProps = {}
   @observable imgView: CommonObj = {}
-
+  @observable timmer: NodeJS.Timeout | undefined
   // 修改hint的状态
   @action changeHint = (type: string, text: string) => {
     this.hint = {
@@ -52,12 +56,20 @@ class Common {
 
   @action changeConfirm = (temp: ConfirmProps) => {
     this.confirm = {
-      show: temp.isShow,
-      showSelect: temp.showSelect
+      ...temp
     }
   }
   @action change = () => {
     console.log('xxx')
+  }
+  @action composeLoading = async (cb: () => void) => {
+    await this.changeLoading(true)
+    if (typeof cb === 'function') {
+      await cb()
+    }
+    this.timmer = setTimeout(() => {
+      this.changeLoading(false)
+    }, 500)
   }
 }
 export default Common

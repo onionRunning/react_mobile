@@ -1,4 +1,6 @@
-@import './style.scss';
+$theme-color: #ff9a2f;
+$theme-color-active: #e58b29;
+$theme-color-hover: #faa64c;
 
 .item {
     font-size: 14px;
@@ -73,5 +75,21 @@
     &:active {
         background-color: #5378c2;
         border: 1px solid #5378c2;
+    }
+}
+
+.gray {
+    color: #fff;
+    border: 1px solid #66697a;
+    background-color: #66697a;
+
+    &:hover {
+        background-color: #787a86;
+        border: 1px solid #787a86;
+    }
+
+    &:active {
+        background-color: #525563;
+        border: 1px solid #525563;
     }
 }

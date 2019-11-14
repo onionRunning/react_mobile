@@ -2,7 +2,8 @@
 export const intoDetail = {
   ORDERS: 'orders',
   MYORDER: 'my_orders',
-  REPAYMENT: 'repayments'
+  REPAYMENT: 'repayments',
+  BLACKORDER: 'black_list'
 }
 
 // 类型转换
@@ -68,4 +69,23 @@ export const productOption = [
 export let imgPath = '/'
 if (process.env.NODE_ENV === 'development') {
   imgPath = 'http://172.16.0.40:32004/'
+}
+
+export interface BtnItem {
+  text: string
+  key: string
+  type: 'default' | 'primary' | 'black' | 'blue'
+  className?: string
+  authorityId?: string
+  noShow?: boolean
+  id?: string
+}
+
+// 订单类型: 新客户,复贷客户,多次申请, 返回数据和展示数据差距太大,映射比较合适
+export const order_type = {
+  NewApplicationOrder: 'New Client',
+  RepeatApplicationOrder: 'Multiple Application',
+  QualityApplicationOrder: 'Repeat Client 01',
+  QualityApplicationOrderClassB: 'Repeat Client 02',
+  QualityApplicationOrderClassC: 'Repeat Client 03'
 }
