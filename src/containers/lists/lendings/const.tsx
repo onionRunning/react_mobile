@@ -4,6 +4,8 @@ import { formType } from 'global/constants'
 import { formatTime, Trim } from 'global/method'
 import { isNumber } from 'util'
 import { LendingFunc } from 'design/interface'
+import { LendingsPayload } from 'api/params'
+import errors from 'global/errors'
 
 // 筛选输入中,需要转换成数值行的数据
 export const turnToNumber = ['loan_amount_start', 'loan_amount_end', 'loan_days']
@@ -472,18 +474,18 @@ export const choseRight = (type: string) => {
   }
 }
 
-export const IsValid = (str: any): boolean => {
+export const IsValid = (str: string | undefined): boolean => {
   return str === undefined || str === ''
 }
 
 // 校验金额函数
 export const vertify = (state: any) => {
   const { loan_amount_start, loan_amount_end } = state
-  if (loan_amount_start < 0) return 'please input the correct start of Loan Amount'
-  if (loan_amount_end < 0) return 'please input the correct end of Loan Amount'
-  if (isNumber(loan_amount_start) && IsValid(loan_amount_end)) return 'please input the end of Loan Amount'
-  if (isNumber(loan_amount_end) && IsValid(loan_amount_start)) return 'please input the start of Loan Amount'
-  if (loan_amount_start >= loan_amount_end) return "the start shouldn't be more the end in Loan Amount"
+  if (loan_amount_start < 0) return errors.INPUT_CORRECT_START_AMOUNT
+  if (loan_amount_end < 0) return errors.INPUT_CORRECT_END_AMOUNT
+  if (isNumber(loan_amount_start) && IsValid(loan_amount_end)) return errors.INPUT_END_AMOUNT
+  if (isNumber(loan_amount_end) && IsValid(loan_amount_start)) return errors.INPUT_START_AMOUNT
+  if (loan_amount_start >= loan_amount_end) return errors.START_AMOUNT_LESS_THAN_END_AMOUNT
 }
 
 // 获取提示名称
@@ -506,16 +508,17 @@ export const commonVertify = (state: any, str: string) => {
   const name = showName(str)
   if (!start && end) return `please input ${name} start time`
   if (start && !end) return `please input ${name} end time`
+  const maxTime = 30
   if (
     moment(end)
-      .add(-30, 'd')
+      .add(-maxTime, 'd')
       .isAfter(moment(start))
   )
-    return `Number of days between start and end in ${showName(name)} can't be more than 30`
+    return `Number of days between start and end in ${showName(name)} can't be more than ${maxTime}`
 }
 
 // 校验时间函数
-export const vertifyTimes = (state: any) => {
+export const vertifyTimes = (state: LendingsPayload) => {
   return commonVertify(state, 'apply') || commonVertify(state, 'request_loan') || commonVertify(state, 'actual_loan')
 }
 
@@ -535,7 +538,7 @@ export const useless = {
 }
 export const vertifyDownload = (request: any) => {
   const obj = { ...useless, ...request, page: '', per_page: '', sort_order: '', sort_value: '' }
-  for (let k in obj) {
+  for (const k in obj) {
     if (obj[k]) {
       return ''
     }

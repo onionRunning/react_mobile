@@ -4,14 +4,13 @@ import { PaginationConfig, SorterResult } from 'antd/lib/table'
 
 import ListCondition, { Data } from 'components/listCondition'
 import Table from 'components/table'
-import { ListItem } from 'components/select'
 import ListTitle from 'components/listTitle'
 import Switch from 'components/switch'
 
 import { MixProps } from 'global/interface'
 import { Trim } from 'global/method'
-import { LendingsPayload } from 'api/params'
-import { LendingItem } from 'api/response'
+import { lendings } from 'api/params'
+import LendingProps from 'stores/lendings'
 
 import { userPermission } from 'design/permission'
 
@@ -20,12 +19,11 @@ import styles from './index.module.scss'
 
 interface Props extends MixProps {
   status?: boolean
-  productOption: ListItem[]
-  lendings: any
+  lendings: LendingProps
 }
 
 interface State {
-  request: LendingsPayload
+  request: lendings.LendingsPayload
   isAutoLend?: boolean
 }
 const initRequest = {
@@ -51,7 +49,7 @@ export class Lendings extends Component<Props, State> {
     p20101 && this.checkAutoStatus()
   }
 
-  renderOperating = (record: LendingItem, _: any, index: number) => {
+  renderOperating = (record: lendings.LendingItem, _: string, index: number) => {
     const { lending_func } = userPermission.finnalPermission!
     return (
       <>
@@ -144,11 +142,17 @@ export class Lendings extends Component<Props, State> {
   }
 
   // 翻页 + 排序
-  tableChange = (pag: PaginationConfig, _: Record<keyof LendingItem, string[]>, sorter: SorterResult<LendingItem>) => {
-    const { columnKey, order } = sorter
+  tableChange = (
+    pag: PaginationConfig,
+    _: Record<keyof lendings.LendingItem, string[]>,
+    sorter: SorterResult<lendings.LendingItem>
+  ) => {
+    const { columnKey, order } = sorter,
+      pageSize = 10,
+      pageCurrent = 1
     const sorts = {
-      page: pag.current ? pag.current : 1,
-      per_page: pag.pageSize ? pag.pageSize : 10,
+      page: pag.current ? pag.current : pageCurrent,
+      per_page: pag.pageSize ? pag.pageSize : pageSize,
       sort_value: columnKey ? columnKey : '',
       sort_order: order === 'ascend' ? 'asc' : (order as string) === 'descend' ? 'desc' : ''
     }
@@ -159,7 +163,7 @@ export class Lendings extends Component<Props, State> {
   }
 
   // 表格行按钮操作
-  handleLoanCalcel = (v: LendingItem, type: string) => () => {
+  handleLoanCalcel = (v: lendings.LendingItem, type: string) => () => {
     type === 'cancel' ? this.cancelLoan(v) : this.makeLoanOrRetry(v.order_no)
   }
 
@@ -177,7 +181,7 @@ export class Lendings extends Component<Props, State> {
   //   // )
   // }
   // 放款 or 重试
-  makeLoanOrRetry = (order: string) => () => {
+  makeLoanOrRetry = (order: string) => {
     const { createLoanRetry } = this.props.lendings
     const payload = {
       order_no: order,
@@ -186,11 +190,10 @@ export class Lendings extends Component<Props, State> {
     }
     createLoanRetry(payload, this.composeFunction)
     this.setState({ request: { ...this.state.request } })
-    this.setState({ request: { ...this.state.request } })
   }
 
   // 取消放款
-  cancelLoan = (item: LendingItem) => {
+  cancelLoan = (item: lendings.LendingItem) => {
     const { createCancelLoan } = this.props.lendings
     const payload = {
       order_no: item.order_no,
@@ -213,7 +216,7 @@ export class Lendings extends Component<Props, State> {
   }
 
   // 获取放款单列表
-  getLendingList = (v?: LendingsPayload) => {
+  getLendingList = (v?: lendings.LendingsPayload) => {
     const { getLendingList } = this.props.lendings
     const { request } = this.state
     // const auth = con.vertify(request) || con.vertifyTimes(request)

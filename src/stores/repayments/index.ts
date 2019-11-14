@@ -2,9 +2,10 @@ import { observable, action } from 'mobx'
 import api from 'api/index'
 import { RepaymentListReq } from 'interface/repayments'
 // import { Callback } from 'global/type'
+import { RepaymentResItem } from 'interface/repayments'
 
 class Repayments {
-  @observable lists: any = []
+  @observable lists: RepaymentResItem[] = []
 
   @observable page: number = 1
   @observable total_count: number = 0

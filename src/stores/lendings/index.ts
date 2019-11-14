@@ -1,15 +1,14 @@
 import { observable, action } from 'mobx'
 import api from 'api/index'
-import { CancelLoanReq, LendingsPayload, UpdateAutoReq } from 'interface/lendings'
+import { CancelLoanReq, LendingsPayload, UpdateAutoReq, LoanOrRetryReq } from 'interface/lendings'
 import { Callback } from 'global/type'
 import { formatTime, formatTf } from 'global/method'
+import { LendingItem } from 'interface/lendings'
 
 class Lendings {
   // 自动放款按钮状态
   @observable autoStatus: boolean = false
-
-  @observable lendingList: any = []
-
+  @observable lendingList: LendingItem[] = []
   @observable page: number = 1
   @observable total_count: number = 0
   @observable page_count: number = 10
@@ -18,19 +17,15 @@ class Lendings {
    * 获取贷款列表
    * @params LendingsPayload
    */
-  @action getLendingList = async (payload: LendingsPayload = {}) => {
+  @action getLendingList = async (payload: LendingsPayload) => {
     const res = await api.getLendingLists(payload)
-    try {
-      if (res && res.success) {
-        if (res.data) {
-          this.lendingList = this.handleData(res.data.loan_list)
-          this.page = payload.page!
-          this.page_count = payload.per_page!
-          this.total_count = res.data.total_count
-        }
+    if (res && res.success) {
+      if (res.data) {
+        this.lendingList = this.handleData(res.data.loan_list)
+        this.page = payload.page!
+        this.page_count = payload.per_page!
+        this.total_count = res.data.total_count
       }
-    } catch (err) {
-      // Message.error(err)
     }
   }
   /**
@@ -47,7 +42,7 @@ class Lendings {
   @action UpdateAutoStatus = async (payload: UpdateAutoReq, cb?: Callback) => {
     const res = await api.updateAutoStatus(payload)
     if (res && res.success) {
-      cb && cb(res.data)
+      cb && cb()
     }
   }
   /**
@@ -55,15 +50,23 @@ class Lendings {
    * @params order_no,operator,operator_id
    */
   @action createCancelLoan = async (payload: CancelLoanReq, cb: Callback) => {
-    await api.getCancelLoan(payload)
-    cb()
+    const res = await api.getCancelLoan(payload)
+    if (res && res.success) {
+      cb && cb()
+    }
   }
 
   /**
+   * TODO:
    * 放款or重新放款
    * @params order_no,operator,operator_id
    */
-  @action createLoanRetry = async () => {}
+  @action createLoanRetry = async (payload: LoanOrRetryReq, cb: Callback) => {
+    const res = await api.getLoanOrRetry(payload)
+    if (res && res.success) {
+      cb && cb()
+    }
+  }
 
   // TODO: 特殊处理一下数据结构, 新的接口建议不要这样
   handleData = (data: any) => {
