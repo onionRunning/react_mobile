@@ -25,15 +25,15 @@ export const getBtn = (repayment_func: RepaymentFunc) => {
 
 //各种状态颜色
 export const STATUS_CONFIG = {
-  RsProcessing: {
+  RepaymentProcessing: {
     label: 'Repayment Processing', // 还款中
     className: ''
   },
-  RsPaidOff: {
+  RepaymentPaidOff: {
     label: 'Repayment PaidOff', // 结清
     className: 'green'
   },
-  RsOverdue: {
+  RepaymentOverdue: {
     label: 'Repayment Overdue', // 逾期
     className: 'red'
   }
@@ -233,7 +233,7 @@ export const tableTitle: TableTile[] = [
     title: 'Name', // 客户姓名
     dataIndex: 'customer_name',
     key: 'customer_name',
-    width: 300,
+    width: 120,
     render: (name: string) => {
       return <span dangerouslySetInnerHTML={{ __html: name.replace(/ /g, '&nbsp') }} />
     }
@@ -242,7 +242,7 @@ export const tableTitle: TableTile[] = [
     title: 'Loan amount', // 贷款金额
     dataIndex: 'loan_principal',
     key: 'loan_principal',
-    width: 100
+    width: 120
   },
   {
     title: 'Loan term', // 期限
@@ -252,8 +252,9 @@ export const tableTitle: TableTile[] = [
   },
   {
     title: 'Loan status', // 订单状态
-    dataIndex: 'repayment_schedule_status',
-    key: 'repayment_schedule_status',
+    dataIndex: 'loan_status',
+    key: 'loan_status',
+    // TODO: 状态区分颜色
     render: (text: string) => {
       return (
         <span className={STATUS_CONFIG[text as ConfigType].className}>{STATUS_CONFIG[text as ConfigType].label}</span>

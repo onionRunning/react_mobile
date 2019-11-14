@@ -291,6 +291,7 @@ type Order = NormalOrder | OrderListItem | RepaymentResItem
 // 打开新窗口进入详情
 export const gotoDetail = (order: Order, type: string, readOnly?: boolean) => {
   const { order_no, mobile_id = 0, customer_id, product_name, application_status } = order
+  // TODO: application_status字段是否匹配????
   const encryptCustomer_id = strEncrypt(String(customer_id))
   const encryptOrder_no = strEncrypt(order_no)
   const params = `?customer_id=${encryptCustomer_id}&order_no=${encryptOrder_no}&mobile_id=${mobile_id}&status=${application_status}&detail_type=${type}&product_name=${product_name}`

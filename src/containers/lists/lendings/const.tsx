@@ -4,6 +4,8 @@ import { formType } from 'global/constants'
 import { formatTime, Trim } from 'global/method'
 import { isNumber } from 'util'
 import { LendingFunc } from 'design/interface'
+import { LendingsPayload } from 'api/params'
+import errors from 'global/errors'
 
 // 筛选输入中,需要转换成数值行的数据
 export const turnToNumber = ['loan_amount_start', 'loan_amount_end', 'loan_days']
@@ -21,24 +23,24 @@ export const getBtn = () => {
 
 //各种状态颜色
 export const STATUS_CONFIG = {
-  LoanCreate: {
+  'Create Loan': {
     label: 'Create Loan', // 待放款
     className: ''
   },
-  LoanProcessing: {
+  'Loan Processing': {
     label: 'Loan Processing', // 放款中
     className: ''
   },
-  LoanFailed: {
+  'Loan Failed': {
     label: 'Loan Failed', // 放款失败
     className: 'red'
   },
-  LoanCanceled: {
+  'Loan Canceled': {
     label: 'Loan Canceled', // 取消放款
     value: 'LoanCanceled',
     className: ''
   },
-  LoanSuccess: {
+  'Loan Success': {
     label: 'Loan Success', // 放款成功
     className: 'green'
   }
@@ -250,9 +252,9 @@ export const filterData = [
 // 订单状态
 export const orderStatus = {
   No: '', // 没有状态信息
-  LoanFailed: 'LoanFailed', // 放款失败
-  CreateLoan: 'LoanCreate', // 创建放款单
-  LoanProcessing: 'LoanProcessing' // 放款中
+  LoanFailed: 'Loan Failed', // 放款失败
+  CreateLoan: 'Loan Create', // 创建放款单
+  LoanProcessing: 'Loan Processing' // 放款中
 }
 
 type SortType = 'descend' | 'ascend'
@@ -276,32 +278,33 @@ export const setStatus = (text: StatusConfigKeys) => {
   const label = STATUS_CONFIG[text] ? STATUS_CONFIG[text].label : ''
   return <span className={className}>{label}</span>
 }
+
 // 表格头部配置信息
 export const tableTitle: TableTile[] = [
   {
     title: 'Loan ID', // 订单编号
     dataIndex: 'order_no',
-    width: 190,
+    width: 150,
     fixed: 'left',
     key: 'order_no'
   },
   {
     title: 'Order type', // 订单类型
     dataIndex: 'order_type',
-    width: 137,
+    width: 190,
     key: 'order_type'
   },
   {
     title: 'Name', // 客户姓名
     dataIndex: 'customer_name',
-    width: 102,
+    width: 150,
     key: 'customer_name',
     render: setName
   },
   {
     title: 'Application time', // 申请时间
     dataIndex: 'apply_time',
-    width: 147,
+    width: 180,
     key: 'apply_time',
     defaultSortOrder: 'descend',
     sorter: true,
@@ -310,7 +313,7 @@ export const tableTitle: TableTile[] = [
   {
     title: 'Disbursement Requisition time', // 请求放款时间
     dataIndex: 'request_loan_time',
-    width: 160,
+    width: 230,
     key: 'request_loan_time',
     sorter: true,
     render: setTime
@@ -318,26 +321,27 @@ export const tableTitle: TableTile[] = [
   {
     title: 'Loan Amount', // 贷款金额
     dataIndex: 'approved_principal',
-    width: 167,
+    width: 140,
     key: 'approved_principal'
   },
   {
     title: 'Disbursement Amount', // 实际放款金额
     dataIndex: 'loan_amount',
-    width: 167,
+    width: 190,
     key: 'loan_amount'
   },
   {
     title: 'Loan days', // 放款期限
     dataIndex: 'loan_days',
-    width: 90,
+    width: 102,
     key: 'loan_days'
   },
   {
     title: 'Loan status', // 订单状态
     dataIndex: 'loan_status',
-    width: 120,
-    key: 'loan_status'
+    width: 150,
+    key: 'loan_status',
+    render: setStatus
   },
   {
     title: 'Disbursement succeed time', // 成功放款时间-放款结果时间
@@ -351,18 +355,19 @@ export const tableTitle: TableTile[] = [
     title: 'Disbursement Status', // 放款流水状态
     dataIndex: 'loan_flow_status',
     width: 157,
-    key: 'loan_flow_status'
+    key: 'loan_flow_status',
+    render: setStatus
   },
   {
     title: 'Disbursement Ref number', // 放款流水号
     dataIndex: 'request_no',
-    width: 193,
+    width: 220,
     key: 'request_no'
   },
   {
     title: 'External Txnld', // 第三方放款流水号
     dataIndex: 'out_flow_num',
-    width: 170,
+    width: 190,
     key: 'out_flow_num'
   },
   {
@@ -380,7 +385,7 @@ export const tableTitle: TableTile[] = [
   {
     title: 'Pay channel', // 还款渠道
     dataIndex: 'pay_channel',
-    width: 106,
+    width: 136,
     key: 'pay_channel'
   },
   {
@@ -439,12 +444,13 @@ export const getMakeLoanText = (element: ElementType, lending_func: LendingFunc)
 }
 
 // 根据订单状态显示取消贷款文字  1.贷款失败+权限 2.创建贷款+权限 3.线下放款+放款中+权限
-export const getCancleLoanText = (e: ElementType, lending_func: LendingFunc): string => {
+export const getCancleLoanText = (element: ElementType, lending_func: LendingFunc): string => {
   const { LoanFailed, CreateLoan, LoanProcessing } = orderStatus
+  const { loan_status } = element
   const { p20105 } = lending_func
-  if ((e.loan_status === LoanFailed || e.loan_status === CreateLoan) && p20105) {
+  if ((loan_status === LoanFailed || loan_status === CreateLoan) && p20105) {
     return LOAN_CANCEL_TEXT
-  } else if (e.loan_status === LoanProcessing && lending_func.p20105) {
+  } else if (loan_status === LoanProcessing && lending_func.p20105) {
     // TODO: 差一个是否为线下放款的状态
     return LOAN_CANCEL_TEXT
   }
@@ -468,18 +474,18 @@ export const choseRight = (type: string) => {
   }
 }
 
-export const IsValid = (str: any): boolean => {
+export const IsValid = (str: string | undefined): boolean => {
   return str === undefined || str === ''
 }
 
 // 校验金额函数
 export const vertify = (state: any) => {
   const { loan_amount_start, loan_amount_end } = state
-  if (loan_amount_start < 0) return 'please input the correct start of Loan Amount'
-  if (loan_amount_end < 0) return 'please input the correct end of Loan Amount'
-  if (isNumber(loan_amount_start) && IsValid(loan_amount_end)) return 'please input the end of Loan Amount'
-  if (isNumber(loan_amount_end) && IsValid(loan_amount_start)) return 'please input the start of Loan Amount'
-  if (loan_amount_start >= loan_amount_end) return "the start shouldn't be more the end in Loan Amount"
+  if (loan_amount_start < 0) return errors.INPUT_CORRECT_START_AMOUNT
+  if (loan_amount_end < 0) return errors.INPUT_CORRECT_END_AMOUNT
+  if (isNumber(loan_amount_start) && IsValid(loan_amount_end)) return errors.INPUT_END_AMOUNT
+  if (isNumber(loan_amount_end) && IsValid(loan_amount_start)) return errors.INPUT_START_AMOUNT
+  if (loan_amount_start >= loan_amount_end) return errors.START_AMOUNT_LESS_THAN_END_AMOUNT
 }
 
 // 获取提示名称
@@ -502,16 +508,17 @@ export const commonVertify = (state: any, str: string) => {
   const name = showName(str)
   if (!start && end) return `please input ${name} start time`
   if (start && !end) return `please input ${name} end time`
+  const maxTime = 30
   if (
     moment(end)
-      .add(-30, 'd')
+      .add(-maxTime, 'd')
       .isAfter(moment(start))
   )
-    return `Number of days between start and end in ${showName(name)} can't be more than 30`
+    return `Number of days between start and end in ${showName(name)} can't be more than ${maxTime}`
 }
 
 // 校验时间函数
-export const vertifyTimes = (state: any) => {
+export const vertifyTimes = (state: LendingsPayload) => {
   return commonVertify(state, 'apply') || commonVertify(state, 'request_loan') || commonVertify(state, 'actual_loan')
 }
 
@@ -531,7 +538,7 @@ export const useless = {
 }
 export const vertifyDownload = (request: any) => {
   const obj = { ...useless, ...request, page: '', per_page: '', sort_order: '', sort_value: '' }
-  for (let k in obj) {
+  for (const k in obj) {
     if (obj[k]) {
       return ''
     }

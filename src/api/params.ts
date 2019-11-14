@@ -1,6 +1,8 @@
 import * as loginParams from 'interface/login'
 import * as orders from 'interface/orders'
-export { loginParams, orders }
+import * as repayments from 'interface/repayments'
+import * as lendings from 'interface/lendings'
+export { loginParams, orders, repayments, lendings }
 // 请求参数
 // 登陆参数
 export interface LoginParams {
@@ -201,8 +203,8 @@ export interface LendingsPayload {
 
 // 还款订单列表
 export interface RepaymentListReq {
-  page: number // 当前页
-  per_page: number // 每页数据条数
+  page?: number // 当前页
+  per_page?: number // 每页数据条数
   actual_loan_start_date?: string // 放款创建时间,查找开始时间
   actual_loan_end_date?: string // 放款创建时间,查找开始时间
   due_start_date?: string // 还款时间,起始查询时间
@@ -214,8 +216,8 @@ export interface RepaymentListReq {
   deduction_end_time?: string // 减免(结束时间)
   loan_status?: string // 放款单状态
   product_name?: string // 产品名称,默认不传
-  sort_value: string // 需要排序字段
-  sort_order: string // 排序方法
+  sort_value?: string // 需要排序字段
+  sort_order?: string // 排序方法
 }
 
 // 通话录音列表

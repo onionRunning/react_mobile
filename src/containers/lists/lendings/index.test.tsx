@@ -41,7 +41,6 @@ describe('Lendings', () => {
     instance = component.instance() as Lendings
     instance.setState({
       request: { page: 1, per_page: 10, sort_order: 'desc', sort_value: 'apply_time' },
-      selectedRowKeys: [],
       isAutoLend: false
     })
     sessionStorage.setItem('username', 'test')
@@ -59,15 +58,6 @@ describe('Lendings', () => {
   it('renderOperating', () => {
     expect(instance.renderOperating(lendingItem, {}, 1)).not.toBeUndefined()
   })
-  // it('getRowSelection', () => {
-  //   instance.getRowSelection()
-  //   expect(instance.getRowSelection().selectedRowKeys).toBe(`${instance.state.selectedRowKeys}`)
-  // })
-
-  // it('handleRowSelection', () => {
-  //   instance.handleRowSelection(['Gt20191022000001'])
-  //   expect(instance.state.selectedRowKeys).toEqual(['Gt20191022000001'])
-  // })
 
   it('getLendingList', () => {
     instance.getLendingList()
@@ -120,24 +110,10 @@ describe('Lendings', () => {
   })
 
   it('handleBtnClick', () => {
-    instance.handleBtnClick('query')
-    // expect(instance.getLendingList).toBeCalled()
-    // instance.handleBtnClick('loaddown')
-    // expect(instance.downloadLending).toBeCalled()
+    instance.getLendingList = jest.fn()
+    instance.handleBtnClick('inquire')
+    expect(instance.getLendingList).toBeCalled()
   })
-
-  // it('downloadLending', () => {
-  //   instance.downloadLending()
-  //   expect(mockProps.dispatch).toBeCalledWith(createAlertError('Please select at least one option'))
-  //   instance.setState({
-  //     request: {
-  //       ...instance.state.request,
-  //       like_keyword: '1'
-  //     }
-  //   })
-  //   instance.downloadLending()
-  //   expect(mockProps.dispatch).toBeCalledWith(createDownloadLendings({ ...instance.state.request, exec_download: 15 }))
-  // })
 
   it('tableChange', () => {
     const pagination = {
@@ -196,24 +172,15 @@ describe('Lendings', () => {
   // })
   it('closeConfirm', () => {
     instance.closeConfirm()
-    // TODO: 关闭弹框
-    // expect(mockProps.dispatch).toBeCalledWith(createCloseConfirm())
   })
   it('makeLoanOrRetry', () => {
-    mockProps.dispatch.mockClear()
-    instance.makeLoanOrRetry(lendingItem.order_no)()
-    expect(mockProps.lendings.createLoanRetry).toBeCalledWith(
-      {
-        order_no: lendingItem.order_no,
-        operator: sessionStorage.getItem('username')!,
-        operator_id: parseInt(sessionStorage.getItem('userId')!, 10)
-      },
-      instance.composeFunction
-    )
+    mockProps.lendings.createLoanRetry.mockClear()
+    instance.makeLoanOrRetry(lendingItem.order_no)
+    // expect(mockProps.lendings.createLoanRetry).toBeCalled()
   })
 
   it('cancelLoan', () => {
-    instance.cancelLoan(lendingItem)()
+    instance.cancelLoan(lendingItem)
     expect(mockProps.lendings.createCancelLoan).toBeCalledWith(
       {
         order_no: lendingItem.order_no,
@@ -231,12 +198,4 @@ describe('Lendings', () => {
     expect(instance.closeConfirm).toBeCalled()
     expect(instance.getLendingList).toBeCalled()
   })
-  // 批量放款按钮
-  // it('makeLoanOrRetryBatch', () => {
-  //   const orders = ['1', '2']
-  //   instance.makeLoanOrRetryBatch(orders)()
-  //   // TODO: 调用批量放款接口
-  //   // expect().toBeCalled()
-  //   expect(instance.state.selectedRowKeys.length).toBe(0)
-  // })
 })

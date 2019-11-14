@@ -42,5 +42,11 @@ export default {
   HINT_SAVA_EDIT: 'Please save the previous customer information first', // 请先保存上一项客户信息
   CHOOSE_ORDER_EMPTY: 'Please select the order!', // 请选择订单
   CHOOSE_DEST_ALLOC_ORDER_EMPTY: 'Please select the order owner', // 请选择被调单人
+  // ============ 筛选框的金额范围校验提示
+  INPUT_CORRECT_START_AMOUNT: 'please input the correct start of Loan Amount', // 输入正确的贷款起始数额
+  INPUT_CORRECT_END_AMOUNT: 'please input the correct start of Loan Amount', // 输入正确的贷款结束数额
+  INPUT_END_AMOUNT: 'please input the end of Loan Amount', // 存在起始金额,提示输入结束金额
+  INPUT_START_AMOUNT: 'please input the start of Loan Amount', // 存在结束金额,提示输入起始金额
+  START_AMOUNT_LESS_THAN_END_AMOUNT: "the start shouldn't be more the end in Loan Amount", //起始金额小于结束金额
   CHOOSE_TYPE_EMPTY: 'Please select the blacklist type'
 }
