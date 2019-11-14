@@ -4,7 +4,7 @@ import Header from './header'
 import { getRedictRoute } from './utils'
 import { userPermission } from 'design/permission'
 
-const OrderDetails = lazy(() => import('containers/ndetails'))
+const OrderDetails = lazy(() => import('containers/details'))
 const BlackLists = lazy(() => import('containers/lists/orders/blackLists'))
 const AddBlack = lazy(() => import('containers/lists/orders/addBlack'))
 const UserList = lazy(() => import('containers/lists/settings/user/userList'))
@@ -15,7 +15,6 @@ const OrderLists = lazy(() => import('containers/lists/orders/orderLists'))
 const MyOrders = lazy(() => import('containers/lists/orders/myOrders'))
 const Lendings = lazy(() => import('containers/lists/lendings'))
 const Repayments = lazy(() => import('containers/lists/repayments'))
-const Details = lazy(() => import('containers/details'))
 
 class Auth extends Component<RouteComponentProps<{ showType: string }>> {
   componentDidMount() {
@@ -46,7 +45,6 @@ class Auth extends Component<RouteComponentProps<{ showType: string }>> {
           <Route path={`${match.url}/roles_page/:type/:id?`} component={RoleDetail} />
           <Route path={`${match.url}/lendings`} component={Lendings} />
           <Route path={`${match.url}/repayments`} component={Repayments} />
-          <Route path={`${match.url}/details`} component={Details} />
         </Switch>
       </>
     )

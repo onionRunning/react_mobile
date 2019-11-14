@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { MixProps } from 'global/interface'
 import { TabConfig, D_HEIGHT, RADIO } from './utils'
+import styles from './index.module.scss'
 
 interface Props extends MixProps {
   type: string
@@ -45,8 +46,9 @@ export class SwitchComponent extends Component<Props, State> {
 
   render() {
     const { type } = this.props
+    console.log(type)
     return (
-      <div className="loan-info-container" style={{ height: this.finHeight() }}>
+      <div className={styles.wrap} style={{ height: this.finHeight() }}>
         {this.renderTabs(type)}
       </div>
     )

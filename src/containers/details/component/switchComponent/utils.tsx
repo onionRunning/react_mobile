@@ -1,14 +1,16 @@
-import React, { ComponentClass } from 'react'
+import React from 'react'
+import LoanInfo from 'containers/details/detailBottom/loanInfo'
+import SMSRecord from 'containers/details/detailBottom/smsRecord'
 
 const T = () => <div />
 
 interface TabProps {
-  [p: string]: ComponentClass<{}> | React.FC<{}>
+  [p: string]: any
 }
 export const TabConfig: TabProps = {
   Repayment: T,
-  Loan: T,
-  'SMS record': T,
+  Loan: LoanInfo,
+  'SMS record': SMSRecord,
   'Status record': T,
   'Approve operate': T,
   'User info': T,
