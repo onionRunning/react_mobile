@@ -26,7 +26,7 @@ describe('StatusRecord', () => {
   let component: any, instance: any
 
   beforeEach(() => {
-    component = shallow(<StatusRecord {...mockProps} />)
+    component = shallow(<StatusRecord {...mockProps} />).dive()
     instance = component.instance()
   })
 
