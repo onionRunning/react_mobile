@@ -3,7 +3,8 @@ import { AxiosInstance } from 'axios'
 import * as response from './response'
 import * as params from './params'
 import { LoanInfoReq, LoanInfoRes } from 'interface/details/loanInfo'
-import { SMSRecordReq, SMSRecordList } from 'interface/details/smsRecord'
+import { SMSRecordReq, SMSRecordList, SendSmsReq } from 'interface/details/smsRecord'
+import { ApprovalResultReq, ApprovalResultRes } from 'interface/details/approval'
 
 export class Api {
   request: AxiosInstance
@@ -149,6 +150,18 @@ export class Api {
     return this.post<any>('/back_mgr/verify_bank_card', req)
   }
 
+  /* -------订单详情(下半部分模块-)------- */
+
+  // 获取审批结果
+  getOrderApprovalResult = (payload: ApprovalResultReq) => {
+    return this.post<ApprovalResultRes>(`/back_mgr/get_application_result`, payload)
+  }
+
+  // 获取联系人列表
+  getTelephoneList = (payload: any) => {
+    return this.post<any>(`/back_mgr/get_approval_call_contacts`, payload)
+  }
+
   // 获取放款信息
   getLoanInfo = (payload: LoanInfoReq, currentList: string) => {
     return this.post<LoanInfoRes[]>(`/back_mgr/get_loan_flow_detail/${currentList}`, payload)
@@ -157,6 +170,11 @@ export class Api {
   // 获取短信记录
   getSMSRecord = (payload: SMSRecordReq, currentList: string) => {
     return this.post<SMSRecordList[]>(`/core_query/get_order_sms_flow/${currentList}`, payload)
+  }
+
+  // 发送短信
+  sendMsgSMSRecord = (payload: SendSmsReq) => {
+    return this.post(`/send_sms`, payload)
   }
 
   // 获取状态记录
@@ -173,9 +191,9 @@ export class Api {
     return this.post<any>(`/back_mgr/add_approval_call_contacts`, payload)
   }
 
-  getApprovalCall = (payload: params.GetApprovalCall, stuffix?: string) => {
-    return this.postHeader<any>(`/back_mgr/get_approval_call_contacts`, payload, { stuffix })
-  }
+  // getApprovalCall = (payload: params.GetApprovalCall, stuffix?: string) => {
+  //   return this.postHeader<any>(`/back_mgr/get_approval_call_contacts`, payload, { stuffix })
+  // }
 
   queryRiskCall = (payload: params.RiskGetCall, stuffix?: string) => {
     return this.postHeader<any>(`/back_mgr/query_call_log_record`, payload, { stuffix })

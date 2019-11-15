@@ -34,7 +34,7 @@ class Auth extends Component<RouteComponentProps<{ showType: string }>> {
         <Header {...this.props} baseUrl={match.url} />
         <Switch>
           <Redirect exact={true} from={match.url} to={`${match.url}${getRedictRoute(finnalPermission) || '/no'}`} />
-          <Route path={`${match.url}/:type/order_details`} component={OrderDetails} />
+          <Route path={`${match.url}/order_details`} component={OrderDetails} />
           <Route path={`${match.url}/blacklist`} component={BlackLists} />
           <Route path={`${match.url}/blacklist_management`} component={AddBlack} />
           <Route path={`${match.url}/orders`} component={OrderLists} />

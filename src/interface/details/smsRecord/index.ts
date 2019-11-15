@@ -9,3 +9,8 @@ export interface SMSRecordReq {
   order_no: string
   PermissionId?: string
 }
+
+export interface SendSmsReq {
+  order_no: string
+  button_type: string
+}

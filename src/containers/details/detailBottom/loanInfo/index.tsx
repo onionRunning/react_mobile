@@ -2,16 +2,13 @@ import React, { Component } from 'react'
 import { observer, inject } from 'mobx-react'
 import LoanInfoStore from 'stores/details/loanInfo'
 import InfoWrapper from 'containers/details/component/infoWrapper'
-import { LoanInfoColumns } from './config'
-
 import Table from 'components/table'
+import { LoanInfoColumns } from './config'
 import { LoanInfoReq, LoanInfoRes, LoanInfoList } from 'interface/details/loanInfo'
 import { MixProps } from 'global/interface'
 import { PaginationConfig, SorterResult } from 'antd/lib/table'
-// import { loan } from 'global/constants'
 
 interface Props extends MixProps {
-  currentList?: string
   loanInfo: LoanInfoStore
 }
 
@@ -29,8 +26,8 @@ export class LoanInfo extends Component<Props, State> {
     super(props)
     this.state = {
       request: {
-        PermissionId: '30102',
-        order_no: 'P2g201911140004',
+        PermissionId: '',
+        order_no: '',
         sort_order: '',
         sort_value: ''
       },
@@ -52,8 +49,15 @@ export class LoanInfo extends Component<Props, State> {
   }
 
   getLoanInfo = async () => {
-    const { request } = this.state
-    await this.props.loanInfo.getLoanInfoList(request, 'repayment_list', this.handleLoanInfo)
+    const { order_no, viewType } = this.props.location.state
+    await this.props.loanInfo.getLoanInfoList(
+      {
+        ...this.state.request,
+        order_no
+      },
+      viewType,
+      this.handleLoanInfo
+    )
   }
 
   handleLoanInfo = (LoanInfo: LoanInfoRes[]) => {

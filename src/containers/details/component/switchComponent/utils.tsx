@@ -1,6 +1,7 @@
 import React from 'react'
 import LoanInfo from 'containers/details/detailBottom/loanInfo'
 import SMSRecord from 'containers/details/detailBottom/smsRecord'
+import StatusRecord from 'containers/details/detailBottom/statusRecord'
 
 const T = () => <div />
 
@@ -11,7 +12,7 @@ export const TabConfig: TabProps = {
   Repayment: T,
   Loan: LoanInfo,
   'SMS record': SMSRecord,
-  'Status record': T,
+  'Status record': StatusRecord,
   'Approve operate': T,
   'User info': T,
   'Mobile device information': T,

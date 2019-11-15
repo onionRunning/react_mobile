@@ -26,23 +26,6 @@ export class SwitchComponent extends Component<Props, State> {
   componentWillUnmount() {
     window.removeEventListener('resize', this.resize)
   }
-  screenChange = () => {
-    window.addEventListener('resize', this.resize)
-  }
-  // 延迟触发
-  resize = () => {
-    this.setState({
-      height: this.getHeight()
-    })
-  }
-  getHeight = () => {
-    const viewHeight = document.documentElement.clientHeight || document.body.clientHeight
-    return (viewHeight - D_HEIGHT) / RADIO
-  }
-
-  finHeight = () => {
-    return this.getHeight()
-  }
 
   render() {
     const { type } = this.props
@@ -52,6 +35,26 @@ export class SwitchComponent extends Component<Props, State> {
         {this.renderTabs(type)}
       </div>
     )
+  }
+
+  screenChange = () => {
+    window.addEventListener('resize', this.resize)
+  }
+
+  // 延迟触发
+  resize = () => {
+    this.setState({
+      height: this.getHeight()
+    })
+  }
+
+  getHeight = () => {
+    const viewHeight = document.documentElement.clientHeight || document.body.clientHeight
+    return (viewHeight - D_HEIGHT) / RADIO
+  }
+
+  finHeight = () => {
+    return this.getHeight()
   }
 
   renderTabs = (type: string) => {

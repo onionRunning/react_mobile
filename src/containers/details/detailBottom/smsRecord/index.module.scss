@@ -1,13 +1,14 @@
-.sms-record-box {
+.wrap {
   position: relative;
-  margin-top: 6px;
   font-size: 12px;
-  .header-right {
+
+  .operate_wrap {
     position: absolute;
-    top: -38px;
+    top: calc(-1rem - 30px);
     right: 0;
     z-index: 1;
-    button {
+
+    >button {
       margin-left: 30px;
       padding: 0 8px;
       line-height: 28px;
@@ -15,8 +16,5 @@
       border-radius: 4px;
       cursor: pointer;
     }
-  }
-  .sms-status {
-    color: #07AA1E
   }
 }
