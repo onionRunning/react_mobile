@@ -4,7 +4,7 @@ import Header from './header'
 import { getRedictRoute } from './utils'
 import { userPermission } from 'design/permission'
 
-const OrderDetails = lazy(() => import('containers/ndetails'))
+const OrderDetails = lazy(() => import('containers/details'))
 const BlackLists = lazy(() => import('containers/lists/orders/blackLists'))
 const AddBlack = lazy(() => import('containers/lists/orders/addBlack'))
 const UserList = lazy(() => import('containers/lists/settings/user/userList'))
@@ -34,7 +34,7 @@ class Auth extends Component<RouteComponentProps<{ showType: string }>> {
         <Header {...this.props} baseUrl={match.url} />
         <Switch>
           <Redirect exact={true} from={match.url} to={`${match.url}${getRedictRoute(finnalPermission) || '/no'}`} />
-          <Route path={`${match.url}/:type/order_details`} component={OrderDetails} />
+          <Route path={`${match.url}/order_details`} component={OrderDetails} />
           <Route path={`${match.url}/blacklist`} component={BlackLists} />
           <Route path={`${match.url}/blacklist_management`} component={AddBlack} />
           <Route path={`${match.url}/orders`} component={OrderLists} />

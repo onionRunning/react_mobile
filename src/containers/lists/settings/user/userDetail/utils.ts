@@ -2,7 +2,7 @@ import * as method from 'global/method'
 import { Vertify } from 'design/vertify'
 import { State } from './index'
 
-export const createObj = (v: string | any[], t: string, f: any) => {
+export const createObj = (v: string | any[], t: string, f: (params: any) => boolean) => {
   return { value: v, text: t, func: f }
 }
 

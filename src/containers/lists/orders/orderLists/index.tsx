@@ -121,15 +121,16 @@ export class OrderLists extends Component<Props, State> {
 
   // 跳转
   replaceDetail = (item: ItemProps) => () => {
-    const { customer_id, order_no, product_name, mobile_id } = item
+    const { customer_id, order_no, product_name, mobile_id, application_status } = item
     const payload = {
       customer_id,
       order_no,
       product_name,
       mobile_id,
-      viewType: intoDetail.ORDERS
+      viewType: intoDetail.ORDERS,
+      application_status
     }
-    this.props.history.push(`/auth/${intoDetail.ORDERS}/order_details`, {
+    this.props.history.push(`/auth/order_details`, {
       ...payload
     })
   }

@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 import { Checkbox } from 'antd'
+import { CheckboxValueType } from 'antd/lib/checkbox/Group'
+import { RoleListCheckBoxItem } from 'interface/user'
 import styles from './index.module.scss'
 
 interface Props extends RouteComponentProps {
-  roleList: any[] // 所有角色
+  roleList: RoleListCheckBoxItem[] // 所有角色
   value?: number[] // 选中的角色
   disabled?: boolean // 禁用
-  onchange: (selectedRole: number[]) => void
+  onchange: (selectedRole: CheckboxValueType[]) => void
 }
 
 export class UserRoles extends Component<Props> {
@@ -31,7 +33,7 @@ export class UserRoles extends Component<Props> {
     )
   }
 
-  onChange = (checkedValues: any[]) => {
+  onChange = (checkedValues: CheckboxValueType[]) => {
     this.props.onchange(checkedValues)
   }
 }

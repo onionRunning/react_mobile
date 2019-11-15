@@ -4,9 +4,10 @@ import TabComponent from './component/tabComponent'
 import { MixProps } from 'global/interface'
 import './index.scss'
 import { top_config, bot_config, handlerRouter } from './utils'
+import ApprovalStore from 'stores/details/approval'
 // todo
 interface Props extends MixProps {
-  userDetail: {}
+  approval: ApprovalStore
   params: {
     showType?: string
   }

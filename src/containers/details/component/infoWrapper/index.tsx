@@ -5,7 +5,7 @@ interface Props {
   headTitle?: string
 }
 // TODO
-const InfoWrapper = (title?: string) => (Target: ComponentClass<{}>) => {
+const InfoWrapper = (title?: string) => (Target: ComponentClass<any>): React.FC<Props> => {
   return (props: Props) => {
     const showTitle = title ? title : props.headTitle
     return (

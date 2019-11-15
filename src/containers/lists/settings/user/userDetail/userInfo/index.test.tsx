@@ -4,24 +4,19 @@ import UserInfo from './index'
 
 describe('UserInfo', () => {
   const mockProps = {
-    name: 'test',
-    email: 'test@qq.com',
-    phone: '13600000001',
-    userDetail: {},
+    userDetail: {
+      name: 'test',
+      email: 'test@qq.com',
+      phone: '13600000001'
+    },
     type: 'edit',
     onChange: jest.fn()
   }
 
-  let component: ShallowWrapper<UserInfo>, instance: UserInfo
+  let component: ShallowWrapper<UserInfo>
 
   beforeEach(() => {
     component = shallow(<UserInfo {...mockProps} />)
-    instance = component.instance() as UserInfo
-    instance.setState({
-      name: '',
-      email: '',
-      phone: ''
-    })
   })
 
   it('render', () => {

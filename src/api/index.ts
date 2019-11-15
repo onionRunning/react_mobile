@@ -2,6 +2,9 @@ import { wrapperSend, createRequest, Response, Res, ReqType, createHeaderRequest
 import { AxiosInstance } from 'axios'
 import * as response from './response'
 import * as params from './params'
+import { LoanInfoReq, LoanInfoRes } from 'interface/details/loanInfo'
+import { SMSRecordReq, SMSRecordList, SendSmsReq } from 'interface/details/smsRecord'
+import { ApprovalResultReq, ApprovalResultRes } from 'interface/details/approval'
 
 export class Api {
   request: AxiosInstance
@@ -147,9 +150,36 @@ export class Api {
     return this.post<any>('/back_mgr/verify_bank_card', req)
   }
 
-  // 获取放款详情列表信息
-  getLoanInfo = (req: params.GetLoanInfoReq, stuffix?: string) => {
-    return this.postHeader<response.LoanInfoRes[]>('/back_mgr/query_loan_flows', req, { stuffix })
+  /* -------订单详情(下半部分模块-)------- */
+
+  // 获取审批结果
+  getOrderApprovalResult = (payload: ApprovalResultReq) => {
+    return this.post<ApprovalResultRes>(`/back_mgr/get_application_result`, payload)
+  }
+
+  // 获取联系人列表
+  getTelephoneList = (payload: any) => {
+    return this.post<any>(`/back_mgr/get_approval_call_contacts`, payload)
+  }
+
+  // 获取放款信息
+  getLoanInfo = (payload: LoanInfoReq, currentList: string) => {
+    return this.post<LoanInfoRes[]>(`/back_mgr/get_loan_flow_detail/${currentList}`, payload)
+  }
+
+  // 获取短信记录
+  getSMSRecord = (payload: SMSRecordReq, currentList: string) => {
+    return this.post<SMSRecordList[]>(`/core_query/get_order_sms_flow/${currentList}`, payload)
+  }
+
+  // 发送短信
+  sendMsgSMSRecord = (payload: SendSmsReq) => {
+    return this.post(`/send_sms`, payload)
+  }
+
+  // 获取状态记录
+  getStatusRecord = (payload: params.StatusRecordReq, currentList: string) => {
+    return this.post(`/back_mgr/get_order_status_record/${currentList}`, payload)
   }
 
   submitOrder = (payload: params.SubmitOrderPayload) => {
@@ -161,9 +191,9 @@ export class Api {
     return this.post<any>(`/back_mgr/add_approval_call_contacts`, payload)
   }
 
-  getApprovalCall = (payload: params.GetApprovalCall, stuffix?: string) => {
-    return this.postHeader<any>(`/back_mgr/get_approval_call_contacts`, payload, { stuffix })
-  }
+  // getApprovalCall = (payload: params.GetApprovalCall, stuffix?: string) => {
+  //   return this.postHeader<any>(`/back_mgr/get_approval_call_contacts`, payload, { stuffix })
+  // }
 
   queryRiskCall = (payload: params.RiskGetCall, stuffix?: string) => {
     return this.postHeader<any>(`/back_mgr/query_call_log_record`, payload, { stuffix })
@@ -173,20 +203,12 @@ export class Api {
     return this.post<any>(`/back_mgr/update_call_log_record`, payload)
   }
 
-  getSMSRecord = (payload: params.GetSMSRecordReq, stuffix: string) => {
-    return this.postHeader<response.SMSRecordRes[]>('/back_mgr/get_sms_flow_record', payload, { stuffix })
-  }
-
   approvalSendMsg = (payload: params.ApprovalSendMsgReq) => {
     return this.post('/back_mgr/approval_send_sms', payload)
   }
 
   getRepaymentInfo = (payload: params.RepaymentReq, stuffix?: string) => {
     return this.postHeader<response.RepaymentRes[]>('/back_mgr/query_repayment_schedule', payload, { stuffix })
-  }
-
-  getStatusRecord = (payload: params.StatusRecordReq, stuffix?: string) => {
-    return this.postHeader<response.StatusRecordRes[]>('/back_mgr/get_order_status_record', payload, { stuffix })
   }
 
   // 还款订单列表

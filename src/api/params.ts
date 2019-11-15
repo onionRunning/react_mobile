@@ -80,8 +80,11 @@ export interface CheckRepeatPayload {
 // 用来定义请求参数的 interface
 
 // 获取放款列表详情
-export interface GetLoanInfoReq {
+export interface LoanInfoReq {
   order_no: string
+  PermissionId?: string
+  sort_order?: 'asc' | 'desc'
+  sort_value?: string
 }
 
 // 获取短信记录

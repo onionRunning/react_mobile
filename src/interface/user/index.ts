@@ -15,7 +15,6 @@ export interface UserListReq {
   per_page: number
   sort?: SortType
   search?: string
-  // frozen?: 'normal' | 'frozen'
   frozen?: StatusType
 }
 
@@ -32,6 +31,12 @@ export interface UserListItem {
 export interface ChangeUserReq {
   id: number
   frozen: StatusType
+}
+
+export const Type = {
+  DETAIL: 'detail',
+  ADD: 'add',
+  EDIT: 'edit'
 }
 
 export interface UserDetaiReq {

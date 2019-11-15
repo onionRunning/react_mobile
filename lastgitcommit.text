@@ -1,139 +1,113 @@
-commit dada852d892beca3571ca981fe64b54e779c2e44
-Merge: 5896b39 335ea33
+commit f15031c8e63531244cd19ec1c48ec408b491ea21
 Author: hhh <huanghuihui@mintechai.com>
-Date:   Tue Nov 12 11:47:44 2019 +0800
+Date:   Wed Nov 13 16:11:38 2019 +0800
 
     解决冲突
 
-commit 5896b39bc7f9e9f380eb096edccabd8afc22da93
-Author: hhh <huanghuihui@mintechai.com>
-Date:   Tue Nov 12 11:42:14 2019 +0800
+src/containers/lists/orders/addBlack/index.test.tsx
 
-    完成用户模块
+commit ca11793afe1174f62edf448073a45534c5daea7b
+Author: hhh <huanghuihui@mintechai.com>
+Date:   Wed Nov 13 16:10:54 2019 +0800
+
+    解决冲突
+
+src/containers/lists/orders/addBlack/index.test.tsx
+
+commit 0108aa4ce01cf96feee31393b691539800ac8606
+Merge: 6c5c963 4727f29
+Author: hhh <huanghuihui@mintechai.com>
+Date:   Wed Nov 13 16:09:49 2019 +0800
+
+    解决冲突
+
+commit 6c5c963b1f33b35d2276c5017f0cd3f360ac3edc
+Author: hhh <huanghuihui@mintechai.com>
+Date:   Wed Nov 13 16:05:39 2019 +0800
+
+    add test
 
 lastgitcommit.text
-src/api/params.ts
+package.json
+src/api/index.ts
 src/api/response.ts
+src/components/Message/Notification.tsx
+src/components/Message/config.ts
+src/components/Message/img/error.png
+src/components/Message/img/info.png
+src/components/Message/img/sucess.png
+src/components/Message/img/warning.png
+src/components/Message/index.module.scss
+src/components/Message/index.tsx
+src/components/Modal/index.module.scss
+src/components/Modal/index.tsx
+src/components/Portal/Portal.md
+src/components/Portal/index.tsx
 src/components/button/index.module.scss
+src/components/button/index.test.tsx
 src/components/button/index.tsx
-src/components/table/index.module.scss
-src/components/treeSelect/index.module.scss
-src/components/treeSelect/index.tsx
-src/components/treeSelect/treeSelect.scss
+src/components/button/style.scss
+src/components/listTitle/index.test.tsx
+src/components/listTitle/index.tsx
+src/components/message/Notification.tsx
+src/components/message/config.ts
+src/components/message/img/error.png
+src/components/message/img/info.png
+src/components/message/img/sucess.png
+src/components/message/img/warning.png
+src/components/message/index.module.scss
+src/components/message/index.tsx
 src/containers/auth/index.tsx
-src/containers/lists/settings/user/userDetail/btn/index.module.scss
-src/containers/lists/settings/user/userDetail/btn/index.test.tsx
-src/containers/lists/settings/user/userDetail/btn/index.tsx
-src/containers/lists/settings/user/userDetail/config.ts
+src/containers/lists/orders/myOrders/index.tsx
+src/containers/lists/settings/role/roleDetail/config.ts
+src/containers/lists/settings/role/roleDetail/index.module.scss
+src/containers/lists/settings/role/roleDetail/index.tsx
+src/containers/lists/settings/role/roleDetail/permissions/index.scss
+src/containers/lists/settings/role/roleDetail/permissions/index.test.tsx
+src/containers/lists/settings/role/roleDetail/permissions/index.tsx
+src/containers/lists/settings/role/roleDetail/permissions/permissionsItem/index.test.tsx
+src/containers/lists/settings/role/roleDetail/permissions/permissionsItem/index.tsx
+src/containers/lists/settings/role/roleDetail/utils.ts
+src/containers/lists/settings/role/roleList/config.ts
+src/containers/lists/settings/role/roleList/index.module.scss
+src/containers/lists/settings/role/roleList/index.tsx
 src/containers/lists/settings/user/userDetail/detailIpt/index.module.scss
 src/containers/lists/settings/user/userDetail/detailIpt/index.test.tsx
 src/containers/lists/settings/user/userDetail/detailIpt/index.tsx
-src/containers/lists/settings/user/userDetail/index.module.scss
+src/containers/lists/settings/user/userDetail/index.test.tsx
 src/containers/lists/settings/user/userDetail/index.tsx
-src/containers/lists/settings/user/userDetail/userRoles/index.module.scss
-src/containers/lists/settings/user/userDetail/userRoles/index.test.tsx
-src/containers/lists/settings/user/userDetail/userRoles/index.tsx
-src/containers/lists/settings/user/userDetail/utils.ts
+src/containers/lists/settings/user/userDetail/userInfo/index.module.scss
+src/containers/lists/settings/user/userDetail/userInfo/index.test.tsx
+src/containers/lists/settings/user/userDetail/userInfo/index.tsx
 src/containers/lists/settings/user/userList/config.ts
 src/containers/lists/settings/user/userList/index.test.tsx
 src/containers/lists/settings/user/userList/index.tsx
-src/global/method.ts
+src/containers/login/index.tsx
+src/global/constants.ts
+src/interface/role/index.ts
 src/interface/user/index.ts
+src/stores/role/index.ts
+src/stores/root.ts
 src/stores/user/index.ts
 
-commit 335ea33eb032c037fe8c2208c2ad63502ffe5619
-Merge: 10167fb 50d1c00
+commit 4727f2900e342616ac5f508e406a1a73f5d07389
 Author: wangcong <wangcong@mintq.com>
-Date:   Mon Nov 11 19:35:02 2019 +0800
+Date:   Wed Nov 13 15:58:55 2019 +0800
 
-    merge:fix 冲突
+    添加黑名单列表测试
 
-commit 10167fbc64df6fa50d36361531631d8c01932afa
-Author: wangcong <wangcong@mintq.com>
-Date:   Mon Nov 11 19:32:54 2019 +0800
-
-    add:订单列表
-
-back_api.md
-gitdifftest.js
 lastgitcommit.text
-src/api/index.ts
-<<<<<<< HEAD
-src/components/treeSelect/treeSelect.scss
-src/containers/auth/index.tsx
-src/containers/lists/orders/const.test.ts
-src/containers/lists/orders/const.ts
-src/containers/lists/orders/myOrders/index.module.scss
-src/containers/lists/orders/myOrders/index.test.tsx
-src/containers/lists/orders/myOrders/index.tsx
-src/containers/lists/orders/myOrders/utils.test.ts
-src/containers/lists/orders/myOrders/utils.tsx
-src/containers/lists/orders/orderLists/index.scss
-src/containers/lists/orders/orderLists/index.tsx
-src/containers/lists/orders/orderLists/utils.tsx
-src/global/style.scss
-src/index.scss
-src/interface/common/index.ts
-src/interface/orders/index.ts
-src/stores/common/index.ts
-src/stores/orders/index.ts
-src/stores/orders/myOrders/index.ts
-src/stores/orders/orderLists/index.ts
-src/stores/root.ts
-
-commit 50d1c0035ff5fe8b6587031960b4b08be4bd34aa
-Merge: fa421d6 badb518
-Author: 卢宝宝 <lubaobao@mintechai.com>
-Date:   Mon Nov 11 16:29:05 2019 +0800
-
-    合并分支 'j-lbb' 到 'master'
-    
-    J lbb
-    
-    查看合并请求 philippines/jrocketmanager!7
-=======
-src/components/confirm/index.tsx
-src/containers/auth/index.tsx
+src/containers/lists/orders/addBlack/index.test.tsx
 src/containers/lists/orders/addBlack/index.tsx
+src/containers/lists/orders/addBlack/utils.test.tsx
 src/containers/lists/orders/addBlack/utils.tsx
 src/containers/lists/orders/blackLists/index.tsx
 src/containers/lists/orders/blackLists/utils.tsx
-src/containers/lists/orders/const.ts
-src/global/constants.ts
-src/global/errors.ts
-src/stores/common/index.ts
+src/containers/lists/orders/orderLists/index.test.tsx
+src/containers/lists/orders/orderLists/utils.test.tsx
+src/stores/orders/blacks/index.test.ts
 src/stores/orders/blacks/index.ts
-src/stores/root.ts
-
-commit fe395e26f8f63aaebab36d174b55c69ff6108dab
-Merge: 8335e29 dada852
-Author: 黄辉辉 <huanghuihui@mintechai.com>
-Date:   Tue Nov 12 14:48:11 2019 +0800
-
-    合并分支 'master-hhh' 到 'master'
-    
-    完成用户模块
-    
-    查看合并请求 philippines/jrocketmanager!8
-
-commit 8335e29280a8e65a29d8087f8596d8c13c8a32f7
-Author: wangcong <wangcong@mintq.com>
-Date:   Tue Nov 12 12:20:17 2019 +0800
-
-    添加订单列表
-
-lastgitcommit.text
-src/api/index.ts
-src/components/listCondition/index.tsx
-src/components/select/index.tsx
-src/containers/lists/orders/addBlack/const.tsx
-src/containers/lists/orders/const.ts
-src/containers/lists/orders/myOrders/index.tsx
-src/containers/lists/orders/myOrders/utils.tsx
-src/containers/lists/orders/orderLists/index.tsx
-src/containers/lists/orders/orderLists/utils.tsx
-src/global/constants.ts
-src/global/method.ts
-src/interface/orders/index.ts
+src/stores/orders/myOrders/index.test.ts
+src/stores/orders/myOrders/index.ts
+src/stores/orders/orderLists/index.test.ts
 src/stores/orders/orderLists/index.ts
->>>>>>> master

@@ -103,15 +103,17 @@ describe('MyOrder', () => {
       customer_id: 1,
       order_no: '1',
       product_name: 'peso2Go',
-      mobile_id: 1
+      mobile_id: 1,
+      application_status: 'WaitingForManualAuditing'
     }
     ins.replaceDetail(item)()
-    expect(props.history.push).toBeCalledWith('/auth/orders/order_details', {
+    expect(props.history.push).toBeCalledWith('/auth/order_details', {
       customer_id: 1,
       mobile_id: 1,
       order_no: '1',
       product_name: 'peso2Go',
-      viewType: 'orders'
+      application_status: 'WaitingForManualAuditing',
+      viewType: 'order_list'
     })
   })
 })
