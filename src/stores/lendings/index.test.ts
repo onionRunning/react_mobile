@@ -78,7 +78,7 @@ describe('lendings', () => {
       operator_id: 123
     }
     api.getLoanOrRetry = requestSuccess as any
-    await instance.createLoanRetry(req, cb)
+    await instance.createLoanRetry(req, cb)()
     expect(cb).toBeCalled()
   })
 })

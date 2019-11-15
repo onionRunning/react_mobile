@@ -59,6 +59,7 @@ export interface GetAppContractPayload {
 // 获取用户信息
 export interface UserInfoPayload {
   order_no: string
+  customer_id: string
 }
 
 // 获取第三方银行卡认证结果

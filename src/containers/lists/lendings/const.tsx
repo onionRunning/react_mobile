@@ -284,7 +284,7 @@ export const tableTitle: TableTile[] = [
   {
     title: 'Loan ID', // 订单编号
     dataIndex: 'order_no',
-    width: 150,
+    width: 170,
     fixed: 'left',
     key: 'order_no'
   },
@@ -416,12 +416,16 @@ export const RETRY_TEXT = 'Retry'
 export const CONFIREM_TITLE = 'Confirmation prom'
 // 取消放款按钮文字
 export const LOAN_CANCEL_TEXT = 'Loan cancellation'
+// 线下放款方式
+export const OFFLINE_LOAN = 'OFFLINE_LOAN'
 
 export interface ElementType {
   loan_status: string
   order_no: string
   product_name: string
   is_in_batch_loan: boolean
+  loan_flow_status: string
+  loan_pay_type: string
 }
 
 /**
@@ -433,25 +437,27 @@ export const getMakeLoanText = (element: ElementType, lending_func: LendingFunc)
   const { loan_status, is_in_batch_loan } = element
   const { LoanFailed, CreateLoan } = orderStatus
   const { p20103, p20104 } = lending_func
-  switch (true) {
-    case loan_status === LoanFailed && p20104 && !is_in_batch_loan: // 重新放款: 放款失败+权限
-      return RETRY_TEXT
-    case loan_status === CreateLoan && p20103 && !is_in_batch_loan: // 放款: 创建放款+权限
-      return MAKE_LOAN_TEXT
-    default:
-      return ''
+  if (loan_status === LoanFailed && p20104 && !is_in_batch_loan) {
+    return RETRY_TEXT
   }
+  if (loan_status === CreateLoan && p20103 && !is_in_batch_loan) {
+    return MAKE_LOAN_TEXT
+  }
+  return ''
 }
 
 // 根据订单状态显示取消贷款文字  1.贷款失败+权限 2.创建贷款+权限 3.线下放款+放款中+权限
 export const getCancleLoanText = (element: ElementType, lending_func: LendingFunc): string => {
-  const { LoanFailed, CreateLoan, LoanProcessing } = orderStatus
-  const { loan_status } = element
+  const { LoanFailed, CreateLoan, LoanProcessing, No } = orderStatus
+  const { loan_status, loan_flow_status, loan_pay_type } = element
   const { p20105 } = lending_func
-  if ((loan_status === LoanFailed || loan_status === CreateLoan) && p20105) {
+  if (loan_status === LoanFailed && loan_flow_status === LoanProcessing && p20105) {
     return LOAN_CANCEL_TEXT
-  } else if (loan_status === LoanProcessing && lending_func.p20105) {
-    // TODO: 差一个是否为线下放款的状态
+  }
+  if (loan_status === CreateLoan && loan_flow_status === No && p20105) {
+    return LOAN_CANCEL_TEXT
+  }
+  if (loan_status === LoanProcessing && lending_func.p20105 && loan_pay_type === OFFLINE_LOAN) {
     return LOAN_CANCEL_TEXT
   }
   return ''

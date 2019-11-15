@@ -1,0 +1,89 @@
+.normal-text-com {
+  display: inline-block;
+  margin-top: 10px;
+  text-align: right;
+  font-size: 12px;
+  color: #333;
+  & > span {
+    box-sizing: border-box;
+    display: inline-block;
+    white-space: nowrap;
+    padding-right: 6px;
+    // padding-left: 10px;
+    vertical-align: top;
+    text-align: right;
+    font-weight: 100;
+  }
+  @media screen and (max-width: 1368px) {
+    p {
+      font-size: 12px;
+      font-weight: 600;
+    }
+    & > span {
+      font-size: 12px;
+    }
+  }
+  & > p {
+    display: inline-block;
+    vertical-align: top;
+    // padding-left: 8px;
+    // width: 130px;
+    word-break: break-all;
+    -ms-hyphens: auto; // 添加css单词换行连字符,只支持ie和firefox
+    -moz-hyphens: auto;
+    // word-break: break-all;
+    word-break: break-word;
+    text-align: left;
+    font-weight: 600;
+    &.mini {
+      max-width: 100px;
+      width: 7vw;
+    }
+    &.small {
+      max-width: 160px;
+      width: 11.5vw;
+    }
+    &.s-mid {
+      max-width: 170px;
+      width: 9vw;
+    }
+    &.mid {
+      max-width: 180px;
+      width: 13vw;
+      font-size: 12px;
+    }
+    &.k-mid {
+      max-width: 240px;
+      width: 14vw;
+    }
+    &.s-mini-large {
+      max-width: 300px;
+      width: 15vw;
+    }
+    &.mini-large {
+      max-width: 360px;
+      width: 18vw;
+    }
+    &.mid-large {
+      max-width: 440px;
+      width: 25vw;
+    }
+    &.small-layge {
+      max-width: 650px;
+      width: 30vw;
+    }
+    &.large {
+      max-width: 700px;
+      width: 30vw;
+    }
+    .Prudence {
+      color: #FF9A2F
+    }
+    .Reject {
+      color: #DB1F1F
+    }
+    .Adopt {
+      color: #132DEA
+    }
+  }
+}

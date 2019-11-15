@@ -6,6 +6,8 @@ import MyOrders from './orders/myOrders'
 import OrderLists from './orders/orderLists'
 import Lendigns from './lendings'
 import Repayments from './repayments'
+import UserDetail from './userDetail'
+import CheckRepeat from './checkRepeat'
 
 class Root {
   common: Common
@@ -16,6 +18,8 @@ class Root {
   orderLists: OrderLists
   lendings: Lendigns
   repayments: Repayments
+  userDetail: UserDetail
+  checkRepeat: CheckRepeat
   constructor() {
     this.common = new Common()
     this.user = new User()
@@ -25,6 +29,8 @@ class Root {
     this.orderLists = new OrderLists()
     this.lendings = new Lendigns()
     this.repayments = new Repayments()
+    this.userDetail = new UserDetail()
+    this.checkRepeat = new CheckRepeat()
   }
 }
 

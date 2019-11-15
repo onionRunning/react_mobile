@@ -99,13 +99,13 @@ export class Api {
   }
 
   // 查重检测
-  getRepeatList = (payload: params.CheckRepeatPayload, stuffix?: string) => {
-    return this.postHeader<any>(`/back_mgr/get_danger_list`, payload, { stuffix })
+  getRepeatList = (payload: params.CheckRepeatPayload) => {
+    return this.post<any>(`/back_mgr/get_danger_list`, payload)
   }
   ///back_mgr/check_duplicate
   // 重新查重检测
   checkRepeatList = (payload: params.CheckRepeatPayload) => {
-    return this.post<any>(`/back_mgr/check_duplicate`, payload)
+    return this.post(`/back_mgr/check_duplicate`, payload)
   }
   // 获取放款单列表
   getLendingLists = (payload: params.lendings.LendingsPayload) => {

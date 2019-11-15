@@ -72,4 +72,6 @@ export interface LendingItem {
   customer_id: number
   product_name: string
   is_in_batch_loan: boolean
+  loan_flow_status: string
+  loan_pay_type: string
 }

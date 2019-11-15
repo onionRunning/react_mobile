@@ -14,7 +14,14 @@ describe('Repayments', () => {
     status: true,
     productOption: [],
     repayments: {
-      getRepaymentList: jest.fn()
+      getRepaymentList: jest.fn(),
+      lists: [],
+      page: 1,
+      total_count: 0,
+      page_count: 1
+    },
+    common: {
+      composeLoading: jest.fn()
     }
   }
   const record = {

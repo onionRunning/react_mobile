@@ -13,18 +13,23 @@ import { Data as ChangeData } from 'components/listCondition'
 import { RepaymentListReq, RepaymentResItem } from 'interface/repayments'
 import { userPermission } from 'design/permission'
 import RepaymentProps from 'stores/repayments'
+import Common from 'stores/common'
 
 // import { getBtn } from '../lendings/const'
 import { vertifyAmountTime, vertifyRangeAmount, vertifyTime } from './uitls'
 import { turnToNumber, tableTitle, filterData } from './config'
 
+import styles from './index.module.scss'
+
 import 'global/list.scss'
+import { repayments } from 'api/params'
 interface Props extends MixProps {
   // page: 1
   data: RepaymentResItem[]
   status: boolean
   productOption: ListItem[]
   repayments: RepaymentProps
+  common: Common
 }
 
 interface State {
@@ -35,7 +40,7 @@ interface State {
 
 type RequestType = keyof RepaymentListReq
 
-@inject('repayments')
+@inject('repayments', 'common')
 @observer
 export class Repayments extends Component<Props, State> {
   constructor(props: Props) {
@@ -71,16 +76,18 @@ export class Repayments extends Component<Props, State> {
       total: total_count
     }
     return (
-      <div className="list">
+      <div className={styles.list}>
         <ListTitle>Repayment management</ListTitle>
         {/* 筛选功能 */}
-        <ListCondition
-          data={filterData}
-          // btnItems={getBtn(repayment_func)}
-          onChange={this.handleFilter}
-          btnClick={this.handleBtnClick}
-          productSelectOptions={productOption}
-        />
+        <div className={styles.header}>
+          <ListCondition
+            data={filterData}
+            // btnItems={getBtn(repayment_func)}
+            onChange={this.handleFilter}
+            btnClick={this.handleBtnClick}
+            productSelectOptions={productOption}
+          />
+        </div>
         {/* 表格 */}
         <div className="list-wapper">
           <Table
@@ -169,10 +176,15 @@ export class Repayments extends Component<Props, State> {
     )
   }
   //获取还款列表
-  getRepaymentList = (v?: RepaymentListReq) => {
+  getRepaymentList = (v?: repayments.RepaymentListReq) => {
     const { request } = this.state
     const { getRepaymentList } = this.props.repayments
+    this.props.common.composeLoading(this.tempFunc({ ...request, ...v }))
     getRepaymentList({ ...request, ...v })
+  }
+  tempFunc = (v?: repayments.RepaymentListReq) => () => {
+    const { getRepaymentList } = this.props.repayments
+    getRepaymentList({ ...v })
   }
 
   // 验证参数

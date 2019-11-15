@@ -92,21 +92,15 @@ export class Lendings extends Component<Props, State> {
       pageSize: page_count,
       total: total_count
     }
-    // const btns = con.getBtn()
     const switchStyle = {
       display: 'flex',
       alignItems: 'center'
     }
     return (
-      <div className="list">
+      <div className={styles.list}>
         <ListTitle>Disbursement management</ListTitle>
         <div className={styles.header}>
-          <ListCondition
-            data={searchData}
-            // btnItems={btns}
-            onChange={this.handleFilter}
-            btnClick={this.handleBtnClick}
-          />
+          <ListCondition data={searchData} onChange={this.handleFilter} btnClick={this.handleBtnClick} />
           <Switch
             checked={isAutoLend}
             onChangeSwitch={this.changeAutoStatus}
@@ -169,8 +163,8 @@ export class Lendings extends Component<Props, State> {
 
   // 表格行按钮操作
   handleLoanCalcel = (v: lendings.LendingItem, type: string) => () => {
-    type === 'cancel' ? this.cancelLoan(v) : this.makeLoanOrRetry(v.order_no)
-    // this.confrimStart(rightFunc, type)
+    const rightFunc = type === 'cancel' ? this.cancelLoan(v) : this.makeLoanOrRetry(v.order_no)
+    this.confrimStart(rightFunc, type)
   }
 
   // 弹窗
@@ -185,7 +179,7 @@ export class Lendings extends Component<Props, State> {
     })
   }
   // 放款 or 重试
-  makeLoanOrRetry = (order: string) => {
+  makeLoanOrRetry = (order: string) => () => {
     const { createLoanRetry } = this.props.lendings
     const payload = {
       order_no: order,
@@ -197,7 +191,7 @@ export class Lendings extends Component<Props, State> {
   }
 
   // 取消放款
-  cancelLoan = (item: lendings.LendingItem) => {
+  cancelLoan = (item: lendings.LendingItem) => () => {
     const { createCancelLoan } = this.props.lendings
     const payload = {
       order_no: item.order_no,
@@ -221,17 +215,19 @@ export class Lendings extends Component<Props, State> {
 
   // 获取放款单列表
   getLendingList = (v?: lendings.LendingsPayload) => {
-    const { getLendingList } = this.props.lendings
     const { request } = this.state
     const auth = con.vertify(request) || con.vertifyTimes(request)
     if (auth) {
       Message.error(auth)
       return
     }
-    getLendingList({ ...request, ...v })
+    this.props.common.composeLoading(this.tempFunc({ ...request, ...v }))
     this.setState({ request: { ...this.state.request } })
   }
-
+  tempFunc = (v?: lendings.LendingsPayload) => () => {
+    const { getLendingList } = this.props.lendings
+    getLendingList({ ...v })
+  }
   // 查询自动放款状态
   checkAutoStatus = () => {
     const { checkAutoStatus } = this.props.lendings

@@ -61,7 +61,7 @@ class Lendings {
    * 放款or重新放款
    * @params order_no,operator,operator_id
    */
-  @action createLoanRetry = async (payload: LoanOrRetryReq, cb: Callback) => {
+  @action createLoanRetry = (payload: LoanOrRetryReq, cb: Callback) => async () => {
     const res = await api.getLoanOrRetry(payload)
     if (res && res.success) {
       cb && cb()
