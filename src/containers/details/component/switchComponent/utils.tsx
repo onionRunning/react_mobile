@@ -1,4 +1,5 @@
 import React from 'react'
+import MobileInfo from 'containers/details/mobileInfo'
 import LoanInfo from 'containers/details/detailBottom/loanInfo'
 import SMSRecord from 'containers/details/detailBottom/smsRecord'
 import StatusRecord from 'containers/details/detailBottom/statusRecord'
@@ -15,7 +16,7 @@ export const TabConfig: TabProps = {
   'Status record': StatusRecord,
   'Approve operate': T,
   'User info': T,
-  'Mobile device information': T,
+  'Mobile device information': MobileInfo,
   'Duplicate checking detection': T
 }
 

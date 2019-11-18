@@ -1,4 +1,5 @@
 import Common from './common'
+import MobileInfo from './details/mobileInfo'
 import User from './user'
 import Role from './role'
 import Black from './orders/blacks'
@@ -24,7 +25,9 @@ class Root {
   smsRecord: SMSRecord
   statusRecord: StatusRecord
   approval: Approval
+  mobiles: MobileInfo
   constructor() {
+    this.mobiles = new MobileInfo()
     this.common = new Common()
     this.user = new User()
     this.role = new Role()

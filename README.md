@@ -47,7 +47,7 @@ web端性能添加工具google: Page Speed Score  可以检测你的页面优化
   const compression = require('compression')
   app.use(compression())
 
-2. http response Connection: keep-alive 
+2. http response Connection: keep-alive  
 ```
 
 5. web 端监控

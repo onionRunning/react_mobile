@@ -98,7 +98,7 @@ export class Api {
 
   // 获取设备信息
   getMobileInfo = (payload: params.MobilePayload, stuffix?: string) => {
-    return this.postHeader<any>(`/back_mgr/get_mobile_device_info`, payload, { stuffix })
+    return this.postHeader<any>(`/mobile_info/app/query/order_list`, payload, { stuffix })
   }
 
   // 查重检测
