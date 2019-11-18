@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { MixProps } from 'global/interface'
 import { TabConfig, D_HEIGHT, RADIO } from './utils'
+import styles from './index.module.scss'
 
 interface Props extends MixProps {
   type: string
@@ -25,15 +26,28 @@ export class SwitchComponent extends Component<Props, State> {
   componentWillUnmount() {
     window.removeEventListener('resize', this.resize)
   }
+
+  render() {
+    const { type } = this.props
+    console.log(type)
+    return (
+      <div className={styles.wrap} style={{ height: this.finHeight() }}>
+        {this.renderTabs(type)}
+      </div>
+    )
+  }
+
   screenChange = () => {
     window.addEventListener('resize', this.resize)
   }
+
   // 延迟触发
   resize = () => {
     this.setState({
       height: this.getHeight()
     })
   }
+
   getHeight = () => {
     const viewHeight = document.documentElement.clientHeight || document.body.clientHeight
     return (viewHeight - D_HEIGHT) / RADIO
@@ -41,15 +55,6 @@ export class SwitchComponent extends Component<Props, State> {
 
   finHeight = () => {
     return this.getHeight()
-  }
-
-  render() {
-    const { type } = this.props
-    return (
-      <div className="loan-info-container" style={{ height: this.finHeight() }}>
-        {this.renderTabs(type)}
-      </div>
-    )
   }
 
   renderTabs = (type: string) => {

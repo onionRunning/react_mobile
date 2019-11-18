@@ -1,6 +1,6 @@
 // 能进入详情的列表
 export const intoDetail = {
-  ORDERS: 'orders',
+  ORDERS: 'order_list',
   MYORDER: 'my_orders',
   REPAYMENT: 'repayments',
   BLACKORDER: 'black_list'

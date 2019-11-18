@@ -9,6 +9,7 @@ import {
   UserDetaiReq,
   UserDetailRes,
   RoleListReq,
+  RoleListItem,
   AddUsersReq,
   EditUsersReq
 } from 'interface/user'
@@ -24,7 +25,7 @@ class User {
   }
   @action getUserListData = async (payload: UserListReq) => {
     try {
-      let res = await api.getUserLists(payload)
+      const res = await api.getUserLists(payload)
       if (res.success && res.data) {
         this.userList = [...res.data.list]
         this.pagination = {
@@ -41,7 +42,7 @@ class User {
   }
   @action changeUserStatus = async (payload: ChangeUserReq, callback: () => void) => {
     try {
-      let res = await api.changeUserStatus(payload)
+      const res = await api.changeUserStatus(payload)
       if (res.success) {
         Message.success(payload.frozen === statusType.FROZEN ? 'freeze success!' : 'unfreeze success!')
         callback()
@@ -54,7 +55,7 @@ class User {
   }
   @action getUserDetailData = async (payload: UserDetaiReq, callback: (userDetail: UserDetailRes) => void) => {
     try {
-      let res = await api.queryUserDetails(payload)
+      const res = await api.queryUserDetails(payload)
       if (res.success && res.data) {
         callback(res.data)
       } else {
@@ -64,9 +65,9 @@ class User {
       Message.error(err)
     }
   }
-  @action getRoleListData = async (payload: RoleListReq, callback: (roleList: any) => void) => {
+  @action getRoleListData = async (payload: RoleListReq, callback: (roleList: RoleListItem[]) => void) => {
     try {
-      let res = await api.getRoleList(payload)
+      const res = await api.getRoleList(payload)
       if (res.success && res.data) {
         const { list = [] } = res.data
         callback(list)
@@ -79,8 +80,7 @@ class User {
   }
   @action addUsers = async (payload: AddUsersReq, callback: () => void) => {
     try {
-      let res = await api.addUsers(payload)
-      console.log(res)
+      const res = await api.addUsers(payload)
       if (res.success) {
         Message.success('add successfully!')
         callback()
@@ -93,8 +93,7 @@ class User {
   }
   @action editUsers = async (payload: EditUsersReq, callback: () => void) => {
     try {
-      let res = await api.editUsers(payload)
-      console.log(res)
+      const res = await api.editUsers(payload)
       if (res.success) {
         Message.success('edit successfully!')
         callback()

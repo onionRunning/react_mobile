@@ -207,6 +207,7 @@ export interface ItemProps {
   order_no?: string
   product_name?: string
   mobile_id?: number
+  application_status?: string
 }
 export interface TempInfo {
   [p: string]: string | number
