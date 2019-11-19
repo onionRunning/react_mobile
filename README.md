@@ -41,6 +41,14 @@ ps. 你觉的哪些可以添加的在下列中添加你的想法
     - webpack 打包优化
     - express 代理层优化 
     ...
+```
+web端性能添加工具google: Page Speed Score  可以检测你的页面优化的指标
+1. express 添加gzip 压缩 
+  const compression = require('compression')
+  app.use(compression())
+
+2. http response Connection: keep-alive  
+```
 
 5. web 端监控
     - 监控报错
