@@ -395,10 +395,15 @@ $text-font-size-small: 12px;
  color: hsl(0,0%,50%) !important;
 }
 
+.operatingWrap{
+  display: flex;
+  flex-direction: column;
+}
 
 .operating{
-  display: inline-block;
-  width: 100%;
   text-align: center;
-  cursor: pointer;
+  font-size: 12px;
+  &:hover{
+    text-decoration: underline;
+  }
 }

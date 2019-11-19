@@ -66,9 +66,6 @@ describe('Lendings', () => {
     instance.componentDidMount()
     expect(instance.getLendingList).toBeCalled()
   })
-  it('renderOperating', () => {
-    expect(instance.renderOperating(lendingItem, {}, 1)).not.toBeUndefined()
-  })
 
   it('getLendingList', () => {
     instance.getLendingList()

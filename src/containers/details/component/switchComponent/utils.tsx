@@ -2,6 +2,8 @@ import React from 'react'
 import LoanInfo from 'containers/details/detailBottom/loanInfo'
 import SMSRecord from 'containers/details/detailBottom/smsRecord'
 import StatusRecord from 'containers/details/detailBottom/statusRecord'
+import UserInfo from 'containers/details/detailTop/userInfo'
+import CheckRepeat from 'containers/details/detailTop/checkRepeat'
 
 const T = () => <div />
 
@@ -14,9 +16,9 @@ export const TabConfig: TabProps = {
   'SMS record': SMSRecord,
   'Status record': StatusRecord,
   'Approve operate': T,
-  'User info': T,
+  'User info': UserInfo,
   'Mobile device information': T,
-  'Duplicate checking detection': T
+  'Duplicate checking detection': CheckRepeat
 }
 
 export const D_HEIGHT = 172

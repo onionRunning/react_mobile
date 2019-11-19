@@ -1,35 +1,5 @@
 import moment from 'moment'
-import { RepaymentListReq } from 'api/params'
 import { isNumber } from 'util'
-
-const useless = {
-  actual_loan_end_date: '',
-  actual_loan_start_date: '',
-  due_end_date: '',
-  due_start_date: '',
-  like_keyword: '',
-  loan_amount_end: '',
-  loan_amount_start: '',
-  product_name: '',
-  repayment_schedule_status: '',
-  sort_order: '',
-  sort_value: ''
-}
-
-//校验筛选条件是否全部为空
-export const areAllParamsEmpty = (req: RepaymentListReq) => {
-  const obj = { ...useless, ...req, page: '', per_page: '', sort_order: '', sort_value: '' }
-  for (const k in obj) {
-    if (obj[k as keyof typeof obj]) {
-      return ''
-    }
-  }
-  return 'Please select at least one option'
-}
-
-export const IsValid = (str: string | undefined): boolean => {
-  return str === undefined || str === ''
-}
 
 //校验贷款金额
 export const vertifyRangeAmount = (start?: number, end?: number): string | undefined => {
@@ -72,6 +42,6 @@ export const vertifyAmountTime = (start: string, end: string, name: string): fal
 }
 
 //检查是否显示线下还款按钮
-export const showOfflineRepay = (status: string) => {
-  return status === 'RsProcessing' || status === 'RsOverdue'
-}
+// export const showOfflineRepay = (status: string) => {
+//   return status === 'RsProcessing' || status === 'RsOverdue'
+// }

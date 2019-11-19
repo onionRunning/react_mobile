@@ -39,7 +39,7 @@ export const StatusRecordColumns: TableTile[] = [
     key: 'remark',
     width: 400,
     render: (record: StatusRecordList) => {
-      let reasons: Reason[] = record.reasons ? JSON.parse(record.reasons) : []
+      const reasons: Reason[] = record.reasons ? JSON.parse(record.reasons) : []
       return (
         <div>
           <span>{record.remark}</span>

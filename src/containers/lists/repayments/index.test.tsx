@@ -24,21 +24,6 @@ describe('Repayments', () => {
       composeLoading: jest.fn()
     }
   }
-  const record = {
-    customer_id: 1,
-    order_no: 'test',
-    product_name: 'test',
-    actual_loan_time: 'test',
-    customer_name: 'test',
-    loan_principal: 0,
-    loan_days: 0,
-    repayment_schedule_status: 'test',
-    due_date: 'test',
-    repay_amount: 0,
-    application_status: 'test',
-    mobile_id: 0,
-    due_repay_amount: 0
-  }
 
   let component: ShallowWrapper<Repayments>, instance: Repayments
 
@@ -61,15 +46,6 @@ describe('Repayments', () => {
   })
   it('render', () => {
     expect(component.find('div').length).toBeGreaterThan(0)
-  })
-
-  // it('renderOperating', () => {
-  //   instance.renderOperating(record, {}, 1)
-  // })
-
-  it('toDetail', () => {
-    instance.toDetail(record)()
-    expect(window.open).toBeCalled()
   })
 
   it('handleFilter', () => {

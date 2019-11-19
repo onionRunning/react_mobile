@@ -1,6 +1,4 @@
 // 放款管理
-
-// 放款管理列表筛选条件
 export interface LendingsPayload {
   page?: number // 当前页
   per_page?: number // 每页数据条数
@@ -17,13 +15,6 @@ export interface LendingsPayload {
   product_name?: string // 订单来源
   sort_value?: string | number | boolean // 排序字段
   sort_order?: string // 排序方式:asc/desc
-}
-
-// 批量放款
-export interface LoanOrRetryReqBatch {
-  order_nos: string[] | number[]
-  operator: string
-  operator_id: number
 }
 
 // 手动放款 or 重试

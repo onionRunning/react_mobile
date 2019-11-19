@@ -53,29 +53,6 @@ export class Lendings extends Component<Props, State> {
     this.getLendingList(this.state.request)
     p20101 && this.checkAutoStatus()
   }
-
-  renderOperating = (record: lendings.LendingItem, _: string, index: number) => {
-    const { lending_func } = userPermission.finnalPermission!
-    return (
-      <>
-        <span
-          className={`blue-color operating`}
-          onClick={this.handleLoanCalcel(record, 'makeOrRetry')}
-          id={`${con.getMakeLoanText(record, lending_func)}-${index}`}
-        >
-          {con.getMakeLoanText(record, lending_func)}
-        </span>
-        <span
-          className={`orange-color operating`}
-          onClick={this.handleLoanCalcel(record, 'cancel')}
-          id={`${con.getCancleLoanText(record, lending_func)}-${index}`}
-        >
-          {con.getCancleLoanText(record, lending_func)}
-        </span>
-      </>
-    )
-  }
-
   render() {
     const {
       status,
@@ -83,10 +60,7 @@ export class Lendings extends Component<Props, State> {
     } = this.props
     const { isAutoLend } = this.state
     const searchData: Data[] = con.filterData
-    const tableTitle = con.tableTitle
-    // TODO: 传一个回调回来
-    tableTitle[tableTitle.length - 1].render = this.renderOperating
-    // const { lending_func } = userPermission.finnalPermission!
+    const tableTitle = con.getTableTitle(this.handleLoanCalcel) as []
     const pagination = {
       current: page,
       pageSize: page_count,
@@ -162,8 +136,8 @@ export class Lendings extends Component<Props, State> {
   }
 
   // 表格行按钮操作
-  handleLoanCalcel = (v: lendings.LendingItem, type: string) => () => {
-    const rightFunc = type === 'cancel' ? this.cancelLoan(v) : this.makeLoanOrRetry(v.order_no)
+  handleLoanCalcel = (item: lendings.LendingItem, type: string) => () => {
+    const rightFunc = type === 'cancel' ? this.cancelLoan(item) : this.makeLoanOrRetry(item.order_no)
     this.confrimStart(rightFunc, type)
   }
 
