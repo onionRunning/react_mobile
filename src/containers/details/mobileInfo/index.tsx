@@ -15,13 +15,13 @@ interface Props extends MixProps {
   mobiles: MobileStore
 }
 // 资料信息
-const infoList = (data: any[], object: any) => {
+const infoList = (data: Info[], object: Info) => {
   return data.map((item, key) => {
     return (
       <div className={styles.info_item} key={key}>
         <div className={styles.item_title}>
           <span>{`${item.title}`}:</span>
-          <b>{formatValue(item, object && object[item.stateName])}</b>
+          <b>{formatValue(item as Record<string, string>, object && (object[item.stateName as string] as string))}</b>
         </div>
       </div>
     )

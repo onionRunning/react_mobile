@@ -18,7 +18,7 @@ export const reflectRoot = (types: string) => {
   return types === CHESE_YES ? YES : NO
 }
 // 展示value
-export const formatValue = (item: ItemType, data: string) => {
+export const formatValue = (item: Record<string, string>, data: string) => {
   if (!data) return ''
   if (item.type === ROOT) return reflectRoot(data)
   return data
@@ -78,7 +78,7 @@ export const tableTitle = [
   }
 ]
 // 展示的信息内容
-export const DeviceInfoLabel = [
+export const DeviceInfoLabel: Info[] = [
   {
     title: 'Serial number', // 设备号
     type: 'text',
