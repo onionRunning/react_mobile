@@ -7,6 +7,8 @@ import MyOrders from './orders/myOrders'
 import OrderLists from './orders/orderLists'
 import Lendigns from './lendings'
 import Repayments from './repayments'
+import UserDetail from './details/userDetail'
+import CheckRepeat from './details/checkRepeat'
 import LoanInfo from './details/loanInfo'
 import SMSRecord from './details/smsRecord'
 import StatusRecord from './details/statusRecord'
@@ -21,6 +23,8 @@ class Root {
   orderLists: OrderLists
   lendings: Lendigns
   repayments: Repayments
+  userDetail: UserDetail
+  checkRepeat: CheckRepeat
   loanInfo: LoanInfo
   smsRecord: SMSRecord
   statusRecord: StatusRecord
@@ -36,6 +40,8 @@ class Root {
     this.orderLists = new OrderLists()
     this.lendings = new Lendigns()
     this.repayments = new Repayments()
+    this.userDetail = new UserDetail()
+    this.checkRepeat = new CheckRepeat()
     this.loanInfo = new LoanInfo()
     this.smsRecord = new SMSRecord()
     this.approval = new Approval()

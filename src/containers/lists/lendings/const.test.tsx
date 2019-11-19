@@ -35,15 +35,18 @@ describe('const', () => {
       loan_status: 'Loan Failed',
       order_no: '111',
       product_name: 'name',
+      loan_flow_status: 'Loan Faild',
+      loan_pay_type: 'test',
       is_in_batch_loan: false // 批量放款
     }
     expect(Function.getMakeLoanText(element, config)).toEqual('Retry')
     // 创建状态
     const element1 = {
-      loan_status: 'Loan Create',
+      loan_status: 'Create Loan',
       order_no: '111',
       product_name: 'name',
-      is_in_batch_loan: false // 批量放款
+      loan_flow_status: 'Loan Faild',
+      loan_pay_type: 'test'
     }
     expect(Function.getMakeLoanText(element1, config)).toEqual('Make Loan')
     // 其他状态
@@ -51,17 +54,19 @@ describe('const', () => {
       loan_status: 'Loan Processing',
       order_no: '111',
       product_name: 'name',
-      is_in_batch_loan: false // 批量放款
+      loan_flow_status: 'Loan Faild',
+      loan_pay_type: 'test'
     }
     expect(Function.getMakeLoanText(element2, config)).toEqual('')
     // 其他状态
     const element3 = {
-      loan_status: 'Loan Create',
+      loan_status: 'Create Loan',
       order_no: '111',
       product_name: 'name',
-      is_in_batch_loan: true // 批量放款
+      loan_flow_status: 'Loan Faild',
+      loan_pay_type: 'test'
     }
-    expect(Function.getMakeLoanText(element3, config)).toEqual('')
+    expect(Function.getMakeLoanText(element3, config)).toEqual('Make Loan')
     // 没有对应的权限
     const config1 = {
       p20101: true, // 自动放款开关
@@ -73,9 +78,11 @@ describe('const', () => {
     }
     // 其他状态
     const element4 = {
-      loan_status: 'Loan Create',
+      loan_status: 'Create Loan',
       order_no: '111',
       product_name: 'name',
+      loan_flow_status: 'Loan Faild',
+      loan_pay_type: 'test',
       is_in_batch_loan: true // 批量放款
     }
     expect(Function.getMakeLoanText(element4, config1)).toEqual('')
@@ -85,23 +92,38 @@ describe('const', () => {
       loan_status: 'Loan Failed',
       order_no: '111',
       product_name: 'name',
-      is_in_batch_loan: false // 批量放款
+      is_in_batch_loan: false, // 批量放款,
+      loan_flow_status: 'Loan Failed',
+      loan_pay_type: 'test'
     }
     expect(Function.getCancleLoanText(element, config)).toEqual('Loan cancellation')
     const element1 = {
-      loan_status: 'Loan Create',
+      loan_status: 'Create Loan',
       order_no: '111',
       product_name: 'name',
-      is_in_batch_loan: false // 批量放款
+      is_in_batch_loan: false, // 批量放款
+      loan_flow_status: '',
+      loan_pay_type: 'test'
     }
     expect(Function.getCancleLoanText(element1, config)).toEqual('Loan cancellation')
     const element2 = {
       loan_status: 'other',
       order_no: '111',
       product_name: 'name',
+      loan_flow_status: 'Loan Faild',
+      loan_pay_type: 'test',
       is_in_batch_loan: false // 批量放款
     }
     expect(Function.getCancleLoanText(element2, config)).toEqual('')
+    const element3 = {
+      loan_status: 'Loan Processing',
+      order_no: '111',
+      product_name: 'name',
+      loan_flow_status: 'test',
+      loan_pay_type: 'OFFLINE_LOAN',
+      is_in_batch_loan: false // 批量放款
+    }
+    expect(Function.getCancleLoanText(element3, config)).toEqual('Loan cancellation')
   })
   it('choseRight', () => {
     const type = 'cancel'

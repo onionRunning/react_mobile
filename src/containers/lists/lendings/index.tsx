@@ -6,20 +6,25 @@ import ListCondition, { Data } from 'components/listCondition'
 import Table from 'components/table'
 import ListTitle from 'components/listTitle'
 import Switch from 'components/switch'
+import Message from 'components/message'
 
 import { MixProps } from 'global/interface'
 import { Trim } from 'global/method'
 import { lendings } from 'api/params'
+
 import LendingProps from 'stores/lendings'
+import Common from 'stores/common'
 
 import { userPermission } from 'design/permission'
 
 import * as con from './const'
 import styles from './index.module.scss'
+import { Noop } from 'global/type'
 
 interface Props extends MixProps {
   status?: boolean
   lendings: LendingProps
+  common: Common
 }
 
 interface State {
@@ -32,7 +37,7 @@ const initRequest = {
   sort_order: 'desc',
   sort_value: 'apply_time'
 }
-@inject('lendings')
+@inject('lendings', 'common')
 @observer
 export class Lendings extends Component<Props, State> {
   constructor(props: Props) {
@@ -48,29 +53,6 @@ export class Lendings extends Component<Props, State> {
     this.getLendingList(this.state.request)
     p20101 && this.checkAutoStatus()
   }
-
-  renderOperating = (record: lendings.LendingItem, _: string, index: number) => {
-    const { lending_func } = userPermission.finnalPermission!
-    return (
-      <>
-        <span
-          className={`blue-color operating`}
-          onClick={this.handleLoanCalcel(record, 'makeOrRetry')}
-          id={`${con.getMakeLoanText(record, lending_func)}-${index}`}
-        >
-          {con.getMakeLoanText(record, lending_func)}
-        </span>
-        <span
-          className={`orange-color operating`}
-          onClick={this.handleLoanCalcel(record, 'cancel')}
-          id={`${con.getCancleLoanText(record, lending_func)}-${index}`}
-        >
-          {con.getCancleLoanText(record, lending_func)}
-        </span>
-      </>
-    )
-  }
-
   render() {
     const {
       status,
@@ -78,30 +60,21 @@ export class Lendings extends Component<Props, State> {
     } = this.props
     const { isAutoLend } = this.state
     const searchData: Data[] = con.filterData
-    const tableTitle = con.tableTitle
-    // TODO: 传一个回调回来
-    tableTitle[tableTitle.length - 1].render = this.renderOperating
-    // const { lending_func } = userPermission.finnalPermission!
+    const tableTitle = con.getTableTitle(this.handleLoanCalcel) as []
     const pagination = {
       current: page,
       pageSize: page_count,
       total: total_count
     }
-    // const btns = con.getBtn()
     const switchStyle = {
       display: 'flex',
       alignItems: 'center'
     }
     return (
-      <div className="list">
+      <div className={styles.list}>
         <ListTitle>Disbursement management</ListTitle>
         <div className={styles.header}>
-          <ListCondition
-            data={searchData}
-            // btnItems={btns}
-            onChange={this.handleFilter}
-            btnClick={this.handleBtnClick}
-          />
+          <ListCondition data={searchData} onChange={this.handleFilter} btnClick={this.handleBtnClick} />
           <Switch
             checked={isAutoLend}
             onChangeSwitch={this.changeAutoStatus}
@@ -163,25 +136,24 @@ export class Lendings extends Component<Props, State> {
   }
 
   // 表格行按钮操作
-  handleLoanCalcel = (v: lendings.LendingItem, type: string) => () => {
-    type === 'cancel' ? this.cancelLoan(v) : this.makeLoanOrRetry(v.order_no)
+  handleLoanCalcel = (item: lendings.LendingItem, type: string) => () => {
+    const rightFunc = type === 'cancel' ? this.cancelLoan(item) : this.makeLoanOrRetry(item.order_no)
+    this.confrimStart(rightFunc, type)
   }
 
   // 弹窗
-  // confrimStart = (confirm: Noop, type: string) => {
-  //   const { title, text } = con.choseRight(type)
-  //   console.log('弹出弹框')
-  //   // this.props.dispatch(
-  //   //   createConfirm({
-  //   //     title: title,
-  //   //     text: text,
-  //   //     onOk: confirm,
-  //   //     onCancel: this.closeConfirm
-  //   //   })
-  //   // )
-  // }
+  confrimStart = (rightFunc: Noop, type: string) => {
+    const { title, text } = con.choseRight(type)
+    this.props.common.changeConfirm({
+      show: true,
+      title,
+      text,
+      onCancel: this.closeConfirm,
+      onOk: rightFunc
+    })
+  }
   // 放款 or 重试
-  makeLoanOrRetry = (order: string) => {
+  makeLoanOrRetry = (order: string) => () => {
     const { createLoanRetry } = this.props.lendings
     const payload = {
       order_no: order,
@@ -193,7 +165,7 @@ export class Lendings extends Component<Props, State> {
   }
 
   // 取消放款
-  cancelLoan = (item: lendings.LendingItem) => {
+  cancelLoan = (item: lendings.LendingItem) => () => {
     const { createCancelLoan } = this.props.lendings
     const payload = {
       order_no: item.order_no,
@@ -212,23 +184,24 @@ export class Lendings extends Component<Props, State> {
 
   // 关闭弹窗
   closeConfirm = () => {
-    // this.props.dispatch(createCloseConfirm())
+    this.props.common.changeConfirm({ show: false })
   }
 
   // 获取放款单列表
   getLendingList = (v?: lendings.LendingsPayload) => {
-    const { getLendingList } = this.props.lendings
     const { request } = this.state
-    // const auth = con.vertify(request) || con.vertifyTimes(request)
-    // if (auth) {
-    //   // TODO:全局报错相关错误信息
-    //   // this.props.dispatch(createAlertError(auth))
-    //   return
-    // }
-    getLendingList({ ...request, ...v })
+    const auth = con.vertify(request) || con.vertifyTimes(request)
+    if (auth) {
+      Message.error(auth)
+      return
+    }
+    this.props.common.composeLoading(this.tempFunc({ ...request, ...v }))
     this.setState({ request: { ...this.state.request } })
   }
-
+  tempFunc = (v?: lendings.LendingsPayload) => () => {
+    const { getLendingList } = this.props.lendings
+    getLendingList({ ...v })
+  }
   // 查询自动放款状态
   checkAutoStatus = () => {
     const { checkAutoStatus } = this.props.lendings
