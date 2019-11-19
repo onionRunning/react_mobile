@@ -1,0 +1,14 @@
+.info-content-contact{
+    padding-left: 8px;
+    .info-item{
+        .normal-text-com{
+            &:nth-child(1){
+                width: 53%
+            }
+            &:nth-child(2){
+                width: 47%
+            }
+            text-align: left;
+        }
+    }
+}

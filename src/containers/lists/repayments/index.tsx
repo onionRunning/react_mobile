@@ -1,30 +1,35 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
-import ListCondition from 'components/listCondition'
 import { PaginationConfig, SorterResult } from 'antd/lib/table'
 
 import { intoDetail } from 'global/constants'
-import { Trim, gotoDetail } from 'global/method'
+import { Trim } from 'global/method'
 import { MixProps } from 'global/interface'
 import { ListItem } from 'components/select'
 import ListTitle from 'components/listTitle'
 import Table from 'components/table'
+import ListCondition from 'components/listCondition'
 import { Data as ChangeData } from 'components/listCondition'
 import { RepaymentListReq, RepaymentResItem } from 'interface/repayments'
-import { userPermission } from 'design/permission'
 import RepaymentProps from 'stores/repayments'
+import Common from 'stores/common'
+import { repayments } from 'api/params'
+import Message from 'components/message'
 
-// import { getBtn } from '../lendings/const'
 import { vertifyAmountTime, vertifyRangeAmount, vertifyTime } from './uitls'
-import { turnToNumber, tableTitle, filterData } from './config'
+import { turnToNumber, getTableTitle, filterData, ItemProps } from './config'
+
+import styles from './index.module.scss'
 
 import 'global/list.scss'
+
 interface Props extends MixProps {
   // page: 1
   data: RepaymentResItem[]
   status: boolean
   productOption: ListItem[]
   repayments: RepaymentProps
+  common: Common
 }
 
 interface State {
@@ -35,7 +40,7 @@ interface State {
 
 type RequestType = keyof RepaymentListReq
 
-@inject('repayments')
+@inject('repayments', 'common')
 @observer
 export class Repayments extends Component<Props, State> {
   constructor(props: Props) {
@@ -63,24 +68,25 @@ export class Repayments extends Component<Props, State> {
       productOption,
       repayments: { lists, page, total_count, page_count }
     } = this.props
-    tableTitle[tableTitle.length - 1].render = this.renderOperating
-    // const { repayment_func } = userPermission.finnalPermission!
+    const tableTitle = getTableTitle(this.operating) as []
     const pagination = {
       current: page,
       pageSize: page_count,
       total: total_count
     }
     return (
-      <div className="list">
+      <div className={styles.list}>
         <ListTitle>Repayment management</ListTitle>
         {/* 筛选功能 */}
-        <ListCondition
-          data={filterData}
-          // btnItems={getBtn(repayment_func)}
-          onChange={this.handleFilter}
-          btnClick={this.handleBtnClick}
-          productSelectOptions={productOption}
-        />
+        <div className={styles.header}>
+          <ListCondition
+            data={filterData}
+            // btnItems={getBtn() as []}   //默认inquire ,可扩展
+            onChange={this.handleFilter}
+            btnClick={this.handleBtnClick}
+            productSelectOptions={productOption}
+          />
+        </div>
         {/* 表格 */}
         <div className="list-wapper">
           <Table
@@ -95,21 +101,23 @@ export class Repayments extends Component<Props, State> {
     )
   }
 
-  renderOperating = (record: RepaymentResItem, _: string, index: number) => {
-    const { repayment_func } = userPermission.finnalPermission!
-    const names = `blue-color operating`
-    return (
-      <div>
-        {repayment_func.p30101 && (
-          <span className={names} onClick={this.toDetail(record)} id={`inquery-${index}`}>
-            Inquire
-          </span>
-        )}
-      </div>
-    )
+  operating = (item: ItemProps, type: string) => () => {
+    type === 'inquire' && this.replaceDetail(item)
   }
-  toDetail = (record: RepaymentResItem) => () => {
-    gotoDetail(record, intoDetail.REPAYMENT)
+  // 跳转
+  replaceDetail = (item: ItemProps) => {
+    const { customer_id, order_no, product_name, mobile_id, application_status } = item
+    const payload = {
+      customer_id,
+      order_no,
+      product_name,
+      mobile_id,
+      viewType: intoDetail.REPAYMENT,
+      application_status
+    }
+    this.props.history.push(`/auth/order_details`, {
+      ...payload
+    })
   }
 
   // 处理筛选输入
@@ -169,10 +177,15 @@ export class Repayments extends Component<Props, State> {
     )
   }
   //获取还款列表
-  getRepaymentList = (v?: RepaymentListReq) => {
+  getRepaymentList = (v?: repayments.RepaymentListReq) => {
     const { request } = this.state
     const { getRepaymentList } = this.props.repayments
+    this.props.common.composeLoading(this.tempFunc({ ...request, ...v }))
     getRepaymentList({ ...request, ...v })
+  }
+  tempFunc = (v?: repayments.RepaymentListReq) => () => {
+    const { getRepaymentList } = this.props.repayments
+    getRepaymentList({ ...v })
   }
 
   // 验证参数
@@ -183,7 +196,7 @@ export class Repayments extends Component<Props, State> {
       'Disbursement succeed time'
     )
     if (vertifyTimeErr) {
-      // this.startErrHint(vertifyTimeErr)
+      Message.error(vertifyTimeErr)
       return false
     }
     const vertifyAmountTimeErr = vertifyAmountTime(
@@ -192,12 +205,12 @@ export class Repayments extends Component<Props, State> {
       'Due date'
     )
     if (vertifyAmountTimeErr) {
-      // this.startErrHint(vertifyAmountTimeErr)
+      Message.error(vertifyAmountTimeErr)
       return false
     }
     const vertifyRangeAmountErr = vertifyRangeAmount(request.loan_amount_start, request.loan_amount_end)
     if (vertifyRangeAmountErr) {
-      // this.startErrHint(vertifyRangeAmountErr)
+      Message.error(vertifyRangeAmountErr)
       return false
     }
     const vertifyDudutionTimeErr = vertifyAmountTime(
@@ -206,17 +219,11 @@ export class Repayments extends Component<Props, State> {
       'Settlement time'
     )
     if (vertifyDudutionTimeErr) {
-      // this.startErrHint(vertifyDudutionTimeErr)
+      Message.error(vertifyDudutionTimeErr)
       return false
     }
     return true
   }
-
-  // 开启提示
-  // startErrHint = (err: string) => {
-  //   console.log(err)
-  //   // this.props.dispatch(createAlertError(err))
-  // }
 }
 
 export default Repayments

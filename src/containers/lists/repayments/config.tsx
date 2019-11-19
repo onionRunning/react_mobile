@@ -1,24 +1,17 @@
-import React from 'react'
+import React, { MouseEventHandler } from 'react'
 import { formType } from 'global/constants'
 import { formatTime, formatDateDay } from 'global/method'
-import { RepaymentFunc } from 'design/interface'
 
 // 需要转换成数值型的输入字段
 export const turnToNumber = ['loan_amount_start', 'loan_amount_end', 'loan_days']
 
-export const getBtn = (repayment_func: RepaymentFunc) => {
+export const getBtn = () => {
   return [
     {
-      type: 'query',
+      type: 'primary',
+      key: 'query',
       text: 'Inquire',
       id: 'inquire-btn'
-    },
-    {
-      type: 'loaddown',
-      className: 'sub-btn-grey',
-      text: 'Download',
-      id: 'download-btn',
-      noShow: !repayment_func.p30102
     }
   ]
 }
@@ -43,7 +36,7 @@ export const STATUS_CONFIG = {
 export const filterData = [
   {
     formType: formType.SEARCH,
-    key: 'like_keyword',
+    key: 'order_no_customer_name',
     maxLength: 100,
     placeholder: 'Search for loan ID or Name',
     id: 'search'
@@ -125,19 +118,23 @@ export const filterData = [
   {
     formType: formType.SELECT,
     label: 'Loan status:',
-    key: 'repayment_schedule_status',
+    key: 'loan_status',
     data: [
       {
+        label: 'All',
+        value: ''
+      },
+      {
         label: 'Repayment Processing', // 还款中
-        value: 'RsProcessing'
+        value: 'RepaymentProcessing'
       },
       {
         label: 'Repayment PaidOff', // 已结清
-        value: 'RsPaidOff'
+        value: 'RepaymentPaidOff'
       },
       {
         label: 'Repayment Overdue', // 已逾期
-        value: 'RsOverdue'
+        value: 'RepaymentOverdue'
       }
     ],
     id: 'repayment-status'
@@ -199,104 +196,109 @@ export const filterData = [
 ]
 type ConfigType = keyof typeof STATUS_CONFIG
 
-type SortType = 'descend' | 'ascend'
-
-interface TableTile {
-  title: string
-  dataIndex: string
-  key: string
-  width: number
-  render?: (...arg: any[]) => React.ReactNode
-  sorter?: boolean
-  defaultSortOrder?: SortType
-}
-// 表格头部配置信息
-export const tableTitle: TableTile[] = [
-  {
-    title: 'Loan ID', // 订单编号
-    dataIndex: 'order_no',
-    key: 'order_no',
-    width: 200
-  },
-  {
-    title: 'Disbursement succeed time', // 放款成功时间
-    dataIndex: 'actual_loan_time',
-    key: 'actual_loan_time',
-    defaultSortOrder: 'descend' as SortType,
-    sorter: true,
-    render: (text: string) => {
-      return <span>{formatTime(text)}</span>
+export const getTableTitle = (cb?: (args: {}, type: string) => MouseEventHandler<{}>) => {
+  return [
+    {
+      title: 'Loan ID', // 订单编号
+      dataIndex: 'order_no',
+      key: 'order_no',
+      width: 200
     },
-    width: 220
-  },
-  {
-    title: 'Name', // 客户姓名
-    dataIndex: 'customer_name',
-    key: 'customer_name',
-    width: 120,
-    render: (name: string) => {
-      return <span dangerouslySetInnerHTML={{ __html: name.replace(/ /g, '&nbsp') }} />
+    {
+      title: 'Disbursement succeed time', // 放款成功时间
+      dataIndex: 'actual_loan_time',
+      key: 'actual_loan_time',
+      defaultSortOrder: 'descend',
+      sorter: true,
+      render: (text: string) => {
+        return <span>{formatTime(text)}</span>
+      },
+      width: 220
+    },
+    {
+      title: 'Name', // 客户姓名
+      dataIndex: 'customer_name',
+      key: 'customer_name',
+      width: 120,
+      render: (name: string) => {
+        return <span dangerouslySetInnerHTML={{ __html: name.replace(/ /g, '&nbsp') }} />
+      }
+    },
+    {
+      title: 'Loan amount', // 贷款金额
+      dataIndex: 'loan_principal',
+      key: 'loan_principal',
+      width: 120
+    },
+    {
+      title: 'Loan term', // 期限
+      dataIndex: 'loan_days',
+      key: 'loan_days',
+      width: 100
+    },
+    {
+      title: 'Loan status', // 订单状态
+      dataIndex: 'loan_status',
+      key: 'loan_status',
+      render: (text: string) => {
+        return (
+          <span className={STATUS_CONFIG[text as ConfigType].className}>{STATUS_CONFIG[text as ConfigType].label}</span>
+        )
+      },
+      width: 180
+    },
+    {
+      title: 'Settlement time', // 结清时间
+      dataIndex: 'actual_paid_off_date',
+      key: 'actual_paid_off_date',
+      render: (text: string) => {
+        return <span>{formatTime(text || '')}</span>
+      },
+      width: 150
+    },
+    {
+      title: 'Due date', // 本期应还日期
+      dataIndex: 'due_date',
+      key: 'due_date',
+      sorter: true,
+      render: (text: string) => {
+        return <span>{formatDateDay(text)}</span>
+      },
+      width: 150
+    },
+    {
+      title: 'Amount due', // 应还金额
+      dataIndex: 'repay_amount',
+      key: 'repay_amount',
+      width: 120
+    },
+    {
+      title: 'Product name', // 订单来源\产品名称
+      dataIndex: 'product_name',
+      key: 'product_name',
+      width: 120
+    },
+    {
+      title: 'Operating',
+      dataIndex: '',
+      key: 'operating',
+      width: 120,
+      render: (item: {}, _: string, index: number) => {
+        return (
+          <>
+            <span onClick={cb!(item, 'inquire')} className={`blue-color operating`} id={`inquire-${index}`}>
+              Inquire
+            </span>
+          </>
+        )
+      }
     }
-  },
-  {
-    title: 'Loan amount', // 贷款金额
-    dataIndex: 'loan_principal',
-    key: 'loan_principal',
-    width: 120
-  },
-  {
-    title: 'Loan term', // 期限
-    dataIndex: 'loan_days',
-    key: 'loan_days',
-    width: 100
-  },
-  {
-    title: 'Loan status', // 订单状态
-    dataIndex: 'loan_status',
-    key: 'loan_status',
-    // TODO: 状态区分颜色
-    render: (text: string) => {
-      return (
-        <span className={STATUS_CONFIG[text as ConfigType].className}>{STATUS_CONFIG[text as ConfigType].label}</span>
-      )
-    },
-    width: 180
-  },
-  {
-    title: 'Settlement time', // 结清时间
-    dataIndex: 'actual_paid_off_date',
-    key: 'actual_paid_off_date',
-    render: (text: string) => {
-      return <span>{formatTime(text || '')}</span>
-    },
-    width: 150
-  },
-  {
-    title: 'Due date', // 本期应还日期
-    dataIndex: 'due_date',
-    key: 'due_date',
-    sorter: true,
-    render: (text: string) => {
-      return <span>{formatDateDay(text)}</span>
-    },
-    width: 150
-  },
-  {
-    title: 'Amount due', // 应还金额
-    dataIndex: 'repay_amount',
-    key: 'repay_amount',
-    width: 120
-  },
-  {
-    title: 'Product name', // 订单来源\产品名称
-    dataIndex: 'product_name',
-    key: 'product_name',
-    width: 120
-  },
-  {
-    title: 'Operating',
-    dataIndex: '',
-    key: 'operating',
-    width: 120
-  }
-]
+  ]
+}
+export interface ItemProps {
+  customer_id?: number
+  order_no?: string
+  product_name?: string
+  mobile_id?: number
+  application_status?: string
+}

@@ -5,6 +5,8 @@ import * as params from './params'
 import { LoanInfoReq, LoanInfoRes } from 'interface/details/loanInfo'
 import { SMSRecordReq, SMSRecordList, SendSmsReq } from 'interface/details/smsRecord'
 import { ApprovalResultReq, ApprovalResultRes } from 'interface/details/approval'
+import { UserInfoPayload } from 'interface/details/userInfo'
+import { CheckRepeatPayloadReq } from 'interface/details/checkRepeat'
 
 export class Api {
   request: AxiosInstance
@@ -92,7 +94,7 @@ export class Api {
   // getUserInfo = (payload: params.UserInfoPayload, stuffix?: string) => {
   //   return this.postHeader(`/back_mgr/get_one_order/${stuffix}`, payload, { stuffix })
   // }
-  getUserInfo = (payload: params.UserInfoPayload, current?: string) => {
+  getUserInfo = (payload: UserInfoPayload, current?: string) => {
     return this.post(`/back_mgr/get_one_order/${current}`, payload)
   }
 
@@ -102,13 +104,13 @@ export class Api {
   }
 
   // 查重检测
-  getRepeatList = (payload: params.CheckRepeatPayload, stuffix?: string) => {
-    return this.postHeader<any>(`/back_mgr/get_danger_list`, payload, { stuffix })
+  getRepeatList = (payload: CheckRepeatPayloadReq) => {
+    return this.post<any>(`/back_mgr/get_danger_list`, payload)
   }
   ///back_mgr/check_duplicate
   // 重新查重检测
-  checkRepeatList = (payload: params.CheckRepeatPayload) => {
-    return this.post<any>(`/back_mgr/check_duplicate`, payload)
+  checkRepeatList = (payload: CheckRepeatPayloadReq) => {
+    return this.post(`/back_mgr/check_duplicate`, payload)
   }
   // 获取放款单列表
   getLendingLists = (payload: params.lendings.LendingsPayload) => {

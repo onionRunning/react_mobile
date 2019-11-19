@@ -15,7 +15,16 @@ describe('Lendings', () => {
       checkAutoStatus: jest.fn(),
       UpdateAutoStatus: jest.fn(),
       createLoanRetry: jest.fn(),
-      createCancelLoan: jest.fn()
+      createCancelLoan: jest.fn(),
+      autoStatus: false,
+      lendingList: [],
+      page: 1,
+      total_count: 0,
+      page_count: 10
+    },
+    common: {
+      changeConfirm: jest.fn(),
+      composeLoading: jest.fn()
     }
   }
   const lendingItem = {
@@ -33,7 +42,9 @@ describe('Lendings', () => {
     err_msg: 'test',
     product_name: 'test',
     customer_id: 1,
-    is_in_batch_loan: false
+    is_in_batch_loan: false,
+    loan_flow_status: 'test',
+    loan_pay_type: 'test'
   }
   let component: ShallowWrapper<Lendings>, instance: Lendings
   beforeEach(() => {
@@ -55,22 +66,10 @@ describe('Lendings', () => {
     instance.componentDidMount()
     expect(instance.getLendingList).toBeCalled()
   })
-  it('renderOperating', () => {
-    expect(instance.renderOperating(lendingItem, {}, 1)).not.toBeUndefined()
-  })
 
   it('getLendingList', () => {
     instance.getLendingList()
-    expect(mockProps.lendings.getLendingList).toBeCalledWith(instance.state.request)
-    instance.setState({
-      request: {
-        ...instance.state.request,
-        loan_amount_start: 10,
-        loan_amount_end: 1
-      }
-    })
-    instance.getLendingList()
-    // expect(mockProps.dispatch).toBeCalledWith(createAlertError("the start shouldn't be more the end in Loan Amount"))
+    expect(mockProps.common.composeLoading).toBeCalled()
   })
 
   it('checkAutoStatus', () => {
@@ -144,43 +143,41 @@ describe('Lendings', () => {
 
   it('handleLoanCalcel', () => {
     instance.cancelLoan = jest.fn()
-    // instance.confrimStart = jest.fn()
+    instance.confrimStart = jest.fn()
     instance.makeLoanOrRetry = jest.fn()
     instance.handleLoanCalcel(lendingItem, 'cancel')()
     expect(instance.cancelLoan).toBeCalled()
-    // expect(instance.confrimStart).toBeCalled()
+    expect(instance.confrimStart).toBeCalled()
 
     instance.handleLoanCalcel(lendingItem, 'make loan')()
     expect(instance.makeLoanOrRetry).toBeCalled()
-    // expect(instance.confrimStart).toBeCalled()
+    expect(instance.confrimStart).toBeCalled()
 
     instance.handleLoanCalcel(lendingItem, 'retry')()
     expect(instance.makeLoanOrRetry).toBeCalled()
-    // expect(instance.confrimStart).toBeCalled()
+    expect(instance.confrimStart).toBeCalled()
   })
-  // it('confrimStart', () => {
-  //   const func = jest.fn()
-  //   instance.closeConfirm = jest.fn()
-  //   instance.confrimStart(func, 'cancel')
-  //   // TODO:调用相关的接口
-  //   expect(instance.closeConfirm).toHaveBeenCalledTimes(1)
+  it('confrimStart', () => {
+    const func = jest.fn()
+    instance.closeConfirm = jest.fn()
+    instance.confrimStart(func, 'cancel')
+    expect(mockProps.common.changeConfirm).toBeCalled()
 
-  //   const func1 = jest.fn()
-  //   instance.confrimStart(func1, 'test')
-  //   // TODO:调用相关的接口
-  //   expect(instance.closeConfirm).toBeCalled()
-  // })
+    const func1 = jest.fn()
+    instance.confrimStart(func1, 'test')
+    expect(mockProps.common.changeConfirm).toBeCalled()
+  })
   it('closeConfirm', () => {
     instance.closeConfirm()
   })
   it('makeLoanOrRetry', () => {
     mockProps.lendings.createLoanRetry.mockClear()
-    instance.makeLoanOrRetry(lendingItem.order_no)
-    // expect(mockProps.lendings.createLoanRetry).toBeCalled()
+    instance.makeLoanOrRetry(lendingItem.order_no)()
+    expect(mockProps.lendings.createLoanRetry).toBeCalled()
   })
 
   it('cancelLoan', () => {
-    instance.cancelLoan(lendingItem)
+    instance.cancelLoan(lendingItem)()
     expect(mockProps.lendings.createCancelLoan).toBeCalledWith(
       {
         order_no: lendingItem.order_no,

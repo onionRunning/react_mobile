@@ -1,0 +1,59 @@
+.info-order{
+    // padding-top: 10px;
+    display: flex;
+    .normal-text-com{
+        &:nth-child(2n-1){
+            width: 49%;
+        }
+        &:nth-child(2n){
+            width: 51%;
+        }
+        text-align: left;
+        margin-top: 6px;
+        &:nth-child(1),&:nth-child(2){
+            // margin-top: 10px;
+            margin-top: 14px;
+        }
+        // &:last-child{
+        //     width: 100%;
+        // }
+    }
+}
+.signame-img{
+    display: block;
+    // margin-top: 5px;
+    // width: 100%;
+    // height: 140px;
+    width: 246px;
+    height: 138px;
+    cursor: pointer;
+    // padding: 2px;
+    border:1px solid rgba(255,154,47,1);
+    border-radius: 4px;
+    padding: 6px;
+    background: #FFE5CA;
+}
+.form-input-img .form-sig-span{
+    // vertical-align: top;
+    width: 100%;
+    display: block;
+    text-align: center;
+    margin-top: 5px;
+}
+.form-input-img{
+    // width: 230px;
+    // height: 160px;
+    // margin-top: 10px;
+    margin: 14px 30px 2px 0px;
+}
+.form-input-com input{
+    padding: 0;
+}
+.sig-cons{
+   display: inline-block;
+   flex:1;
+//    padding-top: 4px;
+}
+.Select.is-focused:not(.is-open)>.Select-control{
+    border-color: #FF9A2F;
+}
