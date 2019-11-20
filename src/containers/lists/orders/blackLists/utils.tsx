@@ -31,12 +31,12 @@ export const getTableTitle = (clickCallback: (args: {}) => MouseEventHandler<{}>
     key: 'customer_phone'
   },
   {
-    title: 'ID type', // 证件类型1
+    title: 'ID type', // 证件类型
     dataIndex: 'id_type',
     key: 'id_type'
   },
   {
-    title: 'ID No', // 证件号码1
+    title: 'ID No', // 证件号码
     dataIndex: 'id_number',
     key: 'id_number'
   },
@@ -52,12 +52,12 @@ export const getTableTitle = (clickCallback: (args: {}) => MouseEventHandler<{}>
   },
   {
     title: 'Add blacklist time', // 添加时间
-    dataIndex: 'added_at',
-    key: 'added_at',
+    dataIndex: 'created_at',
+    key: 'created_at',
     sorter: true, // p4.3.1添加sorter
     defaultSortOrder: 'descend',
-    render: (added_at: string) => {
-      return <span>{formatTime(added_at)}</span>
+    render: (created_at: string) => {
+      return <span>{formatTime(created_at)}</span>
     }
   },
   {
@@ -70,8 +70,8 @@ export const getTableTitle = (clickCallback: (args: {}) => MouseEventHandler<{}>
   },
   {
     title: 'Operator', // add
-    dataIndex: 'add_operator_name',
-    key: 'add_operator_name'
+    dataIndex: 'operator_name',
+    key: 'operator_name'
   },
   {
     title: 'Operating',

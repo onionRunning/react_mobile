@@ -89,14 +89,7 @@ export class BlackLists extends Component<Props, State> {
   }
   // 表单筛选
   handleFilter = (v: FillInfo) => {
-    let vals = strTrim(v.value)
-    if (utils.turnToNumber.includes(v.key as string)) {
-      if (vals) {
-        vals = Number(vals)
-      } else {
-        vals = 0
-      }
-    }
+    const vals = strTrim(v.value)
     this.setState({
       request: { ...this.state.request, [v.key]: vals }
     })

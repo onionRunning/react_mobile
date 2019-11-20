@@ -34,8 +34,8 @@ export const tabBlackTitle = () => [
   },
   {
     title: 'Phone',
-    dataIndex: 'customer_phone_num',
-    key: 'customer_phone_num'
+    dataIndex: 'customer_phone',
+    key: 'customer_phone'
   },
   {
     title: 'Review time',
@@ -54,8 +54,8 @@ export const tabBlackTitle = () => [
   },
   {
     title: 'ID No',
-    dataIndex: 'id_num',
-    key: 'id_num'
+    dataIndex: 'id_number',
+    key: 'id_number'
   },
   {
     title: 'Status',

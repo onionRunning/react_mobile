@@ -23,6 +23,7 @@ class Blacks {
   //获取黑名单管理列表(黑名单管理)
   @action getBlackMngLists = async (payload: any) => {
     const res: Res<any> = await api.queryBlacklistManagementLists(payload)
+    console.log(res, this, 'res')
     if (res.success) {
       this.blackMngLists = res.data!.application_list
       this.blackMngPage = {
