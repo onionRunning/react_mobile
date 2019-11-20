@@ -63,16 +63,6 @@ export const tabBlackTitle = () => [
     key: 'application_status'
   },
   {
-    // 黑名单类型
-    title: 'Black Type',
-    dataIndex: 'blacklist_type',
-    key: 'blacklist_type',
-    render: (str: string) => {
-      return <span>{reflectStr(str)}</span>
-    }
-  },
-  {
-    // 所属产品
     title: 'Product',
     dataIndex: 'product_name',
     key: 'product_name'
@@ -81,6 +71,14 @@ export const tabBlackTitle = () => [
     title: 'Reviewer',
     dataIndex: 'operator_name',
     key: 'operator_name'
+  },
+  {
+    title: 'tag',
+    dataIndex: 'blacklist_type',
+    key: 'blacklist_type',
+    render: (str: string) => {
+      return <span>{reflectStr(str)}</span>
+    }
   }
 ]
 
@@ -102,15 +100,15 @@ export const searchBlackConfig = [
   },
   {
     formType: formType.SELECT,
-    label: 'ID type:',
-    key: 'id_type',
-    data: AllIdType
-  },
-  {
-    formType: formType.SELECT,
     label: 'Status:',
     key: 'application_status',
     data: black_type
+  },
+  {
+    formType: formType.SELECT,
+    label: 'ID type:',
+    key: 'id_type',
+    data: AllIdType
   },
   {
     formType: formType.SELECT,

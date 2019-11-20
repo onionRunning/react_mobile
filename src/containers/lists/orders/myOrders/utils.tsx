@@ -34,18 +34,6 @@ export const geTableTitle = (): ColumnProps<{}>[] => [
     key: 'order_no'
   },
   {
-    // 订单类型: 复贷订单\新订单 p4.1.1
-    title: 'Order type',
-    dataIndex: 'order_type',
-    key: 'order_type'
-  },
-  {
-    // 客户姓名
-    title: 'Name',
-    dataIndex: 'customer_full_name',
-    key: 'customer_full_name'
-  },
-  {
     // 申请时间
     title: 'Application time',
     dataIndex: 'created_at',
@@ -57,16 +45,22 @@ export const geTableTitle = (): ColumnProps<{}>[] => [
     }
   },
   {
-    // 证件号码
-    title: 'ID No',
-    dataIndex: 'id_num',
-    key: 'id_num'
+    // 客户姓名
+    title: 'Name',
+    dataIndex: 'customer_full_name',
+    key: 'customer_full_name'
   },
   {
     // 证件类型
     title: 'ID type',
     dataIndex: 'id_type',
     key: 'id_type'
+  },
+  {
+    // 证件号码
+    title: 'ID No',
+    dataIndex: 'id_num',
+    key: 'id_num'
   },
   {
     // 订单状态
@@ -82,6 +76,11 @@ export const geTableTitle = (): ColumnProps<{}>[] => [
     title: 'Product',
     dataIndex: 'product_name',
     key: 'product_name'
+  },
+  {
+    title: 'Order type',
+    dataIndex: 'order_type',
+    key: 'order_type'
   },
   {
     // 放款天数
@@ -119,6 +118,13 @@ export const filterData = [
     placeholder: 'Search for loan ID, ID number ,Name'
   },
   {
+    formType: formType.TREE_SELECT,
+    // 订单类型
+    label: 'Order type:',
+    key: 'order_type',
+    data: OrderTypes
+  },
+  {
     formType: formType.SELECT,
     // 证件类型
     label: 'ID type:',
@@ -133,11 +139,11 @@ export const filterData = [
     data: OrderAllStatus
   },
   {
-    formType: formType.TREE_SELECT,
-    // 订单类型
-    label: 'Order type:',
-    key: 'order_type',
-    data: OrderTypes
+    // 贷款天数
+    formType: formType.SELECT,
+    label: 'Loan days:',
+    key: 'loan_days',
+    data: []
   },
   {
     // 所属产品
@@ -145,13 +151,6 @@ export const filterData = [
     label: 'Product:',
     key: 'product_name',
     data: [{ label: 'All', value: '' }]
-  },
-  {
-    // 贷款天数
-    formType: formType.SELECT,
-    label: 'Loan days:',
-    key: 'loan_days',
-    data: []
   }
 ]
 

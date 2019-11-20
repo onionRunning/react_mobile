@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { PaginationConfig, SorterResult, ColumnProps } from 'antd/lib/table'
 import { inject, observer } from 'mobx-react'
+import TextArea from 'antd/lib/input/TextArea'
 import ListCondition, { BtnItem } from 'components/listCondition'
 import Table from 'components/table'
 import Message from 'components/message'
@@ -23,6 +24,7 @@ interface State {
   chose: Record<string, string | number>[]
   checkRow: number[] | string[]
   blacklist_type: string
+  blackRemark: string
   addBlack: {
     operator_name: string | null
     operator_id: number
@@ -38,6 +40,7 @@ export class BlackOrder extends Component<Props, State> {
       chose: [],
       checkRow: [],
       blacklist_type: '',
+      blackRemark: '',
       addBlack: {
         operator_name: sessionStorage.getItem('username'),
         operator_id: parseInt(sessionStorage.getItem('userId')!, 10)
@@ -141,7 +144,7 @@ export class BlackOrder extends Component<Props, State> {
     // user
   }
 
-  // 调单选用的
+  // 选中黑名单
   changeChose = (k: number[] | string[], v: Record<string, string | number>[]) => {
     this.setState({ chose: v, checkRow: k })
   }
@@ -157,6 +160,7 @@ export class BlackOrder extends Component<Props, State> {
       title: utils.EXIT,
       text: utils.addText,
       onOk: this.currentFunc,
+      showSelect: this.showText,
       onCancel: this.closeConfirm
     })
   }
@@ -166,13 +170,20 @@ export class BlackOrder extends Component<Props, State> {
     this.props.common.changeConfirm({ show: false })
   }
 
+  showText = () => {
+    return <TextArea allowClear={true} autoSize={true} onChange={this.changeText} />
+  }
+
+  changeText = (e: React.ChangeEvent<HTMLTextAreaElement | Record<string, string>>) => {
+    this.setState({ blackRemark: e.target.value })
+  }
   // 开始添加黑名单
   startAddblack = () => {
-    const { checkRow, addBlack } = this.state
+    const { checkRow, addBlack, blackRemark } = this.state
     const vMaps = utils.getOrderNo(checkRow as number[], this.props.blacks.blackMngLists)
     const params = {
-      order_no: vMaps,
-      order_count: vMaps.length,
+      remark: blackRemark,
+      order_nos: vMaps,
       blacklist_type: 'blacklist_type',
       ...addBlack
     }

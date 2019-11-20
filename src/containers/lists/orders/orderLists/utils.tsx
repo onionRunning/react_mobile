@@ -61,12 +61,6 @@ export const filterData = [
     label: 'Loan days:', // 贷款天数
     key: 'loan_days',
     data: []
-  },
-  {
-    formType: formType.SELECT,
-    label: 'Reviewer:', // 审核人
-    key: 'operator_id',
-    data: DEFAULT_CHOSE
   }
 ]
 // 筛选部分按钮配置信息
@@ -80,19 +74,6 @@ export const getTabTitle = (clickCallback: (args: {}) => MouseEventHandler<{}>) 
       title: 'Loan ID',
       dataIndex: 'order_no',
       key: 'order_no'
-    },
-    {
-      title: 'Order type', // 订单类型: 复贷订单\新订单 p4.1.1
-      dataIndex: 'order_type',
-      key: 'order_type',
-      render: (record: string) => {
-        return record
-      }
-    },
-    {
-      title: 'Name',
-      dataIndex: 'customer_full_name',
-      key: 'customer_full_name'
     },
     {
       title: 'Application time',
@@ -115,9 +96,9 @@ export const getTabTitle = (clickCallback: (args: {}) => MouseEventHandler<{}>) 
       }
     },
     {
-      title: 'ID No',
-      dataIndex: 'id_num',
-      key: 'id_num'
+      title: 'Name',
+      dataIndex: 'customer_full_name',
+      key: 'customer_full_name'
     },
     {
       title: 'ID type',
@@ -125,17 +106,22 @@ export const getTabTitle = (clickCallback: (args: {}) => MouseEventHandler<{}>) 
       key: 'id_type'
     },
     {
-      title: 'Status',
-      dataIndex: 'application_status',
-      key: 'application_status',
-      render: (record: string) => {
-        return <span>{formatTf(record)}</span>
-      }
+      title: 'ID No',
+      dataIndex: 'id_num',
+      key: 'id_num'
     },
     {
       title: 'Product', // 所属产品
       dataIndex: 'product_name',
       key: 'product_name'
+    },
+    {
+      title: 'Review Status',
+      dataIndex: 'application_status',
+      key: 'application_status',
+      render: (record: string) => {
+        return <span>{formatTf(record)}</span>
+      }
     },
     {
       title: 'Reviewer',
@@ -146,6 +132,14 @@ export const getTabTitle = (clickCallback: (args: {}) => MouseEventHandler<{}>) 
       title: 'Loan days', // 放款天数
       dataIndex: 'loan_days',
       key: 'loan_days'
+    },
+    {
+      title: 'Order type', // 订单类型: 复贷订单\新订单 p4.1.1
+      dataIndex: 'order_type',
+      key: 'order_type',
+      render: (record: string) => {
+        return record
+      }
     },
     {
       title: 'Operating',

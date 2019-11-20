@@ -41,7 +41,7 @@ describe('const test', () => {
     expect(
       findTitle(
         utils.getTabTitle(() => {}),
-        'Status'
+        'Review Status'
       ).render('xx').type
     ).toEqual('span')
   })

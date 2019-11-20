@@ -50,6 +50,7 @@ $menu-user-color: rgba(55, 63, 75, 1);
         display: inline-block;
         vertical-align: middle;
         color: #fff;
+        margin-top: 10px;
       }
       .icon-password,
       .icon-exit {
@@ -70,6 +71,7 @@ $menu-user-color: rgba(55, 63, 75, 1);
       &:hover {
         p {
           color: #fa0;
+          margin-top: 10px;
         }
         .icon-password {
           background: url('~assets/icon-passwords@2x.png') no-repeat center center;

@@ -125,7 +125,8 @@ describe('BlackOrder', () => {
       title: utils.EXIT,
       text: utils.addText,
       onOk: ins.currentFunc,
-      onCancel: ins.closeConfirm
+      onCancel: ins.closeConfirm,
+      showSelect: ins.showText
     })
   })
   it('currentFunc', () => {
@@ -143,8 +144,8 @@ describe('BlackOrder', () => {
         blacklist_type: 'blacklist_type',
         operator_id: NaN,
         operator_name: null,
-        order_count: 0,
-        order_no: []
+        order_nos: [],
+        remark: ''
       },
       ins.successCb
     )

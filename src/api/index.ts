@@ -357,7 +357,7 @@ export class Api {
 
   // 加入黑名单
   addBlacklist = (payload: any) => {
-    return this.post<any>('/back_mgr/add_blacklist', payload)
+    return this.post<any>('/blacklist/add', payload)
   }
 
   // 黑名单列表
