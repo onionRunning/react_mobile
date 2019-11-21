@@ -169,12 +169,12 @@ export class Api {
   }
 
   // 拨打电话
-  callUp = (payload: params.callUpReq) => {
-    return this.post<response.callUpRes>(`/call/call_phone`, payload)
+  callUp = (payload: params.CallUpReq) => {
+    return this.post<response.CallUpRes>(`/call/call_phone`, payload)
   }
 
   // 更新话务系统信息
-  updateCallInfo = (payload: params.updateCallInfoReq) => {
+  updateCallInfo = (payload: params.UpdateCallInfoReq) => {
     return this.post(`/call/update_call_record`, payload)
   }
 

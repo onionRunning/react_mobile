@@ -1,115 +1,115 @@
-commit cce4caebf6879c9cdf4179988475d0487acd7a2b
+commit ab2c4fd5f74cce5d028bb4d6cf39ae29bf259bf1
+Merge: f528225 176b80c
 Author: hhh <huanghuihui@mintechai.com>
-Date:   Fri Nov 15 17:08:27 2019 +0800
+Date:   Thu Nov 21 17:04:41 2019 +0800
 
-    完成订单状态模块
+    解决冲突
 
+commit f528225d78628401f262bb89237db0a9d55bf7e4
+Author: hhh <huanghuihui@mintechai.com>
+Date:   Thu Nov 21 16:56:56 2019 +0800
+
+    修复测试
+
+src/containers/details/detailBottom/loanInfo/index.test.tsx
+src/containers/details/detailBottom/orderApproval/approvalResult/approvalResult.test.tsx
+src/containers/details/detailBottom/orderApproval/approvalResult/index.tsx
+src/containers/details/detailBottom/orderApproval/call/call.test.tsx
+src/containers/details/detailBottom/orderApproval/call/callConfirm/callConfirm.test.tsx
+src/containers/details/detailBottom/orderApproval/call/callConfirm/index.tsx
+src/containers/details/detailBottom/orderApproval/operate/operate.test.tsx
+src/containers/details/detailBottom/orderApproval/orderApproval.test.tsx
+src/containers/details/detailBottom/repayment/repayment.test.tsx
 src/containers/details/detailBottom/statusRecord/index.test.tsx
+src/containers/lists/orders/myOrders/index.test.tsx
+src/containers/lists/orders/myOrders/index.tsx
+src/containers/lists/orders/myOrders/utils.test.ts
+src/containers/lists/orders/myOrders/utils.tsx
 
-commit b15070fa2bc251aa14f91e01f8ccf602b64ea686
+commit c2f2573e19d974130425a22e50cc50e2fecdc0e8
 Author: hhh <huanghuihui@mintechai.com>
-Date:   Fri Nov 15 17:06:39 2019 +0800
+Date:   Thu Nov 21 16:08:44 2019 +0800
 
-    完成订单状态模块
+    完成详情部分模块
 
-package.json
+lastgitcommit.text
 src/api/index.ts
-src/containers/auth/index.tsx
-src/containers/details/component/switchComponent/index.module.scss
+src/api/params.ts
+src/api/response.ts
+src/assets/down_arrow.png
+src/components/table/index.module.scss
+src/containers/details/component/infoWrapper/index.module.scss
+src/containers/details/component/infoWrapper/index.scss
+src/containers/details/component/infoWrapper/index.tsx
 src/containers/details/component/switchComponent/index.tsx
 src/containers/details/component/switchComponent/utils.tsx
-src/containers/details/detailBottom/loanInfo/index.test.tsx
 src/containers/details/detailBottom/loanInfo/index.tsx
-src/containers/details/detailBottom/loanInfo/loanInfo.test.tsx
+src/containers/details/detailBottom/orderApproval/approvalResult/approvalResult.test.tsx
+src/containers/details/detailBottom/orderApproval/approvalResult/config.ts
+src/containers/details/detailBottom/orderApproval/approvalResult/index.module.scss
+src/containers/details/detailBottom/orderApproval/approvalResult/index.tsx
+src/containers/details/detailBottom/orderApproval/call/call.test.tsx
+src/containers/details/detailBottom/orderApproval/call/callConfirm/callConfirm.test.tsx
+src/containers/details/detailBottom/orderApproval/call/callConfirm/callConfirmConfig.test.tsx
+src/containers/details/detailBottom/orderApproval/call/callConfirm/config.ts
+src/containers/details/detailBottom/orderApproval/call/callConfirm/index.scss
+src/containers/details/detailBottom/orderApproval/call/callConfirm/index.tsx
+src/containers/details/detailBottom/orderApproval/call/images/phone@2x.png
+src/containers/details/detailBottom/orderApproval/call/index.module.scss
+src/containers/details/detailBottom/orderApproval/call/index.tsx
+src/containers/details/detailBottom/orderApproval/call/utils.ts
+src/containers/details/detailBottom/orderApproval/config.ts
+src/containers/details/detailBottom/orderApproval/index.tsx
+src/containers/details/detailBottom/orderApproval/operate/AntdSelect/AntdSelect.test.tsx
+src/containers/details/detailBottom/orderApproval/operate/AntdSelect/index.scss
+src/containers/details/detailBottom/orderApproval/operate/AntdSelect/index.tsx
+src/containers/details/detailBottom/orderApproval/operate/const.ts
+src/containers/details/detailBottom/orderApproval/operate/index.module.scss
+src/containers/details/detailBottom/orderApproval/operate/index.tsx
+src/containers/details/detailBottom/orderApproval/operate/operate.test.tsx
+src/containers/details/detailBottom/orderApproval/operate/operateUtil.test.tsx
+src/containers/details/detailBottom/orderApproval/operate/utils.ts
+src/containers/details/detailBottom/orderApproval/orderApproval.test.tsx
+src/containers/details/detailBottom/repayment/config.tsx
+src/containers/details/detailBottom/repayment/index.scss
+src/containers/details/detailBottom/repayment/index.tsx
+src/containers/details/detailBottom/repayment/repayment.test.tsx
+src/containers/details/detailBottom/repayment/repaymentConfig.test.tsx
+src/containers/details/detailBottom/repayment/repaymentUtils.test.tsx
+src/containers/details/detailBottom/repayment/utils.ts
+src/containers/details/detailBottom/smsRecord/config.tsx
 src/containers/details/detailBottom/smsRecord/index.module.scss
-src/containers/details/detailBottom/smsRecord/index.scss
 src/containers/details/detailBottom/smsRecord/index.tsx
-src/containers/details/detailBottom/smsRecord/smsRecord.test.tsx
+src/containers/details/detailBottom/statusRecord/config.test.tsx
 src/containers/details/detailBottom/statusRecord/config.tsx
-src/containers/details/detailBottom/statusRecord/index.test.tsx
 src/containers/details/detailBottom/statusRecord/index.tsx
-src/containers/details/index.tsx
-src/containers/lists/orders/const.ts
-src/containers/lists/orders/orderLists/index.test.tsx
-src/containers/lists/orders/orderLists/index.tsx
-src/global/constants.ts
-src/global/interface.ts
-src/interface/details/approval/index.ts
+src/containers/lists/orders/myOrders/index.tsx
+src/containers/lists/orders/myOrders/utils.tsx
+src/global/method.ts
+src/interface/details/loanInfo/index.ts
 src/interface/details/smsRecord/index.ts
 src/interface/details/statusRecord/index.ts
 src/stores/details/approval/index.ts
+src/stores/details/index.ts
+src/stores/details/loanInfo/index.ts
 src/stores/details/smsRecord/index.ts
 src/stores/details/statusRecord/index.ts
 src/stores/root.ts
 
-commit 3a1dcb6a7a9782e8a5e48b91f237c47cdcf7f4e3
-Author: hhh <huanghuihui@mintechai.com>
-Date:   Thu Nov 14 18:27:19 2019 +0800
+commit 176b80c051f294995212ff137b7779e4d88044f6
+Merge: f97793a cb904a7
+Author: 卢宝宝 <lubaobao@mintechai.com>
+Date:   Thu Nov 21 10:44:08 2019 +0800
 
-    新增详情部分模块
+    合并分支 'j-lbb' 到 'master'
+    
+    J lbb
+    
+    查看合并请求 philippines/jrocketmanager!13
 
-src/containers/auth/index.tsx
-src/containers/details/component/infoWrapper/index.scss
-src/containers/details/component/infoWrapper/index.test.tsx
-src/containers/details/component/infoWrapper/index.tsx
-src/containers/details/component/infoWrapper/infoWrapper.test.tsx
-src/containers/details/component/navBar/index.module.scss
-src/containers/details/component/navBar/index.test.tsx
-src/containers/details/component/navBar/index.tsx
-src/containers/details/component/switchComponent/index.module.scss
-src/containers/details/component/switchComponent/index.tsx
-src/containers/details/component/switchComponent/utils.tsx
-src/containers/details/component/tabComponent/index.tsx
-src/containers/details/index.scss
-src/containers/details/index.tsx
-src/containers/details/utils.ts
-src/containers/ndetails/component/infoWrapper/index.scss
-src/containers/ndetails/component/infoWrapper/index.test.tsx
-src/containers/ndetails/component/infoWrapper/index.tsx
-src/containers/ndetails/component/navBar/index.module.scss
-src/containers/ndetails/component/navBar/index.test.tsx
-src/containers/ndetails/component/navBar/index.tsx
-src/containers/ndetails/component/switchComponent/index.tsx
-src/containers/ndetails/component/switchComponent/utils.tsx
-src/containers/ndetails/component/tabComponent/index.tsx
-src/containers/ndetails/index.scss
-src/containers/ndetails/index.tsx
-src/containers/ndetails/utils.ts
+commit cb904a79ba8d95e4c059cb38af9e627dd8f57f47
+Merge: 6872d86 f97793a
+Author: Bonnie-lu <867454489@qq.com>
+Date:   Thu Nov 21 10:31:28 2019 +0800
 
-commit b79e84bc7a060b66eccb486dd46c60caae355a56
-Merge: 22cb0cd d7bf009
-Author: hhh <huanghuihui@mintechai.com>
-Date:   Thu Nov 14 17:09:48 2019 +0800
-
-    Merge branch 'master' into master-hhh
-
-commit 22cb0cdaa8ebbc93c01ed4b7a2392a65c516bb05
-Author: hhh <huanghuihui@mintechai.com>
-Date:   Thu Nov 14 17:09:09 2019 +0800
-
-    新增详情部分模块
-
-src/api/index.ts
-src/api/params.ts
-src/components/table/index.tsx
-src/containers/auth/index.tsx
-src/containers/details/component/infoWrapper/index.scss
-src/containers/details/component/infoWrapper/index.tsx
-src/containers/details/component/infoWrapper/infoWrapper.test.tsx
-src/containers/details/detailBottom/loanInfo/config.ts
-src/containers/details/detailBottom/loanInfo/index.module.scss
-src/containers/details/detailBottom/loanInfo/index.tsx
-src/containers/details/detailBottom/loanInfo/loanInfo.test.tsx
-src/containers/details/detailBottom/smsRecord/config.tsx
-src/containers/details/detailBottom/smsRecord/index.scss
-src/containers/details/detailBottom/smsRecord/index.tsx
-src/containers/details/detailBottom/smsRecord/smsRecord.test.tsx
-src/containers/details/index.tsx
-src/containers/lists/orders/orderLists/utils.test.tsx
-src/containers/lists/settings/user/userDetail/userInfo/index.test.tsx
-src/containers/lists/settings/user/userDetail/userInfo/index.tsx
-src/interface/details/loanInfo/index.ts
-src/interface/details/smsRecord/index.ts
-src/stores/details/loanInfo/index.ts
-src/stores/details/smsRecord/index.ts
-src/stores/root.ts
+    merge master
