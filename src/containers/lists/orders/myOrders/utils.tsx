@@ -1,10 +1,10 @@
-import React, { ReactText } from 'react'
-import { ColumnProps } from 'antd/lib/table'
+import React, { ReactText, MouseEventHandler } from 'react'
 import { formatTime, formatTf } from 'global/method'
 import hint from 'global/hints'
 import { formType } from 'global/constants'
 // import { userPermission } from 'design/permission'
 import { AllIdType, TimeRange, OrderAllStatus, OrderTypes } from '../const'
+import { TableTile } from 'global/interface'
 // interface
 export interface FillInfo {
   [p: string]: string | number | ReactText
@@ -22,86 +22,86 @@ export const initRequest = {
 }
 
 export const GRAB = hint.GRAB_SUCCESS
-// function
 
 // 表格模块
-
-export const geTableTitle = (): ColumnProps<{}>[] => [
-  {
-    // 订单编号
-    title: 'Loan ID',
-    dataIndex: 'order_no',
-    key: 'order_no'
-  },
-  {
-    // 订单类型: 复贷订单\新订单 p4.1.1
-    title: 'Order type',
-    dataIndex: 'order_type',
-    key: 'order_type'
-  },
-  {
-    // 客户姓名
-    title: 'Name',
-    dataIndex: 'customer_full_name',
-    key: 'customer_full_name'
-  },
-  {
-    // 申请时间
-    title: 'Application time',
-    dataIndex: 'created_at',
-    key: 'created_at',
-    sorter: true,
-    defaultSortOrder: 'ascend',
-    render: (time: string) => {
-      return <span>{formatTime(time)}</span>
+export const getTabTitle = (clickCallback: (args: {}) => MouseEventHandler<{}>): TableTile[] => {
+  return [
+    {
+      // 订单编号
+      title: 'Loan ID',
+      dataIndex: 'order_no',
+      key: 'order_no'
+    },
+    {
+      // 订单类型: 复贷订单\新订单 p4.1.1
+      title: 'Order type',
+      dataIndex: 'order_type',
+      key: 'order_type'
+    },
+    {
+      // 客户姓名
+      title: 'Name',
+      dataIndex: 'customer_full_name',
+      key: 'customer_full_name'
+    },
+    {
+      // 申请时间
+      title: 'Application time',
+      dataIndex: 'created_at',
+      key: 'created_at',
+      sorter: true,
+      defaultSortOrder: 'ascend',
+      render: (time: string) => {
+        return <span>{formatTime(time)}</span>
+      }
+    },
+    {
+      // 证件号码
+      title: 'ID No',
+      dataIndex: 'id_num',
+      key: 'id_num'
+    },
+    {
+      // 证件类型
+      title: 'ID type',
+      dataIndex: 'id_type',
+      key: 'id_type'
+    },
+    {
+      // 订单状态
+      title: 'Status',
+      dataIndex: 'application_status',
+      key: 'application_status',
+      render: (item: string) => {
+        return <p>{formatTf(item)}</p>
+      }
+    },
+    {
+      // 订单来源
+      title: 'Product',
+      dataIndex: 'product_name',
+      key: 'product_name'
+    },
+    {
+      // 放款天数
+      title: 'Loan days',
+      dataIndex: 'loan_days',
+      key: 'loan_days'
+    },
+    {
+      title: 'Operating',
+      dataIndex: '',
+      key: 'operating',
+      render: (item: {}, _: string, index: number) => {
+        return (
+          <span onClick={clickCallback(item)} className={`blue-color operating`} id={`inquire-${index}`}>
+            {'Inquire'}
+          </span>
+        )
+      }
     }
-  },
-  {
-    // 证件号码
-    title: 'ID No',
-    dataIndex: 'id_num',
-    key: 'id_num'
-  },
-  {
-    // 证件类型
-    title: 'ID type',
-    dataIndex: 'id_type',
-    key: 'id_type'
-  },
-  {
-    // 订单状态
-    title: 'Status',
-    dataIndex: 'application_status',
-    key: 'application_status',
-    render: (item: string) => {
-      return <p>{formatTf(item)}</p>
-    }
-  },
-  {
-    // 订单来源
-    title: 'Product',
-    dataIndex: 'product_name',
-    key: 'product_name'
-  },
-  {
-    // 放款天数
-    title: 'Loan days',
-    dataIndex: 'loan_days',
-    key: 'loan_days'
-  },
-  {
-    title: 'Operating',
-    dataIndex: '',
-    key: 'operating',
-    render: (_x: string, _record: {}, index: number) => {
-      return (
-        <span className={'blue-color operating'} id={`inquire-${index}`}>
-          {'Inquire'}
-        </span>
-      )
-    }
-  }
-]
+  ]
+}
 
 // 筛选条件
 export const filterData = [

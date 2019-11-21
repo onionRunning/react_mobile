@@ -1,0 +1,52 @@
+.wrap {
+  min-width: 742px;
+  margin: 0 auto;
+}
+
+.radio_box {
+  margin: 20px auto;
+  text-align: center;
+
+  .radio_item {
+    &:nth-of-type(1) {
+      margin-right: 100px;
+    }
+  }
+}
+
+.content_box {
+  width: 742px;
+  margin: 0 auto;
+
+  .textarea_box {
+    border: 1px solid #e3e3e3;
+
+    >p {
+      text-indent: 10px;
+      width: 739px;
+      height: 38px;
+      line-height: 38px;
+      background: #f8f8f8;
+      margin-bottom: 0;
+    }
+
+    >textarea {
+      display: block;
+      width: 736px;
+      height: 210px;
+      border: 0;
+      padding: 10px;
+      outline: none;
+      margin-left: 2px;
+    }
+  }
+
+  .tip {
+    text-align: right;
+  }
+}
+
+.operate_box {
+  margin-top: 20px;
+  text-align: center;
+}

@@ -1,113 +1,115 @@
-commit f15031c8e63531244cd19ec1c48ec408b491ea21
+commit cce4caebf6879c9cdf4179988475d0487acd7a2b
 Author: hhh <huanghuihui@mintechai.com>
-Date:   Wed Nov 13 16:11:38 2019 +0800
+Date:   Fri Nov 15 17:08:27 2019 +0800
 
-    解决冲突
+    完成订单状态模块
 
-src/containers/lists/orders/addBlack/index.test.tsx
+src/containers/details/detailBottom/statusRecord/index.test.tsx
 
-commit ca11793afe1174f62edf448073a45534c5daea7b
+commit b15070fa2bc251aa14f91e01f8ccf602b64ea686
 Author: hhh <huanghuihui@mintechai.com>
-Date:   Wed Nov 13 16:10:54 2019 +0800
+Date:   Fri Nov 15 17:06:39 2019 +0800
 
-    解决冲突
+    完成订单状态模块
 
-src/containers/lists/orders/addBlack/index.test.tsx
-
-commit 0108aa4ce01cf96feee31393b691539800ac8606
-Merge: 6c5c963 4727f29
-Author: hhh <huanghuihui@mintechai.com>
-Date:   Wed Nov 13 16:09:49 2019 +0800
-
-    解决冲突
-
-commit 6c5c963b1f33b35d2276c5017f0cd3f360ac3edc
-Author: hhh <huanghuihui@mintechai.com>
-Date:   Wed Nov 13 16:05:39 2019 +0800
-
-    add test
-
-lastgitcommit.text
 package.json
 src/api/index.ts
-src/api/response.ts
-src/components/Message/Notification.tsx
-src/components/Message/config.ts
-src/components/Message/img/error.png
-src/components/Message/img/info.png
-src/components/Message/img/sucess.png
-src/components/Message/img/warning.png
-src/components/Message/index.module.scss
-src/components/Message/index.tsx
-src/components/Modal/index.module.scss
-src/components/Modal/index.tsx
-src/components/Portal/Portal.md
-src/components/Portal/index.tsx
-src/components/button/index.module.scss
-src/components/button/index.test.tsx
-src/components/button/index.tsx
-src/components/button/style.scss
-src/components/listTitle/index.test.tsx
-src/components/listTitle/index.tsx
-src/components/message/Notification.tsx
-src/components/message/config.ts
-src/components/message/img/error.png
-src/components/message/img/info.png
-src/components/message/img/sucess.png
-src/components/message/img/warning.png
-src/components/message/index.module.scss
-src/components/message/index.tsx
 src/containers/auth/index.tsx
-src/containers/lists/orders/myOrders/index.tsx
-src/containers/lists/settings/role/roleDetail/config.ts
-src/containers/lists/settings/role/roleDetail/index.module.scss
-src/containers/lists/settings/role/roleDetail/index.tsx
-src/containers/lists/settings/role/roleDetail/permissions/index.scss
-src/containers/lists/settings/role/roleDetail/permissions/index.test.tsx
-src/containers/lists/settings/role/roleDetail/permissions/index.tsx
-src/containers/lists/settings/role/roleDetail/permissions/permissionsItem/index.test.tsx
-src/containers/lists/settings/role/roleDetail/permissions/permissionsItem/index.tsx
-src/containers/lists/settings/role/roleDetail/utils.ts
-src/containers/lists/settings/role/roleList/config.ts
-src/containers/lists/settings/role/roleList/index.module.scss
-src/containers/lists/settings/role/roleList/index.tsx
-src/containers/lists/settings/user/userDetail/detailIpt/index.module.scss
-src/containers/lists/settings/user/userDetail/detailIpt/index.test.tsx
-src/containers/lists/settings/user/userDetail/detailIpt/index.tsx
-src/containers/lists/settings/user/userDetail/index.test.tsx
-src/containers/lists/settings/user/userDetail/index.tsx
-src/containers/lists/settings/user/userDetail/userInfo/index.module.scss
+src/containers/details/component/switchComponent/index.module.scss
+src/containers/details/component/switchComponent/index.tsx
+src/containers/details/component/switchComponent/utils.tsx
+src/containers/details/detailBottom/loanInfo/index.test.tsx
+src/containers/details/detailBottom/loanInfo/index.tsx
+src/containers/details/detailBottom/loanInfo/loanInfo.test.tsx
+src/containers/details/detailBottom/smsRecord/index.module.scss
+src/containers/details/detailBottom/smsRecord/index.scss
+src/containers/details/detailBottom/smsRecord/index.tsx
+src/containers/details/detailBottom/smsRecord/smsRecord.test.tsx
+src/containers/details/detailBottom/statusRecord/config.tsx
+src/containers/details/detailBottom/statusRecord/index.test.tsx
+src/containers/details/detailBottom/statusRecord/index.tsx
+src/containers/details/index.tsx
+src/containers/lists/orders/const.ts
+src/containers/lists/orders/orderLists/index.test.tsx
+src/containers/lists/orders/orderLists/index.tsx
+src/global/constants.ts
+src/global/interface.ts
+src/interface/details/approval/index.ts
+src/interface/details/smsRecord/index.ts
+src/interface/details/statusRecord/index.ts
+src/stores/details/approval/index.ts
+src/stores/details/smsRecord/index.ts
+src/stores/details/statusRecord/index.ts
+src/stores/root.ts
+
+commit 3a1dcb6a7a9782e8a5e48b91f237c47cdcf7f4e3
+Author: hhh <huanghuihui@mintechai.com>
+Date:   Thu Nov 14 18:27:19 2019 +0800
+
+    新增详情部分模块
+
+src/containers/auth/index.tsx
+src/containers/details/component/infoWrapper/index.scss
+src/containers/details/component/infoWrapper/index.test.tsx
+src/containers/details/component/infoWrapper/index.tsx
+src/containers/details/component/infoWrapper/infoWrapper.test.tsx
+src/containers/details/component/navBar/index.module.scss
+src/containers/details/component/navBar/index.test.tsx
+src/containers/details/component/navBar/index.tsx
+src/containers/details/component/switchComponent/index.module.scss
+src/containers/details/component/switchComponent/index.tsx
+src/containers/details/component/switchComponent/utils.tsx
+src/containers/details/component/tabComponent/index.tsx
+src/containers/details/index.scss
+src/containers/details/index.tsx
+src/containers/details/utils.ts
+src/containers/ndetails/component/infoWrapper/index.scss
+src/containers/ndetails/component/infoWrapper/index.test.tsx
+src/containers/ndetails/component/infoWrapper/index.tsx
+src/containers/ndetails/component/navBar/index.module.scss
+src/containers/ndetails/component/navBar/index.test.tsx
+src/containers/ndetails/component/navBar/index.tsx
+src/containers/ndetails/component/switchComponent/index.tsx
+src/containers/ndetails/component/switchComponent/utils.tsx
+src/containers/ndetails/component/tabComponent/index.tsx
+src/containers/ndetails/index.scss
+src/containers/ndetails/index.tsx
+src/containers/ndetails/utils.ts
+
+commit b79e84bc7a060b66eccb486dd46c60caae355a56
+Merge: 22cb0cd d7bf009
+Author: hhh <huanghuihui@mintechai.com>
+Date:   Thu Nov 14 17:09:48 2019 +0800
+
+    Merge branch 'master' into master-hhh
+
+commit 22cb0cdaa8ebbc93c01ed4b7a2392a65c516bb05
+Author: hhh <huanghuihui@mintechai.com>
+Date:   Thu Nov 14 17:09:09 2019 +0800
+
+    新增详情部分模块
+
+src/api/index.ts
+src/api/params.ts
+src/components/table/index.tsx
+src/containers/auth/index.tsx
+src/containers/details/component/infoWrapper/index.scss
+src/containers/details/component/infoWrapper/index.tsx
+src/containers/details/component/infoWrapper/infoWrapper.test.tsx
+src/containers/details/detailBottom/loanInfo/config.ts
+src/containers/details/detailBottom/loanInfo/index.module.scss
+src/containers/details/detailBottom/loanInfo/index.tsx
+src/containers/details/detailBottom/loanInfo/loanInfo.test.tsx
+src/containers/details/detailBottom/smsRecord/config.tsx
+src/containers/details/detailBottom/smsRecord/index.scss
+src/containers/details/detailBottom/smsRecord/index.tsx
+src/containers/details/detailBottom/smsRecord/smsRecord.test.tsx
+src/containers/details/index.tsx
+src/containers/lists/orders/orderLists/utils.test.tsx
 src/containers/lists/settings/user/userDetail/userInfo/index.test.tsx
 src/containers/lists/settings/user/userDetail/userInfo/index.tsx
-src/containers/lists/settings/user/userList/config.ts
-src/containers/lists/settings/user/userList/index.test.tsx
-src/containers/lists/settings/user/userList/index.tsx
-src/containers/login/index.tsx
-src/global/constants.ts
-src/interface/role/index.ts
-src/interface/user/index.ts
-src/stores/role/index.ts
+src/interface/details/loanInfo/index.ts
+src/interface/details/smsRecord/index.ts
+src/stores/details/loanInfo/index.ts
+src/stores/details/smsRecord/index.ts
 src/stores/root.ts
-src/stores/user/index.ts
-
-commit 4727f2900e342616ac5f508e406a1a73f5d07389
-Author: wangcong <wangcong@mintq.com>
-Date:   Wed Nov 13 15:58:55 2019 +0800
-
-    添加黑名单列表测试
-
-lastgitcommit.text
-src/containers/lists/orders/addBlack/index.test.tsx
-src/containers/lists/orders/addBlack/index.tsx
-src/containers/lists/orders/addBlack/utils.test.tsx
-src/containers/lists/orders/addBlack/utils.tsx
-src/containers/lists/orders/blackLists/index.tsx
-src/containers/lists/orders/blackLists/utils.tsx
-src/containers/lists/orders/orderLists/index.test.tsx
-src/containers/lists/orders/orderLists/utils.test.tsx
-src/stores/orders/blacks/index.test.ts
-src/stores/orders/blacks/index.ts
-src/stores/orders/myOrders/index.test.ts
-src/stores/orders/myOrders/index.ts
-src/stores/orders/orderLists/index.test.ts
-src/stores/orders/orderLists/index.ts

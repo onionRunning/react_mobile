@@ -80,12 +80,12 @@ export interface CheckRepeatPayload {
 // 用来定义请求参数的 interface
 
 // 获取放款列表详情
-export interface LoanInfoReq {
-  order_no: string
-  PermissionId?: string
-  sort_order?: 'asc' | 'desc'
-  sort_value?: string
-}
+// export interface LoanInfoReq {
+//   order_no: string
+//   PermissionId?: string
+//   sort_order?: 'asc' | 'desc'
+//   sort_value?: string
+// }
 
 // 获取短信记录
 export interface GetSMSRecordReq {
@@ -410,4 +410,75 @@ export interface RepaymentTrial {
   customer_id: number
   repayment_type: string
   repayment_time: string
+}
+
+/******* 详情下半部分 *********/
+
+// 获取审核结果
+export interface ApprovalResultReq {
+  order_no: string
+  suffix: string
+}
+
+// 获取电话审核信息
+export interface TelephoneVerifyReq {
+  order_no: string
+  suffix: string
+}
+
+// 获取通话记录信息
+export interface CallRecordInfoReq {
+  internal_id: string
+  internal_sys: number
+  suffix: string
+}
+
+// 拨打电话
+export interface CallUpReq {
+  internal_id: string
+  internal_sys: number // 默认为 1
+  call_from: string
+  call_to: string
+  third_channel: string // 默认为 'yeastar'
+  approval_call_id: number
+}
+
+// 更新话务系统信息
+export interface UpdateCallInfoReq {
+  call_id: string
+  call_status: string
+  reason: string
+  remark: string
+}
+
+// 获取还款详情
+export interface RepaymentDetailReq {
+  order_no: string
+  PermissionId?: string
+}
+
+// 获取放款信息
+export interface LoanInfoReq {
+  order_no: string
+  PermissionId?: string
+  sort_order?: 'asc' | 'desc' | ''
+  sort_value?: string
+}
+
+// 获取短信记录
+export interface SMSRecordReq {
+  order_no: string
+  PermissionId?: string
+}
+
+// 发送短信
+export interface SendSmsReq {
+  order_no: string
+  button_type: string
+}
+
+// 获取状态记录
+export interface StatusRecordReq {
+  PermissionId?: string
+  order_no: string
 }
