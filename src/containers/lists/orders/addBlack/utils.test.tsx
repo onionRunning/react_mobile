@@ -23,7 +23,7 @@ describe('const test', () => {
     })
   })
   it('tabBlackTitle 3', () => {
-    expect(findTitle(utils.tabBlackTitle(), 'Black Type').render('123').props).toEqual({ children: '123' })
+    expect(findTitle(utils.tabBlackTitle(), 'tag').render('123').props).toEqual({ children: '123' })
   })
   it('searchBlackConfig', () => {
     expect(utils.searchBlackConfig.length).toEqual(6)

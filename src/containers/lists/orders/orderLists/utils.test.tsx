@@ -23,7 +23,7 @@ describe('const test', () => {
     expect(findTitle(utils.getTabTitle(() => {}), 'Review time').render('xx').type).toEqual('span')
   })
   it('getTabTitle4', () => {
-    expect(findTitle(utils.getTabTitle(() => {}), 'Status').render('xx').type).toEqual('span')
+    expect(findTitle(utils.getTabTitle(() => {}), 'Review Status').render('xx').type).toEqual('span')
   })
   it('getTabTitle5', () => {
     expect(findTitle(utils.getTabTitle(() => {}), 'Operating').render('xx').type).toEqual('span')

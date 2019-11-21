@@ -1,5 +1,5 @@
 import React from 'react'
-import MobileInfo from 'containers/details/mobileInfo'
+import MobileInfo from 'containers/details/detailTop/mobileInfo'
 import LoanInfo from 'containers/details/detailBottom/loanInfo'
 import SMSRecord from 'containers/details/detailBottom/smsRecord'
 import StatusRecord from 'containers/details/detailBottom/statusRecord'

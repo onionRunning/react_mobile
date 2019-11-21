@@ -10,7 +10,10 @@ describe('RightUser', () => {
   const mockProps = {
     dispatch: mockDispatch,
     checkIsReadOnly: jest.fn().mockReturnValue(false),
-    ...mockRoute
+    ...mockRoute,
+    common: {
+      changeConfirm: jest.fn()
+    }
   }
 
   let component: ShallowWrapper<RightUser>, instance: RightUser

@@ -44,7 +44,6 @@ export class BlackLists extends Component<Props, State> {
   }
   componentDidMount() {
     this.getBlackListsReq()
-    this.getProductDetail()
     this.getBlackPerson()
   }
 
@@ -90,14 +89,7 @@ export class BlackLists extends Component<Props, State> {
   }
   // 表单筛选
   handleFilter = (v: FillInfo) => {
-    let vals = strTrim(v.value)
-    if (utils.turnToNumber.includes(v.key as string)) {
-      if (vals) {
-        vals = Number(vals)
-      } else {
-        vals = 0
-      }
-    }
+    const vals = strTrim(v.value)
     this.setState({
       request: { ...this.state.request, [v.key]: vals }
     })
@@ -126,12 +118,10 @@ export class BlackLists extends Component<Props, State> {
   // 请求获取黑名单管理列表
   getBlackListsReq = (v?: FillInfo) => {
     // 黑名单管理
-    this.props.blacks.getBlackLists({ ...this.state.request, ...v })
+    this.props.common.composeLoading(this.tempFunc(v))
   }
-
-  // 获取产品配置信息
-  getProductDetail = () => {
-    // get config
+  tempFunc = (v?: FillInfo) => () => {
+    this.props.blacks.getBlackLists({ ...this.state.request, ...v })
   }
 
   getBlackPerson = () => {
@@ -161,17 +151,12 @@ export class BlackLists extends Component<Props, State> {
   // 开始移除黑名单
   rightFunc = () => {
     const { chose } = this.state
-    const vMaps = chose.map((item: FillInfo) => {
-      return item.id
-    })
     const orders = chose.map((item: FillInfo) => {
       return item.order_no
     })
     const params = {
-      id: vMaps,
-      id_count: vMaps.length,
       ...this.state.removeBlack,
-      order_no: orders
+      order_nos: orders
     }
     this.props.blacks.removeBlackList(params, this.successCb)
   }
