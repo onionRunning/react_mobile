@@ -1,6 +1,4 @@
 // 放款管理
-
-// 放款管理列表筛选条件
 export interface LendingsPayload {
   page?: number // 当前页
   per_page?: number // 每页数据条数
@@ -19,13 +17,6 @@ export interface LendingsPayload {
   sort_order?: string // 排序方式:asc/desc
 }
 
-// 批量放款
-export interface LoanOrRetryReqBatch {
-  order_nos: string[] | number[]
-  operator: string
-  operator_id: number
-}
-
 // 手动放款 or 重试
 export interface LoanOrRetryReq {
   order_no: string
@@ -40,8 +31,19 @@ export interface CancelLoanReq {
 }
 
 // 手动放款开关
-export interface UpdateAutoReq {
-  config_value: string
+export interface UpdateAutoReqItem {
+  available: string
+  checked: boolean
+  conf_type: string
+  created_at: string
+  deleted_at: string
+  id: number
+  label: string
+  name: string
+  remark: string
+  remark_available: string
+  updated_at: string
+  value: string
 }
 
 // ===================
@@ -72,4 +74,6 @@ export interface LendingItem {
   customer_id: number
   product_name: string
   is_in_batch_loan: boolean
+  loan_flow_status: string
+  loan_pay_type: string
 }

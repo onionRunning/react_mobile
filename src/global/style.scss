@@ -394,3 +394,16 @@ $text-font-size-small: 12px;
 :-moz-placeholder { /* Firefox 18- */ 
  color: hsl(0,0%,50%) !important;
 }
+
+.operatingWrap{
+  display: flex;
+  flex-direction: column;
+}
+
+.operating{
+  text-align: center;
+  font-size: 12px;
+  &:hover{
+    text-decoration: underline;
+  }
+}

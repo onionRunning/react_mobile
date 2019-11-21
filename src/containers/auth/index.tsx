@@ -1,5 +1,6 @@
 import React, { Component, lazy } from 'react'
 import { Switch, Route, Redirect, RouteComponentProps } from 'react-router-dom'
+import Common from 'stores/common'
 import Header from './header'
 import { getRedictRoute } from './utils'
 import { userPermission } from 'design/permission'
@@ -16,7 +17,11 @@ const MyOrders = lazy(() => import('containers/lists/orders/myOrders'))
 const Lendings = lazy(() => import('containers/lists/lendings'))
 const Repayments = lazy(() => import('containers/lists/repayments'))
 
-class Auth extends Component<RouteComponentProps<{ showType: string }>> {
+interface Props extends RouteComponentProps<{ showType: string }> {
+  baseUrl: string
+  common: Common
+}
+class Auth extends Component<Props> {
   componentDidMount() {
     // this.checkToken(sessionStorage.getItem('token'))
   }

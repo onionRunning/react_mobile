@@ -119,6 +119,13 @@ export const filterData = [
     placeholder: 'Search for loan ID, ID number ,Name'
   },
   {
+    formType: formType.TREE_SELECT,
+    // 订单类型
+    label: 'Order type:',
+    key: 'order_type',
+    data: OrderTypes
+  },
+  {
     formType: formType.SELECT,
     // 证件类型
     label: 'ID type:',
@@ -133,11 +140,11 @@ export const filterData = [
     data: OrderAllStatus
   },
   {
-    formType: formType.TREE_SELECT,
-    // 订单类型
-    label: 'Order type:',
-    key: 'order_type',
-    data: OrderTypes
+    // 贷款天数
+    formType: formType.SELECT,
+    label: 'Loan days:',
+    key: 'loan_days',
+    data: []
   },
   {
     // 所属产品
@@ -145,13 +152,6 @@ export const filterData = [
     label: 'Product:',
     key: 'product_name',
     data: [{ label: 'All', value: '' }]
-  },
-  {
-    // 贷款天数
-    formType: formType.SELECT,
-    label: 'Loan days:',
-    key: 'loan_days',
-    data: []
   }
 ]
 

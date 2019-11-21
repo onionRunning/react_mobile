@@ -45,3 +45,20 @@ export interface CallBacks {
 export interface OrderListsReq extends MyOrderReq {
   download?: boolean
 }
+
+// 黑名单管理 添加黑名单
+export interface AddBlackReq {
+  operator_id: number
+  operator_name: string
+  order_nos: string[]
+  blacklist_type: string
+  remark: string
+}
+
+// 移除黑名单
+export interface RemoveBlackReq {
+  operator_id: number
+  operator_name: string
+  order_nos: string[]
+  blacklist_type: string
+}

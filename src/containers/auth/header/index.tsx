@@ -1,19 +1,22 @@
 import React from 'react'
 import { DispatchProp } from 'react-redux'
-import './index.scss'
-import LeftNav from './leftNav'
 import { RouteComponentProps } from 'react-router-dom'
+import { inject, observer } from 'mobx-react'
+import LeftNav from './leftNav'
 import RightUser from './rightUser'
+import Common from 'stores/common'
 import routesConfig from './config'
+
+import './index.scss'
 
 interface Props extends RouteComponentProps<{ showType: string }> {
   baseUrl: string
+  common: Common
 }
-
+@inject('common')
+@observer
 export class Header extends React.Component<Props & Partial<DispatchProp>> {
   render() {
-    // console.log(this.props.location.pathname.includes("readOnly"))
-    // console.log(this.props)
     return (
       <div className="header">
         <div className="logo" onClick={this.clickhome} id="logo" />

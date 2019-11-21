@@ -130,14 +130,15 @@
   // display: none;
   visibility: hidden;
   padding-left: 110px;
+  z-index: 2;
   li {
     padding: 0 30px;
   }
 }
 
-// .no_activc_3,
-// .active_3 {
-//   .second-nav {
-//     padding-left: 10px;
-//   }
-// }
+.no_activc_3,
+.active_3 {
+  .second-nav {
+    padding-left: 550px;
+  }
+}

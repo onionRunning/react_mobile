@@ -67,6 +67,9 @@ $confirm-title-color: #404040; // 标题文字颜色
     color: $confirm-text-color;
     text-align: center;
     font-size: $confirm-text-font-size;
+    textarea{
+      resize: none;
+    }
   }
   .confirm-btn-wapper {
     padding: 30px 0;

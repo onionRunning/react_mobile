@@ -3,6 +3,8 @@ import { AxiosInstance } from 'axios'
 import * as response from './response'
 import * as params from './params'
 import { ApprovalResultReq, ApprovalResultRes } from 'interface/details/approval'
+import { UserInfoPayload } from 'interface/details/userInfo'
+import { CheckRepeatPayloadReq } from 'interface/details/checkRepeat'
 
 export class Api {
   request: AxiosInstance
@@ -90,22 +92,23 @@ export class Api {
   // getUserInfo = (payload: params.UserInfoPayload, stuffix?: string) => {
   //   return this.postHeader(`/back_mgr/get_one_order/${stuffix}`, payload, { stuffix })
   // }
-  getUserInfo = (payload: params.UserInfoPayload, current?: string) => {
+  getUserInfo = (payload: UserInfoPayload, current?: string) => {
     return this.post(`/back_mgr/get_one_order/${current}`, payload)
   }
 
   // 获取设备信息
   getMobileInfo = (payload: params.MobilePayload, stuffix?: string) => {
-    return this.postHeader<any>(`/back_mgr/get_mobile_device_info`, payload, { stuffix })
+    return this.postHeader<any>(`/mobile_info/app/query/order_list`, payload, { stuffix })
   }
 
   // 查重检测
-  getRepeatList = (payload: params.CheckRepeatPayload, stuffix?: string) => {
-    return this.postHeader<any>(`/back_mgr/get_danger_list`, payload, { stuffix })
+  getRepeatList = (payload: CheckRepeatPayloadReq) => {
+    console.log(payload)
+    return this.post<any>(`/back_mgr/get_danger_list`, payload)
   }
   ///back_mgr/check_duplicate
   // 重新查重检测
-  checkRepeatList = (payload: params.CheckRepeatPayload) => {
+  checkRepeatList = (payload: CheckRepeatPayloadReq) => {
     return this.post<any>(`/back_mgr/check_duplicate`, payload)
   }
   // 获取放款单列表
@@ -125,12 +128,12 @@ export class Api {
 
   // 获取自动放款开关
   getAutoStatus = () => {
-    return this.post('/back_mgr/query_auto_loan_status')
+    return this.get('/get_auto_loan_status')
   }
 
   // 开启或关闭开关,手动放款
-  updateAutoStatus = (payload: params.lendings.UpdateAutoReq) => {
-    return this.post<any>('/back_mgr/update_auto_loan_status', payload)
+  updateAutoStatus = (payload: params.lendings.UpdateAutoReqItem[]) => {
+    return this.post('/set_auto_loan', payload)
   }
 
   // 下载放款列表
@@ -380,7 +383,7 @@ export class Api {
 
   // 加入黑名单
   addBlacklist = (payload: any) => {
-    return this.post<any>('/back_mgr/add_blacklist', payload)
+    return this.post<any>('/blacklist/add', payload)
   }
 
   // 黑名单列表

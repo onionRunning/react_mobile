@@ -2,13 +2,13 @@ import * as con from './const'
 
 describe('const test', () => {
   it('AllIdType', () => {
-    expect(con.AllIdType.length).toEqual(8)
+    expect(con.AllIdType.length).toEqual(5)
   })
   it('TimeRange', () => {
     expect(Object.keys(con.TimeRange('x', 'y'))).toEqual(['start', 'end'])
   })
   it('OrderAllStatus', () => {
-    expect(con.OrderAllStatus.length).toEqual(12)
+    expect(con.OrderAllStatus.length).toEqual(8)
   })
   it('OrderTypes', () => {
     expect(con.OrderTypes.length).toEqual(2)
@@ -30,7 +30,7 @@ describe('const test', () => {
   })
   it('handArr 2', () => {
     const k: any = {}
-    expect(con.handArr(k).length).toEqual(0)
+    expect(con.handArr(k).length).toEqual(1)
   })
   it('handerPerson ', () => {
     expect(con.handerPerson([{ name: 1, id: 2 }]).length).toEqual(1)

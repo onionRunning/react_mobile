@@ -6,6 +6,7 @@ interface ConfigType {
   title: string
   isShow: boolean
   id?: string
+  hasResult?: boolean
 }
 
 interface Props {
@@ -25,6 +26,7 @@ export const getLists = (props: Props) => {
         id={item.id}
       >
         {item.title}
+        {item.hasResult && item.type === 'Duplicate checking detection' && <div className={style.icon} />}
       </li>
     )
   })

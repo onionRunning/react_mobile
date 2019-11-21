@@ -22,21 +22,21 @@ export const getTableTitle = (clickCallback: (args: {}) => MouseEventHandler<{}>
   },
   {
     title: 'Name', // 姓名
-    dataIndex: 'customer_name',
-    key: 'customer_name'
+    dataIndex: 'customer_full_name',
+    key: 'customer_full_name'
   },
   {
     title: 'Phone', // 手机号码
-    dataIndex: 'phone_number',
-    key: 'phone_number'
+    dataIndex: 'customer_phone',
+    key: 'customer_phone'
   },
   {
-    title: 'ID type', // 证件类型1
+    title: 'ID type', // 证件类型
     dataIndex: 'id_type',
     key: 'id_type'
   },
   {
-    title: 'ID No', // 证件号码1
+    title: 'ID No', // 证件号码
     dataIndex: 'id_number',
     key: 'id_number'
   },
@@ -46,32 +46,32 @@ export const getTableTitle = (clickCallback: (args: {}) => MouseEventHandler<{}>
     key: 'order_status'
   },
   {
-    title: 'Blacklist Type', // 黑名单类型
-    dataIndex: 'blacklist_type',
-    key: 'blacklist_type',
-    render: (black_type: BlackType) => {
-      return <span>{blackReflect[black_type]}</span>
-    }
-  },
-  {
     title: 'Product', // 产品
     dataIndex: 'product_name',
     key: 'product_name'
   },
   {
     title: 'Add blacklist time', // 添加时间
-    dataIndex: 'added_at',
-    key: 'added_at',
+    dataIndex: 'created_at',
+    key: 'created_at',
     sorter: true, // p4.3.1添加sorter
     defaultSortOrder: 'descend',
-    render: (added_at: string) => {
-      return <span>{formatTime(added_at)}</span>
+    render: (created_at: string) => {
+      return <span>{formatTime(created_at)}</span>
+    }
+  },
+  {
+    title: 'tag', // 黑名单类型
+    dataIndex: 'type',
+    key: 'type',
+    render: (black_type: BlackType) => {
+      return <span>{blackReflect[black_type]}</span>
     }
   },
   {
     title: 'Operator', // add
-    dataIndex: 'add_operator_name',
-    key: 'add_operator_name'
+    dataIndex: 'operator_name',
+    key: 'operator_name'
   },
   {
     title: 'Operating',
@@ -94,11 +94,11 @@ export const filterConfig = [
     label: 'Add blacklist time:',
     key: 'time', // 用于解决列表渲染key值的警告
     disabledDate: true,
-    range: TimeRange('add_blacklist_time_start', 'add_blacklist_time_end')
+    range: TimeRange('start_date ', 'end_date')
   },
   {
     formType: formType.SEARCH,
-    key: 'multi_like_query_value',
+    key: 'multi_condition',
     maxLength: 50,
     placeholder: 'Search for loan ID, ID number, Name, Phone'
   },
@@ -107,15 +107,6 @@ export const filterConfig = [
     label: 'ID type:',
     key: 'id_type',
     data: AllIdType
-  },
-  {
-    formType: formType.SELECT,
-    label: 'Blacklist type:',
-    key: 'blacklist_type',
-    data: [
-      { label: 'BlackList 1', value: 'ManuallyAddedBlacklist' },
-      { label: 'BlackList 2', value: 'OverdueBlacklist' }
-    ]
   },
   {
     formType: formType.SELECT,
@@ -154,29 +145,6 @@ export const filterConfig = [
   },
   {
     formType: formType.SELECT,
-    label: 'Product:', // 产品
-    key: 'product_name',
-    data: [
-      {
-        label: 'All',
-        value: ''
-      },
-      {
-        label: 'Peso2go',
-        value: 'Peso2go'
-      },
-      {
-        label: 'CashNiJuan',
-        value: 'CashNiJuan'
-      },
-      {
-        label: 'JetPeso',
-        value: 'JetPeso'
-      }
-    ]
-  },
-  {
-    formType: formType.SELECT,
     label: 'Operator:', // 人
     key: 'operator_id',
     data: []
@@ -196,12 +164,6 @@ export const btnItems = () => {
       className: 'sub-btn',
       key: 'remove',
       text: 'Remove blacklist'
-    },
-    {
-      type: 'black',
-      key: 'download',
-      className: 'sub-btn-blue',
-      text: 'Export order'
     }
   ]
 }

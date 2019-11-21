@@ -5,6 +5,7 @@ const proxy = require('http-proxy-middleware')
 const PinoLogger = require('pino')
 const bodyParser = require('body-parser')
 const queryString = require('querystring')
+const compression = require('compression')
 
 const proxyHost = 'http://ind-gigw-mng:3000' // docker port
 // const proxyHost = 'http://172.16.0.30:32004' // 用于代理的   ip + host
@@ -27,6 +28,7 @@ const pino = PinoLogger({
 })
 
 const app = express()
+app.use(compression())
 
 app.use(bodyParser.json())
 

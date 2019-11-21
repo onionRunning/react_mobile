@@ -3,15 +3,17 @@ export interface ConfigType {
   type: string
   isShow?: boolean
   id?: string
+  hasResult?: boolean
 }
 
-export const top_config = (): ConfigType[] => {
+export const top_config = (hasResult: boolean): ConfigType[] => {
   return [
     { type: 'User info', title: 'User info', id: 'detail-user' },
     {
       type: 'Duplicate checking detection',
       title: 'Duplicate checking detection',
-      id: 'detail-duplicate-check'
+      id: 'detail-duplicate-check',
+      hasResult
     },
     {
       type: 'Mobile device information',

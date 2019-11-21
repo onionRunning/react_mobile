@@ -20,18 +20,6 @@ export const AllIdType = [
   {
     label: "Driver's license",
     value: "Driver's license"
-  },
-  {
-    label: 'GSIS',
-    value: 'GSIS'
-  },
-  {
-    label: 'TIN',
-    value: 'TIN'
-  },
-  {
-    label: 'sssGsis',
-    value: 'sssGsis'
   }
 ]
 
@@ -60,20 +48,12 @@ export const OrderAllStatus = [
     value: 'CreateApplication'
   },
   {
-    label: 'Initial Auditing Reject', // 初审拒绝
-    value: 'InitialAuditingReject'
-  },
-  {
     label: 'Auto Auditing', // 机审中
     value: 'AutoAuditing'
   },
   {
     label: 'Auto Reject', // 机审拒绝
     value: 'AutoReject'
-  },
-  {
-    label: 'Risk Control Reject', // 风控拒绝
-    value: 'RiskControlReject'
   },
   {
     label: 'Waiting For ManualAuditing', // 待人工审核
@@ -90,14 +70,6 @@ export const OrderAllStatus = [
   {
     label: 'Auditing Reject', // 审核拒绝
     value: 'AuditingReject'
-  },
-  {
-    label: 'Auditing Return', // 审核退回
-    value: 'AuditingReturn'
-  },
-  {
-    label: 'Application Canceled', // 订单取消
-    value: 'ApplicationCanceled'
   }
 ]
 // 黑名单列表下的类型
@@ -219,17 +191,19 @@ export const addFont = (val: TempInfo[], spec?: string) => {
 
 type Product = string | number
 export const handArr = (arr: Product[]) => {
-  if (!Array.isArray(arr)) return []
+  if (!Array.isArray(arr)) return [{ label: 'All', value: '' }]
   return arr.map(item => {
     return { label: item, value: item }
   })
 }
 
 // 人员特殊处理
-export const handerPerson = (person: TempInfo[]) =>
-  person.map(item => {
+export const handerPerson = (person: TempInfo[]) => {
+  if (!Array.isArray(person)) return [{ label: 'All', value: '' }]
+  return person.map(item => {
     return { label: item.name, value: item.id }
   })
+}
 //筛选操作人 添加System
 export const filterPerson = (arr: TempInfo[]) => {
   const hasSystem = arr.find(item => item.value === 0)
@@ -247,9 +221,12 @@ export interface ProductProps {
 export const handlerSelectCont = (config: any[], product?: ProductProps, person?: TempInfo[]) => {
   const nConfig = [...config]
   const { loan_days, products } = product!
-  products && (nConfig[handleData(config, 'product_name')].data = addFont(handArr(products)!))
-  loan_days && (nConfig[handleData(config, 'loan_days')].data = addFont(handArr(loan_days)!, 'special'))
-  person && (nConfig[handleData(config, 'operator_id')].data = filterPerson(handerPerson(person!)))
+  const productContent = nConfig[handleData(config, 'product_name')]
+  const dayContent = nConfig[handleData(config, 'loan_days')]
+  const operateContent = nConfig[handleData(config, 'operator_id')]
+  productContent && (productContent.data = addFont(handArr(products)!))
+  dayContent && (dayContent.data = addFont(handArr(loan_days)!, 'special'))
+  operateContent && (operateContent.data = filterPerson(handerPerson(person!)!))
   return nConfig
 }
 // antd chose

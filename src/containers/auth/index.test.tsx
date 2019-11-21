@@ -6,7 +6,8 @@ import { ShallowWrapper, shallow } from 'enzyme'
 describe('Auth', () => {
   const mockRoute = mockRouteProps({ showType: 'test' })
   const mockProps = {
-    ...mockRoute
+    ...mockRoute,
+    common: {}
   }
   let component: ShallowWrapper<Auth>
   beforeEach(() => {

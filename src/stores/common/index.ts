@@ -59,13 +59,15 @@ class Common {
       ...temp
     }
   }
-  @action change = () => {
-    console.log('xxx')
-  }
   @action composeLoading = async (cb: () => void) => {
+    clearTimeout(this.timmer!)
     await this.changeLoading(true)
     if (typeof cb === 'function') {
-      await cb()
+      try {
+        await cb()
+      } catch (error) {
+        console.error(error)
+      }
     }
     this.timmer = setTimeout(() => {
       this.changeLoading(false)

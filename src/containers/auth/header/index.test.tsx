@@ -9,13 +9,14 @@ describe('Header', () => {
   const mockProps = {
     ...mockRoute,
     baseUrl: 'test',
-    dispatch: jest.fn()
+    dispatch: jest.fn(),
+    common: {}
   }
 
   let component: ShallowWrapper<Header>, instance: Header
 
   beforeEach(() => {
-    component = shallow(<Header {...mockProps} />)
+    component = shallow(<Header {...mockProps} />).dive()
     instance = component.instance() as Header
   })
 
@@ -42,13 +43,14 @@ describe('Header readOnly', () => {
   const mockProps = {
     ...mockRoute,
     baseUrl: 'test',
-    dispatch: jest.fn()
+    dispatch: jest.fn(),
+    common: {}
   }
 
   let component: ShallowWrapper<Header>, instance: Header
 
   beforeEach(() => {
-    component = shallow(<Header {...mockProps} />)
+    component = shallow(<Header {...mockProps} />).dive()
     instance = component.instance() as Header
   })
 

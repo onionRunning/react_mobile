@@ -1,11 +1,12 @@
-import React from 'react'
+// import React from 'react'
 import RepaymentInfo from 'containers/details/detailBottom/repayment'
 import OrderApproval from 'containers/details/detailBottom/orderApproval'
+import MobileInfo from 'containers/details/detailTop/mobileInfo'
 import LoanInfo from 'containers/details/detailBottom/loanInfo'
 import SMSRecord from 'containers/details/detailBottom/smsRecord'
 import StatusRecord from 'containers/details/detailBottom/statusRecord'
-
-const T = () => <div />
+import UserInfo from 'containers/details/detailTop/userInfo'
+import CheckRepeat from 'containers/details/detailTop/checkRepeat'
 
 interface TabProps {
   [p: string]: any
@@ -16,9 +17,9 @@ export const TabConfig: TabProps = {
   'SMS record': SMSRecord,
   'Status record': StatusRecord,
   'Approve operate': OrderApproval,
-  'User info': T,
-  'Mobile device information': T,
-  'Duplicate checking detection': T
+  'User info': UserInfo,
+  'Mobile device information': MobileInfo,
+  'Duplicate checking detection': CheckRepeat
 }
 
 export const D_HEIGHT = 172

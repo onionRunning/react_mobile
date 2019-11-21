@@ -1,9 +1,10 @@
 import { observable, action } from 'mobx'
 import api from 'api/index'
-import { CancelLoanReq, LendingsPayload, UpdateAutoReq, LoanOrRetryReq } from 'interface/lendings'
+import { CancelLoanReq, LendingsPayload, UpdateAutoReqItem, LoanOrRetryReq } from 'interface/lendings'
 import { Callback } from 'global/type'
 import { formatTime, formatTf } from 'global/method'
 import { LendingItem } from 'interface/lendings'
+import Message from 'components/message'
 
 class Lendings {
   // 自动放款按钮状态
@@ -19,13 +20,19 @@ class Lendings {
    */
   @action getLendingList = async (payload: LendingsPayload) => {
     const res = await api.getLendingLists(payload)
-    if (res && res.success) {
-      if (res.data) {
-        this.lendingList = this.handleData(res.data.loan_list)
-        this.page = payload.page!
-        this.page_count = payload.per_page!
-        this.total_count = res.data.total_count
+    try {
+      if (res && res.success) {
+        if (res.data) {
+          this.lendingList = res.data.loan_list ? this.handleData(res.data.loan_list) : []
+          this.page = payload.page!
+          this.page_count = payload.per_page!
+          this.total_count = res.data.total_count
+        }
+      } else {
+        Message.error(res.info)
       }
+    } catch (error) {
+      Message.error(error)
     }
   }
   /**
@@ -33,16 +40,28 @@ class Lendings {
    */
   @action checkAutoStatus = async (cb?: Callback) => {
     const res = await api.getAutoStatus()
-    if (res && res.success && res.data) {
-      this.autoStatus = res.data
-      cb && cb(res.data)
+    try {
+      if (res && res.success && res.data) {
+        this.autoStatus = res.data
+        cb && cb(res.data)
+      } else {
+        Message.error(res.info)
+      }
+    } catch (error) {
+      Message.error(error)
     }
   }
 
-  @action UpdateAutoStatus = async (payload: UpdateAutoReq, cb?: Callback) => {
+  @action UpdateAutoStatus = async (payload: UpdateAutoReqItem[], cb?: Callback) => {
     const res = await api.updateAutoStatus(payload)
-    if (res && res.success) {
-      cb && cb()
+    try {
+      if (res && res.success) {
+        cb && cb()
+      } else {
+        Message.error(res.info)
+      }
+    } catch (error) {
+      Message.error(error)
     }
   }
   /**
@@ -51,24 +70,31 @@ class Lendings {
    */
   @action createCancelLoan = async (payload: CancelLoanReq, cb: Callback) => {
     const res = await api.getCancelLoan(payload)
-    if (res && res.success) {
-      cb && cb()
+    try {
+      if (res && res.success) {
+        cb && cb()
+      } else {
+        Message.error(res.info)
+      }
+    } catch (error) {
+      Message.error(error)
     }
   }
 
   /**
-   * TODO:
    * 放款or重新放款
    * @params order_no,operator,operator_id
    */
-  @action createLoanRetry = async (payload: LoanOrRetryReq, cb: Callback) => {
+  @action createLoanRetry = (payload: LoanOrRetryReq, cb: Callback) => async () => {
     const res = await api.getLoanOrRetry(payload)
-    if (res && res.success) {
-      cb && cb()
+    try {
+      if (res && res.success) {
+        cb && cb()
+      }
+    } catch (error) {
+      Message.error(error)
     }
   }
-
-  // TODO: 特殊处理一下数据结构, 新的接口建议不要这样
   handleData = (data: any) => {
     return data.map((obj: any) => {
       return {
