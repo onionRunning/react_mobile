@@ -59,7 +59,7 @@ describe('MyOrder', () => {
       mobile_id: 1
     }
     ins.replaceDetail(item)()
-    expect(props.history.push).toBeCalledWith('/auth/my_orders/order_details', {
+    expect(props.history.push).toBeCalledWith('/auth/order_details', {
       customer_id: 1,
       mobile_id: 1,
       order_no: '1',

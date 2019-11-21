@@ -1,25 +1,25 @@
 import React, { Component } from 'react'
 import { observer, inject } from 'mobx-react'
-import LoanInfoStore from 'stores/details/loanInfo'
+import DetailsStore from 'stores/details'
 import InfoWrapper from 'containers/details/component/infoWrapper'
 import Table from 'components/table'
-import { LoanInfoColumns } from './config'
-import { LoanInfoReq, LoanInfoRes, LoanInfoList } from 'interface/details/loanInfo'
-import { MixProps } from 'global/interface'
 import { PaginationConfig, SorterResult } from 'antd/lib/table'
+import { LoanInfoColumns } from './config'
+import { MixProps } from 'global/interface'
+import * as params from 'api/params'
+import * as response from 'api/response'
 
 interface Props extends MixProps {
-  loanInfo: LoanInfoStore
+  details: DetailsStore
 }
 
 interface State {
-  request: LoanInfoReq
-  loanInfoList: LoanInfoList[]
+  request: params.LoanInfoReq
 }
 
 type TableSortType = 'ascend' | 'descend' | ''
 
-@inject('loanInfo')
+@inject('details')
 @observer
 export class LoanInfo extends Component<Props, State> {
   constructor(props: Props) {
@@ -30,8 +30,7 @@ export class LoanInfo extends Component<Props, State> {
         order_no: '',
         sort_order: '',
         sort_value: ''
-      },
-      loanInfoList: []
+      }
     }
   }
 
@@ -40,52 +39,29 @@ export class LoanInfo extends Component<Props, State> {
   }
 
   render() {
-    const { loanInfoList } = this.state
+    const { loanInfoList } = this.props.details
     return (
-      <div style={{ marginTop: '6px' }}>
-        <Table tableTitle={LoanInfoColumns} tableData={loanInfoList} onChange={this.handleTableChange} size="small" />
-      </div>
+      <Table tableTitle={LoanInfoColumns} tableData={loanInfoList} onChange={this.handleTableChange} size="small" />
     )
   }
 
+  // 获取放款信息
   getLoanInfo = async () => {
     const { order_no, viewType } = this.props.location.state
-    await this.props.loanInfo.getLoanInfoList(
+    await this.props.details.getLoanInfoList(
       {
         ...this.state.request,
         order_no
       },
-      viewType,
-      this.handleLoanInfo
+      viewType
     )
   }
 
-  handleLoanInfo = (LoanInfo: LoanInfoRes[]) => {
-    console.log(LoanInfo)
-    const loanInfoList: LoanInfoList[] = LoanInfo.map((el: LoanInfoRes, index: number) => {
-      return {
-        id: index,
-        created_at: el.flow.created_at,
-        actual_loan_time: el.flow.created_at,
-        actual_loan_amount: el.loan.actual_loan_amount,
-        transfer_fee: el.loan.transfer_fee,
-        loan_days: el.loan.loan_days,
-        loan_status: el.loan.loan_status,
-        loan_flow_status: el.flow.loan_flow_status,
-        request_no: el.flow.request_no,
-        out_flow_num: el.flow.out_flow_num,
-        err_msg: el.flow.err_msg
-      }
-    })
-    this.setState({
-      loanInfoList: [...loanInfoList]
-    })
-  }
-
+  // 排序
   handleTableChange = (
     _pagination: PaginationConfig,
-    _filters: Record<keyof LoanInfoList, string[]>,
-    sorter: SorterResult<LoanInfoList>
+    _filters: Record<keyof response.LoanInfoList, string[]>,
+    sorter: SorterResult<response.LoanInfoList>
   ) => {
     const { columnKey, order } = sorter
     this.setState(

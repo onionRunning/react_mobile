@@ -37,7 +37,7 @@ export class MyOrder extends Component<Props, State> {
   }
   render() {
     const { myOrderLists, myOrderPage, myOrderStatus } = this.props.myOrders
-    const tabTitle = utils.geTableTitle()
+    const tabTitle = utils.getTableTitle(this.replaceDetail)
     const { my_order_func } = userPermission.finnalPermission!
     return (
       <div className={styles.page}>
@@ -140,7 +140,7 @@ export class MyOrder extends Component<Props, State> {
       mobile_id,
       viewType: intoDetail.MYORDER
     }
-    this.props.history.push(`/auth/${intoDetail.MYORDER}/order_details`, {
+    this.props.history.push(`/auth/order_details`, {
       ...payload
     })
   }

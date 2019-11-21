@@ -2,7 +2,6 @@ import * as React from 'react'
 import { shallow } from 'enzyme'
 import { mockRouteProps } from 'test/mock'
 import { LoanInfo } from './index'
-import LoanInfoStore from 'stores/details/loanInfo'
 
 describe('LoanInfo', () => {
   const mockRoute = mockRouteProps(
@@ -12,12 +11,12 @@ describe('LoanInfo', () => {
       viewType: 'order_list'
     }
   )
-  const loanInfo: LoanInfoStore = {
+  const details: any = {
     getLoanInfoList: jest.fn()
   }
   const props = {
     ...mockRoute,
-    loanInfo
+    details
   }
   let component: any, instance: any
   beforeEach(() => {
@@ -35,59 +34,21 @@ describe('LoanInfo', () => {
   })
 
   it('render', () => {
-    expect(component.find('div').length).toBeGreaterThan(0)
+    expect(component.find('div').length).toBe(0)
   })
 
   it('getLoanInfo', () => {
     instance.getLoanInfo()
 
-    expect(props.loanInfo.getLoanInfoList).toBeCalledWith(
+    expect(props.details.getLoanInfoList).toBeCalledWith(
       {
         PermissionId: '',
         order_no: 'P2g201911150020',
         sort_order: '',
         sort_value: ''
       },
-      'order_list',
-      instance.handleLoanInfo
+      'order_list'
     )
-  })
-
-  it('handleLoanInfo', () => {
-    const data: any = [
-      {
-        flow: {
-          created_at: 'test',
-          actual_loan_time: 'test',
-          loan_flow_status: 'test',
-          request_no: 'test',
-          out_flow_num: 'test',
-          err_msg: 'test'
-        },
-        loan: {
-          actual_loan_amount: 1000,
-          loan_days: 'test',
-          loan_status: 'test',
-          transfer_fee: 'test'
-        }
-      }
-    ]
-    instance.handleLoanInfo(data)
-    expect(instance.state.loanInfoList).toEqual([
-      {
-        id: 0,
-        created_at: 'test',
-        actual_loan_time: 'test',
-        loan_flow_status: 'test',
-        request_no: 'test',
-        out_flow_num: 'test',
-        err_msg: 'test',
-        actual_loan_amount: 1000,
-        loan_days: 'test',
-        loan_status: 'test',
-        transfer_fee: 'test'
-      }
-    ])
   })
 
   it('handleTableChange', () => {

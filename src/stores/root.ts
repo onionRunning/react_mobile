@@ -9,10 +9,8 @@ import Lendigns from './lendings'
 import Repayments from './repayments'
 import UserDetail from './details/userDetail'
 import CheckRepeat from './details/checkRepeat'
-import LoanInfo from './details/loanInfo'
-import SMSRecord from './details/smsRecord'
-import StatusRecord from './details/statusRecord'
 import Approval from './details/approval'
+import Details from './details'
 
 class Root {
   common: Common
@@ -23,12 +21,10 @@ class Root {
   orderLists: OrderLists
   lendings: Lendigns
   repayments: Repayments
+  approval: Approval
+  details: Details
   userDetail: UserDetail
   checkRepeat: CheckRepeat
-  loanInfo: LoanInfo
-  smsRecord: SMSRecord
-  statusRecord: StatusRecord
-  approval: Approval
   mobiles: MobileInfo
   constructor() {
     this.mobiles = new MobileInfo()
@@ -42,10 +38,8 @@ class Root {
     this.repayments = new Repayments()
     this.userDetail = new UserDetail()
     this.checkRepeat = new CheckRepeat()
-    this.loanInfo = new LoanInfo()
-    this.smsRecord = new SMSRecord()
     this.approval = new Approval()
-    this.statusRecord = new StatusRecord()
+    this.details = new Details()
   }
 }
 

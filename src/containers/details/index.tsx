@@ -26,9 +26,9 @@ export class OrderDetails extends Component<Props> {
   }
   render() {
     const breadRouter = handlerRouter(this.props.location.state.detail_type)
-    const {
-      // order_msg: { duplicate_status }
-    } = this.props.userDetail
+    // const {
+    //   // order_msg: { duplicate_status }
+    // } = this.props.userDetail
     // TODO: hasResult
     // const hasResult = this.props.userDetail.order_msg && duplicate_status && duplicate_status === 'HasResult'
     return (

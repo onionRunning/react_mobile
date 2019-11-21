@@ -46,21 +46,21 @@ export interface RefuseListResponse {
 
 // detail bottom
 // loan info 返回结果
-export interface LoanInfoRes {
-  created_at: string
-  actual_loan_time: string
-  loan_principal: string
-  actual_loan_amount: number
-  data_fee: number
-  evaluate_fee: number
-  gst_tax: string
-  loan_days: string
-  loan_flow_status: string
-  loan_flow_no: string
-  out_flow_no: string
-  err_msg: string
-  member_fee: number
-}
+// export interface LoanInfoRes {
+//   created_at: string
+//   actual_loan_time: string
+//   loan_principal: string
+//   actual_loan_amount: number
+//   data_fee: number
+//   evaluate_fee: number
+//   gst_tax: string
+//   loan_days: string
+//   loan_flow_status: string
+//   loan_flow_no: string
+//   out_flow_no: string
+//   err_msg: string
+//   member_fee: number
+// }
 // 不是注重data
 // export interface IgnoreResData {
 
@@ -303,4 +303,138 @@ export interface BlacklistItem {
   mac: string
   ip: string
   device_no: string
+}
+
+// 审核结果
+export interface ApprovalResultRes {
+  order_msg: ApprovalResult
+  order_reasons: OrderReason
+}
+
+export interface ApprovalResult {
+  application_status: string
+  application_finish_time: string
+  return_time: string
+  operator_name: string
+  remark: string
+}
+
+export interface ReasonList {
+  reason_code: string
+  reason_value: string
+  value_chinese: string
+}
+
+export interface OrderReason {
+  reject_reason?: ReasonList[] // 当前版本只有 reject_reason
+  return_reason?: ReasonList[]
+  cancel_reason?: ReasonList[]
+}
+
+// 电话审核
+export interface TelephoneVerifyRes {
+  CallRecord: TelephoneList[]
+}
+
+export interface TelephoneList {
+  id: number
+  relation_ship: string
+  user_name: string
+  cellphone: string
+  order_no: string
+  show?: boolean
+  detailList?: CallRecordInfoList[]
+  selectValue?: string
+}
+
+export interface CallRecordInfoList {
+  created_at: string
+  call_duration: number
+  reason: string
+  remark: string
+  call_to: string
+}
+
+export interface CallUpRes {
+  call_id: string
+}
+
+// 还款详情
+export interface RepaymentInfoList {
+  extend_period: number
+  due_date: string
+  actual_paid_off_date: string
+  principal: number
+  actual_principal: number
+  free_principal: number
+  interests_fee: number
+  actual_interests_fee: number
+  free_interests_fee: number
+  service_fee: number
+  actual_service_fee: number
+  free_service_fee: number
+  extend_fee: number
+  actual_extend_fee: number
+  try_extend_fee: number
+  free_extend_fee: number
+  late_days: number
+  late_penalty_fee: number
+  actual_late_penalty_fee: number
+  free_late_penalty_fee: number
+  late_fee: number
+  actual_late_fee: number
+  number: number
+  free_late_fee: number
+  late_interests_fee: number
+  actual_late_interests_fee: number
+  free_late_interests_fee: number
+  free_amount: number
+  repay_amount: number
+  actual_repay_amount: number
+}
+
+// 还款流水
+export interface RepaymentInfoFlowList {
+  created_at: string
+  actual_loan_time: string
+  actual_loan_amount: number
+  loan_days: number
+  loan_status: string
+  loan_flow_status: string
+  request_no: string
+  out_flow_numL: string
+  err_msg: string
+  extend_period: number
+}
+
+// 放款信息
+export interface LoanInfoList {
+  created_at: string
+  actual_loan_time: string
+  actual_loan_amount: number
+  transfer_fee: string
+  loan_days: string
+  loan_status: string
+  loan_flow_status: string
+  request_no: string
+  out_flow_num: string
+  err_msg: string
+}
+
+// 短信记录
+export interface SMSRecordList {
+  send_type: string
+  send_at: string
+  send_content: string
+  send_status: string
+}
+
+// 状态记录
+export interface StatusRecordList {
+  id: string
+  current_status: string
+  operator_name: string
+  created_at: string
+  reasons: string
+  remark: string
 }
