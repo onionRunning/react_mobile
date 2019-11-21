@@ -35,27 +35,18 @@ export const STATUS_CONFIG = {
 // 筛选配置信息
 export const filterData = [
   {
-    formType: formType.SEARCH,
-    key: 'order_no_customer_name',
-    maxLength: 100,
-    placeholder: 'Search for loan ID or Name',
-    id: 'search'
-  },
-  {
     formType: formType.RANGE_TIME,
     label: 'Disbursement succeed time:',
     key: 'disbursement_time', // 用于解决列表渲染key值的警告
     disabledDate: true,
     range: {
       start: {
-        placeholder: 'Start time',
-        key: 'actual_loan_start_date',
-        id: 'actual-loan-start-date'
+        placeholder: 'start time',
+        key: 'actual_loan_start_at'
       },
       end: {
-        placeholder: 'End time',
-        key: 'actual_loan_end_date',
-        id: 'actual-loan-end-date'
+        placeholder: 'end time',
+        key: 'actual_loan_end_at'
       }
     }
   },
@@ -63,61 +54,43 @@ export const filterData = [
     formType: formType.RANGE_TIME,
     label: 'Due date:',
     key: 'due_date', // 用于解决列表渲染key值的警告
-    disabledDate: false,
+    // disabledDate: true,
     range: {
       start: {
-        placeholder: 'Start time',
-        key: 'due_start_date',
-        id: 'due-start-date'
+        placeholder: 'start time',
+        key: 'repay_date_start_at'
       },
       end: {
-        placeholder: 'End time',
-        key: 'due_end_date',
-        id: 'due-end-date'
+        placeholder: 'end time',
+        key: 'repay_date_end_at'
       }
-    }
-  },
-  {
-    formType: formType.RANGE_INPUT,
-    label: 'Loan amount:',
-    key: 'loan_amountd',
-    range: {
-      start: {
-        type: 'number',
-        placeholder: 'Amount',
-        key: 'loan_amount_start',
-        id: 'loan-amount-start'
-      },
-      end: {
-        type: 'number',
-        placeholder: 'Amount',
-        key: 'loan_amount_end',
-        id: 'loan-amount-end'
-      },
-      maxLength: 12
     }
   },
   {
     formType: formType.RANGE_TIME,
-    label: 'Settlement time:',
-    key: 'deduction_date',
+    label: 'Repayment time:',
+    key: 'repayment_time',
     disabledDate: true,
     range: {
       start: {
-        placeholder: 'Start time',
-        key: 'deduction_start_time',
-        id: 'settlement-start-time'
+        placeholder: 'start time',
+        key: 'paid_off_time_start_at'
       },
       end: {
-        placeholder: 'End time',
-        key: 'deduction_end_time',
-        id: 'settlement-end-time'
+        placeholder: 'end time',
+        key: 'paid_off_time_end_at'
       }
     }
   },
   {
+    formType: formType.SEARCH,
+    key: 'order_no_customer_name',
+    maxLength: 50,
+    placeholder: 'Search for loan ID or Name'
+  },
+  {
     formType: formType.SELECT,
-    label: 'Loan status:',
+    label: 'Loan Status:',
     key: 'loan_status',
     data: [
       {
@@ -136,17 +109,8 @@ export const filterData = [
         label: 'Repayment Overdue', // 已逾期
         value: 'RepaymentOverdue'
       }
-    ],
-    id: 'repayment-status'
+    ]
   },
-  // {
-  //   formType: formType.SELECT,
-  //   label: 'Product:', // 修改为英文，修改key字段
-  //   key: 'product_name',
-  //   selectOptionType: 'product',
-  //   data: [],
-  //   id: 'product-name'
-  // },
   {
     formType: formType.TREE_SELECT,
     label: 'Order type:', // 订单类型
@@ -192,6 +156,19 @@ export const filterData = [
         ]
       }
     ]
+  },
+  {
+    formType: formType.SELECT,
+    label: 'Product:', // 修改为英文，修改key字段
+    key: 'product_name',
+    data: []
+  },
+  {
+    formType: formType.SELECT,
+    label: 'Loan days:', // 贷款天数
+    key: 'loan_days',
+    data: []
+    // 接口获取剩下的贷款天数
   }
 ]
 type ConfigType = keyof typeof STATUS_CONFIG
@@ -201,8 +178,17 @@ export const getTableTitle = (cb?: (args: {}, type: string) => MouseEventHandler
     {
       title: 'Loan ID', // 订单编号
       dataIndex: 'order_no',
-      key: 'order_no',
-      width: 200
+      key: 'order_no'
+    },
+    {
+      title: 'Order type', // TODO 订单类型: 复贷订单\新订单 p4.1.1
+      dataIndex: 'order_type',
+      key: 'order_type'
+    },
+    {
+      title: 'Name', // 客户姓名
+      dataIndex: 'customer_name',
+      key: 'customer_name'
     },
     {
       title: 'Disbursement succeed time', // 放款成功时间
@@ -212,49 +198,22 @@ export const getTableTitle = (cb?: (args: {}, type: string) => MouseEventHandler
       sorter: true,
       render: (text: string) => {
         return <span>{formatTime(text)}</span>
-      },
-      width: 220
-    },
-    {
-      title: 'Name', // 客户姓名
-      dataIndex: 'customer_name',
-      key: 'customer_name',
-      width: 120,
-      render: (name: string) => {
-        return <span dangerouslySetInnerHTML={{ __html: name.replace(/ /g, '&nbsp') }} />
       }
     },
     {
-      title: 'Loan amount', // 贷款金额
-      dataIndex: 'loan_principal',
-      key: 'loan_principal',
-      width: 120
-    },
-    {
-      title: 'Loan term', // 期限
+      title: 'Loan days', // 期限
       dataIndex: 'loan_days',
-      key: 'loan_days',
-      width: 100
+      key: 'loan_days'
     },
     {
-      title: 'Loan status', // 订单状态
+      title: 'Loan Status', // 订单状态
       dataIndex: 'loan_status',
       key: 'loan_status',
       render: (text: string) => {
         return (
           <span className={STATUS_CONFIG[text as ConfigType].className}>{STATUS_CONFIG[text as ConfigType].label}</span>
         )
-      },
-      width: 180
-    },
-    {
-      title: 'Settlement time', // 结清时间
-      dataIndex: 'actual_paid_off_date',
-      key: 'actual_paid_off_date',
-      render: (text: string) => {
-        return <span>{formatTime(text || '')}</span>
-      },
-      width: 150
+      }
     },
     {
       title: 'Due date', // 本期应还日期
@@ -263,20 +222,20 @@ export const getTableTitle = (cb?: (args: {}, type: string) => MouseEventHandler
       sorter: true,
       render: (text: string) => {
         return <span>{formatDateDay(text)}</span>
-      },
-      width: 150
-    },
-    {
-      title: 'Amount due', // 应还金额
-      dataIndex: 'repay_amount',
-      key: 'repay_amount',
-      width: 120
+      }
     },
     {
       title: 'Product name', // 订单来源\产品名称
       dataIndex: 'product_name',
-      key: 'product_name',
-      width: 120
+      key: 'product_name'
+    },
+    {
+      title: 'Repayment time', //还款时间
+      dataIndex: 'paid_off_time',
+      key: 'paid_off_time',
+      render: (text: string) => {
+        return <span>{formatDateDay(text)}</span>
+      }
     },
     {
       title: 'Operating',

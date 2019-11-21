@@ -31,8 +31,19 @@ export interface CancelLoanReq {
 }
 
 // 手动放款开关
-export interface UpdateAutoReq {
-  config_value: string
+export interface UpdateAutoReqItem {
+  available: string
+  checked: boolean
+  conf_type: string
+  created_at: string
+  deleted_at: string
+  id: number
+  label: string
+  name: string
+  remark: string
+  remark_available: string
+  updated_at: string
+  value: string
 }
 
 // ===================

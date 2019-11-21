@@ -17,7 +17,7 @@ export const getScId = (orderType: string, data: ScoreInterface[]) => {
   return sc_id
 }
 
-export const getData = (orderType: string, data: ScoreInterface[]) => {
+export const getData = (orderType: any, data: any) => {
   const sc_id = getScId(orderType, data)
   return data && data.find((item: ScoreInterface) => item.sc_id === sc_id)
 }

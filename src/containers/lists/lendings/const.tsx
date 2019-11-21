@@ -57,67 +57,52 @@ export const filterData = [
     disabledDate: true,
     range: {
       start: {
-        placeholder: 'Start time',
-        key: 'apply_start_date',
-        id: 'application-start-time'
+        placeholder: 'start time',
+        key: 'apply_start_at'
       },
       end: {
-        placeholder: 'End time',
-        key: 'apply_end_date',
-        id: 'application-end-time'
+        placeholder: 'end time',
+        key: 'apply_end_at'
       }
     }
   },
   {
     formType: formType.RANGE_TIME,
-    label: 'Disbursement requisition time:',
+    label: 'Disbursement Requisition time:',
     key: 'loan_request_time', // 用于解决列表渲染key值的警告
     disabledDate: true,
     range: {
       start: {
-        placeholder: 'Start time',
-        key: 'request_loan_start_date',
-        id: 'request-loan-start-date'
+        placeholder: 'start time',
+        key: 'loan_request_start_at'
       },
       end: {
-        placeholder: 'End time',
-        key: 'request_loan_end_date',
-        id: 'request-loan-end-date'
+        placeholder: 'end time',
+        key: 'loan_request_end_at'
       }
     }
   },
-  // {
-  //   formType: formType.SELECT,
-  //   label: 'Product:', // 所属产品 修改为英文，修改key字段
-  //   key: 'product_name',
-  //   selectOptionType: 'product',
-  //   data: [],
-  //   id: 'product-name'
-  // },
   {
-    formType: formType.RANGE_TIME,
+    formType: formType.RANGE_TIME, // p3.12.1生产希望区分放款时间（申请\成功）增加了一个筛选项， 增加在p3.12.2
     label: 'Disbursement succeed time:',
     key: 'loan_succeed_time', // 用于解决列表渲染key值的警告
     disabledDate: true,
     range: {
       start: {
-        placeholder: 'Start time',
-        key: 'actual_loan_start_date',
-        id: 'actual-loan-start-date'
+        placeholder: 'start time',
+        key: 'actual_loan_start_at'
       },
       end: {
-        placeholder: 'End time',
-        key: 'actual_loan_end_date',
-        id: 'actual-loan-end-date'
+        placeholder: 'end time',
+        key: 'actual_loan_end_at'
       }
     }
   },
   {
     formType: formType.SEARCH,
     key: 'order_no_customer_name',
-    maxLength: 100, // 允许输入的最大长度
-    placeholder: 'Search for loan ID or Name',
-    id: 'search'
+    maxLength: 50, // 允许输入的最大长度
+    placeholder: 'Search for loan ID or Name'
   },
   {
     formType: formType.SELECT,
@@ -125,8 +110,12 @@ export const filterData = [
     key: 'loan_status',
     data: [
       {
+        label: 'All',
+        value: ''
+      },
+      {
         label: 'Create Loan', // 待放款
-        value: 'LoanCreate'
+        value: 'CreateLoan'
       },
       {
         label: 'Loan Processing', // 放款中
@@ -144,12 +133,11 @@ export const filterData = [
         label: 'Loan Success', // 放款成功
         value: 'LoanSuccess'
       }
-    ],
-    id: 'loan-status'
+    ]
   },
   {
     formType: formType.TREE_SELECT,
-    label: 'Order formType:',
+    label: 'Order formType:', // 订单类型
     key: 'order_type',
     data: [
       {
@@ -194,25 +182,44 @@ export const filterData = [
     ]
   },
   {
+    formType: formType.SELECT,
+    label: 'Product:', // 所属产品 修改为英文，修改key字段
+    key: 'product_name',
+    data: [
+      {
+        label: 'All',
+        value: ''
+      }
+      // 接口获取剩下的产品
+    ]
+  },
+  {
     formType: formType.RANGE_INPUT,
-    label: 'Loan amount:',
+    label: 'Loan Amount:',
     key: 'loan_amountd',
     range: {
       start: {
-        placeholder: 'Amount',
-        key: 'loan_amount_start',
-        type: 'number',
-        id: 'loan-amount-start'
+        placeholder: 'please enter amount',
+        key: 'loan_amount_start'
       },
       end: {
-        placeholder: 'Amount',
-        key: 'loan_amount_end',
-        type: 'number',
-        id: 'loan-amount-end'
-      },
-      maxLength: 12
+        placeholder: 'please enter amount',
+        key: 'loan_amount_end'
+      }
     }
   },
+  // {
+  //   formType: formType.SELECT,
+  //   label: 'Channels:', // 渠道
+  //   key: 'channel',
+  //   data: [
+  //     {
+  //       label: 'All',
+  //       value: ''
+  //     }
+  //     // 接口获取剩下的渠道
+  //   ]
+  // },
   {
     formType: formType.SELECT,
     label: 'Pay channels:', // 渠道
@@ -254,7 +261,7 @@ export const orderStatus = {
 }
 
 // 表格滚动条设置
-export const tableScroll = { x: 2500 }
+export const tableScroll = { x: 2900 }
 export const setTime = (text: string) => formatTime(text)
 export const setName = (name: string) => Trim(name)
 export const setStatus = (text: StatusConfigKeys) => {
@@ -409,108 +416,114 @@ export const getTableTitle = (cb?: (args: lendings.LendingItem, type: string) =>
     {
       title: 'Loan ID', // 订单编号
       dataIndex: 'order_no',
-      width: 170,
+      width: '180px',
       fixed: 'left',
       key: 'order_no'
     },
     {
-      title: 'Order type', // 订单类型
+      title: 'Order type', // 订单类型: 复贷订单\新订单 p4.1.1
       dataIndex: 'order_type',
-      width: 190,
+      width: '137px',
       key: 'order_type'
     },
     {
       title: 'Name', // 客户姓名
       dataIndex: 'customer_name',
-      width: 150,
-      key: 'customer_name',
-      render: setName
+      width: '102px',
+      key: 'customer_name'
     },
     {
       title: 'Application time', // 申请时间
       dataIndex: 'apply_time',
-      width: 180,
+      width: '170px',
       key: 'apply_time',
       defaultSortOrder: 'descend',
-      sorter: true,
-      render: setTime
+      sorter: true
     },
     {
       title: 'Disbursement Requisition time', // 请求放款时间
       dataIndex: 'request_loan_time',
-      width: 250,
+      width: '250px',
       key: 'request_loan_time',
-      sorter: true,
-      render: setTime
+      sorter: true
     },
     {
       title: 'Loan Amount', // 贷款金额
       dataIndex: 'approved_principal',
-      width: 140,
+      width: '167px',
       key: 'approved_principal'
     },
     {
       title: 'Disbursement Amount', // 实际放款金额
       dataIndex: 'loan_amount',
-      width: 190,
+      width: '180px',
       key: 'loan_amount'
     },
     {
       title: 'Loan days', // 放款期限
       dataIndex: 'loan_days',
-      width: 102,
+      width: '110px',
       key: 'loan_days'
     },
     {
       title: 'Loan status', // 订单状态
       dataIndex: 'loan_status',
-      width: 150,
-      key: 'loan_status',
-      render: setStatus
+      width: '150px',
+      key: 'loan_status'
     },
     {
       title: 'Disbursement succeed time', // 成功放款时间-放款结果时间
       dataIndex: 'actual_loan_time',
-      width: 250,
+      width: '250px',
       key: 'actual_loan_time',
-      sorter: true,
-      render: setTime
+      sorter: true
     },
     {
       title: 'Disbursement Status', // 放款流水状态
       dataIndex: 'loan_flow_status',
-      width: 180,
-      key: 'loan_flow_status',
-      render: setStatus
+      width: '165px',
+      key: 'loan_flow_status'
     },
     {
       title: 'Disbursement Ref number', // 放款流水号
       dataIndex: 'request_no',
-      width: 220,
+      width: '220px',
       key: 'request_no'
     },
     {
-      title: 'External Txnld', // 第三方放款流水号
+      title: 'External RefNo', // p4.3.1需求 增加第三方放款码
+      dataIndex: 'loan_pay_code',
+      width: '130px',
+      key: 'loan_pay_code'
+    },
+    {
+      title: 'External Txnld', // p4.2.1紧急需求 增加第三方放款流水号
       dataIndex: 'out_flow_num',
-      width: 190,
+      width: '190px',
       key: 'out_flow_num'
     },
     {
       title: 'Reason for Disbursement Failure', //放款失败原因
       dataIndex: 'err_msg',
-      width: 250,
+      width: '260px',
       key: 'err_msg'
     },
     {
       title: 'Product', // 所属产品
       dataIndex: 'product_name',
-      width: 120,
+      width: '120px',
       key: 'product_name'
     },
+    // {
+    //   title: 'Channel', // 渠道
+    //   dataIndex: 'channel',
+    //   width: '92px',
+    //   key: 'channel'
+    // },
     {
       title: 'Pay channel', // 还款渠道
       dataIndex: 'pay_channel',
-      width: 136,
+      width: '125px',
       key: 'pay_channel'
     },
     {

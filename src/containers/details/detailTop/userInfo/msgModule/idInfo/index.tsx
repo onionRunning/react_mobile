@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
-// import IdCardPhoto from '../../component/idCardPhoto'
+import IdCardPhoto from '../../component/idCardPhoto'
 import InfoWrapper from 'containers/details/component/infoWrapper'
 import FormInputListUI from '../../component/formInputListUI'
 import { IdInfoInterface } from 'interface/details/userInfo'
 import './index.scss'
 
-import { IdentityInfoInputTop } from './config'
+import { IdentityInfoInputTop, botImgArr } from './config'
 
 interface Props {
   data: IdInfoInterface
-  showPicture?: (_id: number, src: string) => () => void
+  showPicture?: (_id: number, src: string, imgArr: []) => () => void
 }
 
 export class Identify extends Component<Props> {
@@ -20,8 +20,7 @@ export class Identify extends Component<Props> {
         <div className="info-id">
           <FormInputListUI config={IdentityInfoInputTop} data={data} />
         </div>
-        {/* TODO: 证件图片 */}
-        {/* <IdCardPhoto {...this.props} config={data ? botImgArr(data): []} /> */}
+        <IdCardPhoto {...this.props} config={botImgArr(data)} />
       </div>
     )
   }

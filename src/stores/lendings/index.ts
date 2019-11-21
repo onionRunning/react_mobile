@@ -1,6 +1,6 @@
 import { observable, action } from 'mobx'
 import api from 'api/index'
-import { CancelLoanReq, LendingsPayload, UpdateAutoReq, LoanOrRetryReq } from 'interface/lendings'
+import { CancelLoanReq, LendingsPayload, UpdateAutoReqItem, LoanOrRetryReq } from 'interface/lendings'
 import { Callback } from 'global/type'
 import { formatTime, formatTf } from 'global/method'
 import { LendingItem } from 'interface/lendings'
@@ -52,7 +52,7 @@ class Lendings {
     }
   }
 
-  @action UpdateAutoStatus = async (payload: UpdateAutoReq, cb?: Callback) => {
+  @action UpdateAutoStatus = async (payload: UpdateAutoReqItem[], cb?: Callback) => {
     const res = await api.updateAutoStatus(payload)
     try {
       if (res && res.success) {

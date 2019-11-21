@@ -105,12 +105,13 @@ export class Api {
 
   // 查重检测
   getRepeatList = (payload: CheckRepeatPayloadReq) => {
+    console.log(payload)
     return this.post<any>(`/back_mgr/get_danger_list`, payload)
   }
   ///back_mgr/check_duplicate
   // 重新查重检测
   checkRepeatList = (payload: CheckRepeatPayloadReq) => {
-    return this.post(`/back_mgr/check_duplicate`, payload)
+    return this.post<any>(`/back_mgr/check_duplicate`, payload)
   }
   // 获取放款单列表
   getLendingLists = (payload: params.lendings.LendingsPayload) => {
@@ -129,12 +130,12 @@ export class Api {
 
   // 获取自动放款开关
   getAutoStatus = () => {
-    return this.post('/back_mgr/query_auto_loan_status')
+    return this.get('/get_auto_loan_status')
   }
 
   // 开启或关闭开关,手动放款
-  updateAutoStatus = (payload: params.lendings.UpdateAutoReq) => {
-    return this.post<any>('/back_mgr/update_auto_loan_status', payload)
+  updateAutoStatus = (payload: params.lendings.UpdateAutoReqItem[]) => {
+    return this.post('/set_auto_loan', payload)
   }
 
   // 下载放款列表

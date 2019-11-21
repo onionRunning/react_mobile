@@ -23,6 +23,9 @@ describe('UserInfo', () => {
       contact: {},
       account: {},
       score_card_results: {}
+    },
+    common: {
+      changeViewImg: jest.fn()
     }
   }
 
@@ -47,29 +50,18 @@ describe('UserInfo', () => {
     expect(component.find('div').length).toBeGreaterThan(0)
   })
 
-  // it('showPicture', () => {
-  //   instance.showPicture(0, imgPath + 'assert/upload/720/cid_720_NameSignPhoto_1562133492385993812790493_.jpg')()
-  //   expect(mockProps.dispatch).toBeCalledWith(
-  //     createOpenImgView(
-  //       0,
-  //       [
-  //         { src: imgPath + 'assert/upload/720/cid_720_NameSignPhoto_1562133492385993812790493_.jpg' },
-  //         { src: imgPath + 'assert/upload/720/cid_720_FrontIDPhoto_1562133491400207589194531_.jpg' },
-  //         { src: imgPath + 'assert/upload/720/cid_720_HoldIDPhoto_1562133491691870734955214_.jpg' },
-  //         { src: imgPath + 'assert/upload/720/cid_720_FrontAddrPhoto_1562133491844998862282488_.jpg' },
-  //         { src: imgPath + 'assert/upload/720/cid_720_BackAddrPhoto_1562133491772519690544244_.jpg' },
-  //         { src: imgPath + 'assert/upload/720/cid_720_BackAddrPhoto_1562133491772519690544244_.jpg' },
-  //         { src: imgPath + 'assert/upload/720/cid_720_BackAddrPhoto_1562133491772519690544244_.jpg' },
-  //         { src: imgPath + 'assert/upload/720/cid_720_BackAddrPhoto_1562133491772519690544244_.jpg' },
-  //         { src: imgPath + 'assert/upload/720/cid_720_BackAddrPhoto_1562133491772519690544244_.jpg' }
-  //       ],
-  //       instance.hidePicture
-  //     )
-  //   )
-  // })
+  it('showPicture', () => {
+    instance.showPicture(1, '', [])()
+    expect(mockProps.common.changeViewImg).toBeCalledWith({
+      isShow: true,
+      img: [],
+      currentIndex: 1,
+      onClose: instance.hidePicture
+    })
+  })
 
-  // it('hidePicture', () => {
-  //   instance.hidePicture()
-  //   expect(mockProps.dispatch).toBeCalledWith(createHideImgView())
-  // })
+  it('hidePicture', () => {
+    instance.hidePicture()
+    expect(mockProps.common.changeViewImg).toBeCalledWith({ isShow: false })
+  })
 })

@@ -51,7 +51,7 @@ class DatePickerDemo extends Component<Props, State> {
       className = '',
       size,
       style = {},
-      disabledDate,
+      // disabledDate,
       id
     } = this.props
     return (
@@ -63,7 +63,7 @@ class DatePickerDemo extends Component<Props, State> {
           placeholder={placeholder}
           disabled={disabled}
           defaultValue={defaultValue ? moment(defaultValue, formatDate) : undefined}
-          disabledDate={disabledDate}
+          // disabledDate={disabledDate}   // 暂且先注释掉,放开最时间筛选的限制
           onChange={this.onChange as any}
           allowClear={allowClear}
         />

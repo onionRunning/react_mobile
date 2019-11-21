@@ -3,7 +3,7 @@ export interface CheckRepeatPayloadReq {
   order_no: string
 }
 
-export interface CheckRepeatPayloadRes {
+export interface CheckRepeatResItem {
   application_status: string
   customer_name: string
   customer_phone_num: string
@@ -13,4 +13,8 @@ export interface CheckRepeatPayloadRes {
   order_no: string
   order_status: string
   result_value: string
+}
+
+export interface CheckRepeatRes {
+  CheckAndOther: CheckRepeatResItem[]
 }

@@ -1,22 +1,20 @@
-import { observable, action } from 'mobx'
+import { action } from 'mobx'
 import api from 'api/index'
-import { CheckRepeatPayloadRes, CheckRepeatPayloadReq } from 'interface/details/checkRepeat'
+import { CheckRepeatPayloadReq } from 'interface/details/checkRepeat'
 import Message from 'components/message'
+import { Callback } from 'global/type'
 
 class CheckRepeat {
-  @observable lists: CheckRepeatPayloadRes[] = []
-
   /**
    * 获取查重数据
    * @params
    */
-  @action getCheckLists = async (payload: CheckRepeatPayloadReq) => {
+  @action getCheckLists = async (payload: CheckRepeatPayloadReq, cb: Callback) => {
     const res = await api.getRepeatList(payload)
     try {
       if (res && res.success) {
         if (res.data) {
-          const data = res.data
-          this.lists = data.CheckAndOther
+          cb && cb(JSON.parse(res.data))
         }
       } else {
         Message.error(res.info)
@@ -30,11 +28,11 @@ class CheckRepeat {
    * 重新获取查重数据
    * @memberof CheckRepeat
    */
-  @action retryChecklists = async (payload: CheckRepeatPayloadReq) => {
+  @action retryChecklists = async (payload: CheckRepeatPayloadReq, cb: Callback) => {
     const res = await api.checkRepeatList(payload)
     try {
       if (res && res.success) {
-        this.getCheckLists(payload)
+        this.getCheckLists(payload, cb)
       } else {
         Message.error(res.info)
       }

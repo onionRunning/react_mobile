@@ -1,0 +1,17 @@
+.infoOrder{
+    display: inline-block;
+    flex:1;
+    :global{
+        .info-item{
+            .normal-text-com{
+                width: 50%;
+                text-align: left;
+            }
+        }
+        .info-item:last-child{
+            .normal-text-com{
+                width: 100%;
+            }
+        }
+    }
+}
