@@ -67,7 +67,7 @@ class Approval {
   }
 
   // 拨打电话
-  @action callUp = async (payload: params.callUpReq, callBack: (id: string) => void) => {
+  @action callUp = async (payload: params.CallUpReq, callBack: (id: string) => void) => {
     try {
       const res = await api.callUp(payload)
       console.log(res)
@@ -82,7 +82,7 @@ class Approval {
   }
 
   // 更新话务系统信息
-  @action updateCallInfo = async (payload: params.updateCallInfoReq, callBack: () => void) => {
+  @action updateCallInfo = async (payload: params.UpdateCallInfoReq, callBack: () => void) => {
     try {
       const res = await api.updateCallInfo(payload)
       console.log(res)
