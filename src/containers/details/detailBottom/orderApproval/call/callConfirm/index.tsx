@@ -97,7 +97,6 @@ export class CallConfirm extends Component<Props, State> {
 
   // 下拉框选择
   handleChangeSelect = (item: SelectOption) => {
-    console.log(item)
     this.setState({
       remark: item.value
     })

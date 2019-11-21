@@ -24,7 +24,7 @@ export const initRequest = {
 export const GRAB = hint.GRAB_SUCCESS
 
 // 表格模块
-export const getTabTitle = (clickCallback: (args: {}) => MouseEventHandler<{}>): TableTile[] => {
+export const getTableTitle = (clickCallback: (args: {}) => MouseEventHandler<{}>): TableTile[] => {
   return [
     {
       // 订单编号

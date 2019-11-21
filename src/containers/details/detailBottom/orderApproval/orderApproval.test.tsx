@@ -1,22 +1,22 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import { OrderApproval } from './index'
+import OrderApproval from './index'
 import { mockRouteProps } from 'test/mock'
-import { AllProps } from 'test/allprops'
 
 describe('OrderApproval', () => {
-  const mockRoute = mockRouteProps({
-    order_no: '111',
-    showType: 'test',
-    type: 'test'
-  })
+  const mockRoute = mockRouteProps(
+    {},
+    {
+      viewType: 'my_orders',
+      application_status: 'ManualAuditing'
+    }
+  )
   const dispatch = jest.fn()
   const mockProps = {
     dispatch: dispatch,
-    ...mockRoute,
-    ...AllProps
+    ...mockRoute
   }
-  let component: any, instance: any
+  let component: any, instance: OrderApproval
   beforeEach(() => {
     component = shallow(<OrderApproval {...mockProps} />)
     instance = component.instance()
@@ -25,13 +25,8 @@ describe('OrderApproval', () => {
   it('render', () => {
     expect(component.find('div').length).toBeGreaterThan(0)
   })
-  it('componentDidMount', () => {
-    const getAllReasion = jest.spyOn(instance, 'getAllReasion')
-    instance.componentDidMount()
-    expect(getAllReasion).toBeCalled()
-  })
-  it('getAllReasion', () => {
-    instance.getAllReasion()
-    expect(mockProps.dispatch).not.toBeCalled()
+
+  it('handleShowApproveResult', () => {
+    expect(instance.handleShowApproveOperate()).toBe(false)
   })
 })

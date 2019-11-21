@@ -13,7 +13,7 @@ interface Props extends MixProps {
 
 @inject('approval')
 @observer
-class ApprovalResult extends Component<Props> {
+export class ApprovalResult extends Component<Props> {
   componentDidMount() {
     this.getApprovalResult()
   }

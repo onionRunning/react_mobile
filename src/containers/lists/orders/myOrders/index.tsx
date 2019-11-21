@@ -37,7 +37,7 @@ export class MyOrder extends Component<Props, State> {
   }
   render() {
     const { myOrderLists, myOrderPage, myOrderStatus } = this.props.myOrders
-    const tabTitle = utils.getTabTitle(this.replaceDetail)
+    const tabTitle = utils.getTableTitle(this.replaceDetail)
     const { my_order_func } = userPermission.finnalPermission!
     return (
       <div className={styles.page}>

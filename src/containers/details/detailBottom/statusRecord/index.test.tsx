@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { shallow } from 'enzyme'
 import { StatusRecord } from './index'
-import StatusRecordStores from 'stores/details/statusRecord'
 import { mockRouteProps } from 'test/mock'
 
 describe('StatusRecord', () => {
@@ -13,17 +12,17 @@ describe('StatusRecord', () => {
     }
   )
 
-  const statusRecord: StatusRecordStores = {
+  const details: any = {
     statusRecord: [],
     getStatusRecord: jest.fn()
   }
 
   const mockProps = {
     ...mockRoute,
-    statusRecord
+    details
   }
 
-  let component: any, instance: any
+  let component: any, instance: StatusRecord
 
   beforeEach(() => {
     component = shallow(<StatusRecord {...mockProps} />).dive()
@@ -31,12 +30,12 @@ describe('StatusRecord', () => {
   })
 
   it('render', () => {
-    expect(component.find('div').length).toBeGreaterThan(0)
+    expect(component.find('div').length).toBe(0)
   })
 
   it('getStatusRecord', () => {
     instance.getStatusRecord()
-    expect(mockProps.statusRecord.getStatusRecord).toBeCalledWith(
+    expect(mockProps.details.getStatusRecord).toBeCalledWith(
       {
         order_no: 'P2g201911150020'
       },
