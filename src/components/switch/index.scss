@@ -1,8 +1,8 @@
-
+@import '../../global/style.scss';
 $switch-width: 80px; // 开关宽度
 $switch-height: 30px; // 开关高度
 $switch-loading-icon-width: 26px; // 开关图标宽度
-$switch-checked-color: #1ea50f; // 开关开启时颜色
+$switch-checked-color: $theme-color; // 开关开启时颜色
 $switch-font-size: 14px; // 开关按钮文字字体大小
 
 .filter-item {

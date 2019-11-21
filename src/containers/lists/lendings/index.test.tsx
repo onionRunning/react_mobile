@@ -72,34 +72,6 @@ describe('Lendings', () => {
     expect(mockProps.common.composeLoading).toBeCalled()
   })
 
-  it('checkAutoStatus', () => {
-    instance.checkAutoStatus()
-    expect(mockProps.lendings.checkAutoStatus).toBeCalledWith(instance.settingAuto)
-  })
-
-  it('settingAuto', () => {
-    instance.settingAuto('Off')
-    expect(instance.state.isAutoLend).toBe(false)
-    instance.settingAuto('On')
-    expect(instance.state.isAutoLend).toBe(true)
-  })
-
-  it('changeAutoStatus', () => {
-    instance.changeAutoStatus()
-    expect(mockProps.lendings.UpdateAutoStatus).toBeCalledWith(
-      { config_value: !instance.state.isAutoLend ? 'On' : 'Off' },
-      instance.checkAutoStatus
-    )
-    instance.setState({
-      isAutoLend: true
-    })
-    instance.changeAutoStatus()
-    expect(mockProps.lendings.UpdateAutoStatus).toBeCalledWith(
-      { config_value: !instance.state.isAutoLend ? 'On' : 'Off' },
-      instance.checkAutoStatus
-    )
-  })
-
   it('handleFilter', () => {
     instance.handleFilter({
       key: 'loan_amount_start',

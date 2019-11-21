@@ -5,8 +5,8 @@ import { PaginationConfig, SorterResult } from 'antd/lib/table'
 import ListCondition, { Data } from 'components/listCondition'
 import Table from 'components/table'
 import ListTitle from 'components/listTitle'
-import Switch from 'components/switch'
 import Message from 'components/message'
+import AutoLendingConfirm from './AutoLendingConfirm'
 
 import { MixProps } from 'global/interface'
 import { Trim } from 'global/method'
@@ -14,8 +14,6 @@ import { lendings } from 'api/params'
 
 import LendingProps from 'stores/lendings'
 import Common from 'stores/common'
-
-import { userPermission } from 'design/permission'
 
 import * as con from './const'
 import styles from './index.module.scss'
@@ -29,7 +27,7 @@ interface Props extends MixProps {
 
 interface State {
   request: lendings.LendingsPayload
-  isAutoLend?: boolean
+  showAutoLendPop: boolean
 }
 const initRequest = {
   page: 1,
@@ -44,21 +42,19 @@ export class Lendings extends Component<Props, State> {
     super(props)
     this.state = {
       request: initRequest,
-      isAutoLend: false
+      showAutoLendPop: false
     }
   }
 
   async componentDidMount() {
-    const { p20101 } = userPermission.finnalPermission!.lending_func
     this.getLendingList(this.state.request)
-    p20101 && this.checkAutoStatus()
   }
   render() {
     const {
       status,
       lendings: { page, lendingList, total_count, page_count }
     } = this.props
-    const { isAutoLend } = this.state
+    const { showAutoLendPop } = this.state
     const searchData: Data[] = con.filterData
     const tableTitle = con.getTableTitle(this.handleLoanCalcel) as []
     const pagination = {
@@ -66,22 +62,14 @@ export class Lendings extends Component<Props, State> {
       pageSize: page_count,
       total: total_count
     }
-    const switchStyle = {
-      display: 'flex',
-      alignItems: 'center'
-    }
     return (
       <div className={styles.list}>
         <ListTitle>Disbursement management</ListTitle>
         <div className={styles.header}>
           <ListCondition data={searchData} onChange={this.handleFilter} btnClick={this.handleBtnClick} />
-          <Switch
-            checked={isAutoLend}
-            onChangeSwitch={this.changeAutoStatus}
-            label={'Automatic loan'}
-            id="switch"
-            style={switchStyle}
-          />
+          <button className={`${styles.autoLendBtn} sub-btn-blue-large`} onClick={this.showAutoLendingPop}>
+            Automatic loan
+          </button>
         </div>
         <div className="list-wapper">
           <Table
@@ -94,10 +82,22 @@ export class Lendings extends Component<Props, State> {
             loading={status}
           />
         </div>
+        {showAutoLendPop && <AutoLendingConfirm modalClose={this.hideAutoLendingPop} {...this.props} />}
       </div>
     )
   }
-
+  // 显示自动放款弹窗
+  showAutoLendingPop = () => {
+    this.setState({
+      showAutoLendPop: true
+    })
+  }
+  // 显示自动放款弹窗
+  hideAutoLendingPop = () => {
+    this.setState({
+      showAutoLendPop: false
+    })
+  }
   // 筛选条件
   handleFilter = (v: con.SearchType) => {
     v.value = Trim(v.value)
@@ -201,24 +201,6 @@ export class Lendings extends Component<Props, State> {
   tempFunc = (v?: lendings.LendingsPayload) => () => {
     const { getLendingList } = this.props.lendings
     getLendingList({ ...v })
-  }
-  // 查询自动放款状态
-  checkAutoStatus = () => {
-    const { checkAutoStatus } = this.props.lendings
-    checkAutoStatus(this.settingAuto)
-  }
-
-  // 设置自动放款开关
-  settingAuto = (data: string) => {
-    const auto = data === 'On' ? true : data === 'Off' ? false : false
-    this.setState({ isAutoLend: auto })
-  }
-
-  // 手动修改放款为是否自动放款
-  changeAutoStatus = () => {
-    const { UpdateAutoStatus } = this.props.lendings
-    const config_value = !this.state.isAutoLend ? 'On' : 'Off'
-    UpdateAutoStatus({ config_value }, this.checkAutoStatus)
   }
 }
 export default Lendings

@@ -5,6 +5,7 @@
 .title_style {
   margin-bottom:0;
   li {
+    position: relative;
     margin-left: 10px;
     display: inline-block;  
     text-align: center;
@@ -28,4 +29,13 @@
       color: #FF9A2F;
     }
   }
+}
+.icon{
+  width: 6px;
+  height: 6px;    
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  border-radius: 50%;
+  background:rgba(238,69,69,1);
 }

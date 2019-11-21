@@ -14,6 +14,9 @@ describe('test checkRepeat', () => {
   const dispatch = jest.fn()
   const mockProps = {
     dispatch,
+    common: {
+      changeLoading: jest.fn()
+    },
     checkRepeat: {
       getCheckLists: jest.fn(),
       retryChecklists: jest.fn(),

@@ -3,19 +3,21 @@ import { inject, observer } from 'mobx-react'
 import { headerLists } from './config'
 import { MixProps } from 'global/interface'
 import CheckRepeatProps from 'stores/details/checkRepeat'
-import { CheckRepeatPayloadRes } from 'interface/details/checkRepeat'
+import { CheckRepeatResItem, CheckRepeatRes } from 'interface/details/checkRepeat'
 import Table from 'components/table'
 
 import styles from './index.module.scss'
+import Common from 'stores/common'
 
 interface Props extends MixProps {
   checkRepeat: CheckRepeatProps
+  common: Common
 }
 interface State {
-  currentList: CheckRepeatPayloadRes[]
+  currentList: CheckRepeatResItem[]
 }
 
-@inject('checkRepeat')
+@inject('checkRepeat', 'common')
 @observer
 // 查重检测
 export class CheckRepeat extends Component<Props, State> {
@@ -25,39 +27,42 @@ export class CheckRepeat extends Component<Props, State> {
       currentList: []
     }
   }
-  async componentDidMount() {
-    await this.getCheckLists()
+  componentDidMount() {
+    const { changeLoading } = this.props.common
+    changeLoading(true)
+    this.getCheckLists()
   }
   // 获取查重列表
-  getCheckLists = async () => {
+  getCheckLists = () => {
     const { getCheckLists } = this.props.checkRepeat
     const {
       state: { order_no }
     } = this.props.location
-    await getCheckLists({ order_no })
-    const { lists } = this.props.checkRepeat
-    this.setState({
-      currentList: lists
-    })
+    getCheckLists({ order_no }, this.renderContent)
   }
-
+  renderContent = (res: CheckRepeatRes) => {
+    if (res) {
+      this.props.common.changeLoading(false)
+      this.setState({
+        currentList: res.CheckAndOther
+      })
+    }
+  }
   // 重新匹配列表
   newClick = () => {
     const { retryChecklists } = this.props.checkRepeat
     const {
       state: { order_no }
     } = this.props.location
-    retryChecklists({ order_no })
+    retryChecklists({ order_no }, this.renderContent)
   }
   render() {
     const { currentList } = this.state
     const { viewType } = this.props.location.state
-    // const { lists } = this.props.checkRepeat
     return (
       <div className={styles.checkRepeatWrap}>
         <div className={styles.tableWrap}>
-          {/* TODO: 样式待优化 */}
-          <Table tableTitle={headerLists} tableData={currentList} loading={true} />
+          <Table tableTitle={headerLists} tableData={currentList} />
         </div>
         {viewType === 'my_order' && (
           <button className={`${styles.rematchBtn} theme-btn`} onClick={this.newClick}>

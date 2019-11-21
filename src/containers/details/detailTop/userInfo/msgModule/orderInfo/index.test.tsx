@@ -6,10 +6,20 @@ describe('OrderInfo', () => {
   const mockProps = {
     userDetail: {
       order_msg: {},
-      score_card_results: {}
+      score_card_results: [
+        {
+          score: '1212',
+          // label: string
+          err_msg: 'test',
+          order_no: '1111',
+          original_score: '111',
+          random_num: '111',
+          sc_id: '111',
+          trace_id: '111',
+          tt_level: 10
+        }
+      ]
     },
-    showPicture: jest.fn(),
-    sign_photo: 'test',
     currentList: 'order_list'
   }
   let component: ShallowWrapper<OrderInfo>

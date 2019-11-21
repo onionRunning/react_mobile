@@ -1,0 +1,93 @@
+@import '../../../../global/style.scss';
+$confirm-bg: rgba(79, 83, 98, 0.55); // 模态框颜色
+$confirm-wapper-bg: #fff; // 提示内容背景颜色
+$confirm-text-color: #202231; // 提示内容字体颜色
+$confirm-text-font-size: 18px; // 提示内容字体大小
+$confirm-title-color: #fff; // 标题文字颜色
+
+.confirm-box {
+  position: relative;
+  .confirm-mask {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    background-color: $confirm-bg;
+  }
+  .confirm-wrapper {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 32vw;
+    padding-bottom: 20px;
+    border: none;
+    border-radius: 4px;
+    z-index: 1001;
+    background-color: $confirm-wapper-bg;
+  }
+  .confirm-title {
+    position: relative;
+    margin-bottom: 30px;
+    padding: 0 4vw 0 1.5vw;
+    width: 100%;
+    line-height: 40px;
+    font-size: $title-font-size;
+    font-weight: 400;
+    color: $confirm-title-color;
+    background-color: $theme-color;
+    // 文本溢出显示省略号
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    .title-close-icon {
+      position: absolute;
+      top: 50%;
+      right: 20px;
+      transform: translateY(-50%);
+      padding: 5px; // 使得点击灵敏些
+      line-height: normal;
+      font-size: $title-font-size-large * 1.4;
+      cursor: pointer;
+      font-style: normal;
+    }
+  }
+  // 提示内容样式
+  .confirm-content {
+    padding: 0 30px;
+    color: $confirm-text-color;
+    text-align: center;
+    font-size: $confirm-text-font-size;
+    & > div {
+      position: relative;
+      margin: 15px auto;
+      width: 100%;
+      text-align: center;
+
+      .filter-switch-label {
+        position: absolute;
+        right: 50%;
+        transform: translateX(-25px);
+      }
+
+      .ant-switch {
+        margin-left: 30px;
+      }
+    }
+    .filter-switch-item {
+      display: block;
+    }
+    .auto-loan-submit {
+      margin: 20px 0;
+      width: 70%;
+      height: 40px;
+      font-size: 14px;
+      background: #5c85d5;
+      color: #fff;
+    }
+  }
+}
+
+  

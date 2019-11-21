@@ -46,3 +46,10 @@ export const scoreConfig = [
     userType: 'label'
   }
 ]
+
+export const PipelineConfig = [
+  {
+    title: 'Pipeline',
+    stateName: 'pipeline_id'
+  }
+]

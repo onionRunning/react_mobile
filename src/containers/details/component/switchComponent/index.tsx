@@ -29,7 +29,7 @@ export class SwitchComponent extends Component<Props, State> {
 
   render() {
     const { type } = this.props
-    console.log(type)
+    // console.log(type)
     return (
       <div className={styles.wrap} style={{ height: this.finHeight() }}>
         {this.renderTabs(type)}

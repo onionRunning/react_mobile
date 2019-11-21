@@ -19,10 +19,7 @@ describe('NavBar empty', () => {
   it('getLists', async () => {
     const t = getLists({
       ...mockProps,
-      config: [
-        { type: 'User info', title: '2', isShow: true },
-        { type: 'x', title: '21', isShow: true }
-      ]
+      config: [{ type: 'User info', title: '2', isShow: true }, { type: 'x', title: '21', isShow: true }]
     })
     expect(t.length).toBe(2)
   })

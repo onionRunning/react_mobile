@@ -11,16 +11,16 @@ import AccountInfo from './msgModule/accountInfo'
 import GPSInfo from './msgModule/GpsInfo'
 import { MixProps } from 'global/interface'
 import UserDetail from 'stores/details/userDetail'
-// import { imgPath } from 'global/constants'
-// import { imgConfig } from './config'
+import Common from 'stores/common'
 
 import './index.scss'
 
 interface Props extends MixProps {
   userDetail: UserDetail
+  common: Common
 }
 
-@inject('userDetail')
+@inject('userDetail', 'common')
 @observer
 export class UserInfo extends Component<Props> {
   async componentDidMount() {
@@ -45,8 +45,7 @@ export class UserInfo extends Component<Props> {
           <Equipment {...this.props} data={device_info} />
         </div>
         <div className="right">
-          {/* showPicture={this.showPicture} */}
-          <IdInfo {...this.props} data={{ ...id, ...order_msg }} />
+          <IdInfo {...this.props} data={{ ...id, ...order_msg }} showPicture={this.showPicture} />
           <ContactInfo {...this.props} data={contact} />
           <AccountInfo {...this.props} data={{ ...account, ...order_msg }} />
           <GPSInfo {...this.props} data={device_info} />
@@ -56,36 +55,13 @@ export class UserInfo extends Component<Props> {
   }
 
   // 点击图片展示图片
-  // showPicture = (_: number, curImg: any) => () => {
-  //   // 整合5 个图片资源为数组
-  //   const { user_info = {}, order_msg = {} } = this.props.userDetail || {}
-  //   const { id = {}, sup_cert = {} } = user_info || {}
-  //   const finPic: any[] = [
-  //     { src: order_msg.sign_name_file_url },
-  //     { src: id.id_card_front_img },
-  //     { src: id.id_card_hold_img },
-  //     { src: id.addr_card_front_img },
-  //     { src: id.addr_card_back_img }
-  //   ]
-  //   // 判断补充认证模块图片是否有上传
-  //   if (sup_cert) {
-  //     imgConfig.forEach(el => {
-  //       if (sup_cert[el]) {
-  //         finPic.push({ src: sup_cert[el] })
-  //       }
-  //     })
-  //   }
-  //   const temp = finPic.map(item => {
-  //     return { src: item.src.indexOf('/') === 0 ? item.src : imgPath + item.src }
-  //   })
-  //   // 获取当前点击的图片在数组中对应的下标
-  //   let curIndex = temp.findIndex(el => {
-  //     return el.src === curImg
-  //   })
-  //   this.props.dispatch(createOpenImgView(curIndex, temp, this.hidePicture))
-  // }
+  showPicture = (index: number, curImg: string, imgArr: []) => () => {
+    this.props.common.changeViewImg({ isShow: true, img: imgArr, currentIndex: index, onClose: this.hidePicture })
+  }
   // 关闭图片展示
-  // hidePicture = () => {}
+  hidePicture = () => {
+    this.props.common.changeViewImg({ isShow: false })
+  }
 }
 export default UserInfo
 
