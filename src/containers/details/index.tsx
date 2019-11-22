@@ -6,7 +6,7 @@ import './index.scss'
 import { top_config, bot_config, handlerRouter } from './utils'
 import ApprovalStore from 'stores/details/approval'
 import { inject, observer } from 'mobx-react'
-import UserDetail from 'stores/details/userDetail'
+import UserDetail from 'stores/details/userInfo'
 interface Props extends MixProps {
   approval: ApprovalStore
   userDetail: UserDetail
@@ -26,9 +26,9 @@ export class OrderDetails extends Component<Props> {
   }
   render() {
     const breadRouter = handlerRouter(this.props.location.state.detail_type)
-    const {
-      // order_msg: { duplicate_status }
-    } = this.props.userDetail
+    // const {
+    //   // order_msg: { duplicate_status }
+    // } = this.props.userDetail
     // TODO: hasResult
     // const hasResult = this.props.userDetail.order_msg && duplicate_status && duplicate_status === 'HasResult'
     return (

@@ -6,8 +6,8 @@ describe('config', () => {
   })
   it('getCompanyAddress 可用的对象', () => {
     const obj = {
-      company_address: 'test',
-      company_detail_address: 'detail'
+      user_company_address: 'test',
+      user_company_detailed_address: 'detail'
     }
     expect(Con.getCompanyAddress(obj)).toEqual('test detail')
   })

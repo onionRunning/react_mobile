@@ -4,8 +4,8 @@ import { SwitchInterface } from './config'
 
 export const turnToSwitchMsg = (msg: SwitchInterface[]) => {
   if (!_isArray(msg)) return []
-  let arr = JSON.parse(JSON.stringify(msg))
-  let tmp: SwitchInterface[] = []
+  const arr = JSON.parse(JSON.stringify(msg))
+  const tmp: SwitchInterface[] = []
   arr.forEach((element: SwitchInterface) => {
     showSwitch.filter(item => {
       if (element.name === item) {

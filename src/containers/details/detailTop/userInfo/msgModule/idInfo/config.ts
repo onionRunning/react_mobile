@@ -26,14 +26,15 @@ export const IdentityInfoInputTop = [
 ]
 
 export interface NomalImgArrType {
-  picture_of_address_front?: string
-  picture_of_address_back?: string
-  picture_of_address_holds?: string
+  user_id_card_front_img?: string // 身份证正面照
+  user_id_card_back_img?: string // 身份证反面照
+  user_id_card_hold_img?: string // 手持证件照
 }
 // showId 用于展示所有的图片的 id编号
 export const botImgArr = (id: NomalImgArrType) => {
   return [
-    { title: 'Front of card', src: id.picture_of_address_front, showId: 1 },
-    { title: 'Take a photo of holding the ID', src: id.picture_of_address_holds, showId: 2 }
+    { title: 'Front of card', src: id.user_id_card_front_img!, showId: 1 },
+    { title: 'Back of card', src: id.user_id_card_back_img!, showId: 2 },
+    { title: 'Take a photo of holding the ID', src: id.user_id_card_hold_img!, showId: 3 }
   ]
 }

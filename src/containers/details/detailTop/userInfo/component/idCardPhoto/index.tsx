@@ -8,7 +8,7 @@ interface Props {
 }
 
 interface ItemType {
-  src: string | undefined
+  src: string
   title: string
   showId: number
 }
@@ -26,7 +26,7 @@ class IdCardPhoto extends Component<Props> {
   }
   renderImgaes = (item: ItemType, index: number): JSX.Element => {
     const { showPicture, config = [] } = this.props
-    const src = item.src!.indexOf('/') === 0 ? item.src : imgPath + item.src
+    const src = item.src && item.src.indexOf('/') === 0 ? item.src : imgPath + item.src
     return (
       <div className="photo-item" key={index}>
         <div className="phont-item-wrap">

@@ -28,7 +28,7 @@ export interface SwitchInterface {
   available: string
   checked: boolean
   label: string
-  value: OnOff
+  value: string
   id: number
   conf_type: string
   created_at: string

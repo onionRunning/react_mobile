@@ -12,6 +12,7 @@ import Common from 'stores/common'
 interface Props extends MixProps {
   checkRepeat: CheckRepeatProps
   common: Common
+  type?: string
 }
 interface State {
   currentList: CheckRepeatResItem[]
@@ -31,6 +32,10 @@ export class CheckRepeat extends Component<Props, State> {
     const { changeLoading } = this.props.common
     changeLoading(true)
     this.getCheckLists()
+  }
+  componentWillUnmount() {
+    const { changeLoading } = this.props.common
+    changeLoading(false)
   }
   // 获取查重列表
   getCheckLists = () => {

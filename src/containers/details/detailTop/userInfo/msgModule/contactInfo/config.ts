@@ -3,19 +3,19 @@ export const LinkManInfoInputFir = [
   {
     title: 'Relationship', // 联系人关系
     widthStyle: 'small',
-    stateName: 'relation_ship'
+    stateName: 'user_relation_ship'
   },
   {
     title: 'Contact reference number', // 联系人电话
     valueType: 'phone',
     widthStyle: 'small',
-    stateName: 'mobile'
+    stateName: 'user_mobile'
   },
   {
     title: 'Name', // 联系人姓名
     type: 'text',
     widthStyle: 's-mini-large',
-    stateName: 'name'
+    stateName: 'user_name'
   }
 ]
 

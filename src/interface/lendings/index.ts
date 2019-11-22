@@ -55,25 +55,59 @@ export interface UpdateAutoReqItem {
 export interface LendingsRes {
   total_page: number
   total_count: number
-  loan_list: LendingItem[]
+  loan_list: LendingResItem[]
 }
 
-export interface LendingItem {
+export interface LoanItem {
+  id: string
   order_no: string
-  apply_time: string
   customer_name: string
-  loan_principal: string
-  actual_loan_amount: string
-  loan_days: string
+  apply_time: string
   request_loan_time: string
-  actual_loan_time: string
-  loan_status: string
-  loan_flow_no: string
-  out_flow_no: string
-  err_msg: string
-  customer_id: number
+  loan_principal: string
+  loan_days: string
+  loan_channel: string
+  status: string
+  loan_pay_type: string
+  order_type: string
   product_name: string
-  is_in_batch_loan: boolean
+  customer_info_id: string
+}
+export interface FlowItem {
+  actual_loan_amount: string
+  actual_loan_time: string
+  status: string
+  loan_flow_no: string
+  fail_reason: string
+  out_loan_flow: string
+  loan_pay_code: string
+  loan_pay_platform: string
+}
+export interface LendingResItem {
+  loan: LoanItem
+  loan_flow: FlowItem
+}
+export interface LendingItem {
+  id: string
+  order_no: string
+  customer_name: string
+  apply_time: string
+  request_loan_time: string
+  approved_principal: string
+  loan_amount: number
+  loan_days: number
+  channel: string
+  loan_status: string
+  actual_loan_time: string
   loan_flow_status: string
+  loan_flow_number: string
+  request_no: string
+  err_msg: string
+  customer_id: string
+  product_name: string
+  order_type: string
+  out_flow_num: string
+  loan_pay_code: string
+  pay_channel: string
   loan_pay_type: string
 }
