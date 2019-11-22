@@ -2,8 +2,6 @@ import { wrapperSend, createRequest, Response, Res, ReqType, createHeaderRequest
 import { AxiosInstance } from 'axios'
 import * as response from './response'
 import * as params from './params'
-import { LoanInfoReq, LoanInfoRes } from 'interface/details/loanInfo'
-import { SMSRecordReq, SMSRecordList, SendSmsReq } from 'interface/details/smsRecord'
 import { ApprovalResultReq, ApprovalResultRes } from 'interface/details/approval'
 import { UserInfoPayload } from 'interface/details/userInfo'
 import { CheckRepeatPayloadReq } from 'interface/details/checkRepeat'
@@ -156,34 +154,61 @@ export class Api {
   /* -------订单详情(下半部分模块-)------- */
 
   // 获取审批结果
-  getOrderApprovalResult = (payload: ApprovalResultReq) => {
-    return this.post<ApprovalResultRes>(`/back_mgr/get_application_result`, payload)
+  getOrderApprovalResult = (payload: params.ApprovalResultReq) => {
+    return this.post<response.ApprovalResultRes>(`/back_mgr/get_application_result`, payload)
   }
 
   // 获取联系人列表
-  getTelephoneList = (payload: any) => {
-    return this.post<any>(`/back_mgr/get_approval_call_contacts`, payload)
+  getTelephoneVerifyInfo = (payload: params.TelephoneVerifyReq) => {
+    return this.post<response.TelephoneVerifyRes>(`/back_mgr/get_approval_call_contacts`, payload)
+  }
+
+  // 获取通话记录信息
+  getCallRecord = (payload: params.CallRecordInfoReq) => {
+    return this.post<any>(`/call/query_call_record`, payload)
+  }
+
+  // 拨打电话
+  callUp = (payload: params.CallUpReq) => {
+    return this.post<response.CallUpRes>(`/call/call_phone`, payload)
+  }
+
+  // 更新话务系统信息
+  updateCallInfo = (payload: params.UpdateCallInfoReq) => {
+    return this.post(`/call/update_call_record`, payload)
   }
 
   // 获取放款信息
-  getLoanInfo = (payload: LoanInfoReq, currentList: string) => {
-    return this.post<LoanInfoRes[]>(`/back_mgr/get_loan_flow_detail/${currentList}`, payload)
+  getRepaymentDetail = (payload: params.RepaymentDetailReq, currentList: string) => {
+    return this.post<response.RepaymentInfoList[]>(`/back_mgr/get_repayment_detail/${currentList}`, payload)
+  }
+
+  // 获取还款流水
+  getRepaymentDetailFlow = (payload: params.RepaymentDetailReq, currentList: string) => {
+    return this.post<response.RepaymentInfoFlowList[]>(`/back_mgr/get_repayment_flows/${currentList}`, payload)
+  }
+
+  // 获取放款信息
+  getLoanInfo = (payload: params.LoanInfoReq, currentList: string) => {
+    return this.post<response.LoanInfoList[]>(`/back_mgr/get_loan_flow_detail/${currentList}`, payload)
   }
 
   // 获取短信记录
-  getSMSRecord = (payload: SMSRecordReq, currentList: string) => {
-    return this.post<SMSRecordList[]>(`/core_query/get_order_sms_flow/${currentList}`, payload)
+  getSMSRecord = (payload: params.SMSRecordReq, currentList: string) => {
+    return this.post<response.SMSRecordList[]>(`/core_query/get_order_sms_flow/${currentList}`, payload)
   }
 
   // 发送短信
-  sendMsgSMSRecord = (payload: SendSmsReq) => {
+  sendMsgSMSRecord = (payload: params.SendSmsReq) => {
     return this.post(`/send_sms`, payload)
   }
 
   // 获取状态记录
   getStatusRecord = (payload: params.StatusRecordReq, currentList: string) => {
-    return this.post(`/back_mgr/get_order_status_record/${currentList}`, payload)
+    return this.post<response.StatusRecordList[]>(`/back_mgr/get_order_status_record/${currentList}`, payload)
   }
+
+  /************************************ 分割线 *******************************************/
 
   submitOrder = (payload: params.SubmitOrderPayload) => {
     //

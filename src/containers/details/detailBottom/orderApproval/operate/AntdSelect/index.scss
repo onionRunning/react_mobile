@@ -1,0 +1,18 @@
+.antd-content {
+  min-height: 36px;
+  margin: 20px 0;
+  .ant-select-selection__rendered {
+    line-height: 40px;
+  }
+  .ant-select-dropdown-menu-item {
+    height: 36px;
+  }
+  .ant-select-selection--multiple > ul > li,
+  .ant-select-selection--multiple .ant-select-selection__rendered > ul > li {
+    line-height: 32px;
+    height: 32px;
+  }
+  .ant-select-selection--single {
+    height: 36px;
+  }
+}

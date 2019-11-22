@@ -2,15 +2,15 @@ import React, { Component } from 'react'
 import { observer, inject } from 'mobx-react'
 import InfoWrapper from 'containers/details/component/infoWrapper'
 import Table from 'components/table'
-import StatusRecordStores from 'stores/details/statusRecord'
+import DetailsStore from 'stores/details'
 import { MixProps } from 'global/interface'
 import { StatusRecordColumns } from './config'
 
 interface Props extends MixProps {
-  statusRecord: StatusRecordStores
+  details: DetailsStore
 }
 
-@inject('statusRecord')
+@inject('details')
 @observer
 export class StatusRecord extends Component<Props> {
   componentDidMount() {
@@ -18,17 +18,14 @@ export class StatusRecord extends Component<Props> {
   }
 
   render() {
-    const { statusRecord } = this.props.statusRecord
-    return (
-      <div style={{ marginTop: '6px' }}>
-        <Table tableTitle={StatusRecordColumns} tableData={statusRecord} size="small" />
-      </div>
-    )
+    const { statusRecordList } = this.props.details
+    return <Table tableTitle={StatusRecordColumns} tableData={statusRecordList} size="small" />
   }
 
+  // 获取状态记录
   getStatusRecord = async () => {
     const { order_no, viewType } = this.props.location.state
-    await this.props.statusRecord.getStatusRecord(
+    await this.props.details.getStatusRecord(
       {
         order_no
       },

@@ -356,3 +356,40 @@ export const formatOfOrderType = function(str: string) {
   if (str === undefined || str === null || !isString(str)) return ''
   return order_type[trim(str) as keyof typeof order_type]
 }
+
+/**
+ * 两数相减
+ * @param {number} a
+ * @param {number} b
+ */
+export const numberSubtractionNumber = (num1: number, num2: number, num3: number) => {
+  var sq1, sq2, sq3, m
+  try {
+    sq1 = num1.toString().split('.')[1].length
+  } catch (e) {
+    sq1 = 0
+  }
+  try {
+    sq2 = num2.toString().split('.')[1].length
+  } catch (e) {
+    sq2 = 0
+  }
+  try {
+    sq3 = num3.toString().split('.')[1].length
+  } catch (e) {
+    sq3 = 0
+  }
+  m = Math.pow(10, Math.max(sq1, sq2, sq3))
+  return Number(((num1 * m - num2 * m - num3 * m) / m).toFixed((m + '').length - 1))
+}
+
+/**
+ * 格式化时间为年月日
+ * @param {*} t 2018-12-18T17:16:04+08:00
+ * @returns {String} 2018-12-18
+ */
+export const formatTimeNoHour = (t: string) => {
+  if (isEmpty(t)) return ''
+  let date = new Date(t)
+  return timeStampBeauty(date.valueOf())
+}

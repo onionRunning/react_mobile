@@ -1,0 +1,111 @@
+.repay-table {
+  // margin-top: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.85);
+  & > .head {
+    width: 100%;
+    display: table;
+    text-align: center;
+    line-height: 41px;
+    background-color: #e3e3e3;
+    margin-bottom: 0;
+    & > li {
+      width: 7%;
+      display: table-cell;
+      &.min {
+        width: 5%;
+      }
+      &:first-child {
+        width: 4%;
+      }
+    }
+  }
+  .table-item {
+    width: 100%;
+    & > ul {
+      display: table;
+      width: 100%;
+      margin-bottom: 0;
+      & > li {
+        width: 7%;
+        text-align: center;
+        vertical-align: middle;
+        display: table-cell;
+        &:first-child {
+          width: 4%;
+        }
+        &:nth-of-type(1),
+        &:nth-last-of-type(1) {
+          border: 1px solid #ededed;
+          // border-top: none;
+        }
+        &.show-detail {
+          cursor: pointer;
+          background: url('~assets/below@2x.png') no-repeat center center;
+          background-size: 18px 18px;
+        }
+        &.show {
+          transition: transform 0.4s ease;
+          transform: rotateZ(180deg);
+        }
+        &.min {
+          width: 5%;
+        }
+        & > ul {
+          & > li {
+            height: 34px;
+            line-height: 34px;
+            border-top: 1px solid #ededed;
+            &:last-child{
+              border-bottom: 1px solid #ededed;
+            }
+          }
+        }
+      }
+    }
+    .ant-table{
+      min-height: auto;
+    }
+    .ant-table-thead > tr > th {
+      background-color: #e1efdf;
+      text-align: center;
+      padding: 6px;
+      font-size: 12px;
+      font-weight: 400;
+    }
+    .ant-table-tbody > tr > td {
+      text-align: center;
+    }
+    .ant-table-thead > tr > th.ant-table-column-sort {
+      background-color: #e1efdf;
+    }
+    .ant-table-thead
+      > tr
+      > th.ant-table-column-has-actions.ant-table-column-has-sorters:hover {
+      background-color: #e1efdf;
+      opacity: 0.8;
+    }
+    .ant-pagination,
+    .ant-table-pagination {
+      display: none;
+    }
+  }
+  .table-no-data {
+    text-align: center;
+    height: 167px;
+    border: 1px solid #e8e8e8;
+    border-top: none;
+    img {
+      margin-top: 40px;
+      margin-bottom: 10px;
+      width: 80px;
+    }
+  }
+}
+.ant-table-thead > tr.ant-table-row-hover > td,
+.ant-table-tbody > tr.ant-table-row-hover > td,
+.ant-table-thead > tr:hover > td,
+.ant-table-tbody > tr:hover > td {
+  background-color: #f3f7f2;
+}

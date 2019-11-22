@@ -1,23 +1,26 @@
 import React from 'react'
 import { formatTf, formatTime } from 'global/method'
-import { StatusRecordList } from 'interface/details/statusRecord'
 import { TableTile } from 'global/interface'
+import * as response from 'api/response'
+
+interface Reason {
+  reason_value: string
+}
+
 export const StatusRecordColumns: TableTile[] = [
   {
     align: 'center',
     title: 'Serial number',
     dataIndex: 'id',
     key: 'id',
-    render: (text: string, record: StatusRecordList, index: number) => `${index + 1}`
+    render: (text: string, record: response.StatusRecordList, index: number) => `${index + 1}`
   },
   {
     align: 'center',
     title: 'Status',
     dataIndex: 'current_status',
     key: 'current_status',
-    render: (item: string) => {
-      return <span>{formatTf(item)}</span>
-    }
+    render: (item: string) => formatTf(item)
   },
   {
     align: 'center',
@@ -30,7 +33,7 @@ export const StatusRecordColumns: TableTile[] = [
     title: 'Time',
     dataIndex: 'created_at',
     key: 'created_at',
-    render: (created_at: string) => `${formatTime(created_at)}`
+    render: (created_at: string) => formatTime(created_at)
   },
   {
     align: 'center',
@@ -38,7 +41,7 @@ export const StatusRecordColumns: TableTile[] = [
     dataIndex: '',
     key: 'remark',
     width: 400,
-    render: (record: StatusRecordList) => {
+    render: (record: response.StatusRecordList) => {
       const reasons: Reason[] = record.reasons ? JSON.parse(record.reasons) : []
       return (
         <div>
@@ -51,7 +54,3 @@ export const StatusRecordColumns: TableTile[] = [
     }
   }
 ]
-
-interface Reason {
-  reason_value: string
-}

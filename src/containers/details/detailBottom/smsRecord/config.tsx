@@ -1,8 +1,6 @@
 import { formatTime, formatTf } from 'global/method'
 import { TableTile } from 'global/interface'
-import { SMSRecordList } from 'interface/details/smsRecord'
-
-// import { any } from 'api/response'
+import * as response from 'api/response'
 
 export type SendMsgType = 'all' | 'self' | 'contact'
 export const SendMsg = {
@@ -51,7 +49,7 @@ export const SMSRecordColumns: TableTile[] = [
     title: 'Serial number',
     dataIndex: 'id',
     key: 'id',
-    render: (text: string, record: SMSRecordList, index: number) => `${index + 1}`
+    render: (text: string, record: response.SMSRecordList, index: number) => `${index + 1}`
   },
   {
     align: 'center',

@@ -2,24 +2,26 @@ import React, { Component } from 'react'
 import { observer, inject } from 'mobx-react'
 import InfoWrapper from 'containers/details/component/infoWrapper'
 import Table from 'components/table'
+import Button from 'components/button'
 import { SMSRecordColumns, SendMsg, SendMsgBtn, SendMsgType } from './config'
 import { MixProps } from 'global/interface'
-import SMSRecordStore from 'stores/details/smsRecord'
+import DetailsStore from 'stores/details'
 import CommonStore from 'stores/common'
-import { SMSRecordReq } from 'interface/details/smsRecord'
+import * as params from 'api/params'
+import { intoDetail } from 'global/constants'
 import styles from './index.module.scss'
 
 interface Props extends MixProps {
-  smsRecord: SMSRecordStore
+  details: DetailsStore
   common: CommonStore
 }
 
 interface State {
   showSendMsgBtn: boolean
-  request: SMSRecordReq
+  request: params.SMSRecordReq
 }
 
-@inject('smsRecord', 'common')
+@inject('details', 'common')
 @observer
 export class SMSRecord extends Component<Props, State> {
   constructor(props: Props) {
@@ -39,10 +41,10 @@ export class SMSRecord extends Component<Props, State> {
 
   render() {
     const { viewType } = this.props.location.state
-    const { SMSRecordList } = this.props.smsRecord
+    const { SMSRecordList } = this.props.details
     return (
       <div className={styles.wrap}>
-        {viewType === 'my_order' && <div className={styles.operate_wrap}>{this.renderSendMsgBtn()}</div>}
+        {viewType === intoDetail.MYORDER && <div className={styles.operate_wrap}>{this.renderSendMsgBtn()}</div>}
         <Table tableTitle={SMSRecordColumns} tableData={SMSRecordList} size="small" />
       </div>
     )
@@ -52,22 +54,22 @@ export class SMSRecord extends Component<Props, State> {
   renderSendMsgBtn = () => {
     return SendMsgBtn.map((item, index) => {
       return (
-        <button
+        <Button
           key={index}
-          className="theme-btn"
-          onClick={this.handleSendMsg(item.type as SendMsgType)}
+          type="primary"
+          onClick={this.handleClickBtn(item.type as SendMsgType)}
           id={`sms-${item.type}-btn`}
         >
           {item.text}
-        </button>
+        </Button>
       )
     })
   }
 
-  // 获取短信信息列表
+  // 获取短信记录
   getSMSRecordInfo = async () => {
     const { order_no, viewType } = this.props.location.state
-    await this.props.smsRecord.getSMSRecordList(
+    await this.props.details.getSMSRecordList(
       {
         ...this.state.request,
         order_no
@@ -76,8 +78,8 @@ export class SMSRecord extends Component<Props, State> {
     )
   }
 
-  // 发送短信
-  handleSendMsg = (type: SendMsgType) => () => {
+  // 点击发送短信按钮
+  handleClickBtn = (type: SendMsgType) => () => {
     // 弹出模态框提示
     this.props.common.changeConfirm({
       show: true,
@@ -91,7 +93,7 @@ export class SMSRecord extends Component<Props, State> {
   // 确认发送短信
   confirmSendMsg = (type: SendMsgType) => async () => {
     const { order_no } = this.props.location.state
-    await this.props.smsRecord.sendMsgSMSRecord(
+    await this.props.details.sendMsgSMSRecord(
       {
         order_no,
         button_type: type
