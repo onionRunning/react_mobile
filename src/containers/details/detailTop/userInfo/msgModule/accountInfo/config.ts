@@ -15,24 +15,36 @@ export const authResultConfig = {
 export const base = [
   {
     title: 'Recipient account type', // 收款账户类型
-    stateName: 'account_type'
+    stateName: 'user_account_type'
   },
   {
     title: 'Account Holder',
-    stateName: 'account_name'
+    stateName: 'user_account_name'
   }
 ]
-export const CollectionAccountInfoInput = [
+export const CollectionAccountInfoInputBank = [
   ...base,
   {
     title: 'Bank issuer/E-wallet',
-    stateName: 'receipt_bank_name'
+    stateName: 'user_receipt_bank_name'
   },
   {
     title: 'Bank account number/Account Number',
-    stateName: 'receipt_band_account'
+    stateName: 'user_receipt_bank_account'
   }
 ]
+export const CollectionAccountInfoInputEwallet = [
+  ...base,
+  {
+    title: 'Bank issuer/E-wallet',
+    stateName: 'user_e_wallet_name'
+  },
+  {
+    title: 'Bank account number/Account Number',
+    stateName: 'user_e_wallet_account'
+  }
+]
+// TODO: 字段名不确定
 export const CollectionAccountInfoInputCash = [
   ...base,
   {

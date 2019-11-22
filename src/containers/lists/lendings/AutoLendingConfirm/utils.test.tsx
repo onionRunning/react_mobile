@@ -9,7 +9,7 @@ describe('Function', () => {
         name: 'AutoLoanSwitchForCashNiJuan',
         label: 'test',
         checked: true,
-        value: 'test'
+        value: 'on'
       }
     ]
     expect(Function.turnToSwitchMsg(msg1).length).toBe(1)

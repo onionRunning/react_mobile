@@ -45,4 +45,10 @@ export const headerLists = [
     dataIndex: 'order_status',
     key: 'order_status'
   }
+  // 跳转到详情页
+  // {
+  //   title: '      ',
+  //   dataIndex: 'operating',
+  //   key: 'operating'
+  // }
 ]

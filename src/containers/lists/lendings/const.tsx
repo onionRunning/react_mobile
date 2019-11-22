@@ -4,7 +4,7 @@ import { formType } from 'global/constants'
 import { formatTime, Trim } from 'global/method'
 import { isNumber } from 'util'
 import { LendingFunc } from 'design/interface'
-import { lendings } from 'api/params'
+import { LendingItem, LendingsPayload } from 'interface/lendings'
 import errors from 'global/errors'
 import { userPermission } from 'design/permission'
 
@@ -297,7 +297,7 @@ export const OFFLINE_LOAN = 'OFFLINE_LOAN'
  * @param element
  * @param lending_func
  */
-export const getMakeLoanText = (element: lendings.LendingItem, lending_func: LendingFunc): string => {
+export const getMakeLoanText = (element: LendingItem, lending_func: LendingFunc): string => {
   const { loan_status } = element
   const { LoanFailed, CreateLoan } = orderStatus
   const { p20103, p20104 } = lending_func
@@ -311,7 +311,7 @@ export const getMakeLoanText = (element: lendings.LendingItem, lending_func: Len
 }
 
 // 根据订单状态显示取消贷款文字  1.贷款失败+权限 2.创建贷款+权限 3.线下放款+放款中+权限
-export const getCancleLoanText = (element: lendings.LendingItem, lending_func: LendingFunc): string => {
+export const getCancleLoanText = (element: LendingItem, lending_func: LendingFunc): string => {
   const { LoanFailed, CreateLoan, LoanProcessing, No } = orderStatus
   const { loan_status, loan_flow_status, loan_pay_type } = element
   const { p20105 } = lending_func
@@ -343,7 +343,7 @@ export const IsValid = (str: string | undefined | number): boolean => {
 }
 
 // 校验金额函数
-export const vertify = (state: lendings.LendingsPayload) => {
+export const vertify = (state: LendingsPayload) => {
   const { loan_amount_start, loan_amount_end } = state!
   if (loan_amount_start! < 0) return errors.INPUT_CORRECT_START_AMOUNT
   if (loan_amount_end! < 0) return errors.INPUT_CORRECT_END_AMOUNT
@@ -366,23 +366,23 @@ export const showName = (name: string) => {
   }
 }
 
-export const commonVertify = (state: any, str: string) => {
-  const start = state[`${str}_start_date`]
-  const end = state[`${str}_end_date`]
+export const commonVertify = (state: LendingsPayload, str: string) => {
+  const start = state[`${str}_start_date` as keyof LendingsPayload]
+  const end = state[`${str}_end_date` as keyof LendingsPayload]
   const name = showName(str)
   if (!start && end) return `please input ${name} start time`
   if (start && !end) return `please input ${name} end time`
   const maxTime = 30
   if (
-    moment(end)
+    moment(end as string)
       .add(-maxTime, 'd')
-      .isAfter(moment(start))
+      .isAfter(moment(start as string))
   )
     return `Number of days between start and end in ${showName(name)} can't be more than ${maxTime}`
 }
 
 // 校验时间函数
-export const vertifyTimes = (state: lendings.LendingsPayload) => {
+export const vertifyTimes = (state: LendingsPayload) => {
   return commonVertify(state, 'apply') || commonVertify(state, 'request_loan') || commonVertify(state, 'actual_loan')
 }
 
@@ -400,7 +400,7 @@ export const useless = {
   sortOrder: '',
   productName: ''
 }
-export const vertifyDownload = (request: lendings.LendingsPayload) => {
+export const vertifyDownload = (request: LendingsPayload) => {
   const obj = { ...useless, ...request, page: '', per_page: '', sort_order: '', sort_value: '' }
   for (const k in obj) {
     if (obj[k as keyof typeof obj]) {
@@ -411,7 +411,7 @@ export const vertifyDownload = (request: lendings.LendingsPayload) => {
 }
 // 表格头部配置信息
 
-export const getTableTitle = (cb?: (args: lendings.LendingItem, type: string) => MouseEventHandler<{}>) => {
+export const getTableTitle = (cb?: (args: LendingItem, type: string) => MouseEventHandler<{}>) => {
   return [
     {
       title: 'Loan ID', // 订单编号
@@ -532,7 +532,7 @@ export const getTableTitle = (cb?: (args: lendings.LendingItem, type: string) =>
       fixed: 'right', // 固定在右侧
       width: 150,
       key: 'operating',
-      render: (item: lendings.LendingItem, _: string, index: number) => {
+      render: (item: LendingItem, _: string, index: number) => {
         const { lending_func } = userPermission.finnalPermission!
         return (
           <div className="operatingWrap">

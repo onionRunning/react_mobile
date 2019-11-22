@@ -43,7 +43,10 @@ describe('test checkRepeat', () => {
     instance.componentDidMount()
     expect(instance.getCheckLists).toBeCalled()
   })
-
+  it('componentWillUnmount', () => {
+    instance.componentWillUnmount()
+    expect(mockProps.common.changeLoading).toBeCalledWith(false)
+  })
   it('test getCheckLists', () => {
     instance.getCheckLists()
     expect(mockProps.checkRepeat.getCheckLists).toBeCalled()

@@ -13,7 +13,6 @@ import { Data as ChangeData } from 'components/listCondition'
 import { RepaymentListReq, RepaymentResItem } from 'interface/repayments'
 import RepaymentProps from 'stores/repayments'
 import Common from 'stores/common'
-import { repayments } from 'api/params'
 import Message from 'components/message'
 
 import { vertifyAmountTime, vertifyRangeAmount, vertifyTime } from './uitls'
@@ -177,13 +176,13 @@ export class Repayments extends Component<Props, State> {
     )
   }
   //获取还款列表
-  getRepaymentList = (v?: repayments.RepaymentListReq) => {
+  getRepaymentList = (v?: RepaymentListReq) => {
     const { request } = this.state
     const { getRepaymentList } = this.props.repayments
     this.props.common.composeLoading(this.tempFunc({ ...request, ...v }))
     getRepaymentList({ ...request, ...v })
   }
-  tempFunc = (v?: repayments.RepaymentListReq) => () => {
+  tempFunc = (v?: RepaymentListReq) => () => {
     const { getRepaymentList } = this.props.repayments
     getRepaymentList({ ...v })
   }

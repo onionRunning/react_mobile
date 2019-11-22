@@ -3,9 +3,7 @@ import { shallow } from 'enzyme'
 import { AutoLendingConfirm } from './index'
 
 describe('AutoLendingConfirm', () => {
-  const dispatch = jest.fn()
   const props = {
-    dispatch,
     modalClose: jest.fn(),
     lendings: {
       checkAutoStatus: jest.fn(),

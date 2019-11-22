@@ -10,7 +10,7 @@ import ContactInfo from './msgModule/contactInfo'
 import AccountInfo from './msgModule/accountInfo'
 import GPSInfo from './msgModule/GpsInfo'
 import { MixProps } from 'global/interface'
-import UserDetail from 'stores/details/userDetail'
+import UserDetail from 'stores/details/userInfo'
 import Common from 'stores/common'
 
 import './index.scss'

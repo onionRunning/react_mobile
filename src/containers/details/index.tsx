@@ -6,7 +6,7 @@ import './index.scss'
 import { top_config, bot_config, handlerRouter } from './utils'
 import ApprovalStore from 'stores/details/approval'
 import { inject, observer } from 'mobx-react'
-import UserDetail from 'stores/details/userDetail'
+import UserDetail from 'stores/details/userInfo'
 interface Props extends MixProps {
   approval: ApprovalStore
   userDetail: UserDetail

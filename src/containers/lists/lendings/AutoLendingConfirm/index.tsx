@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import Switch from 'components/switch'
-import { switchStatus } from './config'
-import { turnToSwitchMsg } from './utils'
-import { autoLoanNoData, SwitchInterface, StateInterface, OnOff } from './config'
-import './index.scss'
 import { inject, observer } from 'mobx-react'
+import Switch from 'components/switch'
 import Lendings from 'stores/lendings'
+
+import { turnToSwitchMsg } from './utils'
+import { autoLoanNoData, SwitchInterface, StateInterface, OnOff, switchStatus } from './config'
+import './index.scss'
 
 interface Props {
   lendings: Lendings
@@ -64,13 +64,13 @@ export class AutoLendingConfirm extends Component<Props, StateInterface> {
   // 提交修改
   handleSubmit = () => {
     const { modalClose } = this.props
-    let { switchMsg } = this.state
+    const { switchMsg } = this.state
     modalClose()
     this.switchAutoLoan(switchMsg)
   }
   // 处理切换状态
   handleSwitch = (item: SwitchInterface) => {
-    let msg = [...this.state.switchMsg]
+    const msg = [...this.state.switchMsg]
     msg.map(el => {
       if (el.id === item.id) {
         el.checked = !el.checked
@@ -81,7 +81,7 @@ export class AutoLendingConfirm extends Component<Props, StateInterface> {
     this.setState({ switchMsg: msg })
   }
   // 值的切换
-  toggleValue = (value: OnOff): OnOff => {
+  toggleValue = (value: string): OnOff => {
     if (value === switchStatus.on) return switchStatus.off as OnOff
     return switchStatus.on as OnOff
   }
@@ -92,7 +92,7 @@ export class AutoLendingConfirm extends Component<Props, StateInterface> {
   }
   // 初始化自动放款开关数据
   initAutoLoanMsg = (res: SwitchInterface[]) => {
-    let switchMsg = turnToSwitchMsg(res)
+    const switchMsg = turnToSwitchMsg(res)
     this.setState({
       switchMsg: switchMsg
     })

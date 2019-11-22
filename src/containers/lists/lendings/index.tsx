@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { PaginationConfig, SorterResult } from 'antd/lib/table'
 
-import ListCondition, { Data } from 'components/listCondition'
+import ListCondition from 'components/listCondition'
 import Table from 'components/table'
 import ListTitle from 'components/listTitle'
 import Message from 'components/message'
@@ -10,7 +10,7 @@ import AutoLendingConfirm from './AutoLendingConfirm'
 
 import { MixProps } from 'global/interface'
 import { Trim } from 'global/method'
-import { lendings } from 'api/params'
+import { LendingsPayload, LendingItem } from 'interface/lendings'
 
 import LendingProps from 'stores/lendings'
 import Common from 'stores/common'
@@ -26,7 +26,7 @@ interface Props extends MixProps {
 }
 
 interface State {
-  request: lendings.LendingsPayload
+  request: LendingsPayload
   showAutoLendPop: boolean
 }
 const initRequest = {
@@ -55,7 +55,6 @@ export class Lendings extends Component<Props, State> {
       lendings: { page, lendingList, total_count, page_count }
     } = this.props
     const { showAutoLendPop } = this.state
-    const searchData: Data[] = con.filterData
     const tableTitle = con.getTableTitle(this.handleLoanCalcel) as []
     const pagination = {
       current: page,
@@ -66,7 +65,7 @@ export class Lendings extends Component<Props, State> {
       <div className={styles.list}>
         <ListTitle>Disbursement management</ListTitle>
         <div className={styles.header}>
-          <ListCondition data={searchData} onChange={this.handleFilter} btnClick={this.handleBtnClick} />
+          <ListCondition data={con.filterData} onChange={this.handleFilter} btnClick={this.handleBtnClick} />
           <button className={`${styles.autoLendBtn} sub-btn-blue-large`} onClick={this.showAutoLendingPop}>
             Automatic loan
           </button>
@@ -115,11 +114,7 @@ export class Lendings extends Component<Props, State> {
   }
 
   // 翻页 + 排序
-  tableChange = (
-    pag: PaginationConfig,
-    _: Record<keyof lendings.LendingItem, string[]>,
-    sorter: SorterResult<lendings.LendingItem>
-  ) => {
+  tableChange = (pag: PaginationConfig, _: Record<keyof LendingItem, string[]>, sorter: SorterResult<LendingItem>) => {
     const { columnKey, order } = sorter,
       pageSize = 10,
       pageCurrent = 1
@@ -136,7 +131,7 @@ export class Lendings extends Component<Props, State> {
   }
 
   // 表格行按钮操作
-  handleLoanCalcel = (item: lendings.LendingItem, type: string) => () => {
+  handleLoanCalcel = (item: LendingItem, type: string) => () => {
     const rightFunc = type === 'cancel' ? this.cancelLoan(item) : this.makeLoanOrRetry(item.order_no)
     this.confrimStart(rightFunc, type)
   }
@@ -165,7 +160,7 @@ export class Lendings extends Component<Props, State> {
   }
 
   // 取消放款
-  cancelLoan = (item: lendings.LendingItem) => () => {
+  cancelLoan = (item: LendingItem) => () => {
     const { createCancelLoan } = this.props.lendings
     const payload = {
       order_no: item.order_no,
@@ -188,7 +183,7 @@ export class Lendings extends Component<Props, State> {
   }
 
   // 获取放款单列表
-  getLendingList = (v?: lendings.LendingsPayload) => {
+  getLendingList = (v?: LendingsPayload) => {
     const { request } = this.state
     const auth = con.vertify(request) || con.vertifyTimes(request)
     if (auth) {
@@ -198,7 +193,7 @@ export class Lendings extends Component<Props, State> {
     this.props.common.composeLoading(this.tempFunc({ ...request, ...v }))
     this.setState({ request: { ...this.state.request } })
   }
-  tempFunc = (v?: lendings.LendingsPayload) => () => {
+  tempFunc = (v?: LendingsPayload) => () => {
     const { getLendingList } = this.props.lendings
     getLendingList({ ...v })
   }

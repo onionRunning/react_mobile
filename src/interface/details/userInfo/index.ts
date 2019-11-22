@@ -173,9 +173,9 @@ export interface OrderUserDetailInterface {
   linkmanInfo: LinkmanItemInterface[]
   basicInfo: BasicInfoInterface
   cellectionAccountInfo: CellectionAccountInfoInterface
-  picUrl: any
+  picUrl: string
   contact_info: any
-  level: any
+  level: string
 }
 export interface ConfigType {
   id: string

@@ -5,7 +5,7 @@ import DecileCard from './components/DecileCard'
 import { OrderInfoInput, scoreConfig, PipelineConfig } from './config'
 // import { imgPath } from 'global/constants'
 import style from './index.module.scss'
-import UserDetail from 'stores/details/userDetail'
+import UserDetail from 'stores/details/userInfo'
 import { intoDetail } from 'global/constants'
 import { getData } from './utils'
 

@@ -16,6 +16,8 @@ class UserDetail {
   @observable contact: PropsType[] = []
   @observable account: PropsType = {}
   @observable score_card_results: PropsType = {}
+  // 用户的信息
+  @observable userInfo: PropsType = {}
 
   @observable currentList: string | undefined
 
@@ -37,6 +39,8 @@ class UserDetail {
           this.contact = res.data.user_msg.contact_info
           this.device_info = res.data.user_msg.mobile_info
           this.score_card_results = res.data.score_card_result
+
+          this.userInfo = res.data
           this.currentList = current!
         }
       } else {
