@@ -14,7 +14,7 @@ interface Props extends MixProps {
   mobiles: MobileStore
 }
 // 资料信息
-const infoList = (data: Info[], object: Info) => {
+export const infoList = (data: Info[], object: Info) => {
   return data.map((item, key) => {
     return (
       <div className={styles.info_item} key={key}>
@@ -27,7 +27,7 @@ const infoList = (data: Info[], object: Info) => {
   })
 }
 
-const MobileInfo: React.FC<Props> = (props: Props) => {
+export const MobileInfo: React.FC<Props> = (props: Props) => {
   const [selectType, changeType] = useState<string>('all')
   const [mobileInfos, changeInfo] = useState<MobileInfoProps>({ app_info: [], device_info: {} })
   // 获取设备信息
