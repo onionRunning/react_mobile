@@ -59,30 +59,21 @@ export class Api {
 
   // 新版本登陆
   postLogin = (payload: params.loginParams.LoginReq) => {
-    return this.post<params.loginParams.LoginRes>(`/login`, payload)
+    return this.post<params.loginParams.LoginRes>(`/back_mgr/login`, payload)
     // return this.post<params.loginParams.LoginRes>(`/back_mgr/login`, payload)
-  }
-
-  // 修改密码
-  changePassword = (payload: params.ChangePasswordParams) => {
-    return this.post<any>(`/back_mgr/change_password`, payload)
   }
   // 请求订单列表
   postOrders = (payload: params.orders.OrderListsReq) => {
-    return this.post<any>(`/back_mgr/get_application_list`, payload)
-  }
-  // 下载订单列表
-  downloadOrders = (payload: params.PostOrdersPayload) => {
-    return this.download<any>(`/back_mgr/export_application_list`, payload)
+    return this.post<any>(`/back_mgr/get_order_list`, payload)
   }
   // 我的订单列表
   myOrders = (payload: params.orders.MyOrderReq) => {
-    return this.post<params.orders.MyOrderRes>(`/back_mgr/get_my_approval_list`, payload)
+    return this.post<params.orders.MyOrderRes>(`/back_mgr/get_my_order_list`, payload)
   }
 
   // 抢单
   grabOrders = (payload: params.orders.GrabOrderReq) => {
-    return this.post<string>(`/back_mgr/grab_application`, payload)
+    return this.post<string>(`/back_mgr/grab_order`, payload)
   }
   // 获取app联系人信息
   getAppContract = (payload: params.GetAppContractPayload, stuffix?: string) => {
@@ -98,7 +89,7 @@ export class Api {
 
   // 获取设备信息
   getMobileInfo = (payload: params.MobilePayload, stuffix?: string) => {
-    return this.postHeader<any>(`/mobile_info/app/query/order_list`, payload, { stuffix })
+    return this.postHeader<any>(`/back_mgr/device_info`, payload, { stuffix })
   }
 
   // 查重检测
@@ -378,27 +369,22 @@ export class Api {
 
   // 黑名单管理列表
   queryBlacklistManagementLists = (payload: any) => {
-    return this.post<any>('/back_mgr/get_order_page_blacklist', payload)
+    return this.post<any>('/back_mgr/get_order_list', payload)
   }
 
   // 加入黑名单
   addBlacklist = (payload: any) => {
-    return this.post<any>('/blacklist/add', payload)
+    return this.post<any>('/back_mgr/add_black', payload)
   }
 
   // 黑名单列表
   queryBlacklists = (payload: any) => {
-    return this.post<any>('/back_mgr/query_blacklist', payload)
-  }
-
-  // 下载黑名单列表
-  downloadBlacklists = (payload: any) => {
-    return this.download<any>('/back_mgr/query_blacklist', payload)
+    return this.post<any>('/back_mgr/blacklist', payload)
   }
 
   // 移除黑名单
   removeBlacklist = (payload: any) => {
-    return this.post<any>('/back_mgr/remove_blacklist', payload)
+    return this.post<any>('/back_mgr/remove_black', payload)
   }
 
   // 批量放款

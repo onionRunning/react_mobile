@@ -1,115 +1,50 @@
-commit ab2c4fd5f74cce5d028bb4d6cf39ae29bf259bf1
-Merge: f528225 176b80c
-Author: hhh <huanghuihui@mintechai.com>
-Date:   Thu Nov 21 17:04:41 2019 +0800
+commit 11c508e055d32e341e31a1d61e53d2e60979be13
+Author: wangcong <wangcong@mintq.com>
+Date:   Mon Nov 25 16:08:39 2019 +0800
 
-    解决冲突
+    add:mobile test
 
-commit f528225d78628401f262bb89237db0a9d55bf7e4
-Author: hhh <huanghuihui@mintechai.com>
-Date:   Thu Nov 21 16:56:56 2019 +0800
+src/containers/details/detailTop/mobileInfo/index.test.tsx
+src/containers/details/detailTop/mobileInfo/index.tsx
+src/containers/details/detailTop/mobileInfo/utils.tsx
 
-    修复测试
+commit 1dad52f4f43bc1022e64f0b94c07dd3a8ea940f4
+Author: wangcong <wangcong@mintq.com>
+Date:   Mon Nov 25 09:42:12 2019 +0800
 
-src/containers/details/detailBottom/loanInfo/index.test.tsx
-src/containers/details/detailBottom/orderApproval/approvalResult/approvalResult.test.tsx
-src/containers/details/detailBottom/orderApproval/approvalResult/index.tsx
-src/containers/details/detailBottom/orderApproval/call/call.test.tsx
-src/containers/details/detailBottom/orderApproval/call/callConfirm/callConfirm.test.tsx
-src/containers/details/detailBottom/orderApproval/call/callConfirm/index.tsx
-src/containers/details/detailBottom/orderApproval/operate/operate.test.tsx
-src/containers/details/detailBottom/orderApproval/orderApproval.test.tsx
-src/containers/details/detailBottom/repayment/repayment.test.tsx
-src/containers/details/detailBottom/statusRecord/index.test.tsx
-src/containers/lists/orders/myOrders/index.test.tsx
-src/containers/lists/orders/myOrders/index.tsx
-src/containers/lists/orders/myOrders/utils.test.ts
-src/containers/lists/orders/myOrders/utils.tsx
+    fix:hook
 
-commit c2f2573e19d974130425a22e50cc50e2fecdc0e8
-Author: hhh <huanghuihui@mintechai.com>
-Date:   Thu Nov 21 16:08:44 2019 +0800
+src/containers/details/component/navBar/index.test.tsx
+src/containers/details/detailTop/mobileInfo/hooks.tsx
+src/containers/lists/orders/orderLists/utils.test.tsx
 
-    完成详情部分模块
+commit 778d3c654f56f60ab03379b695117dbf5c9917ea
+Author: wangcong <wangcong@mintq.com>
+Date:   Mon Nov 25 09:40:53 2019 +0800
 
-lastgitcommit.text
-src/api/index.ts
-src/api/params.ts
-src/api/response.ts
-src/assets/down_arrow.png
-src/components/table/index.module.scss
-src/containers/details/component/infoWrapper/index.module.scss
-src/containers/details/component/infoWrapper/index.scss
-src/containers/details/component/infoWrapper/index.tsx
-src/containers/details/component/switchComponent/index.tsx
-src/containers/details/component/switchComponent/utils.tsx
-src/containers/details/detailBottom/loanInfo/index.tsx
-src/containers/details/detailBottom/orderApproval/approvalResult/approvalResult.test.tsx
-src/containers/details/detailBottom/orderApproval/approvalResult/config.ts
-src/containers/details/detailBottom/orderApproval/approvalResult/index.module.scss
-src/containers/details/detailBottom/orderApproval/approvalResult/index.tsx
-src/containers/details/detailBottom/orderApproval/call/call.test.tsx
-src/containers/details/detailBottom/orderApproval/call/callConfirm/callConfirm.test.tsx
-src/containers/details/detailBottom/orderApproval/call/callConfirm/callConfirmConfig.test.tsx
-src/containers/details/detailBottom/orderApproval/call/callConfirm/config.ts
-src/containers/details/detailBottom/orderApproval/call/callConfirm/index.scss
-src/containers/details/detailBottom/orderApproval/call/callConfirm/index.tsx
-src/containers/details/detailBottom/orderApproval/call/images/phone@2x.png
-src/containers/details/detailBottom/orderApproval/call/index.module.scss
-src/containers/details/detailBottom/orderApproval/call/index.tsx
-src/containers/details/detailBottom/orderApproval/call/utils.ts
-src/containers/details/detailBottom/orderApproval/config.ts
-src/containers/details/detailBottom/orderApproval/index.tsx
-src/containers/details/detailBottom/orderApproval/operate/AntdSelect/AntdSelect.test.tsx
-src/containers/details/detailBottom/orderApproval/operate/AntdSelect/index.scss
-src/containers/details/detailBottom/orderApproval/operate/AntdSelect/index.tsx
-src/containers/details/detailBottom/orderApproval/operate/const.ts
-src/containers/details/detailBottom/orderApproval/operate/index.module.scss
-src/containers/details/detailBottom/orderApproval/operate/index.tsx
-src/containers/details/detailBottom/orderApproval/operate/operate.test.tsx
-src/containers/details/detailBottom/orderApproval/operate/operateUtil.test.tsx
-src/containers/details/detailBottom/orderApproval/operate/utils.ts
-src/containers/details/detailBottom/orderApproval/orderApproval.test.tsx
-src/containers/details/detailBottom/repayment/config.tsx
-src/containers/details/detailBottom/repayment/index.scss
-src/containers/details/detailBottom/repayment/index.tsx
-src/containers/details/detailBottom/repayment/repayment.test.tsx
-src/containers/details/detailBottom/repayment/repaymentConfig.test.tsx
-src/containers/details/detailBottom/repayment/repaymentUtils.test.tsx
-src/containers/details/detailBottom/repayment/utils.ts
-src/containers/details/detailBottom/smsRecord/config.tsx
-src/containers/details/detailBottom/smsRecord/index.module.scss
-src/containers/details/detailBottom/smsRecord/index.tsx
-src/containers/details/detailBottom/statusRecord/config.test.tsx
-src/containers/details/detailBottom/statusRecord/config.tsx
-src/containers/details/detailBottom/statusRecord/index.tsx
-src/containers/lists/orders/myOrders/index.tsx
-src/containers/lists/orders/myOrders/utils.tsx
-src/global/method.ts
-src/interface/details/loanInfo/index.ts
-src/interface/details/smsRecord/index.ts
-src/interface/details/statusRecord/index.ts
-src/stores/details/approval/index.ts
-src/stores/details/index.ts
-src/stores/details/loanInfo/index.ts
-src/stores/details/smsRecord/index.ts
-src/stores/details/statusRecord/index.ts
-src/stores/root.ts
+    fix:警告··
 
-commit 176b80c051f294995212ff137b7779e4d88044f6
-Merge: f97793a cb904a7
+package.json
+src/containers/auth/header/index.tsx
+src/containers/details/detailTop/mobileInfo/index.tsx
+src/containers/lists/orders/addBlack/utils.tsx
+src/containers/lists/orders/const.ts
+src/global/interface.ts
+
+commit 8cf20aae43d891258008317d4cc438ec48c51b7e
+Merge: bbccfdd 07130da
 Author: 卢宝宝 <lubaobao@mintechai.com>
-Date:   Thu Nov 21 10:44:08 2019 +0800
+Date:   Fri Nov 22 09:12:44 2019 +0800
 
     合并分支 'j-lbb' 到 'master'
     
     J lbb
     
-    查看合并请求 philippines/jrocketmanager!13
+    查看合并请求 philippines/jrocketmanager!16
 
-commit cb904a79ba8d95e4c059cb38af9e627dd8f57f47
-Merge: 6872d86 f97793a
+commit 07130daec3460127556439a7c26b30389178c9c8
+Merge: 75288be bbccfdd
 Author: Bonnie-lu <867454489@qq.com>
-Date:   Thu Nov 21 10:31:28 2019 +0800
+Date:   Fri Nov 22 09:10:47 2019 +0800
 
-    merge master
+    Merge branch 'master' into j-lbb
