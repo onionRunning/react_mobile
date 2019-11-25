@@ -145,7 +145,7 @@ export const blackBtnItems = () => {
 //
 export const getOrderNo = (chose: number[], all: Record<string, string | number>[]) => {
   return chose
-    .map(item => {
+    .map((item: number) => {
       for (let i = 0; i < all.length; i++) {
         if (item === all[i].id) {
           return all[i].order_no
@@ -153,7 +153,7 @@ export const getOrderNo = (chose: number[], all: Record<string, string | number>
       }
       return null
     })
-    .filter(item => item)
+    .filter((item: string | number | null) => item)
 }
 // init state
 export const initRequest = {

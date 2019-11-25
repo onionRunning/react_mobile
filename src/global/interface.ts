@@ -1,4 +1,3 @@
-// import { DispatchProp } from 'react-redux'
 import { RouteComponentProps } from 'react-router-dom'
 
 export interface ObjType {
