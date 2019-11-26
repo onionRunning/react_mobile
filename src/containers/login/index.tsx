@@ -135,7 +135,7 @@ export class Login extends Component<utils.Props, utils.State> {
     api.changeRequest(createRequest())
     userPermission.update(JSON.parse(sessionStorage.getItem('permissionArr')!))
     if (isFirstLogin) {
-      this.props.history.replace('/password')
+      this.props.history.replace('/auth')
       return
     }
     this.props.history.replace('/auth')
