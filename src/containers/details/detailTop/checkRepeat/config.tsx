@@ -1,4 +1,4 @@
-// table tableTitle  TODO: 是否需要写成函数????
+// table tableTitle
 export const headerLists = [
   {
     title: 'Match Content',
@@ -44,11 +44,10 @@ export const headerLists = [
     title: 'Blacklist type',
     dataIndex: 'order_status',
     key: 'order_status'
+  },
+  {
+    title: '',
+    dataIndex: 'operating',
+    key: 'operating'
   }
-  // 跳转到详情页
-  // {
-  //   title: '      ',
-  //   dataIndex: 'operating',
-  //   key: 'operating'
-  // }
 ]

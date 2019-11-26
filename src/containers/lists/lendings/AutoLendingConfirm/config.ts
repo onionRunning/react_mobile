@@ -38,3 +38,12 @@ export interface SwitchInterface {
   remark_available: string
   updated_at: string
 }
+
+export interface NewSwitchInterface {
+  product_name: string
+  current_status: string
+  checked?: boolean
+  label?: string
+  value?: string
+  id: string
+}

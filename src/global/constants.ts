@@ -89,3 +89,17 @@ export const order_type = {
   QualityApplicationOrderClassB: 'Repeat Client 02',
   QualityApplicationOrderClassC: 'Repeat Client 03'
 }
+
+// 所有的订单状态
+export const orderStatus = {
+  InitialAuditingReject: 'InitialAuditingReject',
+  RiskControlReject: 'RiskControlReject',
+  AuditingPassed: 'AuditingPassed',
+  AutoReject: 'AutoReject',
+  AuditingReject: 'AuditingReject',
+  ApplicationCanceled: 'ApplicationCanceled',
+  WaitingForManualAuditing: 'WaitingForManualAuditing',
+  CreateApplication: 'CreateApplication',
+  ManualAuditing: 'ManualAuditing',
+  AuditingReturn: 'AuditingReturn'
+}

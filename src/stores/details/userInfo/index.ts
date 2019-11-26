@@ -18,6 +18,9 @@ class UserDetail {
   @observable score_card_results: PropsType = {}
   // 用户的信息
   @observable userInfo: PropsType = {}
+  @observable orderInfo: PropsType = {}
+  @observable deviceInfo: PropsType = {}
+  @observable extraInfo: PropsType = {}
 
   @observable currentList: string | undefined
 
@@ -40,7 +43,11 @@ class UserDetail {
           this.device_info = res.data.user_msg.mobile_info
           this.score_card_results = res.data.score_card_result
 
-          this.userInfo = res.data
+          // 新的数据结构
+          this.userInfo = res.data.user_info // 包含(用户基本信息,用户联系人信息,工作信息,收款信息,信用等级,id信息,)
+          this.orderInfo = res.data.order_info // 相关订单信息
+          this.deviceInfo = res.data.device_info // 设备信息
+          this.extraInfo = res.data.phl_extra_info // 包含(脸书帐号, 线下收款机构)
           this.currentList = current!
         }
       } else {

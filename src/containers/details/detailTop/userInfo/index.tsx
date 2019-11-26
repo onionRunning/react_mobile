@@ -35,19 +35,20 @@ export class UserInfo extends Component<Props> {
 
   render() {
     const { viewType } = this.props.location.state
-    const { personal, work, id, contact, account, device_info, order_msg } = this.props.userDetail
+    // const { personal, work, id, contact, account, device_info, order_msg } = this.props.userDetail
+    const { userInfo, deviceInfo, extraInfo, device_info } = this.props.userDetail
     return (
       <div className="information-content">
         <div className="left">
           <OrderInfo {...this.props} currentList={viewType} />
-          <BaseInfo {...this.props} data={personal} />
-          <WorkInfo {...this.props} data={work} />
-          <Equipment {...this.props} data={device_info} />
+          <BaseInfo {...this.props} data={userInfo} />
+          <WorkInfo {...this.props} data={userInfo} />
+          <Equipment {...this.props} data={deviceInfo} />
         </div>
         <div className="right">
-          <IdInfo {...this.props} data={{ ...id, ...order_msg }} showPicture={this.showPicture} />
-          <ContactInfo {...this.props} data={contact} />
-          <AccountInfo {...this.props} data={{ ...account, ...order_msg }} />
+          <IdInfo {...this.props} data={userInfo} showPicture={this.showPicture} />
+          <ContactInfo {...this.props} data={userInfo} />
+          <AccountInfo {...this.props} data={{ ...extraInfo, ...userInfo }} />
           <GPSInfo {...this.props} data={device_info} />
         </div>
       </div>

@@ -23,7 +23,6 @@ import styles from './index.module.scss'
 import 'global/list.scss'
 
 interface Props extends MixProps {
-  // page: 1
   data: RepaymentResItem[]
   status: boolean
   productOption: ListItem[]
@@ -178,9 +177,7 @@ export class Repayments extends Component<Props, State> {
   //获取还款列表
   getRepaymentList = (v?: RepaymentListReq) => {
     const { request } = this.state
-    const { getRepaymentList } = this.props.repayments
     this.props.common.composeLoading(this.tempFunc({ ...request, ...v }))
-    getRepaymentList({ ...request, ...v })
   }
   tempFunc = (v?: RepaymentListReq) => () => {
     const { getRepaymentList } = this.props.repayments

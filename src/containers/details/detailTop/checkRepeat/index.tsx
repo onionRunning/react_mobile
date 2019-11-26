@@ -3,11 +3,12 @@ import { inject, observer } from 'mobx-react'
 import { headerLists } from './config'
 import { MixProps } from 'global/interface'
 import CheckRepeatProps from 'stores/details/checkRepeat'
-import { CheckRepeatResItem, CheckRepeatRes } from 'interface/details/checkRepeat'
+import { CheckRepeatResItem } from 'interface/details/checkRepeat'
 import Table from 'components/table'
 
 import styles from './index.module.scss'
 import Common from 'stores/common'
+import { intoDetail } from 'global/constants'
 
 interface Props extends MixProps {
   checkRepeat: CheckRepeatProps
@@ -34,6 +35,7 @@ export class CheckRepeat extends Component<Props, State> {
     this.getCheckLists()
   }
   componentWillUnmount() {
+    // 请求接口时间过长,切换页面时关闭loading
     const { changeLoading } = this.props.common
     changeLoading(false)
   }
@@ -45,11 +47,11 @@ export class CheckRepeat extends Component<Props, State> {
     } = this.props.location
     getCheckLists({ order_no }, this.renderContent)
   }
-  renderContent = (res: CheckRepeatRes) => {
+  renderContent = (res: CheckRepeatResItem[]) => {
     if (res) {
       this.props.common.changeLoading(false)
       this.setState({
-        currentList: res.CheckAndOther
+        currentList: res
       })
     }
   }
@@ -61,6 +63,7 @@ export class CheckRepeat extends Component<Props, State> {
     } = this.props.location
     retryChecklists({ order_no }, this.renderContent)
   }
+
   render() {
     const { currentList } = this.state
     const { viewType } = this.props.location.state
@@ -69,7 +72,7 @@ export class CheckRepeat extends Component<Props, State> {
         <div className={styles.tableWrap}>
           <Table tableTitle={headerLists} tableData={currentList} />
         </div>
-        {viewType === 'my_order' && (
+        {viewType === intoDetail.MYORDER && (
           <button className={`${styles.rematchBtn} theme-btn`} onClick={this.newClick}>
             Rematch
           </button>

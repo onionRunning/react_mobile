@@ -66,6 +66,13 @@ export class AutoLendingConfirm extends Component<Props, StateInterface> {
     const { modalClose } = this.props
     const { switchMsg } = this.state
     modalClose()
+    // const switches = switchMsg.map((item:SwitchInterface)=> {
+    //    return {
+    //     product_name: item.label,
+    //     switch_to: item.value
+    //    }
+    // })
+    // this.switchAutoLoan(switches)
     this.switchAutoLoan(switchMsg)
   }
   // 处理切换状态
@@ -98,7 +105,7 @@ export class AutoLendingConfirm extends Component<Props, StateInterface> {
     })
   }
 
-  switchAutoLoan = (req: SwitchInterface[]) => {
+  switchAutoLoan = (req: any[]) => {
     // 处理自动放款
     const { UpdateAutoStatus } = this.props.lendings
     UpdateAutoStatus(req)

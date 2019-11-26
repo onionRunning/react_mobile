@@ -32,8 +32,8 @@ interface State {
 const initRequest = {
   page: 1,
   per_page: 10,
-  sort_order: 'desc',
-  sort_value: 'apply_time'
+  sort_order: 'desc'
+  // sort_value: 'apply_time'
 }
 @inject('lendings', 'common')
 @observer
@@ -46,7 +46,7 @@ export class Lendings extends Component<Props, State> {
     }
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     this.getLendingList(this.state.request)
   }
   render() {

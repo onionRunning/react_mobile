@@ -37,12 +37,14 @@ class Lendings {
   /**
    * 获取自定放款状态
    */
-  @action checkAutoStatus = async (cb?: Callback) => {
+  @action checkAutoStatus = async (cb: Callback) => {
+    // TODO:
+    // 参数: payload: string[] ????????  返回结果: res.data.current_statuses
     const res = await api.getAutoStatus()
     try {
       if (res && res.success && res.data) {
         this.autoStatus = res.data
-        cb && cb(res.data)
+        cb && cb(res.data.current_statuses)
       } else {
         Message.error(res.info)
       }
@@ -55,6 +57,7 @@ class Lendings {
     const res = await api.updateAutoStatus(payload)
     try {
       if (res && res.success) {
+        this.autoStatus = res.data && res.data.current_statuses
         cb && cb()
       } else {
         Message.error(res.info)

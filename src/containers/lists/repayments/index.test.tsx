@@ -109,7 +109,7 @@ describe('Repayments', () => {
 
   it('getRepaymentList', () => {
     instance.getRepaymentList()
-    expect(mockProps.repayments.getRepaymentList).toBeCalled()
+    expect(mockProps.common.composeLoading).toBeCalled()
   })
   it('verifyReq', () => {
     const request = {

@@ -2,7 +2,7 @@ import { wrapperSend, createRequest, Response, Res, ReqType, createHeaderRequest
 import { AxiosInstance } from 'axios'
 import * as response from './response'
 import * as params from './params'
-import { ApprovalResultReq, ApprovalResultRes } from 'interface/details/approval'
+// import { ApprovalResultReq, ApprovalResultRes } from 'interface/details/approval'
 import { UserInfoPayload } from 'interface/details/userInfo'
 import { CheckRepeatPayloadReq } from 'interface/details/checkRepeat'
 
@@ -59,7 +59,7 @@ export class Api {
 
   // 新版本登陆
   postLogin = (payload: params.loginParams.LoginReq) => {
-    return this.post<params.loginParams.LoginRes>(`/login`, payload)
+    return this.post<params.loginParams.LoginRes>(`/back_mgr//login`, payload)
     // return this.post<params.loginParams.LoginRes>(`/back_mgr/login`, payload)
   }
 
@@ -100,10 +100,10 @@ export class Api {
   getMobileInfo = (payload: params.MobilePayload, stuffix?: string) => {
     return this.postHeader<any>(`/mobile_info/app/query/order_list`, payload, { stuffix })
   }
+  /*************************************查重检测分割线********************************************/
 
   // 查重检测
   getRepeatList = (payload: CheckRepeatPayloadReq) => {
-    console.log(payload)
     return this.post<any>(`/back_mgr/get_danger_list`, payload)
   }
   ///back_mgr/check_duplicate
@@ -111,35 +111,39 @@ export class Api {
   checkRepeatList = (payload: CheckRepeatPayloadReq) => {
     return this.post<any>(`/back_mgr/check_duplicate`, payload)
   }
+
+  /*********************************** 放款管理分割线 ***********************************************/
+
   // 获取放款单列表
   getLendingLists = (payload: params.lendings.LendingsPayload) => {
-    return this.post<params.lendings.LendingsRes>('/back_mgr/get_loan_list_page', payload)
+    return this.post<params.lendings.LendingsRes>('/back_mgr/query_payout_list', payload)
   }
 
   // 手动放款or 重试
   getLoanOrRetry = (payload: params.lendings.LoanOrRetryReq) => {
-    return this.post('/make_loan', payload)
+    return this.post('/back_mgr/manual_payout', payload)
   }
 
   // 取消放款
   getCancelLoan = (payload: params.lendings.CancelLoanReq) => {
-    return this.post('/cancel_loan', payload)
+    return this.post('/back_mgr/cancel_payout', payload)
   }
 
   // 获取自动放款开关
-  getAutoStatus = () => {
-    return this.get('/get_auto_loan_status')
+  getAutoStatus = (payload?: string[]) => {
+    return this.post('/back_mgr/auto_payout_status', payload)
   }
 
   // 开启或关闭开关,手动放款
   updateAutoStatus = (payload: params.lendings.UpdateAutoReqItem[]) => {
+    // return this.post('/back_mgr/update_auto_payout', payload)
     return this.post('/set_auto_loan', payload)
   }
 
   // 下载放款列表
-  downloadLendings = (payload: params.DownloadLendings) => {
-    return this.download<any>('/back_mgr/query_loan_list', payload)
-  }
+  // downloadLendings = (payload: params.DownloadLendings) => {
+  //   return this.download<any>('/back_mgr/query_loan_list', payload)
+  // }
 
   // 定义所有的http请求方法
   getRefuseReason = () => {
@@ -239,28 +243,32 @@ export class Api {
     return this.postHeader<response.RepaymentRes[]>('/back_mgr/query_repayment_schedule', payload, { stuffix })
   }
 
+  /************************************ 还款管理分割线 *******************************************/
   // 还款订单列表
   getRepaymentList = (payload: params.repayments.RepaymentListReq) => {
-    return this.post<params.repayments.RepaymentListRes>('/back_mgr/get_repayment_list', payload)
+    return this.post<params.repayments.RepaymentListRes>('/back_mgr/query_payment_list', payload)
   }
 
   // 下载还款列表
-  downloadRepaymentList = (payload: params.RepaymentlistDownloadReq) => {
-    return this.download('/back_mgr/query_repayment_list', payload)
-  }
+  // downloadRepaymentList = (payload: params.RepaymentlistDownloadReq) => {
+  //   return this.download('/back_mgr/query_repayment_list', payload)
+  // }
 
   // 出催或入催逻辑(旧)
-  csOperate = (payload: params.CsParamsReq) => {
-    return this.postHeader<any>('/backManage/manual', payload, {}, '/collect')
-  }
+  // csOperate = (payload: params.CsParamsReq) => {
+  //   return this.postHeader<any>('/backManage/manual', payload, {}, '/collect')
+  // }
 
   // 出催或入催逻辑(新)
-  newCsOperate = (payload: params.NewCsParamsReq) => {
-    return this.postHeader<any>('/backManage/manual_operate', payload, {}, '/ncollect')
-  }
+  // newCsOperate = (payload: params.NewCsParamsReq) => {
+  //   return this.postHeader<any>('/backManage/manual_operate', payload, {}, '/ncollect')
+  // }
+
+  /************************************* 分割线 *********************************************************/
 
   // 获取产品详情列表
   getProductDetail = () => {
+    // return this.post<response.ProductDetail[]>('/back_mgr/query_management_info')
     return this.post<response.ProductDetail[]>('/back_mgr/read_product_list')
   }
 
