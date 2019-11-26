@@ -26,7 +26,7 @@ export interface MyOrderLists {
 }
 
 export interface MyOrderRes {
-  application_list: MyOrderLists[]
+  list: MyOrderLists[]
   page_count: number
   total_count: number
 }

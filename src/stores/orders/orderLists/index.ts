@@ -3,6 +3,10 @@ import api from 'api'
 import * as orders from 'interface/orders'
 import { Res, Page } from 'interface/common'
 const initPage = { page_size: 10, total_page: 0, total: 0, current: 0 }
+const handleRes = (data: Partial<orders.MyOrderLists>[]) => {
+  if (!data) return []
+  return data
+}
 interface UserProps {
   [p: string]: string | number
 }
@@ -18,12 +22,12 @@ class OrderLists {
   @action getOrderLists = async (payload: orders.OrderListsReq) => {
     const res: Res<any> = await api.getOrderList(payload as any)
     if (res.success) {
-      this.lists = res.data!.application_list
+      this.lists = handleRes(res.data!.list)
       this.page = {
         total_page: res.data!.page_count,
         total: res.data!.total_count
       }
-      this.status = res.data!.application_list.length > 0
+      this.status = handleRes(res.data!.list).length > 0
     }
   }
   // 获取操作用户
