@@ -3,8 +3,6 @@ import { observer, inject } from 'mobx-react'
 import { RouteComponentProps } from 'react-router-dom'
 import BreadCrumb from 'components/breadCrumb'
 import { RouteType, getbreadcrumbConfig, PermissionsType } from './config'
-// import { MixProps } from 'global/interface'
-// import { isPropsChanged, getStateFromProps, getIsEdit, vertifyReq, choseProductArr } from './utils'
 import { PermissionsList } from 'api/response'
 import Permissions from './permissions'
 import Role from 'stores/role'
@@ -44,10 +42,7 @@ export interface State {
   checkedList: any[]
   productOption: any[]
   selectIds: number[]
-  // permissionsList: PermissionsList[]
   permissionsTree: PermissionsType[]
-  //   increaseNum: number
-  //   checkProductList: number[]
 }
 
 @inject('role')
@@ -65,9 +60,7 @@ class RoleDetail extends React.Component<Props, State> {
       checkedList: [],
       productOption: [],
       selectIds: [],
-      // permissionsList: [],
       permissionsTree: []
-      //   ...getStateFromProps(props)
     }
   }
 
@@ -180,12 +173,7 @@ class RoleDetail extends React.Component<Props, State> {
   // 获取所有权限
   getPermissionsListData = async () => {
     const permissionsList = await this.props.role.getPermissionsListData()
-    console.log(permissionsList)
-    // this.setState({
-    //     permissionsList: [...permissionsList!]
-    // })
     const permissionsTree = this.permissiontListToTree(permissionsList!)
-    console.log(permissionsTree)
     this.setState({
       permissionsTree: [...permissionsTree]
     })
@@ -260,7 +248,6 @@ class RoleDetail extends React.Component<Props, State> {
 
   // 单选产品
   onChange = (checkedList: CheckboxValueType[]) => {
-    console.log(checkedList)
     const { productOption } = this.state
     this.setState({
       checkedList,

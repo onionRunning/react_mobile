@@ -14,6 +14,7 @@ class Approval {
   }
   @observable orderReason: response.OrderReason = {}
   @observable telephoneList: response.TelephoneList[] = []
+  @observable refuseReasonList: response.RefuseList[] = []
 
   // 获取审核结果
   @action getApprovalResult = async (payload: params.ApprovalResultReq) => {
@@ -37,7 +38,6 @@ class Approval {
   ) => {
     try {
       const res = await api.getTelephoneVerifyInfo(payload)
-      console.log(res)
       if (res.success && res.data) {
         callBack(res.data.CallRecord)
       } else {
@@ -55,7 +55,6 @@ class Approval {
   ) => {
     try {
       const res = await api.getCallRecord(payload)
-      console.log(res)
       if (res.success && res.data) {
         callBack(res.data || [])
       } else {
@@ -85,7 +84,35 @@ class Approval {
   @action updateCallInfo = async (payload: params.UpdateCallInfoReq, callBack: () => void) => {
     try {
       const res = await api.updateCallInfo(payload)
-      console.log(res)
+      if (res.success) {
+        callBack()
+      } else {
+        Message.error(res.info)
+      }
+    } catch (error) {
+      Message.error(error)
+    }
+  }
+
+  // 获取拒绝理由配置
+  @action getRefuseReason = async () => {
+    try {
+      const res = await api.getRefuseReason()
+      if (res.success) {
+        console.log(res.data)
+        this.refuseReasonList = res.data || []
+      } else {
+        Message.error(res.info)
+      }
+    } catch (error) {
+      Message.error(error)
+    }
+  }
+
+  // 审核订单
+  @action approvalOrder = async (payload: params.ApprovalOrder, callBack: () => void) => {
+    try {
+      const res = await api.approvalOrder(payload)
       if (res.success) {
         callBack()
       } else {

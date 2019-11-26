@@ -1,8 +1,7 @@
-import { wrapperSend, createRequest, Response, Res, ReqType, createHeaderRequest, HeaderType } from './request'
+import { wrapperSend, createRequest, Response, ReqType, createHeaderRequest, HeaderType } from './request'
 import { AxiosInstance } from 'axios'
 import * as response from './response'
 import * as params from './params'
-import { ApprovalResultReq, ApprovalResultRes } from 'interface/details/approval'
 import { UserInfoPayload } from 'interface/details/userInfo'
 import { CheckRepeatPayloadReq } from 'interface/details/checkRepeat'
 
@@ -141,11 +140,6 @@ export class Api {
     return this.download<any>('/back_mgr/query_loan_list', payload)
   }
 
-  // 定义所有的http请求方法
-  getRefuseReason = () => {
-    return this.post<Res<response.RefuseListResponse[]>>('/back_mgr/get_reason_config_list', { name: '3' })
-  }
-
   // 详情页获取用户银行卡第三方认证结果
   getBankAuthResult = (req: params.UserInfoPayload) => {
     return this.post<any>('/back_mgr/verify_bank_card', req)
@@ -183,6 +177,16 @@ export class Api {
     return this.post<response.RepaymentInfoList[]>(`/back_mgr/get_repayment_detail/${currentList}`, payload)
   }
 
+  // 获取拒绝理由配置
+  getRefuseReason = () => {
+    return this.post<response.RefuseList[]>('/back_mgr/get_reason_config_list')
+  }
+
+  // 审核订单
+  approvalOrder = (payload: params.ApprovalOrder) => {
+    return this.post(`/back_mgr/update_auditing_result`, payload)
+  }
+
   // 获取还款流水
   getRepaymentDetailFlow = (payload: params.RepaymentDetailReq, currentList: string) => {
     return this.post<response.RepaymentInfoFlowList[]>(`/back_mgr/get_repayment_flows/${currentList}`, payload)
@@ -209,11 +213,6 @@ export class Api {
   }
 
   /************************************ 分割线 *******************************************/
-
-  submitOrder = (payload: params.SubmitOrderPayload) => {
-    //
-    return this.post<any>(`/back_mgr/update_auditing_result`, payload)
-  }
 
   addApprovalCall = (payload: params.ApprovalCallPayload) => {
     return this.post<any>(`/back_mgr/add_approval_call_contacts`, payload)

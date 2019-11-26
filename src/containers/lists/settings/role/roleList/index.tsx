@@ -4,9 +4,7 @@ import { observer, inject } from 'mobx-react'
 import ListTitle from 'components/listTitle'
 import ListCondition from 'components/listCondition'
 import Table from 'components/table'
-
 import { condition, btnItems, getTableTitle } from './config'
-
 import { userPermission } from 'design/permission'
 import Role from 'stores/role'
 import { TableSortType, RoleListReq, RoleListItem } from 'interface/role'
@@ -62,7 +60,7 @@ class RoleList extends Component<Props, State> {
     )
   }
 
-  renderOperate = (text: string, record: any) => {
+  renderOperate = (text: string, record: RoleListItem) => {
     const { p40202, p40203 } = userPermission.finnalPermission!.role_func
     const { id } = record
     return (

@@ -139,22 +139,6 @@ export interface DownloadLendings extends LendingsPayload {
   exec_download: number
 }
 
-// 提交订单
-
-interface ReasonType {
-  reason_code: string
-  reason_value: string
-  id: number
-}
-export interface SubmitOrderPayload {
-  order_no: string
-  operator_name: string | null
-  operator_id: number
-  application_status: string
-  remark?: string
-  reasons: ReasonType[]
-}
-
 // 创建审批呼叫记录
 export interface ApprovalCallPayload {
   customer_id: number
@@ -450,6 +434,22 @@ export interface UpdateCallInfoReq {
   call_status: string
   reason: string
   remark: string
+}
+
+export interface ReasonType {
+  reason_code: string
+  reason_value: string
+  id: number
+}
+
+// 审核订单
+export interface ApprovalOrder {
+  order_no: string
+  operator_name: string | null
+  operator_id: number
+  application_status: string
+  reasons: ReasonType[]
+  remark?: string
 }
 
 // 获取还款详情

@@ -37,13 +37,6 @@ export interface LendingItem {
   is_in_batch_loan: boolean
 }
 
-// 拒绝原因列表的结果
-export interface RefuseListResponse {
-  reason_code: string
-  reason_value: string
-  id: number
-}
-
 // detail bottom
 // loan info 返回结果
 // export interface LoanInfoRes {
@@ -359,6 +352,13 @@ export interface CallUpRes {
   call_id: string
 }
 
+// 拒绝原因列表
+export interface RefuseList {
+  reason_code: string
+  reason_value: string
+  id: number
+}
+
 // 还款详情
 export interface RepaymentInfoList {
   extend_period: number
@@ -424,8 +424,8 @@ export interface LoanInfoList {
 // 短信记录
 export interface SMSRecordList {
   send_type: string
-  send_at: string
-  send_content: string
+  created_at: string
+  content: string
   send_status: string
 }
 
