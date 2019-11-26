@@ -10,3 +10,4 @@ if [ $line == 'error' ]
   then echo "禁止push"; exit 1;
 fi
 done
+echo '' > lastgitcommit.text

@@ -141,7 +141,7 @@ describe('Login', () => {
 
   it('handleLogin', () => {
     instance.handleLogin('true')
-    expect(mockProps.history.replace).toBeCalledWith('/password')
+    expect(mockProps.history.replace).toBeCalledWith('/auth')
     instance.handleLogin('false')
     expect(mockProps.history.replace).toBeCalledWith('/auth')
   })
