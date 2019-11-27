@@ -21,6 +21,9 @@ describe('BlackOrder', () => {
     },
     history: {
       push: jest.fn()
+    },
+    user: {
+      getUserListData: jest.fn()
     }
   }
   beforeEach(() => {

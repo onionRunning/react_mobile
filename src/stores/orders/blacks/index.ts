@@ -53,7 +53,7 @@ class Blacks {
   @action getBlackLists = async (payload: any) => {
     const res: Res<any> = await api.queryBlacklists(payload)
     if (res.success) {
-      this.blackLists = handleRes(res.data!.list)
+      this.blackLists = handleRes(res.data!.blacklist)
       this.blackListPage = {
         total_page: res.data!.page_count,
         total: res.data!.total_count

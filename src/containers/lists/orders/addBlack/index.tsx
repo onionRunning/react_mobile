@@ -7,17 +7,19 @@ import Table from 'components/table'
 import Message from 'components/message'
 import Common from 'stores/common'
 import Blacks from 'stores/orders/blacks'
+import User from 'stores/user'
 import * as utils from './utils'
 import { strTrim, composeFunc } from 'global/method'
 import errs from 'global/errors'
 import { MixProps } from 'global/interface'
-import { getSortValue, DEFAULT_PAGE, DEFAULT_PER_PAGE, FillInfo, RowProps } from '../const'
+import { getSortValue, DEFAULT_PAGE, DEFAULT_PER_PAGE, FillInfo, RowProps, handlerSelectCont } from '../const'
 
 import styles from '../myOrders/index.module.scss'
 
 interface Props extends MixProps {
   common: Common
   blacks: Blacks
+  user: User
 }
 interface State {
   request: FillInfo
@@ -30,7 +32,7 @@ interface State {
     operator_id: number
   }
 }
-@inject('common', 'blacks')
+@inject('common', 'blacks', 'user')
 @observer
 export class BlackOrder extends Component<Props, State> {
   constructor(props: Props) {
@@ -60,17 +62,19 @@ export class BlackOrder extends Component<Props, State> {
 
   render() {
     const { blackMngLists, blackMngPage, blackMngStatus } = this.props.blacks
+    const { userList } = this.props.user
     const tabTitle = utils.tabBlackTitle()
     const rowSelection: RowProps<FillInfo> = {
       onChange: this.changeChose, //勾选函数
       selectedRowKeys: this.state.checkRow // 用于重置
     }
+    const listData = handlerSelectCont(utils.searchBlackConfig, { products: [], loan_days: [] }, userList)
     return (
       <div className={styles.page}>
         <h3>Add To BlackList</h3>
         <div className="orders-condition-wrapper">
           <ListCondition
-            data={utils.searchBlackConfig}
+            data={listData}
             btnItems={utils.blackBtnItems() as BtnItem[]}
             onChange={this.handleFilter}
             btnClick={this.handleBtnClick}
@@ -141,7 +145,12 @@ export class BlackOrder extends Component<Props, State> {
 
   // 获取黑名单管理操作人列表
   getBlackPerson = () => {
-    // user
+    const payload = {
+      page: 1,
+      per_page: 10000,
+      frozen: 'normal' as 'normal'
+    }
+    this.props.user.getUserListData(payload)
   }
 
   // 选中黑名单

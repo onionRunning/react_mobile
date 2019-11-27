@@ -68,7 +68,7 @@ export const getTableTitle = (clickCallback: (args: {}) => MouseEventHandler<{}>
     dataIndex: 'type',
     key: 'type',
     render: (black_type: BlackType) => {
-      return <span>{blackReflect[black_type]}</span>
+      return <span>{black_type}</span>
     }
   },
   {
@@ -177,6 +177,6 @@ export const btnItems = () => {
 export const initRequest = {
   page: 1, // 当前页码
   per_page: 10, // 页码大小，每页条数
-  sort_value: 'added_at', // p4.3.1添加排序
+  sort_value: 'created_at',
   sort_order: 'desc'
 }

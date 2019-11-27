@@ -248,7 +248,7 @@ export interface ProductProps {
   products: string[]
   loan_days: number[]
 }
-export const handlerSelectCont = (config: any[], product?: ProductProps, person?: TempInfo[]) => {
+export const handlerSelectCont = (config: any[], product?: ProductProps, person?: any[]) => {
   const nConfig = [...config]
   // const { loan_days, products } = product!
   // const productContent = nConfig[handleData(config, 'product_name')]
