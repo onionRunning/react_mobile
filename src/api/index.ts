@@ -256,7 +256,7 @@ export class Api {
 
   // 获取全部订单列表
   getOrderList = (payload: params.OrderListReqState) => {
-    return this.post<response.OrderListRes>('/back_mgr/get_application_list_page', payload)
+    return this.post<response.OrderListRes>('/back_mgr/get_order_list', payload)
   }
 
   // 下载全部订单列表

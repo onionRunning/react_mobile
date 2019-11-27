@@ -5,8 +5,9 @@ const API_ROOT = '/api/v1'
 export interface Response {
   success: boolean
   info: string
-  err_msg?: string
   data: any
+  err_msg?: string
+  err_code?: string
 }
 
 export interface Res<T> {
@@ -101,7 +102,7 @@ export const wrapperSend = async <T>(requestFunc: requestFun, type?: string): Pr
     const { data } = res
     response = {
       success: type ? true : data.success,
-      info: data.info || data.err_msg,
+      info: data.info || data.err_msg || data.err_code,
       data: type ? data : data.data
     }
   } catch (err) {

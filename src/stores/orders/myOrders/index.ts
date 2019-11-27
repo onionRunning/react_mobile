@@ -2,6 +2,10 @@ import { observable, action } from 'mobx'
 import api from 'api'
 import * as orders from 'interface/orders'
 import { Res, Page } from 'interface/common'
+const handleRes = (data: Partial<orders.MyOrderLists>[]) => {
+  if (!data) return []
+  return data
+}
 const initPage = { page_size: 10, total_page: 0, total: 0, current: 0 }
 class MyOrders {
   // 我的订单列表
@@ -14,12 +18,12 @@ class MyOrders {
   @action getMyOrderLists = async (payload: orders.MyOrderReq) => {
     const res: Res<orders.MyOrderRes> = await api.myOrders(payload)
     if (res.success) {
-      this.myOrderLists = res.data!.application_list
+      this.myOrderLists = handleRes(res.data!.list)
       this.myOrderPage = {
         total_page: res.data!.page_count,
         total: res.data!.total_count
       }
-      this.myOrderStatus = res.data!.application_list.length > 0
+      this.myOrderStatus = handleRes(res.data!.list).length > 0
     }
   }
   // 抢单逻辑

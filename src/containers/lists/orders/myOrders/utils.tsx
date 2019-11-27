@@ -18,7 +18,8 @@ export const initRequest = {
   per_page: 10,
   loan_days: 0,
   sort_value: 'created_at',
-  sort_order: 'asc'
+  sort_order: 'asc',
+  product_name: 'JetPeso'
 }
 
 export const GRAB = hint.GRAB_SUCCESS

@@ -4,12 +4,12 @@ import api from '../../../api'
 jest.mock('api')
 const getSuccess = () => {
   return new Promise(resolve => {
-    resolve({ success: true, data: { application_list: [1, 2] } })
+    resolve({ success: true, data: { list: [1, 2] } })
   })
 }
 const getBlackListsSuccess = () => {
   return new Promise(resolve => {
-    resolve({ success: true, data: { data: [1, 2] } })
+    resolve({ success: true, data: { list: [1, 2] } })
   })
 }
 const requestSuccess = () => {
