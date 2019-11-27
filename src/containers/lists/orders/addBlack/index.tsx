@@ -171,7 +171,7 @@ export class BlackOrder extends Component<Props, State> {
   }
 
   showText = () => {
-    return <TextArea allowClear={true} autoSize={true} onChange={this.changeText} />
+    return <TextArea style={{ height: 150, overflow: 'scrollY' }} allowClear={true} onChange={this.changeText} />
   }
 
   changeText = (e: React.ChangeEvent<HTMLTextAreaElement | Record<string, string>>) => {

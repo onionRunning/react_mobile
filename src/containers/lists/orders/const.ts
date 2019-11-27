@@ -1,4 +1,14 @@
 import { ReactText } from 'react'
+
+// 订单 状态映射
+export const ORDER_TYPE_REFLECT: TempInfo = {
+  NewApplicationOrder: 'New Client',
+  RepeatApplicationOrder: 'Multiple Application',
+  QualityApplicationOrder: 'Repeat Client 01',
+  QualityApplicationOrderClassB: 'Repeat Client 02',
+  QualityApplicationOrderClassC: 'Repeat Client 03'
+}
+
 // 证件类型
 export const AllIdType = [
   {
@@ -149,8 +159,28 @@ export const DEFAULT_CHOSE = [
   {
     label: 'All', // 所有来源
     value: ''
+  },
+  {
+    label: 'JetPeso',
+    value: 'JetPeso'
   }
 ]
+
+export const DEFAULT_LOAN_DAYS = [
+  {
+    label: 'All',
+    value: 0
+  },
+  {
+    label: '7',
+    value: 7
+  },
+  {
+    label: '14',
+    value: 14
+  }
+]
+
 // interface
 export interface FillInfo {
   [p: string]: string | number | ReactText
@@ -220,12 +250,12 @@ export interface ProductProps {
 }
 export const handlerSelectCont = (config: any[], product?: ProductProps, person?: TempInfo[]) => {
   const nConfig = [...config]
-  const { loan_days, products } = product!
-  const productContent = nConfig[handleData(config, 'product_name')]
-  const dayContent = nConfig[handleData(config, 'loan_days')]
+  // const { loan_days, products } = product!
+  // const productContent = nConfig[handleData(config, 'product_name')]
+  // const dayContent = nConfig[handleData(config, 'loan_days')]
   const operateContent = nConfig[handleData(config, 'operator_id')]
-  productContent && (productContent.data = addFont(handArr(products)!))
-  dayContent && (dayContent.data = addFont(handArr(loan_days)!, 'special'))
+  // productContent && (productContent.data = addFont(handArr(products)!))
+  // dayContent && (dayContent.data = addFont(handArr(loan_days)!, 'special'))
   operateContent && (operateContent.data = filterPerson(handerPerson(person!)!))
   return nConfig
 }

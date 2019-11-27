@@ -46,7 +46,7 @@ export const MobileInfo: React.FC<Props> = (props: Props) => {
   const btnClick = (info: Info) => {
     changeType(info.stateName as string)
   }
-  const { app_info, device_info } = mobileInfos
+  const { app_info = [], device_info = {} } = mobileInfos || {}
   const configList = newFilterList([...app_info!], selectType)
   return (
     <div className={styles.cont_box}>

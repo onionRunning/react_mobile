@@ -3,7 +3,15 @@ import { formatTime, formatTf } from 'global/method'
 import hint from 'global/hints'
 import { formType } from 'global/constants'
 // import { userPermission } from 'design/permission'
-import { AllIdType, TimeRange, OrderAllStatus, OrderTypes } from '../const'
+import {
+  AllIdType,
+  TimeRange,
+  OrderAllStatus,
+  OrderTypes,
+  DEFAULT_LOAN_DAYS,
+  DEFAULT_CHOSE,
+  ORDER_TYPE_REFLECT
+} from '../const'
 import { TableTile } from 'global/interface'
 // interface
 export interface FillInfo {
@@ -37,7 +45,10 @@ export const getTableTitle = (clickCallback: (args: {}) => MouseEventHandler<{}>
       // 订单类型: 复贷订单\新订单 p4.1.1
       title: 'Order type',
       dataIndex: 'order_type',
-      key: 'order_type'
+      key: 'order_type',
+      render: (item: string) => {
+        return <span>{ORDER_TYPE_REFLECT[item]}</span>
+      }
     },
     {
       // 客户姓名
@@ -59,8 +70,8 @@ export const getTableTitle = (clickCallback: (args: {}) => MouseEventHandler<{}>
     {
       // 证件号码
       title: 'ID No',
-      dataIndex: 'id_num',
-      key: 'id_num'
+      dataIndex: 'id_number',
+      key: 'id_number'
     },
     {
       // 证件类型
@@ -74,7 +85,7 @@ export const getTableTitle = (clickCallback: (args: {}) => MouseEventHandler<{}>
       dataIndex: 'application_status',
       key: 'application_status',
       render: (item: string) => {
-        return <p>{formatTf(item)}</p>
+        return <span>{formatTf(item)}</span>
       }
     },
     {
@@ -145,14 +156,14 @@ export const filterData = [
     formType: formType.SELECT,
     label: 'Loan days:',
     key: 'loan_days',
-    data: []
+    data: DEFAULT_LOAN_DAYS
   },
   {
     // 所属产品
     formType: formType.SELECT,
     label: 'Product:',
     key: 'product_name',
-    data: [{ label: 'All', value: '' }]
+    data: DEFAULT_CHOSE
   }
 ]
 

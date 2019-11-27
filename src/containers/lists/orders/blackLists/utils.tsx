@@ -1,5 +1,5 @@
 import React, { MouseEventHandler } from 'react'
-import { formatTime } from 'global/method'
+import { formatTime, formatTf } from 'global/method'
 import { formType } from 'global/constants'
 
 import { AllIdType, TimeRange, TempInfo } from '../const'
@@ -43,7 +43,10 @@ export const getTableTitle = (clickCallback: (args: {}) => MouseEventHandler<{}>
   {
     title: 'Status',
     dataIndex: 'order_status', // 订单状态
-    key: 'order_status'
+    key: 'order_status',
+    render: (item: string) => {
+      return <span>{formatTf(item)}</span>
+    }
   },
   {
     title: 'Product', // 产品

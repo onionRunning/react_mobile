@@ -1,6 +1,6 @@
 import React from 'react'
 import { formType } from 'global/constants'
-import { formatTime, formatOfOrderType } from 'global/method'
+import { formatTime, formatOfOrderType, formatTf } from 'global/method'
 import { AllIdType, TimeRange, black_type, DEFAULT_CHOSE } from '../const'
 
 export const turnToNumber = ['operator_id']
@@ -60,7 +60,10 @@ export const tabBlackTitle = () => [
   {
     title: 'Status',
     dataIndex: 'application_status',
-    key: 'application_status'
+    key: 'application_status',
+    render: (item: string) => {
+      return <span>{formatTf(item)}</span>
+    }
   },
   {
     title: 'Product',

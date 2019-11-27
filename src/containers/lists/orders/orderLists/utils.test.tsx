@@ -18,8 +18,8 @@ describe('const test', () => {
       findTitle(
         utils.getTabTitle(() => {}),
         'Order type'
-      ).render('xx')
-    ).toEqual('xx')
+      ).render('xx').props
+    ).toEqual({ children: undefined })
   })
   it('getTabTitle2', () => {
     expect(
