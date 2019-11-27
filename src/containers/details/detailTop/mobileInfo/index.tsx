@@ -29,28 +29,30 @@ export const infoList = (data: Info[], object: Info) => {
 
 export const MobileInfo: React.FC<Props> = (props: Props) => {
   const [selectType, changeType] = useState<string>('all')
-  const [mobileInfos, changeInfo] = useState<MobileInfoProps>({ app_info: [], device_info: {} })
+  const [mobileInfos, changeInfo] = useState<MobileInfoProps>({ mobile_app_info: '', mobile_contact_info: '' })
   // 获取设备信息
   const getMobileInfo = async () => {
-    const { mobile_id, customer_id } = props.location.state
+    const { order_no } = props.location.state
     const params = {
-      user_id: customer_id,
-      mobile_id: mobile_id ? mobile_id : 0
+      order_no: order_no
     }
     await props.mobiles.getLoanInfoList(params)
     const fres: MobileInfoProps = props.mobiles.mobileInfo
     changeInfo(fres)
   }
-  const requestInfo = () => props.common.composeLoading(getMobileInfo) as any
+  const requestInfo = () => {
+    props.common.composeLoading(getMobileInfo)
+  }
   useEffect(requestInfo!, []) // 第二个参数 设置[] 表示只会触发1次
   const btnClick = (info: Info) => {
     changeType(info.stateName as string)
   }
-  const { app_info = [], device_info = {} } = mobileInfos || {}
-  const configList = newFilterList([...app_info!], selectType)
+  const { mobile_app_info = '' } = mobileInfos || {}
+  const appInfo = (mobile_app_info && JSON.parse(mobile_app_info)) || []
+  const configList = newFilterList([...appInfo!], selectType)
   return (
     <div className={styles.cont_box}>
-      <div className={styles.basic_info}>{infoList(DeviceInfoLabel, device_info)}</div>
+      <div className={styles.basic_info}>{infoList(DeviceInfoLabel, mobileInfos)}</div>
       <div className={styles.device_btn}>
         <ListBtn data={AppTypeButton} btnClick={btnClick} />
       </div>

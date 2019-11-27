@@ -6,8 +6,9 @@ export interface Info {
   [p: string]: string | number | boolean
 }
 export interface MobileInfoProps {
-  app_info: Info[]
-  device_info: Info
+  mobile_app_info: string
+  mobile_contact_info: string
+  [p: string]: string | number
 }
 
 const CHESE_YES = '是'
@@ -19,7 +20,7 @@ export const reflectRoot = (types: string) => {
 }
 // 展示value
 export const formatValue = (item: Record<string, string>, data: string) => {
-  if (!data) return ''
+  if (data === void 0) return ''
   if (item.type === ROOT) return reflectRoot(data)
   return data
 }
