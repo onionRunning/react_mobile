@@ -46,7 +46,7 @@ export class Lendings extends Component<Props, State> {
     }
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     this.getLendingList(this.state.request)
   }
   render() {

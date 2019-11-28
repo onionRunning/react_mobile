@@ -2,14 +2,17 @@ import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import Switch from 'components/switch'
 import Lendings from 'stores/lendings'
-
-import { turnToSwitchMsg } from './utils'
-import { autoLoanNoData, SwitchInterface, StateInterface, OnOff, switchStatus } from './config'
+import * as lendings from 'interface/lendings'
+import { autoLoanNoData, OnOff, switchStatus } from './config'
 import './index.scss'
 
 interface Props {
   lendings: Lendings
   modalClose: () => void
+}
+
+interface StateInterface {
+  switchMsg: lendings.AutoLoanItem[]
 }
 
 @inject('lendings')
@@ -57,7 +60,12 @@ export class AutoLendingConfirm extends Component<Props, StateInterface> {
     }
     return switchMsg.map((item, index) => {
       return (
-        <Switch checked={item.checked} onChangeSwitch={() => this.handleSwitch(item)} label={item.label} key={index} />
+        <Switch
+          checked={item.current_status === 'on'}
+          onChangeSwitch={() => this.handleSwitch(item)}
+          label={item.product_name}
+          key={index}
+        />
       )
     })
   }
@@ -66,15 +74,20 @@ export class AutoLendingConfirm extends Component<Props, StateInterface> {
     const { modalClose } = this.props
     const { switchMsg } = this.state
     modalClose()
-    this.switchAutoLoan(switchMsg)
+    const switches = switchMsg.map((item: lendings.AutoLoanItem) => {
+      return {
+        product_name: item.product_name,
+        switch_to: item.current_status
+      }
+    })
+    this.switchAutoLoan(switches)
   }
   // 处理切换状态
-  handleSwitch = (item: SwitchInterface) => {
+  handleSwitch = (item: lendings.AutoLoanItem) => {
     const msg = [...this.state.switchMsg]
     msg.map(el => {
-      if (el.id === item.id) {
-        el.checked = !el.checked
-        el.value = this.toggleValue(el.value)
+      if (el.product_name === item.product_name) {
+        el.current_status = this.toggleValue(item.current_status)
       }
       return el
     })
@@ -91,17 +104,16 @@ export class AutoLendingConfirm extends Component<Props, StateInterface> {
     checkAutoStatus(this.initAutoLoanMsg)
   }
   // 初始化自动放款开关数据
-  initAutoLoanMsg = (res: SwitchInterface[]) => {
-    const switchMsg = turnToSwitchMsg(res)
+  initAutoLoanMsg = (res: lendings.AutoLoanItem[]) => {
     this.setState({
-      switchMsg: switchMsg
+      switchMsg: res
     })
   }
 
-  switchAutoLoan = (req: SwitchInterface[]) => {
+  switchAutoLoan = (req: lendings.UpdateAutoLoanItem[]) => {
     // 处理自动放款
     const { UpdateAutoStatus } = this.props.lendings
-    UpdateAutoStatus(req)
+    UpdateAutoStatus({ switches: req })
   }
 }
 

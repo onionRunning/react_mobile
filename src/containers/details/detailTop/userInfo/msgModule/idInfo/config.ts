@@ -3,19 +3,19 @@ export const IdentityInfoInputTop = [
     title: 'Full name',
     type: 'text',
     widthStyle: 's-mini-large',
-    stateName: 'filtered_name'
+    stateName: 'customer_full_name'
   },
   {
     title: 'Mobbile number', // 客户电话
-    valueType: 'phone',
+    valueType: 'customer_phone',
     type: 'text',
     widthStyle: 'small',
-    stateName: 'phone'
+    stateName: 'customer_phone'
   },
   {
     title: 'Type of ID', // 证件类型
     widthStyle: 'small',
-    stateName: 'ID_type'
+    stateName: 'id_type'
   },
   {
     title: 'ID No', // 证件号码

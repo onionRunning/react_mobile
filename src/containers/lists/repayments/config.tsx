@@ -208,7 +208,7 @@ export const getTableTitle = (cb?: (args: {}, type: string) => MouseEventHandler
     {
       title: 'Loan Status', // 订单状态
       dataIndex: 'loan_status',
-      key: 'loan_status',
+      key: 'status',
       render: (text: string) => {
         return (
           <span className={STATUS_CONFIG[text as ConfigType].className}>{STATUS_CONFIG[text as ConfigType].label}</span>
@@ -231,8 +231,8 @@ export const getTableTitle = (cb?: (args: {}, type: string) => MouseEventHandler
     },
     {
       title: 'Repayment time', //还款时间
-      dataIndex: 'paid_off_time',
-      key: 'paid_off_time',
+      dataIndex: 'settled_at',
+      key: 'settled_at',
       render: (text: string) => {
         return <span>{formatDateDay(text)}</span>
       }

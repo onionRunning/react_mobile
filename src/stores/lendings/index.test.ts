@@ -45,13 +45,9 @@ describe('lendings', () => {
   })
   it('checkAutoStatus', async () => {
     api.getAutoStatus = requestAutoSuccess as any
-    await instance.checkAutoStatus()
-    expect(instance.autoStatus).toBeTruthy()
-  })
-  it('checkAutoStatus', async () => {
-    api.getAutoStatus = requestAutoSuccess as any
-    await instance.checkAutoStatus()
-    expect(instance.autoStatus).toBeTruthy()
+    const cb = jest.fn()
+    await instance.checkAutoStatus(cb)
+    expect(cb).toBeCalled()
   })
   it('UpdateAutoStatus', async () => {
     const cb = jest.fn()

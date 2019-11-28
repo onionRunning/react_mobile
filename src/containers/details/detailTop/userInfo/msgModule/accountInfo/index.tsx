@@ -18,14 +18,14 @@ interface Props extends MixProps {
 }
 export class CollectionAccountInfo extends Component<Props> {
   render() {
-    // 线上放款和线下放款显示不同
-    const type = this.props.data.account_type
+    // 银行卡, 电子钱包和线下放款三种不同显示
+    const type = this.props.data.user_account_type
     const config =
-      type === 'cash pickup'
-        ? CollectionAccountInfoInputCash
+      type === 'ewallet'
+        ? CollectionAccountInfoInputEwallet
         : type === 'bank'
         ? CollectionAccountInfoInputBank
-        : CollectionAccountInfoInputEwallet
+        : CollectionAccountInfoInputCash
     return (
       <div className="info-content-account">
         <FormInputListUI config={config} data={this.props.data || {}} />

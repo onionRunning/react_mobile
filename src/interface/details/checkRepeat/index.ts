@@ -15,6 +15,6 @@ export interface CheckRepeatResItem {
   result_value: string
 }
 
-export interface CheckRepeatRes {
-  CheckAndOther: CheckRepeatResItem[]
+export interface CheckRepeatPayloadRes {
+  data: CheckRepeatResItem[]
 }
