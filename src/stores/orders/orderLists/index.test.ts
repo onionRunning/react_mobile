@@ -4,7 +4,7 @@ import api from '../../../api'
 jest.mock('api')
 const getOrderListsSuccess = () => {
   return new Promise(resolve => {
-    resolve({ success: true, data: { application_list: [1, 2] } })
+    resolve({ success: true, data: { list: [1, 2] } })
   })
 }
 const requestSuccess = () => {

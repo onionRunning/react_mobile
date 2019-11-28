@@ -1,5 +1,5 @@
 import React from 'react'
-import { DispatchProp } from 'react-redux'
+// import { DispatchProp } from 'react-redux'
 import { RouteComponentProps } from 'react-router-dom'
 import { inject, observer } from 'mobx-react'
 import LeftNav from './leftNav'
@@ -15,7 +15,7 @@ interface Props extends RouteComponentProps<{ showType: string }> {
 }
 @inject('common')
 @observer
-export class Header extends React.Component<Props & Partial<DispatchProp>> {
+export class Header extends React.Component<Props & Partial<any>> {
   render() {
     return (
       <div className="header">

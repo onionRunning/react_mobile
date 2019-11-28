@@ -1,4 +1,4 @@
-export const BasicInfoInput = [
+export const BasicInfoConfig = [
   {
     title: 'Gender', // 性别
     stateName: 'user_sexual_distinction'
@@ -32,11 +32,9 @@ export const BasicInfoInput = [
     title: 'Purpose of loan', // 借款用途
     stateName: 'user_usage_of_loan'
   },
-  // TODO: 字段名不清楚
   {
     title: 'Personal residential address', // 个人住址
-    type: 'textarea',
     widthStyle: 'large',
-    stateName: 'address'
+    stateName: 'adress'
   }
 ]

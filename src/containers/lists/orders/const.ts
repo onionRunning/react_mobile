@@ -192,7 +192,7 @@ export const addFont = (val: TempInfo[], spec?: string) => {
 type Product = string | number
 export const handArr = (arr: Product[]) => {
   if (!Array.isArray(arr)) return [{ label: 'All', value: '' }]
-  return arr.map(item => {
+  return arr.map((item: Product) => {
     return { label: item, value: item }
   })
 }
@@ -200,18 +200,18 @@ export const handArr = (arr: Product[]) => {
 // 人员特殊处理
 export const handerPerson = (person: TempInfo[]) => {
   if (!Array.isArray(person)) return [{ label: 'All', value: '' }]
-  return person.map(item => {
+  return person.map((item: TempInfo) => {
     return { label: item.name, value: item.id }
   })
 }
 //筛选操作人 添加System
 export const filterPerson = (arr: TempInfo[]) => {
-  const hasSystem = arr.find(item => item.value === 0)
+  const hasSystem = arr.find((item: TempInfo) => item.value === 0)
   return hasSystem ? arr : arr.concat([{ label: 'System', value: 0 }])
 }
 // 数据填充
 export const handleData = (config: TempInfo[], product: string) => {
-  return config.findIndex(item => item.key === product)
+  return config.findIndex((item: TempInfo) => item.key === product)
 }
 
 export interface ProductProps {

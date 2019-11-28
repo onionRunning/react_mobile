@@ -59,57 +59,44 @@ export class Api {
 
   // 新版本登陆
   postLogin = (payload: params.loginParams.LoginReq) => {
-    return this.post<params.loginParams.LoginRes>(`/back_mgr//login`, payload)
+    return this.post<params.loginParams.LoginRes>(`/back_mgr/login`, payload)
     // return this.post<params.loginParams.LoginRes>(`/back_mgr/login`, payload)
-  }
-
-  // 修改密码
-  changePassword = (payload: params.ChangePasswordParams) => {
-    return this.post<any>(`/back_mgr/change_password`, payload)
   }
   // 请求订单列表
   postOrders = (payload: params.orders.OrderListsReq) => {
-    return this.post<any>(`/back_mgr/get_application_list`, payload)
-  }
-  // 下载订单列表
-  downloadOrders = (payload: params.PostOrdersPayload) => {
-    return this.download<any>(`/back_mgr/export_application_list`, payload)
+    return this.post<any>(`/back_mgr/get_order_list`, payload)
   }
   // 我的订单列表
   myOrders = (payload: params.orders.MyOrderReq) => {
-    return this.post<params.orders.MyOrderRes>(`/back_mgr/get_my_approval_list`, payload)
+    return this.post<params.orders.MyOrderRes>(`/back_mgr/get_my_order_list`, payload)
   }
 
   // 抢单
   grabOrders = (payload: params.orders.GrabOrderReq) => {
-    return this.post<string>(`/back_mgr/grab_application`, payload)
+    return this.post<string>(`/back_mgr/grab_order`, payload)
   }
   // 获取app联系人信息
   getAppContract = (payload: params.GetAppContractPayload, stuffix?: string) => {
     return this.postHeader<any>(`/back_mgr/get_mobile_contact_info`, payload, { stuffix })
   }
   // 获取用户信息
-  // getUserInfo = (payload: params.UserInfoPayload, stuffix?: string) => {
-  //   return this.postHeader(`/back_mgr/get_one_order/${stuffix}`, payload, { stuffix })
-  // }
-  getUserInfo = (payload: UserInfoPayload, current?: string) => {
-    return this.post(`/back_mgr/get_one_order/${current}`, payload)
+  getUserInfo = (payload: UserInfoPayload) => {
+    return this.post(`/back_mgr/query_management_info`, payload)
   }
 
   // 获取设备信息
   getMobileInfo = (payload: params.MobilePayload, stuffix?: string) => {
-    return this.postHeader<any>(`/mobile_info/app/query/order_list`, payload, { stuffix })
+    return this.postHeader<any>(`/back_mgr/device_info`, payload, { stuffix })
   }
   /*************************************查重检测分割线********************************************/
 
   // 查重检测
   getRepeatList = (payload: CheckRepeatPayloadReq) => {
-    return this.post<any>(`/back_mgr/get_danger_list`, payload)
+    return this.post(`/back_mgr/get_danger_list`, payload)
   }
-  ///back_mgr/check_duplicate
   // 重新查重检测
   checkRepeatList = (payload: CheckRepeatPayloadReq) => {
-    return this.post<any>(`/back_mgr/check_duplicate`, payload)
+    return this.post(`/back_mgr/check_duplicate`, payload)
   }
 
   /*********************************** 放款管理分割线 ***********************************************/
@@ -130,20 +117,16 @@ export class Api {
   }
 
   // 获取自动放款开关
-  getAutoStatus = (payload?: string[]) => {
-    return this.post('/back_mgr/auto_payout_status', payload)
+  getAutoStatus = () => {
+    return this.post('/back_mgr/auto_payout_status')
   }
 
   // 开启或关闭开关,手动放款
-  updateAutoStatus = (payload: params.lendings.UpdateAutoReqItem[]) => {
-    // return this.post('/back_mgr/update_auto_payout', payload)
-    return this.post('/set_auto_loan', payload)
+  updateAutoStatus = (payload: params.lendings.UpdateAutoLoanReq) => {
+    return this.post('/back_mgr/update_auto_payout', payload)
   }
 
-  // 下载放款列表
-  // downloadLendings = (payload: params.DownloadLendings) => {
-  //   return this.download<any>('/back_mgr/query_loan_list', payload)
-  // }
+  /************************************分割线*******************************************************/
 
   // 定义所有的http请求方法
   getRefuseReason = () => {
@@ -249,21 +232,6 @@ export class Api {
     return this.post<params.repayments.RepaymentListRes>('/back_mgr/query_payment_list', payload)
   }
 
-  // 下载还款列表
-  // downloadRepaymentList = (payload: params.RepaymentlistDownloadReq) => {
-  //   return this.download('/back_mgr/query_repayment_list', payload)
-  // }
-
-  // 出催或入催逻辑(旧)
-  // csOperate = (payload: params.CsParamsReq) => {
-  //   return this.postHeader<any>('/backManage/manual', payload, {}, '/collect')
-  // }
-
-  // 出催或入催逻辑(新)
-  // newCsOperate = (payload: params.NewCsParamsReq) => {
-  //   return this.postHeader<any>('/backManage/manual_operate', payload, {}, '/ncollect')
-  // }
-
   /************************************* 分割线 *********************************************************/
 
   // 获取产品详情列表
@@ -274,7 +242,7 @@ export class Api {
 
   // 获取全部订单列表
   getOrderList = (payload: params.OrderListReqState) => {
-    return this.post<response.OrderListRes>('/back_mgr/get_application_list_page', payload)
+    return this.post<response.OrderListRes>('/back_mgr/get_order_list', payload)
   }
 
   // 下载全部订单列表
@@ -364,10 +332,10 @@ export class Api {
     return this.download<any>(`/back_mgr/query_call_recording`, payload)
   }
 
-  // 线下还款提交
-  submitOfflineRepay = (payload: params.OfflineRepayReq) => {
-    return this.post('/back_mgr/offline_repayment', payload)
-  }
+  // // 线下还款提交
+  // submitOfflineRepay = (payload: params.OfflineRepayReq) => {
+  //   return this.post('/back_mgr/offline_repayment', payload)
+  // }
 
   // 获取还款试算
   getRepaymentTrail = (payload: params.RepaymentTrial) => {
@@ -386,27 +354,22 @@ export class Api {
 
   // 黑名单管理列表
   queryBlacklistManagementLists = (payload: any) => {
-    return this.post<any>('/back_mgr/get_order_page_blacklist', payload)
+    return this.post<any>('/back_mgr/get_order_list', payload)
   }
 
   // 加入黑名单
   addBlacklist = (payload: any) => {
-    return this.post<any>('/blacklist/add', payload)
+    return this.post<any>('/back_mgr/add_black', payload)
   }
 
   // 黑名单列表
   queryBlacklists = (payload: any) => {
-    return this.post<any>('/back_mgr/query_blacklist', payload)
-  }
-
-  // 下载黑名单列表
-  downloadBlacklists = (payload: any) => {
-    return this.download<any>('/back_mgr/query_blacklist', payload)
+    return this.post<any>('/back_mgr/blacklist', payload)
   }
 
   // 移除黑名单
   removeBlacklist = (payload: any) => {
-    return this.post<any>('/back_mgr/remove_blacklist', payload)
+    return this.post<any>('/back_mgr/remove_black', payload)
   }
 
   // 批量放款

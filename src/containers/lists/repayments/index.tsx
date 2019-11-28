@@ -48,7 +48,7 @@ export class Repayments extends Component<Props, State> {
       request: {
         page: 1, // 当前页
         per_page: 10, // 每页数据条数
-        sort_value: 'actual_loan_time', // 需要排序字段
+        sort_value: 'Disbursement succeed time (ActualLoanTime), Due date(DueDate)', // 需要排序字段
         sort_order: 'desc' // 排序方法
       },
       showRepayPop: false

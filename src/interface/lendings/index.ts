@@ -31,9 +31,21 @@ export interface CancelLoanReq {
 }
 
 // 自动放款开关
-export interface UpdateAutoReqItem {
+export interface AutoLoanItem {
+  current_status: string
+  product_name: string
+}
+export interface AutoLoanRes {
+  current_statuses: AutoLoanItem[]
+}
+
+// 更新自动放款开关
+export interface UpdateAutoLoanItem {
   product_name: string
   switch_to: string
+}
+export interface UpdateAutoLoanReq {
+  switches: UpdateAutoLoanItem[]
 }
 
 // ===================

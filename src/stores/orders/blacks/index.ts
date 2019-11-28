@@ -3,6 +3,11 @@ import api from 'api'
 // import * as orders from 'interface/orders'
 import { Res, Page } from 'interface/common'
 const initPage = { page_size: 10, total_page: 0, total: 0, current: 0 }
+
+const handleRes = (data: BlackLists[]) => {
+  if (!data) return []
+  return data
+}
 interface BlackLists {
   [p: string]: string | number
 }
@@ -25,12 +30,12 @@ class Blacks {
     const res: Res<any> = await api.queryBlacklistManagementLists(payload)
     console.log(res, this, 'res')
     if (res.success) {
-      this.blackMngLists = res.data!.application_list
+      this.blackMngLists = handleRes(res.data!.list)
       this.blackMngPage = {
         total_page: res.data!.page_count,
         total: res.data!.total_count
       }
-      this.blackMngStatus = res.data!.application_list.length > 0
+      this.blackMngStatus = handleRes(res.data!.list).length > 0
     }
   }
   // 加入黑名单
@@ -45,12 +50,12 @@ class Blacks {
   @action getBlackLists = async (payload: any) => {
     const res: Res<any> = await api.queryBlacklists(payload)
     if (res.success) {
-      this.blackLists = res.data!.data
+      this.blackLists = handleRes(res.data!.list)
       this.blackListPage = {
         total_page: res.data!.page_count,
         total: res.data!.total_count
       }
-      this.blackListStatus = res.data!.data.length > 0
+      this.blackListStatus = handleRes(res.data!.list).length > 0
     }
   }
   // 移除黑名单

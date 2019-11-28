@@ -26,8 +26,8 @@ export class UserInfo extends Component<Props> {
   async componentDidMount() {
     // 获取单个订单所有信息
     const { getUserInfo } = this.props.userDetail
-    const { order_no, viewType, customer_id } = this.props.location.state
-    await getUserInfo({ order_no, customer_id }, viewType)
+    const { order_no } = this.props.location.state
+    await getUserInfo({ order_no })
     this.setState({
       userDetail: this.props.userDetail
     })
@@ -35,21 +35,20 @@ export class UserInfo extends Component<Props> {
 
   render() {
     const { viewType } = this.props.location.state
-    // const { personal, work, id, contact, account, device_info, order_msg } = this.props.userDetail
-    const { userInfo, deviceInfo, extraInfo, device_info } = this.props.userDetail
+    const { userInfo, deviceInfo, extraInfo, orderInfo } = this.props.userDetail
     return (
       <div className="information-content">
         <div className="left">
           <OrderInfo {...this.props} currentList={viewType} />
-          <BaseInfo {...this.props} data={userInfo} />
+          <BaseInfo {...this.props} data={{ ...userInfo, ...extraInfo }} />
           <WorkInfo {...this.props} data={userInfo} />
           <Equipment {...this.props} data={deviceInfo} />
         </div>
         <div className="right">
-          <IdInfo {...this.props} data={userInfo} showPicture={this.showPicture} />
+          <IdInfo {...this.props} data={{ ...userInfo, ...orderInfo }} showPicture={this.showPicture} />
           <ContactInfo {...this.props} data={userInfo} />
           <AccountInfo {...this.props} data={{ ...extraInfo, ...userInfo }} />
-          <GPSInfo {...this.props} data={device_info} />
+          <GPSInfo {...this.props} data={deviceInfo} />
         </div>
       </div>
     )

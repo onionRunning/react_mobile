@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { inject } from 'mobx-react'
 import { observer } from 'mobx-react-lite'
 import Table from 'components/table'
@@ -6,7 +6,6 @@ import ListBtn from 'components/listBtn'
 import Common from 'stores/common'
 import MobileStore from 'stores/details/mobileInfo'
 import { formatValue, tableTitle, DeviceInfoLabel, AppTypeButton, Info, MobileInfoProps, newFilterList } from './utils'
-import { useDidmount } from './hooks'
 import styles from './index.module.scss'
 import { MixProps } from 'global/interface'
 
@@ -15,7 +14,7 @@ interface Props extends MixProps {
   mobiles: MobileStore
 }
 // 资料信息
-const infoList = (data: Info[], object: Info) => {
+export const infoList = (data: Info[], object: Info) => {
   return data.map((item, key) => {
     return (
       <div className={styles.info_item} key={key}>
@@ -28,7 +27,7 @@ const infoList = (data: Info[], object: Info) => {
   })
 }
 
-const MobileInfo: React.FC<Props> = (props: Props) => {
+export const MobileInfo: React.FC<Props> = (props: Props) => {
   const [selectType, changeType] = useState<string>('all')
   const [mobileInfos, changeInfo] = useState<MobileInfoProps>({ app_info: [], device_info: {} })
   // 获取设备信息
@@ -42,8 +41,8 @@ const MobileInfo: React.FC<Props> = (props: Props) => {
     const fres: MobileInfoProps = props.mobiles.mobileInfo
     changeInfo(fres)
   }
-  useDidmount(async () => props.common.composeLoading(getMobileInfo))
-
+  const requestInfo = () => props.common.composeLoading(getMobileInfo) as any
+  useEffect(requestInfo!, []) // 第二个参数 设置[] 表示只会触发1次
   const btnClick = (info: Info) => {
     changeType(info.stateName as string)
   }

@@ -126,8 +126,10 @@ export class Login extends Component<utils.Props, utils.State> {
     if (res.success) {
       utils.saveLocalData(res)
       this.handleLogin(res.data!.is_first_login!)
-      this.props.common.changeLoading(false)
+    } else {
+      message.error(res.info)
     }
+    this.props.common.changeLoading(false)
   }
   // 测试
   // 登陆成功后
@@ -135,7 +137,7 @@ export class Login extends Component<utils.Props, utils.State> {
     api.changeRequest(createRequest())
     userPermission.update(JSON.parse(sessionStorage.getItem('permissionArr')!))
     if (isFirstLogin) {
-      this.props.history.replace('/password')
+      this.props.history.replace('/auth')
       return
     }
     this.props.history.replace('/auth')

@@ -23,7 +23,7 @@ export const formatValue = (item: Record<string, string>, data: string) => {
   if (item.type === ROOT) return reflectRoot(data)
   return data
 }
-// 整合成列表需要的数据
+// 整合成列表需要的数据 TODO: 需要重构
 export const newFilterList = (list: Info[], type: string) => {
   let result = type === 'all' ? list : list.filter(item => item[`is_${type === 'loan' ? 'fin' : 'gps'}_app`] === true)
   let new_result = []

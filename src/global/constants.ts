@@ -68,7 +68,7 @@ export const productOption = [
 
 export let imgPath = '/'
 if (process.env.NODE_ENV === 'development') {
-  imgPath = 'http://172.16.0.40:32004/'
+  imgPath = 'http://172.16.0.30:31020/'
 }
 
 export interface BtnItem {

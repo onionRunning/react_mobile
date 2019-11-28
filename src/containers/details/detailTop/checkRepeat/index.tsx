@@ -47,11 +47,11 @@ export class CheckRepeat extends Component<Props, State> {
     } = this.props.location
     getCheckLists({ order_no }, this.renderContent)
   }
-  renderContent = (res: CheckRepeatResItem[]) => {
-    if (res) {
+  renderContent = (res: any) => {
+    if (res || res.list === null) {
       this.props.common.changeLoading(false)
       this.setState({
-        currentList: res
+        currentList: res.list
       })
     }
   }
@@ -70,13 +70,13 @@ export class CheckRepeat extends Component<Props, State> {
     return (
       <div className={styles.checkRepeatWrap}>
         <div className={styles.tableWrap}>
+          {viewType === intoDetail.MYORDER && (
+            <button className={`${styles.rematchBtn} theme-btn`} onClick={this.newClick}>
+              Rematch
+            </button>
+          )}
           <Table tableTitle={headerLists} tableData={currentList} />
         </div>
-        {viewType === intoDetail.MYORDER && (
-          <button className={`${styles.rematchBtn} theme-btn`} onClick={this.newClick}>
-            Rematch
-          </button>
-        )}
       </div>
     )
   }

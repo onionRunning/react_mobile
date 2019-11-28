@@ -46,7 +46,7 @@ export const headerLists = [
     key: 'order_status'
   },
   {
-    title: '',
+    title: 'Operating',
     dataIndex: 'operating',
     key: 'operating'
   }

@@ -1,7 +1,6 @@
 // 获取用户信息
 export interface UserInfoPayload {
   order_no: string
-  customer_id: string
 }
 
 // 用户信息

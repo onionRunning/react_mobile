@@ -4,7 +4,10 @@ import { ShallowWrapper, shallow } from 'enzyme'
 
 describe('ContactInfo', () => {
   const mockProps = {
-    data: []
+    data: {
+      user_contact_info:
+        '[{"user_relation_ship":"Father","user_name":"ba ba","user_mobile":"1234567890","user_contact_type":"immediate"}]'
+    }
   }
   let component: ShallowWrapper<ContactInfo>
 

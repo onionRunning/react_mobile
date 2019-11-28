@@ -19,7 +19,7 @@ interface Props extends MixProps {
 export class CollectionAccountInfo extends Component<Props> {
   render() {
     // 银行卡, 电子钱包和线下放款三种不同显示
-    const type = this.props.data.account_type
+    const type = this.props.data.user_account_type
     const config =
       type === 'ewallet'
         ? CollectionAccountInfoInputEwallet
