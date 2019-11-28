@@ -16,7 +16,7 @@ interface Props {
 export class ContactInfo extends Component<Props> {
   render() {
     const { data } = this.props
-    const newData = JSON.parse(data.user_contact_info)
+    const newData = data.user_contact_info && JSON.parse(data.user_contact_info)
     return (
       <div className="info-content-contact">
         {newData &&
