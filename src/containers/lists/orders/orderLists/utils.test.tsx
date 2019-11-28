@@ -14,7 +14,7 @@ describe('const test', () => {
 
   it('getTabTitle', () => {
     expect(utils.getTabTitle(() => {}).length).toEqual(12)
-    expect(findTitle(utils.getTabTitle(() => {}), 'Order type').render('xx')).toEqual('xx')
+    expect(findTitle(utils.getTabTitle(() => {}), 'Order type').render('xx').props).toEqual({ children: undefined })
   })
   it('getTabTitle2', () => {
     expect(findTitle(utils.getTabTitle(() => {}), 'Application time').render('xx').type).toEqual('span')

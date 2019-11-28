@@ -119,16 +119,24 @@ export class MyOrder extends Component<Props, State> {
     const id = sessionStorage.getItem('userId')
     const params = {
       operator_id: parseInt(id!, 10),
-      operator_name: sessionStorage.getItem('username')!
+      operator_name: sessionStorage.getItem('username')!,
+      product_name: this.state.request.product_name
     }
     this.props.myOrders.getGrabOrder(params, {
       successCb: this.successCb,
-      errCb: Message.error
+      errCb: this.errorCb
     })
   }
-  successCb = () => {
-    Message.info(utils.GRAB)
+  successCb = (info: string) => {
+    if (typeof info === 'string' && info) {
+      Message.warning(info)
+    } else {
+      Message.info(utils.GRAB)
+    }
     this.getMyOrdersList()
+  }
+  errorCb = (errs: string) => {
+    Message.error(errs)
   }
   // 进入详情
   replaceDetail = (item: ItemProps) => () => {

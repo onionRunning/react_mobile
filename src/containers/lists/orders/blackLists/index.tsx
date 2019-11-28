@@ -6,10 +6,11 @@ import Table from 'components/table'
 import Message from 'components/message'
 import Common from 'stores/common'
 import Blacks from 'stores/orders/blacks'
+import User from 'stores/user'
 import * as utils from './utils'
 import { strTrim, composeFunc } from 'global/method'
 import errs from 'global/errors'
-import { getSortValue, DEFAULT_PAGE, DEFAULT_PER_PAGE, RowProps, FillInfo } from '../const'
+import { getSortValue, DEFAULT_PAGE, DEFAULT_PER_PAGE, RowProps, FillInfo, handlerSelectCont } from '../const'
 import { MixProps } from 'global/interface'
 import { intoDetail } from 'global/constants'
 import styles from '../myOrders/index.module.scss'
@@ -17,6 +18,7 @@ import styles from '../myOrders/index.module.scss'
 interface Props extends MixProps {
   common: Common
   blacks: Blacks
+  user: User
 }
 interface State {
   request: FillInfo
@@ -27,7 +29,7 @@ interface State {
     operator_id: number
   }
 }
-@inject('common', 'blacks')
+@inject('common', 'blacks', 'user')
 @observer
 export class BlackLists extends Component<Props, State> {
   constructor(props: Props) {
@@ -58,17 +60,19 @@ export class BlackLists extends Component<Props, State> {
 
   render() {
     const { blackLists, blackListPage, blackListStatus } = this.props.blacks
+    const { userList } = this.props.user
     const tabTitle = utils.getTableTitle(this.replaceDetail)
     const rowSelection: RowProps<FillInfo> = {
       onChange: this.changeChose, //勾选函数
       selectedRowKeys: this.state.checkRow // 用于重置
     }
+    const listData = handlerSelectCont(utils.filterConfig, { products: [], loan_days: [] }, userList)
     return (
       <div className={styles.page}>
         <h3>BlankList Order</h3>
         <div className="orders-condition-wrapper">
           <ListCondition
-            data={utils.filterConfig}
+            data={listData}
             btnItems={utils.btnItems() as BtnItem[]}
             onChange={this.handleFilter}
             btnClick={this.handleBtnClick}
@@ -89,7 +93,10 @@ export class BlackLists extends Component<Props, State> {
   }
   // 表单筛选
   handleFilter = (v: FillInfo) => {
-    const vals = strTrim(v.value)
+    let vals = strTrim(v.value)
+    if (utils.turnToNumber.includes(v.key as string)) {
+      vals = v.value ? Number(v.value) : 0
+    }
     this.setState({
       request: { ...this.state.request, [v.key]: vals }
     })
@@ -126,6 +133,12 @@ export class BlackLists extends Component<Props, State> {
 
   getBlackPerson = () => {
     // 获取管理黑名单用户
+    const payload = {
+      page: 1,
+      per_page: 10000,
+      frozen: 'normal' as 'normal'
+    }
+    this.props.user.getUserListData(payload)
   }
 
   // 选择要移除黑名单

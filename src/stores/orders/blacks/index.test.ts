@@ -9,7 +9,7 @@ const getSuccess = () => {
 }
 const getBlackListsSuccess = () => {
   return new Promise(resolve => {
-    resolve({ success: true, data: { list: [1, 2] } })
+    resolve({ success: true, data: { blacklist: [1, 2] } })
   })
 }
 const requestSuccess = () => {

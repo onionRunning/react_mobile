@@ -1,5 +1,6 @@
 import { observable, action } from 'mobx'
 import api from 'api'
+import Message from 'components/message'
 import * as orders from 'interface/orders'
 import { Res, Page } from 'interface/common'
 const handleRes = (data: Partial<orders.MyOrderLists>[]) => {
@@ -25,13 +26,14 @@ class MyOrders {
       }
       this.myOrderStatus = handleRes(res.data!.list).length > 0
     }
+    !res.success && Message.error(res.info)
   }
   // 抢单逻辑
   @action getGrabOrder = async (payload: orders.GrabOrderReq, callBack: orders.CallBacks) => {
     const { successCb, errCb } = callBack
     const res: Res<string> = await api.grabOrders(payload)
     if (res.success) {
-      successCb()
+      successCb(res.data)
       return
     }
     errCb(res.info)
