@@ -33,7 +33,7 @@ class MyOrders {
     const { successCb, errCb } = callBack
     const res: Res<string> = await api.grabOrders(payload)
     if (res.success) {
-      successCb()
+      successCb(res.data)
       return
     }
     errCb(res.info)

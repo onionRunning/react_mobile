@@ -127,8 +127,12 @@ export class MyOrder extends Component<Props, State> {
       errCb: this.errorCb
     })
   }
-  successCb = () => {
-    Message.info(utils.GRAB)
+  successCb = (info: string) => {
+    if (typeof info === 'string' && info) {
+      Message.warning(info)
+    } else {
+      Message.info(utils.GRAB)
+    }
     this.getMyOrdersList()
   }
   errorCb = (errs: string) => {
