@@ -2,15 +2,17 @@ import React from 'react'
 import { observer, inject } from 'mobx-react'
 import { RouteComponentProps } from 'react-router-dom'
 import BreadCrumb from 'components/breadCrumb'
-import { RouteType, getbreadcrumbConfig, PermissionsType } from './config'
-import { PermissionsList } from 'api/response'
 import Permissions from './permissions'
+import Message from 'components/message'
+import Btn from '../../user/userDetail/btn'
+import { RouteType, getbreadcrumbConfig, PermissionsType, BtnMap } from './config'
+import { PermissionsList } from 'api/response'
 import Role from 'stores/role'
 import { ListItem } from 'components/select'
 import { Checkbox } from 'antd'
-import styles from './index.module.scss'
 import { CheckboxValueType } from 'antd/lib/checkbox/Group'
 import { CheckboxChangeEvent } from 'antd/lib/checkbox'
+import styles from './index.module.scss'
 
 const CheckboxGroup = Checkbox.Group
 
@@ -33,15 +35,15 @@ export interface Props extends RouteComponentProps<MatchParams> {
 interface Request {
   name: string
   description: string
+  checkedList: CheckboxValueType[]
+  selectIds: number[]
 }
 
 export interface State {
   request: Request
   indeterminate: boolean
   checkAll: boolean
-  checkedList: any[]
   productOption: any[]
-  selectIds: number[]
   permissionsTree: PermissionsType[]
 }
 
@@ -53,13 +55,13 @@ class RoleDetail extends React.Component<Props, State> {
     this.state = {
       request: {
         name: '',
-        description: ''
+        description: '',
+        checkedList: [],
+        selectIds: []
       },
       indeterminate: true,
       checkAll: false,
-      checkedList: [],
       productOption: [],
-      selectIds: [],
       permissionsTree: []
     }
   }
@@ -71,9 +73,9 @@ class RoleDetail extends React.Component<Props, State> {
   }
 
   render() {
-    const { name, description } = this.state.request
+    const { name, description, checkedList, selectIds } = this.state.request
     const { type } = this.props.match.params
-    const { productOption, selectIds, permissionsTree } = this.state
+    const { productOption, permissionsTree } = this.state
     return (
       <div className={styles.wrap}>
         <div className={styles.header_wrap}>
@@ -109,12 +111,8 @@ class RoleDetail extends React.Component<Props, State> {
               />
             </div>
           </div>
-          <div className={styles.split_line}>
-            <span />
-            <span>Produce setting</span>
-            <span />
-          </div>
           <div className={styles.product_wrap}>
+            <div className={styles.product_labe}>support produce:</div>
             <div className={styles.check_wrap}>
               <Checkbox
                 indeterminate={this.state.indeterminate}
@@ -126,7 +124,7 @@ class RoleDetail extends React.Component<Props, State> {
               </Checkbox>
               <CheckboxGroup
                 options={productOption}
-                value={this.state.checkedList}
+                value={checkedList}
                 onChange={this.onChange}
                 disabled={type === RouteType.Detail}
               />
@@ -145,6 +143,9 @@ class RoleDetail extends React.Component<Props, State> {
               isEdit={type !== RouteType.Detail}
             />
           </div>
+          <div className={styles.operate_wrap}>
+            <Btn btnData={BtnMap[type]} clickProps={this.operateBtn} />
+          </div>
         </div>
       </div>
     )
@@ -158,15 +159,15 @@ class RoleDetail extends React.Component<Props, State> {
   // 获取角色详情
   getRoleDetailData = async (id: number) => {
     const roleDetail = await this.props.role.getRoleDetailDate({ id })
-    const { role_name, notes, product_id, access_id } = roleDetail!
+    const { role_name, notes, product_id = [], access_id = [] } = roleDetail!
     this.setState({
       request: {
         ...this.state.request,
         name: role_name,
-        description: notes
-      },
-      checkedList: [...product_id],
-      selectIds: [...access_id]
+        description: notes,
+        checkedList: [...product_id],
+        selectIds: [...access_id]
+      }
     })
   }
 
@@ -209,7 +210,7 @@ class RoleDetail extends React.Component<Props, State> {
 
   // 获取产品列表数据
   getProductListData = async () => {
-    const list = await this.props.role.getProductListData()
+    const list = (await this.props.role.getProductListData()) || []
     const transfromList = list!.map(el => {
       return { id: el.id, label: el.name, value: el.id }
     })
@@ -233,14 +234,17 @@ class RoleDetail extends React.Component<Props, State> {
   onCheckAllChange = (e: CheckboxChangeEvent) => {
     const { checked } = e.target
     const { productOption } = this.state
-    let selectedProduct: string[] = []
+    let selectedProduct: CheckboxValueType[] = []
     if (checked) {
       selectedProduct = productOption.map(el => {
         return el.value
       })
     }
     this.setState({
-      checkedList: selectedProduct,
+      request: {
+        ...this.state.request,
+        checkedList: selectedProduct
+      },
       indeterminate: false,
       checkAll: checked
     })
@@ -250,7 +254,10 @@ class RoleDetail extends React.Component<Props, State> {
   onChange = (checkedList: CheckboxValueType[]) => {
     const { productOption } = this.state
     this.setState({
-      checkedList,
+      request: {
+        ...this.state.request,
+        checkedList
+      },
       indeterminate: !!checkedList.length && checkedList.length < productOption.length,
       checkAll: checkedList.length === productOption.length
     })
@@ -259,8 +266,49 @@ class RoleDetail extends React.Component<Props, State> {
   // 选择权限
   handleChangeSelect = (selectIds: number[]) => {
     this.setState({
-      selectIds: [...selectIds]
+      request: {
+        ...this.state.request,
+        selectIds
+      }
     })
+  }
+
+  // 点击相应的详情操作
+  operateBtn = (v: string) => {
+    v === 'return' && this.goBack()
+    v === 'add' && this.operateRole()
+    v === 'edit' && this.operateRole()
+  }
+
+  // 返回上列表页
+  goBack = () => {
+    this.props.history.goBack()
+  }
+
+  operateRole = async () => {
+    const { id, type } = this.props.match.params
+    const { name, description, checkedList, selectIds } = this.state.request
+    const errInfo = this.vertifyReq()
+    if (errInfo) {
+      Message.warning(errInfo)
+      return
+    }
+    const request = {
+      role_name: name,
+      notes: description,
+      access_id: selectIds,
+      product_id: checkedList
+    }
+    type === RouteType.Add && (await this.props.role.addRole(request, this.goBack))
+    type === RouteType.Edit && (await this.props.role.editRole({ ...request, id: +id }, this.goBack))
+  }
+
+  vertifyReq = () => {
+    const { name, description, selectIds, checkedList } = this.state.request
+    if (!name) return 'Please fill in the name'
+    if (!description) return 'Please fill in the description!'
+    if (!selectIds.length) return 'Please select the permissions'
+    if (!checkedList.length) return 'Please select the product'
   }
 }
 

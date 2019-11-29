@@ -7,7 +7,6 @@ import { SMSRecordColumns, SendMsg, SendMsgBtn, SendMsgType } from './config'
 import { MixProps } from 'global/interface'
 import DetailsStore from 'stores/details'
 import CommonStore from 'stores/common'
-import * as params from 'api/params'
 import { intoDetail } from 'global/constants'
 import styles from './index.module.scss'
 
@@ -18,7 +17,6 @@ interface Props extends MixProps {
 
 interface State {
   showSendMsgBtn: boolean
-  request: params.SMSRecordReq
 }
 
 @inject('details', 'common')
@@ -27,11 +25,7 @@ export class SMSRecord extends Component<Props, State> {
   constructor(props: Props) {
     super(props)
     this.state = {
-      showSendMsgBtn: false,
-      request: {
-        PermissionId: '',
-        order_no: ''
-      }
+      showSendMsgBtn: false
     }
   }
 
@@ -68,14 +62,8 @@ export class SMSRecord extends Component<Props, State> {
 
   // 获取短信记录
   getSMSRecordInfo = async () => {
-    const { order_no, viewType } = this.props.location.state
-    await this.props.details.getSMSRecordList(
-      {
-        ...this.state.request,
-        order_no
-      },
-      viewType
-    )
+    const { order_no } = this.props.location.state
+    await this.props.details.getSMSRecordList({ order_no })
   }
 
   // 点击发送短信按钮
@@ -96,7 +84,7 @@ export class SMSRecord extends Component<Props, State> {
     await this.props.details.sendMsgSMSRecord(
       {
         order_no,
-        button_type: type
+        send_type: type
       },
       this.sendMsgSuccess
     )

@@ -21,8 +21,8 @@ class Approval {
     try {
       const res = await api.getOrderApprovalResult(payload)
       if (res.success && res.data) {
-        this.approvalResult = { ...this.approvalResult, ...res.data.order_msg }
-        this.orderReason = { ...res.data.order_reasons }
+        this.approvalResult = { ...this.approvalResult, ...res.data.order_info }
+        this.orderReason = { ...res.data.reasons }
       } else {
         Message.error(res.info)
       }
@@ -39,7 +39,7 @@ class Approval {
     try {
       const res = await api.getTelephoneVerifyInfo(payload)
       if (res.success && res.data) {
-        callBack(res.data.CallRecord)
+        callBack(res.data)
       } else {
         Message.error(res.info)
       }
@@ -71,7 +71,7 @@ class Approval {
       const res = await api.callUp(payload)
       console.log(res)
       if (res.success && res.data) {
-        callBack(res.data.call_id || '')
+        callBack(res.data.data.call_id || '')
       } else {
         Message.error(res.info)
       }

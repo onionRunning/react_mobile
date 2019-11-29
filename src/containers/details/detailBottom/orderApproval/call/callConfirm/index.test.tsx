@@ -5,13 +5,7 @@ import { CallConfirm } from './index'
 
 describe('CallConfirm', () => {
   let component: any, instance: CallConfirm
-  const mockRoute = mockRouteProps({
-    order_no: '1111',
-    showType: 'test',
-    type: 'test',
-    relation_ship: 'self',
-    call_id: '1111'
-  })
+  const mockRoute = mockRouteProps({})
   const props = {
     ...mockRoute,
     dispatch: jest.fn(),
@@ -32,8 +26,7 @@ describe('CallConfirm', () => {
   })
 
   it('renderRadio', () => {
-    const all = ['test']
-    instance.renderRadio(all)
+    instance.renderRadio()
     expect(component.find('Radio').length).toBeGreaterThan(0)
   })
 
@@ -41,6 +34,15 @@ describe('CallConfirm', () => {
     const e: any = { target: { value: 'test' } }
     instance.handleChangeRadio(e)
     expect(instance.state.reason).toEqual('test')
+    expect(instance.state.remark).toEqual('')
+
+    instance.setState({
+      remark: 'test'
+    })
+    const e1: any = { target: { value: 'Answered' } }
+    instance.handleChangeRadio(e1)
+    expect(instance.state.reason).toEqual('Answered')
+    expect(instance.state.remark).toEqual('test')
   })
 
   it('handleChangeSelect', () => {
@@ -54,5 +56,31 @@ describe('CallConfirm', () => {
   it('handleClickSave', () => {
     instance.handleClickSave()
     expect(props.onConfirm).toBeCalled()
+  })
+})
+
+describe('CallConfirm self', () => {
+  let component: any, instance: CallConfirm
+  const mockRoute = mockRouteProps({})
+  const props = {
+    ...mockRoute,
+    dispatch: jest.fn(),
+    show: true,
+    name: 'test',
+    relation_ship: 'self',
+    onCancel: jest.fn(),
+    onConfirm: jest.fn()
+  }
+
+  beforeEach(() => {
+    component = shallow(<CallConfirm {...props} />)
+    instance = component.instance()
+    instance.setState({
+      reason: 'Answered'
+    })
+  })
+
+  it('render', () => {
+    expect(component.find('div').length).toBeGreaterThan(0)
   })
 })

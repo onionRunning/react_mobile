@@ -117,15 +117,6 @@ export interface RepaymentFlow {
   gst_tax: number
 }
 
-// 状态记录结果
-export interface StatusRecordRes {
-  current_status: string
-  operator_name: string
-  created_at: string
-  remark: string
-  reasons: string
-}
-
 // 还款订单返回结果
 export interface RepaymentListRes {
   page_count: number
@@ -201,7 +192,7 @@ export interface RoleList {
   role_name: string
   notes: string
   access_id: string
-  created_time: number
+  created_time: string
   label?: string
   value?: number
 }
@@ -300,8 +291,8 @@ export interface BlacklistItem {
 
 // 审核结果
 export interface ApprovalResultRes {
-  order_msg: ApprovalResult
-  order_reasons: OrderReason
+  order_info: ApprovalResult
+  reasons: OrderReason
 }
 
 export interface ApprovalResult {
@@ -325,15 +316,15 @@ export interface OrderReason {
 }
 
 // 电话审核
-export interface TelephoneVerifyRes {
-  CallRecord: TelephoneList[]
-}
+// export interface TelephoneVerifyRes {
+//   CallRecord: TelephoneList[]
+// }
 
 export interface TelephoneList {
   id: number
   relation_ship: string
   user_name: string
-  cellphone: string
+  phone: string
   order_no: string
   show?: boolean
   detailList?: CallRecordInfoList[]
@@ -349,6 +340,10 @@ export interface CallRecordInfoList {
 }
 
 export interface CallUpRes {
+  data: CallUpResData
+}
+
+export interface CallUpResData {
   call_id: string
 }
 
@@ -427,6 +422,19 @@ export interface SMSRecordList {
   created_at: string
   content: string
   send_status: string
+}
+
+// 状态记录结果
+export interface StatusRecordRes {
+  flows?: StatusRecordFlows[]
+}
+
+export interface StatusRecordFlows {
+  current_status: string
+  operator_name: string
+  created_at: string
+  remark: string
+  reasons: string
 }
 
 // 状态记录

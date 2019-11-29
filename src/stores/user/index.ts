@@ -23,6 +23,7 @@ class User {
     page_size: 10,
     total: 0
   }
+
   @action getUserListData = async (payload: UserListReq) => {
     try {
       const res = await api.getUserLists(payload)
@@ -31,7 +32,7 @@ class User {
         this.pagination = {
           current: payload.page,
           page_size: payload.per_page,
-          total: res.data.total_count
+          total: +res.data.total_count
         }
       } else {
         Message.error(res.info)
@@ -40,6 +41,7 @@ class User {
       Message.error(err)
     }
   }
+
   @action changeUserStatus = async (payload: ChangeUserReq, callback: () => void) => {
     try {
       const res = await api.changeUserStatus(payload)
@@ -53,6 +55,7 @@ class User {
       Message.error(err)
     }
   }
+
   @action getUserDetailData = async (payload: UserDetaiReq, callback: (userDetail: UserDetailRes) => void) => {
     try {
       const res = await api.queryUserDetails(payload)
@@ -65,6 +68,7 @@ class User {
       Message.error(err)
     }
   }
+
   @action getRoleListData = async (payload: RoleListReq, callback: (roleList: RoleListItem[]) => void) => {
     try {
       const res = await api.getRoleList(payload)
@@ -78,6 +82,7 @@ class User {
       Message.error(err)
     }
   }
+
   @action addUsers = async (payload: AddUsersReq, callback: () => void) => {
     try {
       const res = await api.addUsers(payload)
@@ -91,6 +96,7 @@ class User {
       Message.error(err)
     }
   }
+
   @action editUsers = async (payload: EditUsersReq, callback: () => void) => {
     try {
       const res = await api.editUsers(payload)

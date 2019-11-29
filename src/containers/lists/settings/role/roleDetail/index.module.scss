@@ -45,17 +45,24 @@
 }
 
 .product_wrap {
-    height: 75px;
-    line-height: 75px;
+    .product_labe {
+        color: #333;
+    }
 
     .check_wrap {
+        height: 75px;
+        line-height: 75px;
+        padding-left: 36px;
+
         label {
             margin-right: 30px;
         }
     }
 }
 
-.permission_wrap {}
+.permission_wrap {
+    padding-top: 15px;
+}
 
 .split_line {
     display: flex;

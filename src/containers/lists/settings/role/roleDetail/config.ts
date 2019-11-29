@@ -1,7 +1,34 @@
+import { btnType } from 'components/button'
+
 export enum RouteType {
   Detail = 'detail',
   Add = 'add',
   Edit = 'edit'
+}
+
+export interface BtnItem {
+  type: btnType
+  label: string
+  key: string
+  id: string
+}
+
+export const addBtn: BtnItem[] = [
+  { type: 'primary', label: 'Confirm', key: 'add', id: 'confirm-btn' },
+  { type: 'gray', label: 'Cancel', key: 'return', id: 'cancel-btn' }
+]
+
+export const detailBtn: BtnItem[] = [{ type: 'primary', label: 'Return', key: 'return', id: 'return-btn' }]
+
+export const editBtn: BtnItem[] = [
+  { type: 'primary', label: 'Save', key: 'edit', id: 'save-btn' },
+  { type: 'gray', label: 'Cancel', key: 'return', id: 'cancel-btn' }
+]
+
+export const BtnMap = {
+  add: addBtn,
+  detail: detailBtn,
+  edit: editBtn
 }
 
 export interface PermissionsType {

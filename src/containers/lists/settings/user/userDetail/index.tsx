@@ -11,6 +11,7 @@ import Btn from './btn'
 import Message from 'components/message'
 import { addVertify } from './utils'
 import styles from './index.module.scss'
+import { RouteType } from '../../role/roleDetail/config'
 
 interface MatchParams {
   type: Type
@@ -86,13 +87,14 @@ class UserDetail extends Component<Props, State> {
 
   // 处理用户数据
   handleUserDetailData = (userDetail: UserDetailRes) => {
-    const { name, phone, email, role_info } = userDetail
+    const { name, phone, email, role_info = [] } = userDetail
     const selectedRole: number[] = role_info.map((el: RoleInfoItem) => {
       return el.id
     })
     this.setState({
       role_id: [...selectedRole],
       request: {
+        ...this.state.request,
         name,
         phone,
         email
@@ -141,8 +143,8 @@ class UserDetail extends Component<Props, State> {
   // 点击相应的详情操作
   operateBtn = (v: string) => {
     v === 'return' && this.goBack()
-    v === 'add' && this.addUsers()
-    v === 'edit' && this.editUsers()
+    v === 'add' && this.operateUser()
+    v === 'edit' && this.operateUser()
   }
 
   // 返回上列表页
@@ -150,46 +152,66 @@ class UserDetail extends Component<Props, State> {
     this.props.history.goBack()
   }
 
-  // 新增用户
-  addUsers = async () => {
+  operateUser = async () => {
     const text = addVertify(this.state)
     if (text) {
       Message.warning(text)
       return
     }
+    const { id, type } = this.props.match.params
     const { role_id } = this.state
     const { name, email, phone } = this.state.request
-    await this.props.user.addUsers(
-      {
-        name,
-        account: email,
-        email,
-        phone,
-        role_id
-      },
-      this.goBack
-    )
+    const request = {
+      name,
+      account: email,
+      email,
+      phone,
+      role_id
+    }
+    type === RouteType.Add && (await this.props.user.addUsers(request, this.goBack))
+    type === RouteType.Edit && (await this.props.user.editUsers({ ...request, id: +id }, this.goBack))
   }
 
+  // 新增用户
+  // addUsers = async () => {
+  //   const text = addVertify(this.state)
+  //   if (text) {
+  //     Message.warning(text)
+  //     return
+  //   }
+  //   const { role_id } = this.state
+  //   const { name, email, phone } = this.state.request
+  //   await this.props.user.addUsers(
+  //     {
+  //       name,
+  //       account: email,
+  //       email,
+  //       phone,
+  //       role_id
+  //     },
+  //     this.goBack
+  //   )
+  // }
+
   // 编辑用户
-  editUsers = async () => {
-    const text = addVertify(this.state)
-    if (text) {
-      Message.warning(text)
-      return
-    }
-    const { id } = this.props.match.params
-    const { role_id } = this.state
-    const { name, phone } = this.state.request
-    await this.props.user.editUsers(
-      {
-        id: +id,
-        name,
-        phone,
-        role_id
-      },
-      this.goBack
-    )
-  }
+  // editUsers = async () => {
+  //   const text = addVertify(this.state)
+  //   if (text) {
+  //     Message.warning(text)
+  //     return
+  //   }
+  //   const { id } = this.props.match.params
+  //   const { role_id } = this.state
+  //   const { name, phone } = this.state.request
+  //   await this.props.user.editUsers(
+  //     {
+  //       id: +id,
+  //       name,
+  //       phone,
+  //       role_id
+  //     },
+  //     this.goBack
+  //   )
+  // }
 }
 export default UserDetail

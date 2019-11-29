@@ -1,7 +1,7 @@
 import { TableTile } from 'global/interface'
 import { formType, BtnItem } from 'global/constants'
 import { transformTime } from 'global/method'
-import { RoleListItem } from 'interface/role'
+import * as response from 'api/response'
 
 export const condition = [
   {
@@ -29,7 +29,7 @@ export const btnItems: BtnItem[] = [
 ]
 
 export const getTableTitle = (
-  render: (text: string, record: RoleListItem, index: number) => React.ReactNode
+  render: (text: string, record: response.RoleList, index: number) => React.ReactNode
 ): TableTile[] => [
   {
     align: 'center',

@@ -127,7 +127,7 @@ class User extends Component<Props, State> {
   }
 
   // 冻结、解冻用户
-  operateUser = (id: number, status: StatusType) => async () => {
+  operateUser = (id: number, status: StatusType) => () => {
     // 弹出模态框提示
     this.props.common.changeConfirm({
       show: true,
