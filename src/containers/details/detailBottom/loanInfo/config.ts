@@ -8,7 +8,7 @@ export const LoanInfoColumns: TableTile[] = [
     dataIndex: 'created_at',
     key: 'created_at',
     sorter: true,
-    render: (time: string) => `${time ? formatTime(time) : ''}`
+    render: (time: string) => formatTime(time)
   },
   {
     align: 'center',
@@ -16,7 +16,7 @@ export const LoanInfoColumns: TableTile[] = [
     dataIndex: 'actual_loan_time',
     key: 'actual_loan_time',
     sorter: true,
-    render: (time: string) => `${time ? formatTime(time) : ''}`
+    render: (time: string) => formatTime(time)
   },
   {
     align: 'center',

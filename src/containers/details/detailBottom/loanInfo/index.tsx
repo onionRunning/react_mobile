@@ -3,6 +3,7 @@ import { observer, inject } from 'mobx-react'
 import DetailsStore from 'stores/details'
 import InfoWrapper from 'containers/details/component/infoWrapper'
 import Table from 'components/table'
+// import { Table } from 'antd'
 import { PaginationConfig, SorterResult } from 'antd/lib/table'
 import { LoanInfoColumns } from './config'
 import { MixProps } from 'global/interface'
@@ -26,7 +27,6 @@ export class LoanInfo extends Component<Props, State> {
     super(props)
     this.state = {
       request: {
-        PermissionId: '',
         order_no: '',
         sort_order: '',
         sort_value: ''
@@ -42,19 +42,17 @@ export class LoanInfo extends Component<Props, State> {
     const { loanInfoList } = this.props.details
     return (
       <Table tableTitle={LoanInfoColumns} tableData={loanInfoList} onChange={this.handleTableChange} size="small" />
+      // <Table columns={LoanInfoColumns} dataSource={loanInfoList} onChange={this.handleTableChange} size='small' />
     )
   }
 
   // 获取放款信息
   getLoanInfo = async () => {
-    const { order_no, viewType } = this.props.location.state
-    await this.props.details.getLoanInfoList(
-      {
-        ...this.state.request,
-        order_no
-      },
-      viewType
-    )
+    const { order_no } = this.props.location.state
+    await this.props.details.getLoanInfoList({
+      ...this.state.request,
+      order_no
+    })
   }
 
   // 排序

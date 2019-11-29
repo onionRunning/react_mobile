@@ -54,7 +54,7 @@ export interface Pagination {
 }
 
 export interface RoleListItem {
-  created_time: number
+  created_time: string
   id: number
   notes: string
   role_name: string

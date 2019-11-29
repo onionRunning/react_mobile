@@ -35,11 +35,8 @@ describe('StatusRecord', () => {
 
   it('getStatusRecord', () => {
     instance.getStatusRecord()
-    expect(mockProps.details.getStatusRecord).toBeCalledWith(
-      {
-        order_no: 'P2g201911150020'
-      },
-      'order_list'
-    )
+    expect(mockProps.details.getStatusRecord).toBeCalledWith({
+      order_no: 'P2g201911150020'
+    })
   })
 })

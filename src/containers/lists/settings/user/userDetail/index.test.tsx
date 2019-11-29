@@ -2,35 +2,16 @@ import React from 'react'
 import { shallow, ShallowWrapper } from 'enzyme'
 import { mockRouteProps } from 'test/mock'
 import UserDetail from './index'
-import UserStore from 'stores/user'
 import { Type } from './config'
 import Message from 'components/message'
 
 jest.mock('components/message')
 Message.error = jest.fn()
 
-describe('userlist', () => {
-  const type: Type = 'detail'
+describe('userdetail add', () => {
+  const type: Type = 'add'
   const mockRoute = mockRouteProps({ type, id: '1' })
-  const user: UserStore = {
-    userList: [
-      {
-        account: 'lbbtest@qq.com',
-        created_time: 1572922927,
-        email: 'lbbtest@qq.com',
-        id: 107,
-        name: 'lbbtest@qq.com',
-        phone: '127253572182',
-        status: 'normal'
-      }
-    ],
-    pagination: {
-      current: 1,
-      page_size: 10,
-      total: 0
-    },
-    getUserListData: jest.fn(),
-    changeUserStatus: jest.fn(),
+  const user: any = {
     getRoleListData: jest.fn(),
     getUserDetailData: jest.fn(),
     addUsers: jest.fn(),
@@ -84,6 +65,20 @@ describe('userlist', () => {
       phone: '5464644',
       email: '1fengyibo@mintechai.com'
     })
+    const userDetail1 = {
+      id: 110,
+      name: '12545',
+      phone: '5464644',
+      email: '1fengyibo@mintechai.com',
+      role_info: []
+    }
+    instance.handleUserDetailData(userDetail1)
+    expect(instance.state.role_id).toEqual([])
+    expect(instance.state.request).toEqual({
+      name: '12545',
+      phone: '5464644',
+      email: '1fengyibo@mintechai.com'
+    })
   })
 
   it('getRoleListData', () => {
@@ -120,13 +115,13 @@ describe('userlist', () => {
     instance.operateBtn('return')
     expect(mockProps.history.goBack).toBeCalled()
     instance.operateBtn('add')
-    // expect(mockProps.user.addUsers).toBeCalledTimes(1)
+    expect(Message.warning).toBeCalledWith('Please enter user name!')
     instance.operateBtn('edit')
-    // expect(mockProps.user.editUsers).toBeCalledTimes(1)
+    expect(Message.warning).toBeCalledWith('Please enter user name!')
   })
 
-  it('addUsers', () => {
-    instance.editUsers()
+  it('operateUser', () => {
+    instance.operateUser()
     expect(Message.warning).toBeCalledWith('Please enter user name!')
     instance.setState({
       request: {
@@ -136,7 +131,7 @@ describe('userlist', () => {
       },
       role_id: [1]
     })
-    instance.addUsers()
+    instance.operateUser()
     expect(mockProps.user.addUsers).toBeCalledWith(
       {
         name: 'test',
@@ -148,9 +143,38 @@ describe('userlist', () => {
       instance.goBack
     )
   })
+})
 
-  it('editUsers', () => {
-    instance.editUsers()
+describe('userdetail edit', () => {
+  const type: Type = 'edit'
+  const mockRoute = mockRouteProps({ type, id: '1' })
+  const user: any = {
+    getRoleListData: jest.fn(),
+    getUserDetailData: jest.fn(),
+    addUsers: jest.fn(),
+    editUsers: jest.fn()
+  }
+  const mockProps = {
+    ...mockRoute,
+    user
+  }
+  let component: ShallowWrapper<UserDetail>, instance: UserDetail
+  beforeEach(() => {
+    component = shallow(<UserDetail {...mockProps} />).dive()
+    instance = component.instance() as UserDetail
+    instance.setState({
+      request: {
+        name: '',
+        phone: '',
+        email: ''
+      },
+      roleList: [],
+      role_id: []
+    })
+  })
+
+  it('operateUser', () => {
+    instance.operateUser()
     expect(Message.warning).toBeCalledWith('Please enter user name!')
     instance.setState({
       request: {
@@ -160,11 +184,13 @@ describe('userlist', () => {
       },
       role_id: [1]
     })
-    instance.editUsers()
+    instance.operateUser()
     expect(mockProps.user.editUsers).toBeCalledWith(
       {
         id: 1,
         name: 'test',
+        account: 'test@qq.com',
+        email: 'test@qq.com',
         phone: '13600000001',
         role_id: [1]
       },

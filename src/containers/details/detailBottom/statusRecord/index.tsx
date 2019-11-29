@@ -24,13 +24,10 @@ export class StatusRecord extends Component<Props> {
 
   // 获取状态记录
   getStatusRecord = async () => {
-    const { order_no, viewType } = this.props.location.state
-    await this.props.details.getStatusRecord(
-      {
-        order_no
-      },
-      viewType
-    )
+    const { order_no } = this.props.location.state
+    await this.props.details.getStatusRecord({
+      order_no
+    })
   }
 }
 

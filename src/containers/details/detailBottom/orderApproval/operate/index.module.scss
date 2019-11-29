@@ -4,7 +4,7 @@
 }
 
 .radio_box {
-  margin: 20px auto;
+  margin-bottom: 1em;
   text-align: center;
 
   .radio_item {
@@ -12,6 +12,11 @@
       margin-right: 100px;
     }
   }
+}
+
+.select_box {
+  margin-bottom: 1em;
+  text-align: center;
 }
 
 .content_box {
@@ -47,6 +52,5 @@
 }
 
 .operate_box {
-  margin-top: 20px;
   text-align: center;
 }

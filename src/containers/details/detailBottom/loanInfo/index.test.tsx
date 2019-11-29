@@ -40,15 +40,11 @@ describe('LoanInfo', () => {
   it('getLoanInfo', () => {
     instance.getLoanInfo()
 
-    expect(props.details.getLoanInfoList).toBeCalledWith(
-      {
-        PermissionId: '',
-        order_no: 'P2g201911150020',
-        sort_order: '',
-        sort_value: ''
-      },
-      'order_list'
-    )
+    expect(props.details.getLoanInfoList).toBeCalledWith({
+      order_no: 'P2g201911150020',
+      sort_order: '',
+      sort_value: ''
+    })
   })
 
   it('handleTableChange', () => {

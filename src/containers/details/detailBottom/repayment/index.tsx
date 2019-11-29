@@ -22,26 +22,23 @@ export class RepaymentInfo extends Component<Props> {
   }
 
   getRepaymentInfo = async () => {
-    const { order_no, viewType } = this.props.location.state
-    await this.props.details.getRepaymentInfo(
-      {
-        order_no
-      },
-      viewType
-    )
-    await this.props.details.getRepaymentFlow(
-      {
-        order_no
-      },
-      viewType
-    )
+    const { order_no } = this.props.location.state
+    await this.props.details.getRepaymentInfo({
+      order_no
+    })
+    // await this.props.details.getRepaymentFlow(
+    //   {
+    //     order_no
+    //   }
+    // )
   }
 
   render() {
-    const { repaymentInfoList, repaymentInfoFlowList } = this.props.details
+    // const { repaymentInfoList, repaymentInfoFlowList } = this.props.details
+    const { repaymentInfoList } = this.props.details
     return (
       <div>
-        <RepaymentDetail detailData={repaymentInfoList} dataFlow={repaymentInfoFlowList} {...this.props} />
+        <RepaymentDetail detailData={repaymentInfoList} dataFlow={[]} {...this.props} />
       </div>
     )
   }
