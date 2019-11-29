@@ -1,5 +1,4 @@
 import { isString, isArray, trim } from 'lodash'
-import { OrderListItem, RepaymentResItem } from 'api/response'
 import moment from 'moment'
 import { order_type } from './constants'
 
@@ -111,9 +110,9 @@ export const transformTime = (number: number): string => {
  * @param name:类型
  *                       ?key="123"  ===>  "123"
  */
-export const getQueryString = (search: string, name: string): string => {
+export const getQueryString = (name: string): string => {
   var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i')
-  var r = search.substr(1).match(reg)
+  var r = window.location.search.substr(1).match(reg)
   // if (r != null) {
   //   return unescape(r[2])
   // }
@@ -279,21 +278,15 @@ export const strDecrypt = (str: string) => {
 }
 
 interface NormalOrder {
-  order_no: string
-  mobile_id: number
-  customer_id: number
+  result_order_no: string
   product_name: string
-  application_status: string
 }
 
-type Order = NormalOrder | OrderListItem | RepaymentResItem
-
 // 打开新窗口进入详情
-export const gotoDetail = (order: Order, type: string, readOnly?: boolean) => {
-  const { order_no, mobile_id = 0, customer_id, product_name, application_status } = order
-  const encryptCustomer_id = strEncrypt(String(customer_id))
-  const encryptOrder_no = strEncrypt(order_no)
-  const params = `?customer_id=${encryptCustomer_id}&order_no=${encryptOrder_no}&mobile_id=${mobile_id}&status=${application_status}&detail_type=${type}&product_name=${product_name}`
+export const gotoDetail = (order: NormalOrder, readOnly?: boolean) => {
+  const { result_order_no, product_name } = order
+  const encryptOrder_no = strEncrypt(result_order_no)
+  const params = `?&order_no=${encryptOrder_no}&product_name=${product_name}`
   const route = encodeURI(`${window.location.origin}/auth/order_details${readOnly ? '/readOnly' : ''}${params}`)
   window.open(route)
 }
@@ -392,4 +385,8 @@ export const formatTimeNoHour = (t: string) => {
   if (isEmpty(t)) return ''
   let date = new Date(t)
   return timeStampBeauty(date.valueOf())
+}
+
+export const isReadOnly = () => {
+  return window.location.pathname.includes('readOnly') ? true : false
 }

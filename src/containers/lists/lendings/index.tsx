@@ -160,11 +160,11 @@ export class Lendings extends Component<Props, State> {
   }
 
   // 取消放款
-  cancelLoan = (item: LendingItem) => () => {
+  cancelLoan = (item: any) => () => {
     const { createCancelLoan } = this.props.lendings
     const payload = {
       order_no: item.order_no,
-      operator: sessionStorage.getItem('username')!,
+      operator_name: sessionStorage.getItem('username')!,
       operator_id: parseInt(sessionStorage.getItem('userId')!, 10)
     }
     createCancelLoan(payload, this.composeFunction)

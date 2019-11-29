@@ -26,7 +26,7 @@ export interface LoanOrRetryReq {
 // 取消放款
 export interface CancelLoanReq {
   order_no: string
-  operator: string
+  operator_name: string
   operator_id: number
 }
 

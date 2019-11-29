@@ -7,6 +7,7 @@ import { top_config, bot_config, handlerRouter } from './utils'
 import ApprovalStore from 'stores/details/approval'
 import { inject, observer } from 'mobx-react'
 import UserDetail from 'stores/details/userInfo'
+// import { isReadOnly } from 'global/method'
 interface Props extends MixProps {
   approval: ApprovalStore
   userDetail: UserDetail
@@ -25,6 +26,7 @@ export class OrderDetails extends Component<Props> {
     getUserInfo({ order_no })
   }
   render() {
+    // const readOnly = isReadOnly()
     const { state } = this.props.location
     if (!state) return
     const breadRouter = handlerRouter(state.detail_type)

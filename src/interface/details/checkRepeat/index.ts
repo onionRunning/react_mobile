@@ -8,13 +8,16 @@ export interface CheckRepeatResItem {
   customer_name: string
   customer_phone_num: string
   id_num: string
-  late_days: number
+  late_days: string
   loan_status: string
   order_no: string
   order_status: string
   result_value: string
+  result_order_no: string
+  customer_id: string
+  product_name: string
 }
 
 export interface CheckRepeatPayloadRes {
-  data: CheckRepeatResItem[]
+  duplicate_list: CheckRepeatResItem[]
 }

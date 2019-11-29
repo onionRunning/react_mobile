@@ -19,19 +19,15 @@ class Lendings {
    */
   @action getLendingList = async (payload: LendingsPayload) => {
     const res = await api.getLendingLists(payload)
-    try {
-      if (res && res.success) {
-        if (res.data) {
-          this.lendingList = res.data.loan_list ? this.handleData(res.data.loan_list) : []
-          this.page = payload.page!
-          this.page_count = payload.per_page!
-          this.total_count = res.data.total_count
-        }
-      } else {
-        Message.error(res.info)
+    if (res && res.success) {
+      if (res.data) {
+        this.lendingList = res.data.loan_list ? this.handleData(res.data.loan_list) : []
+        this.page = payload.page!
+        this.page_count = payload.per_page!
+        this.total_count = res.data.total_count
       }
-    } catch (error) {
-      Message.error(error)
+    } else {
+      Message.error(res.info)
     }
   }
   /**
@@ -39,27 +35,19 @@ class Lendings {
    */
   @action checkAutoStatus = async (cb: Callback) => {
     const res = await api.getAutoStatus()
-    try {
-      if (res && res.success && res.data) {
-        cb && cb(res.data.current_statuses)
-      } else {
-        Message.error(res.info)
-      }
-    } catch (error) {
-      Message.error(error)
+    if (res && res.success && res.data) {
+      cb && cb(res.data.current_statuses)
+    } else {
+      Message.error(res.info)
     }
   }
 
   @action UpdateAutoStatus = async (payload: UpdateAutoLoanReq, cb?: Callback) => {
     const res = await api.updateAutoStatus(payload)
-    try {
-      if (res && res.success) {
-        cb && cb()
-      } else {
-        Message.error(res.info)
-      }
-    } catch (error) {
-      Message.error(error)
+    if (res && res.success) {
+      cb && cb()
+    } else {
+      Message.error(res.info)
     }
   }
   /**
@@ -68,14 +56,10 @@ class Lendings {
    */
   @action createCancelLoan = async (payload: CancelLoanReq, cb: Callback) => {
     const res = await api.getCancelLoan(payload)
-    try {
-      if (res && res.success) {
-        cb && cb()
-      } else {
-        Message.error(res.info)
-      }
-    } catch (error) {
-      Message.error(error)
+    if (res && res.success) {
+      cb && cb()
+    } else {
+      Message.error(res.info)
     }
   }
 
@@ -85,12 +69,10 @@ class Lendings {
    */
   @action createLoanRetry = (payload: LoanOrRetryReq, cb: Callback) => async () => {
     const res = await api.getLoanOrRetry(payload)
-    try {
-      if (res && res.success) {
-        cb && cb()
-      }
-    } catch (error) {
-      Message.error(error)
+    if (res && res.success) {
+      cb && cb()
+    } else {
+      Message.error(res.info)
     }
   }
   handleData = (data: LendingResItem[]) => {
