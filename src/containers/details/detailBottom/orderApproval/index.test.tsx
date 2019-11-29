@@ -11,9 +11,7 @@ describe('OrderApproval my_orders ManualAuditing', () => {
       application_status: 'ManualAuditing'
     }
   )
-  const dispatch = jest.fn()
   const mockProps = {
-    dispatch: dispatch,
     ...mockRoute
   }
   let component: ShallowWrapper<OrderApproval>, instance: OrderApproval

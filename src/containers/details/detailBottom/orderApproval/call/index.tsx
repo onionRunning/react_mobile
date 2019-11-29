@@ -31,7 +31,7 @@ const SELF2 = 'self2'
 
 @inject('approval')
 @observer
-class Call extends Component<Props, State> {
+export class Call extends Component<Props, State> {
   constructor(props: Props) {
     super(props)
     this.state = {
@@ -43,14 +43,15 @@ class Call extends Component<Props, State> {
       call_id: ''
     }
   }
-  componentDidMount() {
+  componentDidMount = async () => {
     // const current = this.props.match.params.type === intoDetail.MYORDER
     // current && this.getAppLists()
 
     // this.getApproval()
     // this.getAllCallLists()
     // this.getCallRecordDetail()
-    this.init()
+    await this.getTelephoneVerifyInfo()
+    await this.getCallRecordDetail()
   }
 
   render() {
@@ -135,11 +136,6 @@ class Call extends Component<Props, State> {
     )
   }
 
-  init = async () => {
-    await this.getTelephoneVerifyInfo()
-    await this.getCallRecordDetail()
-  }
-
   // 获取联系人列表
   getTelephoneVerifyInfo = async () => {
     const { order_no } = this.props.location.state
@@ -154,7 +150,7 @@ class Call extends Component<Props, State> {
   // 获取联系人列表成功后，对数据进行处理
   handleTelephoneVerifyInfo = (result: response.TelephoneList[]) => {
     const newCallRecord = result!.map(el => {
-      return { ...el, phone: `${el.relation_ship === 'self' ? '0' : ''}${el.phone}`, show: false }
+      return { ...el, phone: `${el.relation_ship === 'Self' ? '0' : ''}${el.phone}`, show: false }
     })
     this.setState({
       callRecord: [...newCallRecord]
