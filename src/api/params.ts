@@ -60,7 +60,6 @@ export interface GetAppContractPayload {
 // 获取用户信息
 export interface UserInfoPayload {
   order_no: string
-  customer_id: string
 }
 
 // 获取第三方银行卡认证结果
@@ -73,12 +72,6 @@ export interface MobilePayload {
   mobile_id?: number
   order_no?: string
 }
-
-// 获取查重检测列表
-export interface CheckRepeatPayload {
-  order_no: string
-}
-
 // 用来定义请求参数的 interface
 
 // 获取放款列表详情
@@ -110,34 +103,14 @@ export interface StatusRecordReq {
   order_no: string
 }
 
-// 批量放款
-export interface LoanOrRetryReqBatch {
-  order_nos: string[] | number[]
-  operator: string
-  operator_id: number
-}
-
-// 手动放款 or 重试
-export interface LoanOrRetryReq {
+// 提交订单
+export interface SubmitOrderPayload {
   order_no: string
-  operator: string
+  operator_name: string | null
   operator_id: number
-}
-// 取消放款
-export interface CancelLoanReq {
-  order_no: string
-  operator: string
-  operator_id: number
-}
-
-// 手动放款开关
-export interface UpdateAutoReq {
-  config_value: string
-}
-
-// 下载订单列表
-export interface DownloadLendings extends LendingsPayload {
-  exec_download: number
+  application_status: string
+  remark?: string
+  reasons: ReasonType[]
 }
 
 // 创建审批呼叫记录
@@ -165,45 +138,6 @@ export interface ResiCallRemark {
   order_no: string
   phone_to: string
   id: number
-}
-
-//=================================
-// 放款订单列表
-export interface LendingsPayload {
-  page?: number // 当前页
-  per_page?: number // 每页数据条数
-  apply_start_date?: string // 申请单创建时间,查找开始时间
-  apply_end_date?: string // 申请单创建时间,查找结束时间
-  request_loan_start_date?: string // 请求放款时间,起始查询时间
-  request_loan_end_date?: string // 请求放款时间,结束查询时间
-  actual_loan_start_date?: string // 实际放款成功开始时间筛选
-  actual_loan_end_date?: string // 实际放款成功结束时间的筛选
-  like_keyword?: string // 申请单号，客户姓名模糊查询
-  loan_amount_start?: number // 开始放款金额
-  loan_amount_end?: number // 结束放款金额
-  loan_status?: string // 放款单状态
-  product_name?: string // 订单来源
-  sort_value?: string | number | boolean // 排序字段
-  sort_order?: string // 排序方式:asc/desc
-}
-
-// 还款订单列表
-export interface RepaymentListReq {
-  page?: number // 当前页
-  per_page?: number // 每页数据条数
-  actual_loan_start_date?: string // 放款创建时间,查找开始时间
-  actual_loan_end_date?: string // 放款创建时间,查找开始时间
-  due_start_date?: string // 还款时间,起始查询时间
-  due_end_date?: string // 还款时间,结束查询时间
-  like_keyword?: string // 申请单号，客户姓名模糊查询
-  loan_amount_start?: number // 放款金额（查找开始）
-  loan_amount_end?: number // 放款金额（查找结束）
-  deduction_start_time?: string // 减免时间(起始时间)
-  deduction_end_time?: string // 减免(结束时间)
-  loan_status?: string // 放款单状态
-  product_name?: string // 产品名称,默认不传
-  sort_value?: string // 需要排序字段
-  sort_order?: string // 排序方法
 }
 
 // 通话录音列表
@@ -262,23 +196,6 @@ export interface RemoveBlacklistReq {
   order_list: string[]
 }
 
-// 手动出催 或 入催(旧)
-export interface CsParamsReq {
-  scheduleId?: number
-  type?: string
-}
-
-// 手动出催 或 入催(新)
-export interface NewCsParamsReq {
-  order_no: string
-  product_name: string
-  action_type: string
-}
-
-export interface RepaymentlistDownloadReq extends RepaymentListReq {
-  exec_download: number
-}
-
 // 全部订单列表
 export interface PostOrdersReq {
   page: number // 当前页码
@@ -334,11 +251,6 @@ export const transformOrderListReq = (req: OrderListReqState): PostOrdersReq => 
   }
 }
 
-// 重新检测查重检测
-export interface NewCheckRepeatPayload {
-  order_no: string
-}
-
 /**
  * 权限管理
  */
@@ -372,22 +284,6 @@ export interface SubmitAllocateReq {
   alloc_operator_id: number
   dest_operator_name: string
   dest_operator_id: number
-}
-
-// 线下还款参数
-export interface OfflineRepayReq {
-  order_no: string
-  repayment_type: string
-  customer_id: number
-  customer_name: string
-  actual_amount: number
-  actual_repayment_time: string
-  reduction_amount: number
-  repayment_flow: string
-  repayment_channel: string
-  remark: string
-  operator_id: number
-  operator_name: string
 }
 
 // 获取还款试算

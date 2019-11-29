@@ -30,20 +30,22 @@ export interface CancelLoanReq {
   operator_id: number
 }
 
-// 手动放款开关
-export interface UpdateAutoReqItem {
-  available: string
-  checked: boolean
-  conf_type: string
-  created_at: string
-  deleted_at: string
-  id: number
-  label: string
-  name: string
-  remark: string
-  remark_available: string
-  updated_at: string
-  value: string
+// 自动放款开关
+export interface AutoLoanItem {
+  current_status: string
+  product_name: string
+}
+export interface AutoLoanRes {
+  current_statuses: AutoLoanItem[]
+}
+
+// 更新自动放款开关
+export interface UpdateAutoLoanItem {
+  product_name: string
+  switch_to: string
+}
+export interface UpdateAutoLoanReq {
+  switches: UpdateAutoLoanItem[]
 }
 
 // ===================

@@ -57,14 +57,14 @@ describe('AutoLendingConfirm', () => {
     expect(props.lendings.checkAutoStatus).toBeCalled()
   })
   it('initAutoLoanMsg', () => {
-    const res = []
+    const res = [
+      {
+        current_status: 'on',
+        product_name: 'Test'
+      }
+    ]
     instance.initAutoLoanMsg(res)
-    expect(instance.state.switchMsg.length).toBe(0)
-    const res1 = {
-      success: false,
-      data: []
-    }
-    expect(instance.initAutoLoanMsg(res1)).toBeUndefined()
+    expect(instance.state.switchMsg.length).toBe(1)
   })
   it('switchAutoLoan', () => {
     instance.switchAutoLoan()

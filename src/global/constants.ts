@@ -68,7 +68,7 @@ export const productOption = [
 
 export let imgPath = '/'
 if (process.env.NODE_ENV === 'development') {
-  imgPath = 'http://172.16.0.40:32004/'
+  imgPath = 'http://172.16.0.30:31020/'
 }
 
 export interface BtnItem {
@@ -88,4 +88,18 @@ export const order_type = {
   QualityApplicationOrder: 'Repeat Client 01',
   QualityApplicationOrderClassB: 'Repeat Client 02',
   QualityApplicationOrderClassC: 'Repeat Client 03'
+}
+
+// 所有的订单状态
+export const orderStatus = {
+  InitialAuditingReject: 'InitialAuditingReject',
+  RiskControlReject: 'RiskControlReject',
+  AuditingPassed: 'AuditingPassed',
+  AutoReject: 'AutoReject',
+  AuditingReject: 'AuditingReject',
+  ApplicationCanceled: 'ApplicationCanceled',
+  WaitingForManualAuditing: 'WaitingForManualAuditing',
+  CreateApplication: 'CreateApplication',
+  ManualAuditing: 'ManualAuditing',
+  AuditingReturn: 'AuditingReturn'
 }

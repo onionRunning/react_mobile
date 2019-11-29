@@ -1,7 +1,15 @@
 import React, { MouseEventHandler } from 'react'
 import { formType } from 'global/constants'
 import { formatTime, formatTf } from 'global/method'
-import { AllIdType, TimeRange, OrderAllStatus, OrderTypes, DEFAULT_CHOSE } from '../const'
+import {
+  AllIdType,
+  TimeRange,
+  OrderAllStatus,
+  OrderTypes,
+  DEFAULT_CHOSE,
+  DEFAULT_LOAN_DAYS,
+  ORDER_TYPE_REFLECT
+} from '../const'
 
 // 需要转换成数值型数据的字段
 export const turnToNumber = ['operator_id', 'loan_days']
@@ -60,7 +68,7 @@ export const filterData = [
     formType: formType.SELECT,
     label: 'Loan days:', // 贷款天数
     key: 'loan_days',
-    data: []
+    data: DEFAULT_LOAN_DAYS
   }
 ]
 // 筛选部分按钮配置信息
@@ -107,8 +115,8 @@ export const getTabTitle = (clickCallback: (args: {}) => MouseEventHandler<{}>) 
     },
     {
       title: 'ID No',
-      dataIndex: 'id_num',
-      key: 'id_num'
+      dataIndex: 'id_number',
+      key: 'id_number'
     },
     {
       title: 'Product', // 所属产品
@@ -138,7 +146,7 @@ export const getTabTitle = (clickCallback: (args: {}) => MouseEventHandler<{}>) 
       dataIndex: 'order_type',
       key: 'order_type',
       render: (record: string) => {
-        return record
+        return <span>{ORDER_TYPE_REFLECT[record]}</span>
       }
     },
     {

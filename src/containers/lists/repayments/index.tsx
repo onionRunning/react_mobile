@@ -23,7 +23,6 @@ import styles from './index.module.scss'
 import 'global/list.scss'
 
 interface Props extends MixProps {
-  // page: 1
   data: RepaymentResItem[]
   status: boolean
   productOption: ListItem[]
@@ -49,7 +48,7 @@ export class Repayments extends Component<Props, State> {
       request: {
         page: 1, // 当前页
         per_page: 10, // 每页数据条数
-        sort_value: 'actual_loan_time', // 需要排序字段
+        sort_value: 'Disbursement succeed time (ActualLoanTime), Due date(DueDate)', // 需要排序字段
         sort_order: 'desc' // 排序方法
       },
       showRepayPop: false
@@ -178,9 +177,7 @@ export class Repayments extends Component<Props, State> {
   //获取还款列表
   getRepaymentList = (v?: RepaymentListReq) => {
     const { request } = this.state
-    const { getRepaymentList } = this.props.repayments
     this.props.common.composeLoading(this.tempFunc({ ...request, ...v }))
-    getRepaymentList({ ...request, ...v })
   }
   tempFunc = (v?: RepaymentListReq) => () => {
     const { getRepaymentList } = this.props.repayments

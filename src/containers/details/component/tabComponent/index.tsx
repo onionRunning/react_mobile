@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import NavBar from '../navBar'
 import SwitchComponent from '../switchComponent'
 import { MixProps } from 'global/interface'
+import { getDefaultType } from './utills'
 
 interface ConfigType {
   title: string
@@ -28,7 +29,7 @@ class TabComponent extends Component<Props, State> {
   render() {
     const props: any = {
       ...this.props,
-      type: this.state.type,
+      type: this.state.type || getDefaultType(this.props.level),
       handleClick: this.handleClick
     }
     return (

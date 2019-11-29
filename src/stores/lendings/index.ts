@@ -1,6 +1,6 @@
 import { observable, action } from 'mobx'
 import api from 'api/index'
-import { CancelLoanReq, LendingsPayload, UpdateAutoReqItem, LoanOrRetryReq, LendingResItem } from 'interface/lendings'
+import { CancelLoanReq, LendingsPayload, LoanOrRetryReq, LendingResItem, UpdateAutoLoanReq } from 'interface/lendings'
 import { Callback } from 'global/type'
 import { formatTime, formatTf } from 'global/method'
 import Message from 'components/message'
@@ -37,12 +37,11 @@ class Lendings {
   /**
    * 获取自定放款状态
    */
-  @action checkAutoStatus = async (cb?: Callback) => {
+  @action checkAutoStatus = async (cb: Callback) => {
     const res = await api.getAutoStatus()
     try {
       if (res && res.success && res.data) {
-        this.autoStatus = res.data
-        cb && cb(res.data)
+        cb && cb(res.data.current_statuses)
       } else {
         Message.error(res.info)
       }
@@ -51,7 +50,7 @@ class Lendings {
     }
   }
 
-  @action UpdateAutoStatus = async (payload: UpdateAutoReqItem[], cb?: Callback) => {
+  @action UpdateAutoStatus = async (payload: UpdateAutoLoanReq, cb?: Callback) => {
     const res = await api.updateAutoStatus(payload)
     try {
       if (res && res.success) {

@@ -5,17 +5,38 @@ import Header from './header'
 import { getRedictRoute } from './utils'
 import { userPermission } from 'design/permission'
 
-const OrderDetails = lazy(() => import('containers/details'))
-const BlackLists = lazy(() => import('containers/lists/orders/blackLists'))
-const AddBlack = lazy(() => import('containers/lists/orders/addBlack'))
-const UserList = lazy(() => import('containers/lists/settings/user/userList'))
-const UserDetail = lazy(() => import('containers/lists/settings/user/userDetail'))
-const RoleList = lazy(() => import('containers/lists/settings/role/roleList'))
-const RoleDetail = lazy(() => import('containers/lists/settings/role/roleDetail'))
-const OrderLists = lazy(() => import('containers/lists/orders/orderLists'))
-const MyOrders = lazy(() => import('containers/lists/orders/myOrders'))
-const Lendings = lazy(() => import('containers/lists/lendings'))
-const Repayments = lazy(() => import('containers/lists/repayments'))
+export const getDetails = () => import('containers/details')
+const OrderDetails = lazy(getDetails)
+
+export const getBlackLists = () => import('containers/lists/orders/blackLists')
+const BlackLists = lazy(getBlackLists)
+
+export const getAddBlack = () => import('containers/lists/orders/addBlack')
+const AddBlack = lazy(getAddBlack)
+
+export const getUserList = () => import('containers/lists/settings/user/userList')
+const UserList = lazy(getUserList)
+
+export const getUserDetail = () => import('containers/lists/settings/user/userDetail')
+const UserDetail = lazy(getUserDetail)
+
+export const getRoleList = () => import('containers/lists/settings/role/roleList')
+const RoleList = lazy(getRoleList)
+
+export const getRoleDetail = () => import('containers/lists/settings/role/roleDetail')
+const RoleDetail = lazy(getRoleDetail)
+
+export const getOrderLists = () => import('containers/lists/orders/orderLists')
+const OrderLists = lazy(getOrderLists)
+
+export const getMyOrder = () => import('containers/lists/orders/myOrders')
+const MyOrders = lazy(getMyOrder)
+
+export const getLending = () => import('containers/lists/lendings')
+const Lendings = lazy(getLending)
+
+export const getRepayments = () => import('containers/lists/repayments')
+const Repayments = lazy(getRepayments)
 
 interface Props extends RouteComponentProps<{ showType: string }> {
   baseUrl: string
@@ -23,13 +44,13 @@ interface Props extends RouteComponentProps<{ showType: string }> {
 }
 class Auth extends Component<Props> {
   componentDidMount() {
-    // this.checkToken(sessionStorage.getItem('token'))
+    this.checkToken(sessionStorage.getItem('token'))
   }
 
   // 检查token
-  //   checkToken = (token: string | null) => {
-  //     // if (!token) this.props.history.replace('/login')
-  //   }
+  checkToken = (token: string | null) => {
+    if (!token) this.props.history.replace('/login')
+  }
 
   render() {
     const { match } = this.props
@@ -38,7 +59,7 @@ class Auth extends Component<Props> {
       <>
         <Header {...this.props} baseUrl={match.url} />
         <Switch>
-          <Redirect exact={true} from={match.url} to={`${match.url}${getRedictRoute(finnalPermission) || '/no'}`} />
+          <Redirect exact={true} from={match.url} to={`${match.url}${getRedictRoute(finnalPermission)}`} />
           <Route path={`${match.url}/order_details`} component={OrderDetails} />
           <Route path={`${match.url}/blacklist`} component={BlackLists} />
           <Route path={`${match.url}/blacklist_management`} component={AddBlack} />

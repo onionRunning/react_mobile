@@ -56,7 +56,7 @@ describe('const test', () => {
 
     const product = { loan_days: [], products: [] }
     const temp2 = con.handlerSelectCont(config, product, person)
-    expect(temp2[con.handleData(config, 'product_name')].data.length).toEqual(1)
-    expect(temp2[con.handleData(config, 'loan_days')].data.length).toEqual(1)
+    expect(temp2[con.handleData(config, 'product_name')].data.length).toEqual(0)
+    expect(temp2[con.handleData(config, 'loan_days')].data.length).toEqual(0)
   })
 })

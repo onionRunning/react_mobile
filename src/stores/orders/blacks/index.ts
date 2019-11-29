@@ -1,6 +1,7 @@
 import { observable, action } from 'mobx'
 import api from 'api'
 // import * as orders from 'interface/orders'
+import Message from 'components/message'
 import { Res, Page } from 'interface/common'
 const initPage = { page_size: 10, total_page: 0, total: 0, current: 0 }
 
@@ -43,20 +44,23 @@ class Blacks {
     const res: Res<string> = await api.addBlacklist(payload)
     if (res.success) {
       callBack()
+      return
     }
+    !res.success && Message.error(res.info)
   }
 
   // 获取黑名单列表
   @action getBlackLists = async (payload: any) => {
     const res: Res<any> = await api.queryBlacklists(payload)
     if (res.success) {
-      this.blackLists = handleRes(res.data!.list)
+      this.blackLists = handleRes(res.data!.blacklist)
       this.blackListPage = {
         total_page: res.data!.page_count,
         total: res.data!.total_count
       }
       this.blackListStatus = handleRes(res.data!.list).length > 0
     }
+    !res.success && Message.error(res.info)
   }
   // 移除黑名单
   @action removeBlackList = async (payload: any, callBack: () => void) => {
@@ -64,6 +68,7 @@ class Blacks {
     if (res.success) {
       callBack()
     }
+    !res.success && Message.error(res.info)
   }
 
   @action clearblackMng = () => {

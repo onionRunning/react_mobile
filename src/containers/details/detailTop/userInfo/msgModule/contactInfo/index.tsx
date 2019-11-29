@@ -8,16 +8,19 @@ interface PropsType {
   [names: string]: string | number | boolean
 }
 interface Props {
-  data: PropsType[]
+  data: {
+    user_contact_info: string
+  }
 }
 
 export class ContactInfo extends Component<Props> {
   render() {
     const { data } = this.props
+    const newData = data.user_contact_info && JSON.parse(data.user_contact_info)
     return (
       <div className="info-content-contact">
-        {data &&
-          data.map((item: PropsType, index: number) => {
+        {newData &&
+          newData.map((item: PropsType, index: number) => {
             return <FormInputListUI config={LinkManInfoInputFir} data={item || {}} key={index} />
           })}
       </div>

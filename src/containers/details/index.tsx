@@ -21,11 +21,13 @@ export class OrderDetails extends Component<Props> {
   // 默认调用用户信息 需要duplicate_status 去判断是否显示小红点
   componentDidMount() {
     const { getUserInfo } = this.props.userDetail
-    const { order_no, viewType, customer_id } = this.props.location.state
-    getUserInfo({ order_no, customer_id }, viewType)
+    const { order_no } = this.props.location.state
+    getUserInfo({ order_no })
   }
   render() {
-    const breadRouter = handlerRouter(this.props.location.state.detail_type)
+    const { state } = this.props.location
+    if (!state) return
+    const breadRouter = handlerRouter(state.detail_type)
     // const {
     //   // order_msg: { duplicate_status }
     // } = this.props.userDetail

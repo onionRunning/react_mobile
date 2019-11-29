@@ -14,7 +14,7 @@ class CheckRepeat {
     try {
       if (res && res.success) {
         if (res.data) {
-          cb && cb(JSON.parse(res.data))
+          cb && cb(res.data)
         }
       } else {
         Message.error(res.info)
