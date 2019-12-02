@@ -33,6 +33,27 @@ describe('StatusRecord', () => {
     expect(component.find('div').length).toBe(0)
   })
 
+  it('renderRemake', () => {
+    const record = {
+      created_at: '2019-11-15T16:50:07+08:00',
+      current_status: 'CreateApplication',
+      id: 27628,
+      operator_name: 'wzc 13',
+      reasons: '',
+      remark: '111'
+    }
+    expect(instance.renderRemake(record).props.children).toEqual('111')
+    const record1 = {
+      created_at: '2019-11-15T16:50:07+08:00',
+      current_status: 'CreateApplication',
+      id: 27628,
+      operator_name: 'wzc 13',
+      reasons: `[{"reason_code":"R101","reason_value":"Age does not meet the requirements"}]`,
+      remark: '111'
+    }
+    expect(instance.renderRemake(record1).props.children.length).toBe(2)
+  })
+
   it('getStatusRecord', () => {
     instance.getStatusRecord()
     expect(mockProps.details.getStatusRecord).toBeCalledWith({

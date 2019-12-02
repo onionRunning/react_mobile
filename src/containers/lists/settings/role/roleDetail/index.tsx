@@ -6,9 +6,8 @@ import Permissions from './permissions'
 import Message from 'components/message'
 import Btn from '../../user/userDetail/btn'
 import { RouteType, getbreadcrumbConfig, PermissionsType, BtnMap } from './config'
-import { PermissionsList } from 'api/response'
 import Role from 'stores/role'
-import { ListItem } from 'components/select'
+import { RoleDetailRes, ProductList, PermissionsList } from 'interface/role'
 import { Checkbox } from 'antd'
 import { CheckboxValueType } from 'antd/lib/checkbox/Group'
 import { CheckboxChangeEvent } from 'antd/lib/checkbox'
@@ -23,13 +22,6 @@ interface MatchParams {
 
 export interface Props extends RouteComponentProps<MatchParams> {
   role: Role
-  roleName: string
-  selectedIds: number[]
-  roleDescription: string
-  permissionsList: PermissionsList[]
-  increaseNum: number
-  product_id: number[]
-  productList: ListItem[]
 }
 
 interface Request {
@@ -158,41 +150,64 @@ class RoleDetail extends React.Component<Props, State> {
 
   // 获取角色详情
   getRoleDetailData = async (id: number) => {
-    const roleDetail = await this.props.role.getRoleDetailDate({ id })
-    const { role_name, notes, product_id = [], access_id = [] } = roleDetail!
+    await this.props.role.getRoleDetailDate({ id }, this.handleRoleDetailData)
+  }
+
+  handleRoleDetailData = (roleDetail: RoleDetailRes) => {
+    const { role_name, notes, product_id = [], access_id = [] } = roleDetail
+    const new_access_id = access_id.map(el => {
+      return +el
+    })
     this.setState({
       request: {
         ...this.state.request,
         name: role_name,
         description: notes,
         checkedList: [...product_id],
-        selectIds: [...access_id]
+        selectIds: [...new_access_id]
       }
+    })
+  }
+
+  // 获取产品列表数据
+  getProductListData = async () => {
+    await this.props.role.getProductListData(this.handleProductListData)
+  }
+
+  handleProductListData = (list: ProductList[]) => {
+    const transfromList = list!.map(el => {
+      return { id: el.id, label: el.name, value: el.id }
+    })
+    this.setState({
+      productOption: [...transfromList]
     })
   }
 
   // 获取所有权限
   getPermissionsListData = async () => {
-    const permissionsList = await this.props.role.getPermissionsListData()
-    const permissionsTree = this.permissiontListToTree(permissionsList!)
+    await this.props.role.getPermissionsListData(this.handlePermissionsListData)
+  }
+
+  handlePermissionsListData = (list: PermissionsList[]) => {
+    const permissionsTree = this.permissiontListToTree(list!)
     this.setState({
       permissionsTree: [...permissionsTree]
     })
   }
 
-  permissiontListToTree = (data: PermissionsList[], parentNumber: number = 0) => {
-    data = data.map(item => (item.parent_no ? item : { ...item, parent_no: 0 })) // 后台数据问题parent_no为空时视为0
+  permissiontListToTree = (data: PermissionsList[], parentNumber: string = '0') => {
+    data = data.map(item => (item.parent_no ? item : { ...item, parent_no: '0' })) // 后台数据问题parent_no为空时视为0
     const childList = data.filter(item => item.parent_no === parentNumber)
     // 所有相邻的角色中是否有子角色
     let siblingsHasChild = false
     const tree = childList.map(item => {
       const { id, access_no, parent_no, name, notes } = item
       const obj: PermissionsType = {
-        id,
+        id: +id,
         name,
         notes,
-        number: access_no,
-        parentNumber: parent_no
+        number: +access_no,
+        parentNumber: +parent_no!
       }
       if (data.some(_item => _item.parent_no === item.access_no)) {
         siblingsHasChild = true
@@ -205,17 +220,6 @@ class RoleDetail extends React.Component<Props, State> {
         ...item,
         siblingsHasChild
       }
-    })
-  }
-
-  // 获取产品列表数据
-  getProductListData = async () => {
-    const list = (await this.props.role.getProductListData()) || []
-    const transfromList = list!.map(el => {
-      return { id: el.id, label: el.name, value: el.id }
-    })
-    this.setState({
-      productOption: [...transfromList]
     })
   }
 
@@ -305,10 +309,10 @@ class RoleDetail extends React.Component<Props, State> {
 
   vertifyReq = () => {
     const { name, description, selectIds, checkedList } = this.state.request
-    if (!name) return 'Please fill in the name'
+    if (!name) return 'Please fill in the name!'
     if (!description) return 'Please fill in the description!'
-    if (!selectIds.length) return 'Please select the permissions'
-    if (!checkedList.length) return 'Please select the product'
+    if (!selectIds.length) return 'Please select the permissions!'
+    if (!checkedList.length) return 'Please select the product!'
   }
 }
 

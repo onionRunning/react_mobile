@@ -191,8 +191,8 @@ export interface RoleList {
   id: number
   role_name: string
   notes: string
-  access_id: string
   created_time: string
+  access_id?: string
   label?: string
   value?: number
 }
@@ -439,7 +439,7 @@ export interface StatusRecordFlows {
 
 // 状态记录
 export interface StatusRecordList {
-  id: string
+  id: number
   current_status: string
   operator_name: string
   created_at: string

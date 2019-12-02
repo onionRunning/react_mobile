@@ -1,13 +1,13 @@
-import React from 'react'
 import { formatTf, formatTime } from 'global/method'
 import { TableTile } from 'global/interface'
 import * as response from 'api/response'
 
-interface Reason {
+export interface Reason {
   reason_value: string
+  reason_code: string
 }
 
-export const StatusRecordColumns: TableTile[] = [
+export const getTableTitle: TableTile[] = [
   {
     align: 'center',
     title: 'Serial number',
@@ -40,17 +40,6 @@ export const StatusRecordColumns: TableTile[] = [
     title: 'Remark',
     dataIndex: '',
     key: 'remark',
-    width: 400,
-    render: (record: response.StatusRecordList) => {
-      const reasons: Reason[] = record.reasons ? JSON.parse(record.reasons) : []
-      return (
-        <div>
-          <span>{record.remark}</span>
-          {reasons.map((item, index) => {
-            return <span key={index}>{item.reason_value}</span>
-          })}
-        </div>
-      )
-    }
+    width: 400
   }
 ]
