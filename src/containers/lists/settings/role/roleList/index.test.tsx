@@ -32,11 +32,11 @@ describe('userlist', () => {
   it('renderOperate', () => {
     const record = {
       created_time: '1574844744',
-      id: '2',
+      id: 1,
       notes: 'Review of the order',
       role_name: 'Reviewer'
     }
-    expect(instance.renderOperate(record.id, record).type).toEqual('div')
+    expect(instance.renderOperate('', record).type).toEqual('div')
   })
 
   it('getRoleList', () => {
@@ -56,7 +56,33 @@ describe('userlist', () => {
 
   it('handleBtnclick', () => {
     instance.handleBtnclick('inquire')
+    expect(instance.state.request.page).toBe(1)
+    expect(mockProps.role.getRoleListData).toBeCalledWith({
+      ...instance.state.request
+    })
     instance.handleBtnclick('add')
     expect(mockProps.history.push).toBeCalledWith('/auth/roles_page/add')
+  })
+
+  it('handleTableChange', () => {
+    const pagination = {
+      current: 1,
+      pageSize: 10
+    }
+    const filters: any = {}
+    const sorter: any = { order: 'descend' }
+    instance.handleTableChange(pagination, filters, sorter)
+    expect(instance.state.request).toEqual({
+      ...instance.state.request,
+      page: 1,
+      per_page: 10,
+      sort: 'desc'
+    })
+  })
+
+  it('transformSort', () => {
+    expect(instance.transformSort('')).toBe('')
+    expect(instance.transformSort('descend')).toBe('desc')
+    expect(instance.transformSort('ascend')).toBe('asc')
   })
 })

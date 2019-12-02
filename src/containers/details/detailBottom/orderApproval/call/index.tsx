@@ -27,7 +27,7 @@ interface State {
   call_id: string
 }
 
-const SELF2 = 'self2'
+const SELF2 = 'Self2'
 
 @inject('approval')
 @observer

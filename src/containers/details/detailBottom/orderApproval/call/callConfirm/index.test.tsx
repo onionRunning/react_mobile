@@ -2,6 +2,9 @@ import * as React from 'react'
 import { shallow } from 'enzyme'
 import { mockRouteProps } from 'test/mock'
 import { CallConfirm } from './index'
+import Message from 'components/message'
+
+Message.warning = jest.fn()
 
 describe('CallConfirm', () => {
   let component: any, instance: CallConfirm
@@ -55,7 +58,17 @@ describe('CallConfirm', () => {
 
   it('handleClickSave', () => {
     instance.handleClickSave()
-    expect(props.onConfirm).toBeCalled()
+    expect(Message.warning).toBeCalledWith('Please select result')
+    instance.setState({
+      reason: 'Answered'
+    })
+    instance.handleClickSave()
+    expect(Message.warning).toBeCalledWith('Please enter descrition')
+    instance.setState({
+      remark: 'test'
+    })
+    instance.handleClickSave()
+    expect(props.onConfirm).toBeCalledWith('Answered', 'test')
   })
 })
 

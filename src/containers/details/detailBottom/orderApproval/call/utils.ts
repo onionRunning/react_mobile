@@ -45,13 +45,6 @@ export const phoneOps: ListItem[] = [
   { label: '4529', value: '4529' }
 ]
 
-// 手机号进行脱敏 空格 + 括号 + - + =
-// 去*号
-export const tuoMinPhone = (phones: string) => {
-  if (!phones) return
-  return phones
-}
-
 export const Columns: TableTile[] = [
   {
     align: 'center',

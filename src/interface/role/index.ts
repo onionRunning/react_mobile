@@ -40,17 +40,17 @@ export type TableSortType = 'ascend' | 'descend' | ''
 
 export type SortType = 'asc' | 'desc' | ''
 
+export interface Pagination {
+  current: number
+  page_size: number
+  total: number
+}
+
 export interface RoleListReq {
   page: number
   per_page: number
   search?: string
   sort?: SortType
-}
-
-export interface Pagination {
-  current: number
-  page_size: number
-  total: number
 }
 
 export interface RoleListItem {
@@ -62,4 +62,28 @@ export interface RoleListItem {
 
 export interface RoleDetailReq {
   id: number
+}
+
+export interface RoleDetailRes {
+  access_id: string[]
+  created_time: string
+  id: string
+  notes: string
+  product_id: string[]
+  role_name: string
+}
+
+export interface ProductList {
+  id: string
+  name: string
+}
+
+export interface PermissionsList {
+  id: string
+  access_no: string
+  name: string
+  notes: string
+  parent_no?: string
+  key?: number | string
+  title?: string
 }

@@ -9,6 +9,7 @@ import { CheckRepeatPayloadReq } from 'interface/details/checkRepeat'
 import { LoanInfoReq, LoanInfoList } from 'interface/details/loanInfo'
 import { SMSRecordReq, SendSmsReq, SMSRecordRes } from 'interface/details/SMSRecord'
 import { StatusRecordReq, StatusRecordList } from 'interface/details/statusRecord'
+import { RoleDetailReq, RoleDetailRes, ProductList, PermissionsList } from 'interface/role'
 
 export class Api {
   request: AxiosInstance
@@ -241,7 +242,7 @@ export class Api {
   // 获取产品详情列表
   getProductDetail = () => {
     // return this.post<response.ProductDetail[]>('/back_mgr/query_management_info')
-    return this.post<response.ProductDetail[]>('/back_mgr/read_product_list')
+    return this.post<ProductList[]>('/back_mgr/read_product_list')
   }
 
   // 获取全部订单列表
@@ -268,13 +269,13 @@ export class Api {
   }
 
   // 获取角色详情
-  getRoleDetail = (payload: params.GetRoleDetailReq) => {
-    return this.post<response.RoleDetail>('/back_mgr/read_role', payload)
+  getRoleDetail = (payload: RoleDetailReq) => {
+    return this.post<RoleDetailRes>('/back_mgr/read_role', payload)
   }
 
   // 获取权限列表
   getPermissionsList = () => {
-    return this.post<response.PermissionsList[]>('/back_mgr/read_access_list')
+    return this.post<PermissionsList[]>('/back_mgr/read_access_list')
   }
 
   // 新增角色

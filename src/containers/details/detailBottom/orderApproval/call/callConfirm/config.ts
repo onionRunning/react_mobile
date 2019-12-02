@@ -114,8 +114,8 @@ export const statusList = [
 ]
 export const selfAnswer = [
   {
-    label: 'Client answered ',
-    value: 'Client answered '
+    label: 'Client answered',
+    value: 'Client answered'
   },
   {
     label: 'Non client answered',

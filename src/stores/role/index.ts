@@ -3,7 +3,7 @@ import Message from 'components/message'
 import api from 'api'
 import * as params from 'api/params'
 import * as response from 'api/response'
-import { RoleListReq, Pagination, RoleDetailReq } from 'interface/role'
+import { RoleListReq, Pagination, RoleDetailReq, RoleDetailRes, ProductList, PermissionsList } from 'interface/role'
 
 class Role {
   @observable roleList: response.RoleList[] = []
@@ -21,7 +21,7 @@ class Role {
         this.pagination = {
           current: payload.page,
           page_size: payload.per_page,
-          total: res.data.total_count
+          total: +res.data.total_count
         }
       } else {
         Message.error(res.info)
@@ -30,11 +30,13 @@ class Role {
       Message.error(err)
     }
   }
-  @action getProductListData = async () => {
+
+  @action getProductListData = async (callback: (productList: ProductList[]) => void) => {
     try {
       const res = await api.getProductDetail()
       if (res.success && res.data) {
-        return res.data || []
+        // return res.data || []
+        callback(res.data)
       } else {
         Message.error(res.info)
       }
@@ -42,11 +44,13 @@ class Role {
       Message.error(err)
     }
   }
-  @action getRoleDetailDate = async (payload: RoleDetailReq) => {
+
+  @action getRoleDetailDate = async (payload: RoleDetailReq, callback: (roleDetail: RoleDetailRes) => void) => {
     try {
       const res = await api.getRoleDetail(payload)
       if (res.success && res.data) {
-        return res.data
+        // return res.data
+        callback(res.data)
       } else {
         Message.error(res.info)
       }
@@ -54,11 +58,12 @@ class Role {
       Message.error(err)
     }
   }
-  @action getPermissionsListData = async () => {
+
+  @action getPermissionsListData = async (callback: (permissionsList: PermissionsList[]) => void) => {
     try {
       const res = await api.getPermissionsList()
       if (res.success && res.data) {
-        return res.data || []
+        callback(res.data)
       } else {
         Message.error(res.info)
       }

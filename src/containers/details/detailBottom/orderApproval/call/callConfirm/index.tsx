@@ -3,6 +3,7 @@ import Select, { ListItem, SelectOption } from 'components/select'
 import { selfAnswer, statusList, contactAnswer } from './config'
 import { Radio } from 'antd'
 import { RadioChangeEvent } from 'antd/lib/radio/interface'
+import Message from 'components/message'
 import './index.scss'
 const RadioGroup = Radio.Group
 
@@ -107,6 +108,14 @@ export class CallConfirm extends Component<Props, State> {
   // 保存
   handleClickSave = () => {
     const { reason, remark } = this.state
+    if (!reason) {
+      Message.warning('Please select result')
+      return
+    }
+    if (reason === 'Answered' && !remark) {
+      Message.warning('Please enter descrition')
+      return
+    }
     const { onConfirm } = this.props
     onConfirm(reason, remark)
   }

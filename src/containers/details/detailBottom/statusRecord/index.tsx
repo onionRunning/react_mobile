@@ -4,7 +4,8 @@ import InfoWrapper from 'containers/details/component/infoWrapper'
 import Table from 'components/table'
 import DetailsStore from 'stores/details'
 import { MixProps } from 'global/interface'
-import { StatusRecordColumns } from './config'
+import { getTableTitle, Reason } from './config'
+import * as response from 'api/response'
 
 interface Props extends MixProps {
   details: DetailsStore
@@ -19,7 +20,24 @@ export class StatusRecord extends Component<Props> {
 
   render() {
     const { statusRecordList } = this.props.details
-    return <Table tableTitle={StatusRecordColumns} tableData={statusRecordList} size="small" />
+    getTableTitle[getTableTitle.length - 1].render = this.renderRemake
+    return <Table tableTitle={getTableTitle} tableData={statusRecordList} size="small" />
+  }
+
+  renderRemake = (record: response.StatusRecordList) => {
+    const reasons: Reason[] = record.reasons ? JSON.parse(record.reasons) : []
+    if (reasons.length) {
+      return (
+        <div>
+          <span>{record.remark}</span>
+          {reasons.map((item, index) => {
+            return <span key={index}>{item.reason_value}</span>
+          })}
+        </div>
+      )
+    } else {
+      return <span>{record.remark}</span>
+    }
   }
 
   // 获取状态记录
