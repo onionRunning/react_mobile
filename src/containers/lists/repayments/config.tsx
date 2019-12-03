@@ -1,6 +1,7 @@
 import React, { MouseEventHandler } from 'react'
 import { formType } from 'global/constants'
 import { formatTime, formatDateDay } from 'global/method'
+import { ORDER_TYPE_REFLECT } from '../orders/const'
 
 // 需要转换成数值型的输入字段
 export const turnToNumber = ['loan_amount_start', 'loan_amount_end', 'loan_days']
@@ -205,7 +206,10 @@ export const getTableTitle = (cb?: (args: {}, type: string) => MouseEventHandler
     {
       title: 'Order type', // TODO 订单类型: 复贷订单\新订单 p4.1.1
       dataIndex: 'order_type',
-      key: 'order_type'
+      key: 'order_type',
+      render: (item: string) => {
+        return <span>{ORDER_TYPE_REFLECT[item]}</span>
+      }
     },
     {
       title: 'Name', // 客户姓名

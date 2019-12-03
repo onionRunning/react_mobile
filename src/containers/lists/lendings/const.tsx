@@ -5,6 +5,7 @@ import { formatTime, Trim } from 'global/method'
 import { isNumber } from 'util'
 import { LendingItem, LendingsPayload } from 'interface/lendings'
 import errors from 'global/errors'
+import { ORDER_TYPE_REFLECT } from '../orders/const'
 
 // 筛选输入中,需要转换成数值行的数据
 export const turnToNumber = ['loan_amount_start', 'loan_amount_end', 'loan_days']
@@ -13,15 +14,12 @@ export const turnToNumber = ['loan_amount_start', 'loan_amount_end', 'loan_days'
 export const turnToArray = ['product_names', 'order_type']
 // 所有的产品
 export const AllProduct = ['JetPeso']
-export const Application = ['NewApplicationOrder', 'RepeatApplicationOrder']
+export const Applicants = ['NewApplicationOrder', 'RepeatApplicationOrder']
 export const RepeatClients = [
   'QualityApplicationOrder',
   'QualityApplicationOrderClassB',
   'QualityApplicationOrderClassC'
 ]
-
-// Applicants
-// export const OrderTypeApplicants = ['NewApplicationOrder', 'RepeatApplicationOrder']
 
 export const getBtn = () => {
   return [
@@ -70,11 +68,11 @@ export const filterData = [
     range: {
       start: {
         placeholder: 'start time',
-        key: 'apply_start_at'
+        key: 'apply_start_date'
       },
       end: {
         placeholder: 'end time',
-        key: 'apply_end_at'
+        key: 'apply_end_date'
       }
     }
   },
@@ -86,11 +84,11 @@ export const filterData = [
     range: {
       start: {
         placeholder: 'start time',
-        key: 'loan_request_start_at'
+        key: 'request_loan_start_date'
       },
       end: {
         placeholder: 'end time',
-        key: 'loan_request_end_at'
+        key: 'request_loan_end_date'
       }
     }
   },
@@ -102,17 +100,17 @@ export const filterData = [
     range: {
       start: {
         placeholder: 'start time',
-        key: 'actual_loan_start_at'
+        key: 'actual_loan_start_date'
       },
       end: {
         placeholder: 'end time',
-        key: 'actual_loan_end_at'
+        key: 'actual_loan_end_date'
       }
     }
   },
   {
     formType: formType.SEARCH,
-    key: 'order_no_customer_name',
+    key: 'like_keyword',
     maxLength: 50, // 允许输入的最大长度
     placeholder: 'Search for loan ID or Name'
   },
@@ -154,7 +152,7 @@ export const filterData = [
     data: [
       {
         title: 'Applicants',
-        value: 'Applications', // 数组时.默认显示第一个值
+        value: 'Applicants', // 数组时.默认显示第一个值
         key: 'Applicants',
         children: [
           {
@@ -437,7 +435,10 @@ export const getTableTitle = (cb?: (args: LendingItem, type: string) => MouseEve
       title: 'Order type', // 订单类型: 复贷订单\新订单 p4.1.1
       dataIndex: 'order_type',
       width: '137px',
-      key: 'order_type'
+      key: 'order_type',
+      render: (item: string) => {
+        return <span>{ORDER_TYPE_REFLECT[item]}</span>
+      }
     },
     {
       title: 'Name', // 客户姓名
