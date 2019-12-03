@@ -2,7 +2,7 @@ import React, { MouseEventHandler } from 'react'
 import { CheckRepeatResItem } from 'interface/details/checkRepeat'
 
 // table tableTitle
-export const headerLists = (clickCallback: (args: {}) => MouseEventHandler<{}>) => {
+export const headerLists = (clickCallback?: (args: {}) => MouseEventHandler<{}>) => {
   return [
     {
       title: 'Match Content',
@@ -55,7 +55,7 @@ export const headerLists = (clickCallback: (args: {}) => MouseEventHandler<{}>) 
       key: 'operating',
       render: (_: string, record: CheckRepeatResItem, index: number) => {
         return (
-          <span onClick={clickCallback(record)} className={`blue-color operating`} id={`inquire-${index}`}>
+          <span onClick={clickCallback!(record)} className={`blue-color operating`} id={`inquire-${index}`}>
             {'Inquire'}
           </span>
         )

@@ -142,4 +142,16 @@ describe('Repayments', () => {
     expect(instance.verifyReq(request11)).toBe(false)
     expect(instance.verifyReq(request12)).toBe(false)
   })
+  it('tempFunc', () => {
+    instance.tempFunc()()
+    expect(mockProps.repayments.getRepaymentList).toBeCalled()
+  })
+  it('operating', () => {
+    const type = 'inquire',
+      item = {}
+    instance.replaceDetail = jest.fn()
+    instance.operating(item, type)()
+    expect(instance.replaceDetail).toBeCalled()
+  })
+  it('replaceDetail', () => {})
 })

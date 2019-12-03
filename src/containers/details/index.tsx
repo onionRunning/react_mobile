@@ -7,7 +7,7 @@ import { top_config, bot_config, handlerRouter } from './utils'
 import ApprovalStore from 'stores/details/approval'
 import { inject, observer } from 'mobx-react'
 import UserDetail from 'stores/details/userInfo'
-// import { isReadOnly } from 'global/method'
+import { isReadOnly, getQueryString, strDecrypt } from 'global/method'
 interface Props extends MixProps {
   approval: ApprovalStore
   userDetail: UserDetail
@@ -19,17 +19,27 @@ interface Props extends MixProps {
 @inject('userDetail')
 @observer
 export class OrderDetails extends Component<Props> {
-  // 默认调用用户信息 需要duplicate_status 去判断是否显示小红点
+  componentWillMount() {
+    // 判断如果只读,重写location.state
+    const readOnly = isReadOnly()
+    if (readOnly) {
+      this.props.location.state = {
+        order_no: strDecrypt(getQueryString('order_no')),
+        product_name: getQueryString('product_name'),
+        viewType: getQueryString('detail_type')
+      }
+    }
+  }
   componentDidMount() {
     const { getUserInfo } = this.props.userDetail
     const { order_no } = this.props.location.state
     getUserInfo({ order_no })
   }
   render() {
-    // const readOnly = isReadOnly()
     const { state } = this.props.location
     if (!state) return
-    const breadRouter = handlerRouter(state.detail_type)
+    const breadRouter = handlerRouter(state.viewType)
+    // TODO: 显示小红点?
     // const {
     //   // order_msg: { duplicate_status }
     // } = this.props.userDetail
@@ -41,7 +51,7 @@ export class OrderDetails extends Component<Props> {
           <BreadCrumb routes={breadRouter} {...this.props} />
         </div>
         <div className="information-box">
-          <TabComponent {...this.props} config={top_config(true)} level="top" />
+          <TabComponent {...this.props} config={top_config()} level="top" />
         </div>
         <div className="loan-info-box">
           <TabComponent {...this.props} config={bot_config()} level="bot" />

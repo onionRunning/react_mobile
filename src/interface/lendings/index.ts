@@ -12,15 +12,16 @@ export interface LendingsPayload {
   loan_amount_start?: number // 开始放款金额
   loan_amount_end?: number // 结束放款金额
   loan_status?: string // 放款单状态
-  product_name?: string // 订单来源
+  product_name?: string[] // 订单来源
   sort_value?: string | number | boolean // 排序字段
   sort_order?: string // 排序方式:asc/desc
+  order_type?: string[] // 订单类型
 }
 
 // 手动放款 or 重试
 export interface LoanOrRetryReq {
   order_no: string
-  operator: string
+  operator_name: string
   operator_id: number
 }
 // 取消放款

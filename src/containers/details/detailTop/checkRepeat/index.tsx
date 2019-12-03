@@ -9,6 +9,7 @@ import Table from 'components/table'
 import styles from './index.module.scss'
 import Common from 'stores/common'
 import { intoDetail } from 'global/constants'
+import { gotoDetail } from 'global/method'
 // import { gotoDetail } from 'global/method'
 
 interface Props extends MixProps {
@@ -62,9 +63,14 @@ export class CheckRepeat extends Component<Props, State> {
     } = this.props.location
     retryChecklists({ order_no }, this.renderContent)
   }
-  operating = () => () => {
-    // TODO:
-    // gotoDetail(item, true)
+  operating = (res: any) => () => {
+    const { state } = this.props.location
+    const item = {
+      product_name: res.product_name,
+      result_order_no: res.order_no,
+      detail_type: state.viewType
+    }
+    gotoDetail(item, true)
   }
   render() {
     const { currentList } = this.state

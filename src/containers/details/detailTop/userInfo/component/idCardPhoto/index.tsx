@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import './index.scss'
-import { imgPath } from 'global/constants'
 
 interface Props {
   config?: ItemType[]
@@ -26,11 +25,10 @@ class IdCardPhoto extends Component<Props> {
   }
   renderImgaes = (item: ItemType, index: number): JSX.Element => {
     const { showPicture, config = [] } = this.props
-    const src = item.src && item.src.indexOf('/') === 0 ? item.src : imgPath + item.src
     return (
       <div className="photo-item" key={index}>
         <div className="phont-item-wrap">
-          <img src={src} onClick={showPicture && showPicture(item.showId, src, config)} alt={item.title} />
+          <img src={item.src} onClick={showPicture && showPicture(item.showId, item.src, config)} alt={item.title} />
           <span className="photo-span">{item.title}</span>
         </div>
       </div>

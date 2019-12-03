@@ -280,13 +280,14 @@ export const strDecrypt = (str: string) => {
 interface NormalOrder {
   result_order_no: string
   product_name: string
+  detail_type: string
 }
 
 // 打开新窗口进入详情
 export const gotoDetail = (order: NormalOrder, readOnly?: boolean) => {
-  const { result_order_no, product_name } = order
+  const { result_order_no, product_name, detail_type } = order
   const encryptOrder_no = strEncrypt(result_order_no)
-  const params = `?&order_no=${encryptOrder_no}&product_name=${product_name}`
+  const params = `?&order_no=${encryptOrder_no}&product_name=${product_name}&detail_type=${detail_type}`
   const route = encodeURI(`${window.location.origin}/auth/order_details${readOnly ? '/readOnly' : ''}${params}`)
   window.open(route)
 }

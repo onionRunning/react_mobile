@@ -13,7 +13,7 @@ const getListsSuccess = () => {
 }
 const requestError = () => {
   return new Promise(resolve => {
-    resolve({ success: false, info: 'error' })
+    resolve({ success: false })
   })
 }
 describe('CheckRepeat', () => {
@@ -28,9 +28,10 @@ describe('CheckRepeat', () => {
     expect(cb).toBeCalled()
   })
   it('getCheckLists 请求错误', async () => {
-    api.myOrders = requestError as any
+    api.getRepeatList = requestError as any
     const cb = jest.fn()
-    expect(await instance.getCheckLists({ order_no: '1111' }, cb)).toBeUndefined()
+    await instance.getCheckLists({ order_no: '1111' }, cb)
+    expect(cb).not.toBeCalled()
   })
   it('retryChecklists 请求成功', async () => {
     api.checkRepeatList = getListsSuccess as any
@@ -43,5 +44,17 @@ describe('CheckRepeat', () => {
       cb
     )
     expect(instance.getCheckLists).toBeCalled()
+  })
+  it('retryChecklists 请求失败', async () => {
+    api.checkRepeatList = requestError as any
+    instance.getCheckLists = jest.fn()
+    const cb = jest.fn()
+    await instance.retryChecklists(
+      {
+        order_no: '111'
+      },
+      cb
+    )
+    expect(instance.getCheckLists).not.toBeCalled()
   })
 })

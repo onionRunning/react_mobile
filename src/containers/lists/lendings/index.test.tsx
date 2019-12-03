@@ -153,7 +153,7 @@ describe('Lendings', () => {
     expect(mockProps.lendings.createCancelLoan).toBeCalledWith(
       {
         order_no: lendingItem.order_no,
-        operator: sessionStorage.getItem('username')!,
+        operator_name: sessionStorage.getItem('username')!,
         operator_id: parseInt(sessionStorage.getItem('userId')!, 10)
       },
       instance.composeFunction

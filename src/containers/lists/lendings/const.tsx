@@ -9,6 +9,20 @@ import errors from 'global/errors'
 // 筛选输入中,需要转换成数值行的数据
 export const turnToNumber = ['loan_amount_start', 'loan_amount_end', 'loan_days']
 
+// 筛选输入中,需要转换成数组的数据
+export const turnToArray = ['product_names', 'order_type']
+// 所有的产品
+export const AllProduct = ['JetPeso']
+export const Application = ['NewApplicationOrder', 'RepeatApplicationOrder']
+export const RepeatClients = [
+  'QualityApplicationOrder',
+  'QualityApplicationOrderClassB',
+  'QualityApplicationOrderClassC'
+]
+
+// Applicants
+// export const OrderTypeApplicants = ['NewApplicationOrder', 'RepeatApplicationOrder']
+
 export const getBtn = () => {
   return [
     {
@@ -140,17 +154,17 @@ export const filterData = [
     data: [
       {
         title: 'Applicants',
-        value: 'Applicants',
+        value: 'Applications', // 数组时.默认显示第一个值
         key: 'Applicants',
         children: [
           {
             title: 'New Client',
-            value: 'NewApplicationOrder',
+            value: ['NewApplicationOrder'],
             key: 'NewApplicationOrder'
           },
           {
             title: 'Multiple Application',
-            value: 'RepeatApplicationOrder',
+            value: ['RepeatApplicationOrder'],
             key: 'RepeatApplicationOrder'
           }
         ]
@@ -162,17 +176,17 @@ export const filterData = [
         children: [
           {
             title: 'Repeat Client 01',
-            value: 'QualityApplicationOrder',
+            value: ['QualityApplicationOrder'],
             key: 'QualityApplicationOrder'
           },
           {
             title: 'Repeat Client 02',
-            value: 'QualityApplicationOrderClassB',
+            value: ['QualityApplicationOrderClassB'],
             key: 'QualityApplicationOrderClassB'
           },
           {
             title: 'Repeat Client 03',
-            value: 'QualityApplicationOrderClassC',
+            value: ['QualityApplicationOrderClassC'],
             key: 'QualityApplicationOrderClassC'
           }
         ]
@@ -182,17 +196,16 @@ export const filterData = [
   {
     formType: formType.SELECT,
     label: 'Product:', // 所属产品 修改为英文，修改key字段
-    key: 'product_name',
+    key: 'product_names',
     data: [
       {
         label: 'All',
-        value: ''
+        value: 'all'
       },
       {
         label: 'JetPeso',
         value: 'JetPeso'
       }
-      // 接口获取剩下的产品
     ]
   },
   {
@@ -280,7 +293,7 @@ export const switchStatus = {
 
 export interface SearchType {
   key: string
-  value?: string | number
+  value?: string | number | string[]
 }
 
 // 放款按钮文字
