@@ -110,8 +110,9 @@ export class Lendings extends Component<Props, State> {
       } else {
         if (v.key === 'product_names' && typeof v.value === 'string')
           v.value = v.value === 'all' ? con.AllProduct : v.value.split(',')
-        if (v.key === 'order_type') {
-          v.value = v.value === 'RepeatClients' ? con.RepeatClients : con.Application
+        if (v.key === 'order_type' && typeof v.value === 'string') {
+          v.value =
+            v.value === 'RepeatClients' ? con.RepeatClients : v.value === 'Applicants' ? con.Applicants : v.value
         }
       }
     }
