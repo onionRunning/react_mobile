@@ -17,19 +17,15 @@ class Repayments {
    */
   @action getRepaymentList = async (payload: RepaymentListReq = {}) => {
     const res = await api.getRepaymentList(payload)
-    try {
-      if (res && res.success) {
-        if (res.data) {
-          this.lists = res.data.repayment
-          this.total_count = res.data.total_count
-          this.page = payload.page!
-          this.page_count = payload.per_page!
-        }
-      } else {
-        Message.error(res.info)
+    if (res && res.success) {
+      if (res.data) {
+        this.lists = res.data.repayment
+        this.total_count = res.data.total_count
+        this.page = payload.page!
+        this.page_count = payload.per_page!
       }
-    } catch (error) {
-      Message.error(error)
+    } else {
+      Message.error(res.info)
     }
   }
 }

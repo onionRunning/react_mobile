@@ -6,7 +6,7 @@ export interface ConfigType {
   hasResult?: boolean
 }
 
-export const top_config = (hasResult: boolean): ConfigType[] => {
+export const top_config = (hasResult?: boolean): ConfigType[] => {
   return [
     { type: 'User info', title: 'User info', id: 'detail-user' },
     {

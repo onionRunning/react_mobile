@@ -11,16 +11,12 @@ class CheckRepeat {
    */
   @action getCheckLists = async (payload: CheckRepeatPayloadReq, cb: Callback) => {
     const res = await api.getRepeatList(payload)
-    try {
-      if (res && res.success) {
-        if (res.data) {
-          cb && cb(res.data)
-        }
-      } else {
-        Message.error(res.info)
+    if (res && res.success) {
+      if (res.data) {
+        cb && cb(res.data)
       }
-    } catch (error) {
-      Message.error(error)
+    } else {
+      Message.error(res.info)
     }
   }
   /**
@@ -30,14 +26,10 @@ class CheckRepeat {
    */
   @action retryChecklists = async (payload: CheckRepeatPayloadReq, cb: Callback) => {
     const res = await api.checkRepeatList(payload)
-    try {
-      if (res && res.success) {
-        this.getCheckLists(payload, cb)
-      } else {
-        Message.error(res.info)
-      }
-    } catch (error) {
-      Message.error(error)
+    if (res && res.success) {
+      this.getCheckLists(payload, cb)
+    } else {
+      Message.error(res.info)
     }
   }
 }

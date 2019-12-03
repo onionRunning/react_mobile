@@ -9,7 +9,7 @@ import Message from 'components/message'
 import AutoLendingConfirm from './AutoLendingConfirm'
 
 import { MixProps } from 'global/interface'
-import { Trim } from 'global/method'
+// import { Trim } from 'global/method'
 import { LendingsPayload, LendingItem } from 'interface/lendings'
 
 import LendingProps from 'stores/lendings'
@@ -99,9 +99,21 @@ export class Lendings extends Component<Props, State> {
   }
   // 筛选条件
   handleFilter = (v: con.SearchType) => {
-    v.value = Trim(v.value)
+    // 注释的原因: 产品和类型是数组格式
+    // v.value = Trim(v.value)
     if (con.turnToNumber.includes(v.key)) {
       v.value = v.value ? Number(v.value) : undefined
+    }
+    if (con.turnToArray.includes(v.key)) {
+      if (!v.value) {
+        v.value = []
+      } else {
+        if (v.key === 'product_names' && typeof v.value === 'string')
+          v.value = v.value === 'all' ? con.AllProduct : v.value.split(',')
+        if (v.key === 'order_type') {
+          v.value = v.value === 'RepeatClients' ? con.RepeatClients : con.Application
+        }
+      }
     }
     this.setState({
       request: { ...this.state.request, [v.key]: v.value }
@@ -152,7 +164,7 @@ export class Lendings extends Component<Props, State> {
     const { createLoanRetry } = this.props.lendings
     const payload = {
       order_no: order,
-      operator: sessionStorage.getItem('username')!,
+      operator_name: sessionStorage.getItem('username')!,
       operator_id: parseInt(sessionStorage.getItem('userId')!, 10)
     }
     createLoanRetry(payload, this.composeFunction)
@@ -160,11 +172,11 @@ export class Lendings extends Component<Props, State> {
   }
 
   // 取消放款
-  cancelLoan = (item: LendingItem) => () => {
+  cancelLoan = (item: any) => () => {
     const { createCancelLoan } = this.props.lendings
     const payload = {
       order_no: item.order_no,
-      operator: sessionStorage.getItem('username')!,
+      operator_name: sessionStorage.getItem('username')!,
       operator_id: parseInt(sessionStorage.getItem('userId')!, 10)
     }
     createCancelLoan(payload, this.composeFunction)

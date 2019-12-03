@@ -2,6 +2,7 @@ import React from 'react'
 import { Header } from './index'
 import { mockRouteProps } from 'test/mock'
 import { ShallowWrapper, shallow } from 'enzyme'
+import errors from 'global/errors'
 // import { createAlertError } from 'stores/actions/actionCreator'
 
 describe('Header', () => {
@@ -68,6 +69,6 @@ describe('Header readOnly', () => {
   })
 
   it('authReadOnly', () => {
-    expect(instance.authReadOnly('/auth/order_details/readOnly')).toBe('ReadOnly this page, Cannot to Direact')
+    expect(instance.authReadOnly('/auth/order_details/readOnly')).toBe(errors.READONLY_ERROR)
   })
 })

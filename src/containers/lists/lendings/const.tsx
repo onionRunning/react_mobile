@@ -3,13 +3,25 @@ import moment from 'moment'
 import { formType } from 'global/constants'
 import { formatTime, Trim } from 'global/method'
 import { isNumber } from 'util'
-import { LendingFunc } from 'design/interface'
 import { LendingItem, LendingsPayload } from 'interface/lendings'
 import errors from 'global/errors'
-import { userPermission } from 'design/permission'
 
 // 筛选输入中,需要转换成数值行的数据
 export const turnToNumber = ['loan_amount_start', 'loan_amount_end', 'loan_days']
+
+// 筛选输入中,需要转换成数组的数据
+export const turnToArray = ['product_names', 'order_type']
+// 所有的产品
+export const AllProduct = ['JetPeso']
+export const Application = ['NewApplicationOrder', 'RepeatApplicationOrder']
+export const RepeatClients = [
+  'QualityApplicationOrder',
+  'QualityApplicationOrderClassB',
+  'QualityApplicationOrderClassC'
+]
+
+// Applicants
+// export const OrderTypeApplicants = ['NewApplicationOrder', 'RepeatApplicationOrder']
 
 export const getBtn = () => {
   return [
@@ -142,17 +154,17 @@ export const filterData = [
     data: [
       {
         title: 'Applicants',
-        value: 'Applicants',
+        value: 'Applications', // 数组时.默认显示第一个值
         key: 'Applicants',
         children: [
           {
             title: 'New Client',
-            value: 'NewApplicationOrder',
+            value: ['NewApplicationOrder'],
             key: 'NewApplicationOrder'
           },
           {
             title: 'Multiple Application',
-            value: 'RepeatApplicationOrder',
+            value: ['RepeatApplicationOrder'],
             key: 'RepeatApplicationOrder'
           }
         ]
@@ -164,17 +176,17 @@ export const filterData = [
         children: [
           {
             title: 'Repeat Client 01',
-            value: 'QualityApplicationOrder',
+            value: ['QualityApplicationOrder'],
             key: 'QualityApplicationOrder'
           },
           {
             title: 'Repeat Client 02',
-            value: 'QualityApplicationOrderClassB',
+            value: ['QualityApplicationOrderClassB'],
             key: 'QualityApplicationOrderClassB'
           },
           {
             title: 'Repeat Client 03',
-            value: 'QualityApplicationOrderClassC',
+            value: ['QualityApplicationOrderClassC'],
             key: 'QualityApplicationOrderClassC'
           }
         ]
@@ -184,13 +196,16 @@ export const filterData = [
   {
     formType: formType.SELECT,
     label: 'Product:', // 所属产品 修改为英文，修改key字段
-    key: 'product_name',
+    key: 'product_names',
     data: [
       {
         label: 'All',
-        value: ''
+        value: 'all'
+      },
+      {
+        label: 'JetPeso',
+        value: 'JetPeso'
       }
-      // 接口获取剩下的产品
     ]
   },
   {
@@ -208,18 +223,6 @@ export const filterData = [
       }
     }
   },
-  // {
-  //   formType: formType.SELECT,
-  //   label: 'Channels:', // 渠道
-  //   key: 'channel',
-  //   data: [
-  //     {
-  //       label: 'All',
-  //       value: ''
-  //     }
-  //     // 接口获取剩下的渠道
-  //   ]
-  // },
   {
     formType: formType.SELECT,
     label: 'Pay channels:', // 渠道
@@ -247,8 +250,20 @@ export const filterData = [
     formType: formType.SELECT,
     label: 'Loan days:', // 贷款天数
     key: 'loan_days',
-    data: []
-    // 接口获取剩下的贷款天数
+    data: [
+      {
+        label: 'All',
+        value: 0
+      },
+      {
+        label: '7',
+        value: 7
+      },
+      {
+        label: '14',
+        value: 14
+      }
+    ]
   }
 ]
 
@@ -278,7 +293,7 @@ export const switchStatus = {
 
 export interface SearchType {
   key: string
-  value?: string | number
+  value?: string | number | string[]
 }
 
 // 放款按钮文字
@@ -297,27 +312,25 @@ export const OFFLINE_LOAN = 'OFFLINE_LOAN'
  * @param element
  * @param lending_func
  */
-export const getMakeLoanText = (element: LendingItem, lending_func: LendingFunc): string => {
+export const getMakeLoanText = (element: LendingItem): string => {
   const { loan_status } = element
   const { LoanFailed, CreateLoan } = orderStatus
-  const { p20103, p20104 } = lending_func
-  if (loan_status === LoanFailed && p20104) {
+  if (loan_status === LoanFailed) {
     return RETRY_TEXT
   }
-  if (loan_status === CreateLoan && p20103) {
+  if (loan_status === CreateLoan) {
     return MAKE_LOAN_TEXT
   }
   return ''
 }
 
 // 根据订单状态显示取消贷款文字  1.贷款失败+权限 2.创建贷款+权限 3.线下放款+放款中+权限
-export const getCancleLoanText = (element: LendingItem, lending_func: LendingFunc): string => {
+export const getCancleLoanText = (element: LendingItem): string => {
   const { LoanFailed, CreateLoan, LoanProcessing, No } = orderStatus
   const { loan_status, loan_flow_status, loan_pay_type } = element
-  const { p20105 } = lending_func
-  if (loan_status === LoanFailed && loan_flow_status === LoanFailed && p20105) return LOAN_CANCEL_TEXT
-  if (loan_status === CreateLoan && loan_flow_status === No && p20105) return LOAN_CANCEL_TEXT
-  if (loan_status === LoanProcessing && loan_pay_type === OFFLINE_LOAN && p20105) return LOAN_CANCEL_TEXT
+  if (loan_status === LoanFailed && loan_flow_status === LoanFailed) return LOAN_CANCEL_TEXT
+  if (loan_status === CreateLoan && loan_flow_status === No) return LOAN_CANCEL_TEXT
+  if (loan_status === LoanProcessing && loan_pay_type === OFFLINE_LOAN) return LOAN_CANCEL_TEXT
   return ''
 }
 
@@ -514,12 +527,6 @@ export const getTableTitle = (cb?: (args: LendingItem, type: string) => MouseEve
       width: '120px',
       key: 'product_name'
     },
-    // {
-    //   title: 'Channel', // 渠道
-    //   dataIndex: 'channel',
-    //   width: '92px',
-    //   key: 'channel'
-    // },
     {
       title: 'Pay channel', // 还款渠道
       dataIndex: 'pay_channel',
@@ -533,14 +540,13 @@ export const getTableTitle = (cb?: (args: LendingItem, type: string) => MouseEve
       width: 150,
       key: 'operating',
       render: (item: LendingItem, _: string, index: number) => {
-        const { lending_func } = userPermission.finnalPermission!
         return (
           <div className="operatingWrap">
             <span onClick={cb!(item, 'makeOrRetry')} className={`blue-color operating`} id={`inquire-${index}`}>
-              {getMakeLoanText(item, lending_func)}
+              {getMakeLoanText(item)}
             </span>
             <span onClick={cb!(item, 'cancel')} className={`orange-color operating`} id={`inquire-${index}`}>
-              {getCancleLoanText(item, lending_func)}
+              {getCancleLoanText(item)}
             </span>
           </div>
         )

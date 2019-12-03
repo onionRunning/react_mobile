@@ -39,9 +39,13 @@ describe('lendings', () => {
     expect(instance.total_count).toEqual(1)
     expect(instance.lendingList.length).toEqual(1)
   })
-  it('getLendingList 请求错误', async () => {
-    api.myOrders = requestError as any
-    expect(await instance.getLendingList({})).toBeUndefined()
+  it('getLendingList error', async () => {
+    api.getLendingLists = requestError as any
+    const req = {
+      page: 1,
+      per_page: 10
+    }
+    expect(await instance.getLendingList(req)).toBeUndefined()
   })
   it('checkAutoStatus', async () => {
     api.getAutoStatus = requestAutoSuccess as any
@@ -49,11 +53,39 @@ describe('lendings', () => {
     await instance.checkAutoStatus(cb)
     expect(cb).toBeCalled()
   })
+  it('checkAutoStatus', async () => {
+    api.getAutoStatus = requestError as any
+    const cb = jest.fn()
+    await instance.checkAutoStatus(cb)
+    expect(await instance.checkAutoStatus(cb)).toBeUndefined()
+  })
   it('UpdateAutoStatus', async () => {
     const cb = jest.fn()
     api.updateAutoStatus = requestSuccess as any
-    await instance.UpdateAutoStatus({ config_value: 'on' }, cb)
+    const req = {
+      switches: [
+        {
+          product_name: 'name',
+          switch_to: 'on'
+        }
+      ]
+    }
+    await instance.UpdateAutoStatus(req, cb)
     expect(cb).toBeCalled()
+  })
+  it('UpdateAutoStatus', async () => {
+    const cb = jest.fn()
+    api.updateAutoStatus = requestError as any
+    const req = {
+      switches: [
+        {
+          product_name: 'name',
+          switch_to: 'on'
+        }
+      ]
+    }
+    await instance.UpdateAutoStatus(req, cb)
+    expect(await instance.UpdateAutoStatus(req, cb)).toBeUndefined()
   })
   it('createCancelLoan', async () => {
     const cb = jest.fn()
@@ -66,6 +98,16 @@ describe('lendings', () => {
     await instance.createCancelLoan(req, cb)
     expect(cb).toBeCalled()
   })
+  it('createCancelLoan', async () => {
+    const cb = jest.fn()
+    const req = {
+      order_no: '111',
+      operator: 'admin',
+      operator_id: 123
+    }
+    api.getCancelLoan = requestError as any
+    expect(await instance.createCancelLoan(req, cb)).toBeUndefined()
+  })
   it('createLoanRetry', async () => {
     const cb = jest.fn()
     const req = {
@@ -76,5 +118,15 @@ describe('lendings', () => {
     api.getLoanOrRetry = requestSuccess as any
     await instance.createLoanRetry(req, cb)()
     expect(cb).toBeCalled()
+  })
+  it('createLoanRetry error', async () => {
+    const cb = jest.fn()
+    const req = {
+      order_no: '111',
+      operator: 'admin',
+      operator_id: 123
+    }
+    api.getLoanOrRetry = requestError as any
+    expect(await instance.createLoanRetry(req, cb)()).toBeUndefined()
   })
 })

@@ -6,6 +6,8 @@ import LeftNav from './leftNav'
 import RightUser from './rightUser'
 import Common from 'stores/common'
 import routesConfig from './config'
+import Message from 'components/message'
+import errors from 'global/errors'
 
 import './index.scss'
 
@@ -37,16 +39,15 @@ export class Header extends React.Component<Props & Partial<any>> {
   // 检查是否readonly
   checkIsReadOnly = () => {
     const text = this.authReadOnly(this.props.location.pathname)
-    // console.log(this.props.location)
     if (text) {
-      //   this.props.dispatch!(createAlertError(text))
+      Message.warning(text)
       return true
     }
     return false
   }
 
   authReadOnly = (showType: string) => {
-    return showType.includes('readOnly') ? 'ReadOnly this page, Cannot to Direact' : ''
+    return showType.includes('readOnly') ? errors.READONLY_ERROR : ''
   }
 }
 

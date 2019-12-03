@@ -3,12 +3,14 @@ import { inject, observer } from 'mobx-react'
 import { headerLists } from './config'
 import { MixProps } from 'global/interface'
 import CheckRepeatProps from 'stores/details/checkRepeat'
-import { CheckRepeatResItem } from 'interface/details/checkRepeat'
+import { CheckRepeatPayloadRes } from 'interface/details/checkRepeat'
 import Table from 'components/table'
 
 import styles from './index.module.scss'
 import Common from 'stores/common'
 import { intoDetail } from 'global/constants'
+import { gotoDetail } from 'global/method'
+// import { gotoDetail } from 'global/method'
 
 interface Props extends MixProps {
   checkRepeat: CheckRepeatProps
@@ -16,7 +18,7 @@ interface Props extends MixProps {
   type?: string
 }
 interface State {
-  currentList: CheckRepeatResItem[]
+  currentList: any[]
 }
 
 @inject('checkRepeat', 'common')
@@ -47,13 +49,11 @@ export class CheckRepeat extends Component<Props, State> {
     } = this.props.location
     getCheckLists({ order_no }, this.renderContent)
   }
-  renderContent = (res: any) => {
-    if (res || res.list === null) {
-      this.props.common.changeLoading(false)
-      this.setState({
-        currentList: res.list
-      })
-    }
+  renderContent = (res: CheckRepeatPayloadRes) => {
+    this.props.common.changeLoading(false)
+    this.setState({
+      currentList: res.duplicate_list
+    })
   }
   // 重新匹配列表
   newClick = () => {
@@ -63,10 +63,19 @@ export class CheckRepeat extends Component<Props, State> {
     } = this.props.location
     retryChecklists({ order_no }, this.renderContent)
   }
-
+  operating = (res: any) => () => {
+    const { state } = this.props.location
+    const item = {
+      product_name: res.product_name,
+      result_order_no: res.order_no,
+      detail_type: state.viewType
+    }
+    gotoDetail(item, true)
+  }
   render() {
     const { currentList } = this.state
     const { viewType } = this.props.location.state
+    const headerConfig = headerLists(this.operating)
     return (
       <div className={styles.checkRepeatWrap}>
         <div className={styles.tableWrap}>
@@ -75,7 +84,7 @@ export class CheckRepeat extends Component<Props, State> {
               Rematch
             </button>
           )}
-          <Table tableTitle={headerLists} tableData={currentList} />
+          <Table tableTitle={headerConfig} tableData={currentList} />
         </div>
       </div>
     )
