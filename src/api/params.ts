@@ -2,6 +2,7 @@ import * as loginParams from 'interface/login'
 import * as orders from 'interface/orders'
 import * as repayments from 'interface/repayments'
 import * as lendings from 'interface/lendings'
+import { CheckboxValueType } from 'antd/lib/checkbox/Group'
 export { loginParams, orders, repayments, lendings }
 // 请求参数
 // 登陆参数
@@ -103,12 +104,6 @@ export interface StatusRecordReq {
 }
 
 // 提交订单
-
-interface ReasonType {
-  reason_code: string
-  reason_value: string
-  id: number
-}
 export interface SubmitOrderPayload {
   order_no: string
   operator_name: string | null
@@ -279,7 +274,7 @@ export interface UpdateRoleReq {
   role_name: string
   notes: string
   access_id: number[]
-  product_id: number[]
+  product_id: CheckboxValueType[]
 }
 
 // 分单参数
@@ -304,20 +299,18 @@ export interface RepaymentTrial {
 // 获取审核结果
 export interface ApprovalResultReq {
   order_no: string
-  suffix: string
+  // suffix: string
 }
 
 // 获取电话审核信息
 export interface TelephoneVerifyReq {
   order_no: string
-  suffix: string
 }
 
 // 获取通话记录信息
 export interface CallRecordInfoReq {
   internal_id: string
   internal_sys: number
-  suffix: string
 }
 
 // 拨打电话
@@ -338,16 +331,30 @@ export interface UpdateCallInfoReq {
   remark: string
 }
 
+export interface ReasonType {
+  reason_code: string
+  reason_value: string
+  id: number
+}
+
+// 审核订单
+export interface ApprovalOrder {
+  order_no: string
+  operator_name: string | null
+  operator_id: number
+  application_status: string
+  reasons: ReasonType[]
+  remark?: string
+}
+
 // 获取还款详情
 export interface RepaymentDetailReq {
   order_no: string
-  PermissionId?: string
 }
 
 // 获取放款信息
 export interface LoanInfoReq {
   order_no: string
-  PermissionId?: string
   sort_order?: 'asc' | 'desc' | ''
   sort_value?: string
 }
@@ -355,7 +362,6 @@ export interface LoanInfoReq {
 // 获取短信记录
 export interface SMSRecordReq {
   order_no: string
-  PermissionId?: string
 }
 
 // 发送短信
@@ -366,6 +372,5 @@ export interface SendSmsReq {
 
 // 获取状态记录
 export interface StatusRecordReq {
-  PermissionId?: string
   order_no: string
 }

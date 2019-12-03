@@ -3,11 +3,10 @@ import { shallow, ShallowWrapper } from 'enzyme'
 import { mockRouteProps } from 'test/mock'
 import { UserListItem } from 'interface/user'
 import User from './index'
-import UserStore from 'stores/user'
 
 describe('userlist', () => {
   const mockRoute = mockRouteProps({})
-  const user: UserStore = {
+  const user: any = {
     userList: [
       {
         account: 'lbbtest@qq.com',
@@ -25,14 +24,15 @@ describe('userlist', () => {
       total: 0
     },
     getUserListData: jest.fn(),
-    changeUserStatus: jest.fn(),
-    getRoleListData: jest.fn(),
-    getUserDetailData: jest.fn(),
-    addUsers: jest.fn(),
-    editUsers: jest.fn()
+    changeUserStatus: jest.fn()
+  }
+  const common: any = {
+    composeLoading: jest.fn(),
+    changeConfirm: jest.fn()
   }
   const mockProps = {
     user,
+    common,
     ...mockRoute
   }
   let component: ShallowWrapper<User>, instance: User
@@ -62,7 +62,12 @@ describe('userlist', () => {
       phone: '127253572182',
       status: 'normal'
     }
-    expect(instance.renderOperate(record.status, record, 0).type).toEqual('div')
+    expect(instance.renderOperate(record.status, record, 0).props.children.length).toEqual(3)
+  })
+
+  it('handleLoading', () => {
+    instance.handleLoading()
+    expect(mockProps.common.composeLoading).toBeCalledWith(instance.getUserList)
   })
 
   it('getUserList', () => {
@@ -107,13 +112,33 @@ describe('userlist', () => {
 
   it('operateUser', () => {
     instance.operateUser(0, 'normal')()
+    expect(mockProps.common.changeConfirm.mock.calls[0][0].text).toEqual('Do you confirm disabling user?')
+  })
+
+  it('confirmOperateUser', () => {
+    instance.confirmOperateUser(0, 'normal')()
     expect(mockProps.user.changeUserStatus).toBeCalledWith(
       {
         id: 0,
         frozen: 'frozen'
       },
-      instance.getUserList
+      instance.operateUserSuccess
     )
+  })
+
+  it('operateUserSuccess', () => {
+    instance.operateUserSuccess()
+    expect(mockProps.user.getUserListData).toBeCalledWith(instance.state.request)
+    expect(mockProps.common.changeConfirm).toBeCalledWith({
+      show: false
+    })
+  })
+
+  it('closeConfirm', () => {
+    instance.closeConfirm()
+    expect(mockProps.common.changeConfirm).toBeCalledWith({
+      show: false
+    })
   })
 
   it('handleTableChange', () => {

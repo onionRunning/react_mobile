@@ -4,15 +4,17 @@ import { observer, inject } from 'mobx-react'
 import ListTitle from 'components/listTitle'
 import ListCondition from 'components/listCondition'
 import Table from 'components/table'
-import { statusType, condition, btnItems, getTableTitle } from './config'
+import { statusType, condition, btnItems, getTableTitle, operateType } from './config'
 import styles from './index.module.scss'
 import { userPermission } from 'design/permission'
 import UserStore from 'stores/user'
+import CommonStore from 'stores/common'
 import { StatusType, TableSortType, UserListReq, UserListItem, ChangeUserReq } from 'interface/user'
 import { PaginationConfig, SorterResult } from 'antd/lib/table'
 
 interface Props extends RouteComponentProps {
   user: UserStore
+  common: CommonStore
 }
 
 interface Item {
@@ -24,7 +26,7 @@ interface State {
   request: UserListReq
 }
 
-@inject('user')
+@inject('common', 'user')
 @observer
 class User extends Component<Props, State> {
   constructor(props: Props) {
@@ -38,7 +40,7 @@ class User extends Component<Props, State> {
     }
   }
   componentDidMount = () => {
-    this.getUserList()
+    this.handleLoading()
   }
 
   render() {
@@ -81,6 +83,10 @@ class User extends Component<Props, State> {
     )
   }
 
+  handleLoading = () => {
+    this.props.common.composeLoading(this.getUserList)
+  }
+
   // 获取列表数据
   getUserList = async () => {
     const { request } = this.state
@@ -121,12 +127,36 @@ class User extends Component<Props, State> {
   }
 
   // 冻结、解冻用户
-  operateUser = (id: number, status: StatusType) => async () => {
+  operateUser = (id: number, status: StatusType) => () => {
+    // 弹出模态框提示
+    this.props.common.changeConfirm({
+      show: true,
+      title: operateType[status].title,
+      text: operateType[status].text,
+      onOk: this.confirmOperateUser(id, status),
+      onCancel: this.closeConfirm
+    })
+  }
+
+  confirmOperateUser = (id: number, status: StatusType) => async () => {
     const request: ChangeUserReq = {
       id,
       frozen: this.getOppositeStatus(status)!
     }
-    await this.props.user.changeUserStatus(request, this.getUserList)
+    await this.props.user.changeUserStatus(request, this.operateUserSuccess)
+  }
+
+  // 发送成功后的回调
+  operateUserSuccess = () => {
+    this.closeConfirm()
+    this.getUserList()
+  }
+
+  // 关闭模态框
+  closeConfirm = () => {
+    this.props.common.changeConfirm({
+      show: false
+    })
   }
 
   // 分页，排序

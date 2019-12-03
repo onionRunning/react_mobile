@@ -8,6 +8,17 @@ export const statusType = {
   FROZEN: 'frozen'
 }
 
+export const operateType = {
+  normal: {
+    title: 'Confirmation prompt',
+    text: 'Do you confirm disabling user?'
+  },
+  frozen: {
+    title: 'Confirmation prompt',
+    text: 'Do you confirm enabling user?'
+  }
+}
+
 export const condition = [
   {
     formType: formType.SEARCH,

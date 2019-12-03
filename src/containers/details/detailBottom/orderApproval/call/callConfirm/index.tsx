@@ -3,6 +3,7 @@ import Select, { ListItem, SelectOption } from 'components/select'
 import { selfAnswer, statusList, contactAnswer } from './config'
 import { Radio } from 'antd'
 import { RadioChangeEvent } from 'antd/lib/radio/interface'
+import Message from 'components/message'
 import './index.scss'
 const RadioGroup = Radio.Group
 
@@ -40,45 +41,47 @@ export class CallConfirm extends Component<Props, State> {
   render() {
     const { name, show, onCancel } = this.props
     const { option, reason, remark } = this.state
-    if (!show) return <></>
     return (
-      <div className="call-record-confirm">
-        <div className="call-confirm-cons">
-          <div className="call-title-name">
-            <span>name: {name}</span>
-          </div>
-          <p className="call-p">Check result</p>
-          <div className="call-title-name">Phone status</div>
-          <div className={`show-status`}>{this.renderRadio(statusList)}</div>
-          {// 当选中answered 出现下拉框
-          reason === 'Answered' && (
-            <div className="call-description">
-              <div className="call-title-name">Description:</div>
-              <div className="description-select">
-                <Select onChange={this.handleChangeSelect} list={option} value={remark} />
-              </div>
+      show && (
+        <div className="call-record-confirm">
+          <div className="call-confirm-cons">
+            <div className="call-title-name">
+              <span>name: {name}</span>
             </div>
-          )}
-          <button className="theme-btn-small call-but call-close" onClick={onCancel}>
-            close
-          </button>
-          <button className="theme-btn-small call-but call-save" onClick={this.handleClickSave}>
-            save
-          </button>
+            <p className="call-p">Check result</p>
+            <div className="call-title-name">Phone status</div>
+            <div className={`show-status`}>{this.renderRadio()}</div>
+            {// 当选中answered 出现下拉框
+            reason === 'Answered' && (
+              <div className="call-description">
+                <div className="call-title-name">Description:</div>
+                <div className="description-select">
+                  <Select onChange={this.handleChangeSelect} list={option} value={remark} />
+                </div>
+              </div>
+            )}
+            <button className="theme-btn-small call-but call-close" onClick={onCancel}>
+              close
+            </button>
+            <button className="theme-btn-small call-but call-save" onClick={this.handleClickSave}>
+              save
+            </button>
+          </div>
         </div>
-      </div>
+      )
     )
   }
 
   // 渲染单选框
-  renderRadio = (all: any[]) => {
+  renderRadio = () => {
     return (
       <RadioGroup size="large" onChange={this.handleChangeRadio}>
-        {all.map((item, index) => {
+        {statusList.map((item, index) => {
           return (
             <div key={index} className={`call-radio-span `}>
-              <Radio name="val" value={item} />
-              <b>{item}</b>
+              <Radio value={item}>
+                <b>{item}</b>
+              </Radio>
             </div>
           )
         })}
@@ -105,6 +108,14 @@ export class CallConfirm extends Component<Props, State> {
   // 保存
   handleClickSave = () => {
     const { reason, remark } = this.state
+    if (!reason) {
+      Message.warning('Please select result')
+      return
+    }
+    if (reason === 'Answered' && !remark) {
+      Message.warning('Please enter descrition')
+      return
+    }
     const { onConfirm } = this.props
     onConfirm(reason, remark)
   }

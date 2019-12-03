@@ -27,11 +27,11 @@ interface State {
   call_id: string
 }
 
-const SELF2 = 'self2'
+const SELF2 = 'Self2'
 
 @inject('approval')
 @observer
-class Call extends Component<Props, State> {
+export class Call extends Component<Props, State> {
   constructor(props: Props) {
     super(props)
     this.state = {
@@ -43,14 +43,15 @@ class Call extends Component<Props, State> {
       call_id: ''
     }
   }
-  componentDidMount() {
+  componentDidMount = async () => {
     // const current = this.props.match.params.type === intoDetail.MYORDER
     // current && this.getAppLists()
 
     // this.getApproval()
     // this.getAllCallLists()
     // this.getCallRecordDetail()
-    this.init()
+    await this.getTelephoneVerifyInfo()
+    await this.getCallRecordDetail()
   }
 
   render() {
@@ -102,7 +103,7 @@ class Call extends Component<Props, State> {
                   </div>
                   <div>
                     <span>Phone number:</span>
-                    <span>{item.cellphone}</span>
+                    <span>{item.phone}</span>
                   </div>
                   <div className={styles.view_btn} onClick={this.handleClickView(index)}>
                     View call history
@@ -135,18 +136,12 @@ class Call extends Component<Props, State> {
     )
   }
 
-  init = async () => {
-    await this.getTelephoneVerifyInfo()
-    await this.getCallRecordDetail()
-  }
-
   // 获取联系人列表
   getTelephoneVerifyInfo = async () => {
-    const { order_no, viewType } = this.props.location.state
+    const { order_no } = this.props.location.state
     await this.props.approval.getTelephoneVerifyInfo(
       {
-        order_no,
-        suffix: `${viewType}_result`
+        order_no
       },
       this.handleTelephoneVerifyInfo
     )
@@ -155,7 +150,7 @@ class Call extends Component<Props, State> {
   // 获取联系人列表成功后，对数据进行处理
   handleTelephoneVerifyInfo = (result: response.TelephoneList[]) => {
     const newCallRecord = result!.map(el => {
-      return { ...el, cellphone: `${el.relation_ship === 'self' ? '0' : ''}${el.cellphone}`, show: false }
+      return { ...el, phone: `${el.relation_ship === 'Self' ? '0' : ''}${el.phone}`, show: false }
     })
     this.setState({
       callRecord: [...newCallRecord]
@@ -178,12 +173,11 @@ class Call extends Component<Props, State> {
 
   // 获取当前号码的通话记录详情
   getCallRecordDetail = async () => {
-    const { order_no, viewType } = this.props.location.state
+    const { order_no } = this.props.location.state
     await this.props.approval.getCallRecord(
       {
         internal_id: order_no,
-        internal_sys: 1,
-        suffix: `${viewType}_result`
+        internal_sys: 1
       },
       this.handleCallRecordDetail
     )
@@ -193,7 +187,7 @@ class Call extends Component<Props, State> {
   handleCallRecordDetail = (result: response.CallRecordInfoList[]) => {
     const { callRecord } = this.state
     const newCallRecord = callRecord.map(el => {
-      const filterArr = result.filter(item => item.call_to === el.cellphone)
+      const filterArr = result.filter(item => item.call_to === el.phone)
       return {
         ...el,
         detailList: filterArr
@@ -218,7 +212,7 @@ class Call extends Component<Props, State> {
   }
 
   handleclickphone = (item: response.TelephoneList) => async () => {
-    const { order_no, cellphone, id, selectValue } = item
+    const { order_no, phone, id, selectValue } = item
     if (!selectValue) {
       Message.error('Please select the cloud phone number')
       return
@@ -234,7 +228,7 @@ class Call extends Component<Props, State> {
         internal_id: order_no,
         internal_sys: 1, // 默认为1
         call_from: selectValue,
-        call_to: cellphone,
+        call_to: phone,
         third_channel: 'yeastar',
         approval_call_id: id
       },

@@ -6,7 +6,7 @@ import { Select } from 'antd'
 const { Option } = Select
 
 export interface ListItem {
-  id?: number
+  id?: number | string
   label: string
   value: string
 }

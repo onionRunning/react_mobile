@@ -1,23 +1,30 @@
 import React, { Component } from 'react'
-import { radioConfig } from './const'
-import InfoWrapper from 'containers/details/component/infoWrapper'
-import { Radio } from 'antd'
-import AntdSelect from './AntdSelect'
-import Button from 'components/button'
-import { getFinConfig } from './utils'
-import styles from './index.module.scss'
-import { MixProps } from 'global/interface'
+import { observer, inject } from 'mobx-react'
+import { Radio, Select } from 'antd'
 import { RadioChangeEvent } from 'antd/lib/radio/interface'
-
-const RadioGroup = Radio.Group
+import InfoWrapper from 'containers/details/component/infoWrapper'
+import Button from 'components/button'
+import Message from 'components/message'
+import { MixProps } from 'global/interface'
+import ApprovalStore from 'stores/details/approval'
+import { radioConfig, radioType } from './config'
+import { ReasonType } from 'api/params'
+import errs from 'global/errors'
+import styles from './index.module.scss'
 
 interface Props extends MixProps {
-  reasionLists?: any[]
-  detailPayload?: any
-  currentList?: any
-  checksReadOnly?: () => boolean
+  approval: ApprovalStore
 }
-export class Operate extends Component<Props, any> {
+
+interface State {
+  application_status: string
+  reasons: ReasonType[]
+  remark: string
+}
+
+@inject('approval')
+@observer
+export class Operate extends Component<Props, State> {
   constructor(props: Props) {
     super(props)
     this.state = {
@@ -27,22 +34,20 @@ export class Operate extends Component<Props, any> {
     }
   }
 
+  componentDidMount = () => {
+    this.getRefuseReason()
+  }
+
   render() {
     const { remark } = this.state
     return (
       <div className={styles.wrap}>
         <div className={styles.radio_box}>{this.renderRadio()}</div>
-        {/* <div className="order-select">{this.renderSelect()}</div> */}
+        <div className={styles.select_box}>{this.renderSelect()}</div>
         <div className={styles.content_box}>
           <div className={styles.textarea_box}>
             <p>Comments</p>
-            <textarea
-              name="remark"
-              className="order-remark"
-              value={remark}
-              onChange={this.handleChangeTextarea}
-              id="order-remark"
-            />
+            <textarea name="remark" value={remark} onChange={this.handleChangeTextarea} />
           </div>
           <div className={styles.tip}>{remark.length}/1000</div>
         </div>
@@ -57,7 +62,7 @@ export class Operate extends Component<Props, any> {
 
   renderRadio = () => {
     return (
-      <RadioGroup size="large" onChange={this.handleChangeRadio}>
+      <Radio.Group size="large" onChange={this.handleChangeRadio}>
         {radioConfig.map((item, index) => {
           return (
             <span className={styles.radio_item} key={index} id={`operate-${item.toLowerCase()}-btn`}>
@@ -66,99 +71,85 @@ export class Operate extends Component<Props, any> {
             </span>
           )
         })}
-      </RadioGroup>
+      </Radio.Group>
     )
   }
 
-  // show select
   renderSelect = () => {
+    const { refuseReasonList } = this.props.approval
     const { application_status } = this.state
-    const mode = application_status !== 'Loan cancellation' ? 'multiple' : 'default'
-    var configs: any[] = getFinConfig(this.props.reasionLists, application_status) // 配置
-    configs = configs.map(item => {
-      return { ...item, label: item.reason_code, value: item.reason_value }
-    })
     return (
-      application_status !== 'Approved' &&
-      application_status !== '' && (
-        <AntdSelect
-          placeholder={''}
-          application_status={application_status}
-          name={'reasons'}
-          mode={mode}
+      application_status === radioType.REJECTED && (
+        <Select
+          showArrow
+          mode="multiple"
+          style={{ width: 742 }}
+          placeholder="Please select"
           onChange={this.handleChangeSelect}
-          options={configs}
-        />
+        >
+          {refuseReasonList.map(item => (
+            <Select.Option key={item.id} value={item.reason_code}>
+              {item.reason_code + ' ' + item.reason_value}
+            </Select.Option>
+          ))}
+        </Select>
       )
     )
   }
 
-  // radio value
+  getRefuseReason = async () => {
+    await this.props.approval.getRefuseReason()
+  }
+
+  // 选择审核结果
   handleChangeRadio = (e: RadioChangeEvent) => this.setState({ application_status: e.target.value })
 
-  // select value
-  handleChangeSelect = (val: any) => {
-    this.setState({
-      ...val
-    })
-  }
+  // 选择拒绝理由
+  handleChangeSelect = (value: any) => console.log(value)
 
-  // textarea value
-  handleChangeTextarea = (
-    e: React.ChangeEvent<{
-      value: string
-      name: string
-    }>
-  ) => {
+  // 输入备注
+  handleChangeTextarea = (e: React.ChangeEvent<{ value: string }>) => {
+    // 不允许输入汉字
     const value = e.target.value.replace(/[\u4E00-\u9FA5]/g, '')
+    // 字符长度不允许超过1000
     if (value.length > 1000) return
-    this.setState({ [e.target.name]: value })
-  }
-  // 初始化参数
-  initParams = () => {
-    // const { order_no } = this.props.detailPayload
-    // const currentList = this.props.currentList
-    // const { application_status, reasons, remark } = this.state
-    // var configs = getFinConfig(this.props.reasionLists, application_status)
-    // return {
-    //   order_no,
-    //   operator_name: sessionStorage.getItem('username'),
-    //   operator_id: parseInt(sessionStorage.getItem('userId')!, 10),
-    //   application_status: RightBack[application_status],
-    //   reasons: finallyArr(reasons, configs),
-    //   remark: remark,
-    //   suffix: `${currentList}_result`
-    // }
+    this.setState({
+      remark: value
+    })
   }
 
   // 提交审批
   handleSubmitInfo = () => {
-    // 如果用户当前在编辑客户信息,则不允许提交审批结果,必须完成修改才能提交
-    const { checksReadOnly = () => false } = this.props
-    if (checksReadOnly()) return
-    // let auth = vertify(this.state)
-    // if (auth.flag) {
-    //   this.props.dispatch(Action.createAlertError(auth.hintText!))
-    //   return
-    // }
+    const { order_no } = this.props.location.state
+    const { application_status, reasons, remark } = this.state
+    // 审核状态不能为空
+    if (!application_status) {
+      Message.warning(errs.ORDER_APPROVE_EMPTY)
+      return
+    }
 
-    // this.props.dispatch({
-    //   type: Type.APPROVE_ORDER_REQUEST,
-    //   payload: this.initParams(),
-    //   cb: this.handleApproveSuccess
-    // })
+    // 当审核状态为拒绝时，拒绝理由不能为空
+    if (application_status === radioType.REJECTED && !reasons.length) {
+      Message.warning(errs.ORDER_APPROVE_RETURN_TYPE)
+      return
+    }
+
+    this.props.approval.approvalOrder(
+      {
+        order_no,
+        operator_name: sessionStorage.getItem('username'),
+        operator_id: parseInt(sessionStorage.getItem('userId')!, 10),
+        application_status,
+        reasons,
+        remark
+      },
+      this.handleApproveSuccess
+    )
   }
 
   handleApproveSuccess = () => {
     this.props.history.push('/auth/my_orders')
   }
 }
-
-// export const getReducer = (state: any) => {
-//   const { approvalReducer } = state
-//   return {
-//     ...approvalReducer
-//   }
-// }
 
 export default InfoWrapper('Operation approval')(Operate)

@@ -2,14 +2,15 @@ import { formatTime, formatTf } from 'global/method'
 import { TableTile } from 'global/interface'
 import * as response from 'api/response'
 
-export type SendMsgType = 'all' | 'self' | 'contact'
+export type SendMsgType = 'UserAndContactMissedCall' | 'UserMissedCall' | 'contact'
+
 export const SendMsg = {
-  all: {
+  UserAndContactMissedCall: {
     align: 'center',
     title: 'SMS reminder',
     text: 'Customer and the contacts did not answer the phone'
   },
-  self: {
+  UserMissedCall: {
     align: 'center',
     title: 'SMS reminder',
     text: 'Customer did not answer the phone'
@@ -23,11 +24,11 @@ export const SendMsg = {
 
 export const SendMsgBtn = [
   {
-    type: 'all',
+    type: 'UserAndContactMissedCall',
     text: 'Customer and the contacts did not answer the phone'
   },
   {
-    type: 'self',
+    type: 'UserMissedCall',
     text: 'Customer did not answer the phone'
   },
   {
@@ -54,8 +55,8 @@ export const SMSRecordColumns: TableTile[] = [
   {
     align: 'center',
     title: 'Triggering conditions', // 触发条件
-    dataIndex: 'send_type',
-    key: 'send_type',
+    dataIndex: 'label',
+    key: 'label',
     render: (data: string) => {
       return formatTf(data)
     }
@@ -63,8 +64,8 @@ export const SMSRecordColumns: TableTile[] = [
   {
     align: 'center',
     title: 'Sending time', // 发送时间
-    dataIndex: 'send_at',
-    key: 'send_at',
+    dataIndex: 'created_at',
+    key: 'created_at',
     render: (send_time: string) => {
       return formatTime(send_time)
     }
@@ -72,8 +73,8 @@ export const SMSRecordColumns: TableTile[] = [
   {
     align: 'center',
     title: 'Text message content',
-    dataIndex: 'send_content', // 短信内容
-    key: 'send_content'
+    dataIndex: 'content', // 短信内容
+    key: 'content'
   },
   {
     align: 'center',
