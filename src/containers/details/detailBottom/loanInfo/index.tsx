@@ -7,15 +7,14 @@ import Table from 'components/table'
 import { PaginationConfig, SorterResult } from 'antd/lib/table'
 import { LoanInfoColumns } from './config'
 import { MixProps } from 'global/interface'
-import * as params from 'api/params'
-import * as response from 'api/response'
+import { LoanInfoReq, LoanInfoList } from 'interface/details/loanInfo'
 
 interface Props extends MixProps {
   details: DetailsStore
 }
 
 interface State {
-  request: params.LoanInfoReq
+  request: LoanInfoReq
 }
 
 type TableSortType = 'ascend' | 'descend' | ''
@@ -58,8 +57,8 @@ export class LoanInfo extends Component<Props, State> {
   // 排序
   handleTableChange = (
     _pagination: PaginationConfig,
-    _filters: Record<keyof response.LoanInfoList, string[]>,
-    sorter: SorterResult<response.LoanInfoList>
+    _filters: Record<keyof LoanInfoList, string[]>,
+    sorter: SorterResult<LoanInfoList>
   ) => {
     const { columnKey, order } = sorter
     this.setState(

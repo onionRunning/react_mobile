@@ -26,7 +26,7 @@ export const LoanInfoColumns: TableTile[] = [
   },
   {
     align: 'center',
-    title: 'Disbursement Handling Fee', // 实际放款金额
+    title: 'Disbursement Handling Fee',
     dataIndex: 'transfer_fee',
     key: 'transfer_fee'
   },
@@ -38,32 +38,26 @@ export const LoanInfoColumns: TableTile[] = [
   },
   {
     align: 'center',
-    title: 'Loan Status', // 贷款状态
-    dataIndex: 'loan_status',
-    key: 'loan_status'
-  },
-  {
-    align: 'center',
     title: 'Disbursement Status', // 放款状态
-    dataIndex: 'loan_flow_status',
-    key: 'loan_flow_status'
+    dataIndex: 'status',
+    key: 'status'
   },
   {
     align: 'center',
-    title: 'Disbursement Ref number', // 请求支付编号，放款流水号
-    dataIndex: 'request_no',
-    key: 'request_no'
+    title: 'Disbursement Ref number', // 放款流水号
+    dataIndex: 'loan_flow_no',
+    key: 'loan_flow_no'
   },
   {
     align: 'center',
-    title: 'External Txnld', // p4.2.1紧急需求增加 第三方放款流水号
-    dataIndex: 'out_flow_num',
-    key: 'out_flow_num'
+    title: 'External Txnld', //  第三方放款流水号
+    dataIndex: 'out_loan_flow',
+    key: 'out_loan_flow'
   },
   {
     align: 'center',
-    title: 'Reason for Disbursement Failure', // 支付系统返回的错误消息
-    dataIndex: 'err_msg',
-    key: 'err_msg'
+    title: 'Reason for Disbursement Failure', // 失败理由
+    dataIndex: 'fail_reason',
+    key: 'fail_reason'
   }
 ]

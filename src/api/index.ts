@@ -6,7 +6,7 @@ import * as params from './params'
 import { UserInfoPayload } from 'interface/details/userInfo'
 import { CheckRepeatPayloadReq } from 'interface/details/checkRepeat'
 
-import { LoanInfoReq, LoanInfoList } from 'interface/details/loanInfo'
+import { LoanInfoReq, LoanInfoRes } from 'interface/details/loanInfo'
 import { SMSRecordReq, SendSmsReq, SMSRecordRes } from 'interface/details/SMSRecord'
 import { StatusRecordReq, StatusRecordList } from 'interface/details/statusRecord'
 import { RoleDetailReq, RoleDetailRes, ProductList, PermissionsList } from 'interface/role'
@@ -187,7 +187,7 @@ export class Api {
 
   // 获取放款信息
   getLoanInfo = (payload: LoanInfoReq) => {
-    return this.post<LoanInfoList[]>(`/back_mgr/query_payout_info`, payload)
+    return this.post<LoanInfoRes>(`/back_mgr/query_payout_info`, payload)
   }
 
   // 获取短信记录
