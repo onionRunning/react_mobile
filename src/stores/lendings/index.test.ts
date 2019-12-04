@@ -116,7 +116,7 @@ describe('lendings', () => {
       operator_id: 123
     }
     api.getLoanOrRetry = requestSuccess as any
-    await instance.createLoanRetry(req, cb)()
+    await instance.createLoanRetry(req, cb)
     expect(cb).toBeCalled()
   })
   it('createLoanRetry error', async () => {
@@ -127,6 +127,6 @@ describe('lendings', () => {
       operator_id: 123
     }
     api.getLoanOrRetry = requestError as any
-    expect(await instance.createLoanRetry(req, cb)()).toBeUndefined()
+    expect(await instance.createLoanRetry(req, cb)).toBeUndefined()
   })
 })
