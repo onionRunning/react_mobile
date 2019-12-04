@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Breadcrumb } from 'antd'
+import errs from 'global/errors'
+import Message from 'components/message'
 import './index.scss'
 // import * as H from 'history'
 import { RouteComponentProps } from 'react-router-dom'
@@ -41,7 +43,7 @@ export class BreadCrumbCom extends Component<Props> {
   // }
   handleJump = (path: string) => () => {
     if (this.props.location.pathname.includes('readOnly')) {
-      this.props.showErr!()
+      Message.warning(errs.READONLY_ERROR)
       return
     }
     this.props.history.push(path)

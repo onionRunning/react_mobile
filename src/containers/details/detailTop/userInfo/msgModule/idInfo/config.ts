@@ -34,7 +34,7 @@ export interface NomalImgArrType {
 export const botImgArr = (id: NomalImgArrType) => {
   return [
     { title: 'Front of card', src: id.user_id_card_front_img!, showId: 1 },
-    { title: 'Back of card', src: id.user_id_card_back_img!, showId: 2 },
-    { title: 'Take a photo of holding the ID', src: id.user_id_card_hold_img!, showId: 3 }
+    { title: 'Take a photo of holding the ID', src: id.user_id_card_hold_img!, showId: 2 }
+    // { title: 'Back of card', src: id.user_id_card_back_img!, showId: 3 }
   ]
 }

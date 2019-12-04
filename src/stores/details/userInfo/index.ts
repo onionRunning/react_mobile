@@ -18,19 +18,15 @@ class UserDetail {
    */
   @action getUserInfo = async (payload: UserInfoPayload) => {
     const res = await api.getUserInfo(payload)
-    try {
-      if (res && res.success) {
-        if (res.data) {
-          this.userInfo = res.data.user_info // 包含(用户基本信息,用户联系人信息,工作信息,收款信息,信用等级,id信息,)
-          this.orderInfo = res.data.order_info // 相关订单信息
-          this.deviceInfo = res.data.device_info // 设备信息
-          this.extraInfo = res.data.phl_extra_info // 包含(脸书帐号, 线下收款机构)
-        }
-      } else {
-        Message.error(res.info)
+    if (res && res.success) {
+      if (res.data) {
+        this.userInfo = res.data.user_info // 包含(用户基本信息,用户联系人信息,工作信息,收款信息,信用等级,id信息,)
+        this.orderInfo = res.data.order_info // 相关订单信息
+        this.deviceInfo = res.data.device_info // 设备信息
+        this.extraInfo = res.data.phl_extra_info // 包含(脸书帐号, 线下收款机构)
       }
-    } catch (error) {
-      Message.error(error)
+    } else {
+      Message.error(res.info)
     }
   }
 }

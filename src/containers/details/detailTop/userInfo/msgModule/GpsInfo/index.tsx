@@ -13,7 +13,6 @@ interface Props {
 
 export class GPSInfo extends Component<Props> {
   render() {
-    console.log(this.props.data, 'GPSdata')
     return (
       <div className="info-content-gps">
         <FormInputListUI config={GPSInformationConfig} data={this.props.data || {}} />

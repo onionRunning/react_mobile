@@ -39,7 +39,7 @@ describe('const', () => {
       loan_pay_type: 'test',
       is_in_batch_loan: false // 批量放款
     }
-    expect(Function.getMakeLoanText(element, config)).toEqual('Retry')
+    expect(Function.getMakeLoanText(element)).toEqual('Retry')
     // 创建状态
     const element1 = {
       loan_status: 'Create Loan',
@@ -48,7 +48,7 @@ describe('const', () => {
       loan_flow_status: 'Loan Faild',
       loan_pay_type: 'test'
     }
-    expect(Function.getMakeLoanText(element1, config)).toEqual('Make Loan')
+    expect(Function.getMakeLoanText(element1)).toEqual('Make Loan')
     // 其他状态
     const element2 = {
       loan_status: 'Loan Processing',
@@ -57,7 +57,7 @@ describe('const', () => {
       loan_flow_status: 'Loan Faild',
       loan_pay_type: 'test'
     }
-    expect(Function.getMakeLoanText(element2, config)).toEqual('')
+    expect(Function.getMakeLoanText(element2)).toEqual('')
     // 其他状态
     const element3 = {
       loan_status: 'Create Loan',
@@ -66,16 +66,15 @@ describe('const', () => {
       loan_flow_status: 'Loan Faild',
       loan_pay_type: 'test'
     }
-    expect(Function.getMakeLoanText(element3, config)).toEqual('Make Loan')
-    // 没有对应的权限
-    const config1 = {
-      p20101: true, // 自动放款开关
-      p20102: true, // 下载放款列表
-      p20103: false, // 确认手动放款
-      p20104: false, // 重试放款
-      p20105: true, // 贷款取消
-      p20106: true // 批量放款
-    }
+    expect(Function.getMakeLoanText(element3)).toEqual('Make Loan')
+    // const config1 = {
+    //   p20101: true, // 自动放款开关
+    //   p20102: true, // 下载放款列表
+    //   p20103: false, // 确认手动放款
+    //   p20104: false, // 重试放款
+    //   p20105: true, // 贷款取消
+    //   p20106: true // 批量放款
+    // }
     // 其他状态
     const element4 = {
       loan_status: 'Create Loan',
@@ -85,7 +84,7 @@ describe('const', () => {
       loan_pay_type: 'test',
       is_in_batch_loan: true // 批量放款
     }
-    expect(Function.getMakeLoanText(element4, config1)).toEqual('')
+    expect(Function.getMakeLoanText(element4)).toEqual('Make Loan')
   })
   it('getCancleLoanText', () => {
     const element = {
@@ -96,7 +95,7 @@ describe('const', () => {
       loan_flow_status: 'Loan Failed',
       loan_pay_type: 'test'
     }
-    expect(Function.getCancleLoanText(element, config)).toEqual('Loan cancellation')
+    expect(Function.getCancleLoanText(element)).toEqual('Loan cancellation')
     const element1 = {
       loan_status: 'Create Loan',
       order_no: '111',
@@ -105,7 +104,7 @@ describe('const', () => {
       loan_flow_status: '',
       loan_pay_type: 'test'
     }
-    expect(Function.getCancleLoanText(element1, config)).toEqual('Loan cancellation')
+    expect(Function.getCancleLoanText(element1)).toEqual('Loan cancellation')
     const element2 = {
       loan_status: 'other',
       order_no: '111',

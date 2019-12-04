@@ -48,5 +48,6 @@ export default {
   INPUT_END_AMOUNT: 'please input the end of Loan Amount', // 存在起始金额,提示输入结束金额
   INPUT_START_AMOUNT: 'please input the start of Loan Amount', // 存在结束金额,提示输入起始金额
   START_AMOUNT_LESS_THAN_END_AMOUNT: "the start shouldn't be more the end in Loan Amount", //起始金额小于结束金额
-  CHOOSE_TYPE_EMPTY: 'Please select the blacklist type'
+  CHOOSE_TYPE_EMPTY: 'Please select the blacklist type',
+  READONLY_ERROR: 'ReadOnly this page, Cannot to Direact'
 }

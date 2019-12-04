@@ -1,6 +1,7 @@
 import React, { MouseEventHandler } from 'react'
 import { formType } from 'global/constants'
 import { formatTime, formatDateDay } from 'global/method'
+import { ORDER_TYPE_REFLECT } from '../orders/const'
 
 // 需要转换成数值型的输入字段
 export const turnToNumber = ['loan_amount_start', 'loan_amount_end', 'loan_days']
@@ -161,13 +162,35 @@ export const filterData = [
     formType: formType.SELECT,
     label: 'Product:', // 修改为英文，修改key字段
     key: 'product_name',
-    data: []
+    data: [
+      {
+        label: 'All', // 所有来源
+        value: ''
+      },
+      {
+        label: 'JetPeso',
+        value: 'JetPeso'
+      }
+    ]
   },
   {
     formType: formType.SELECT,
     label: 'Loan days:', // 贷款天数
     key: 'loan_days',
-    data: []
+    data: [
+      {
+        label: 'All',
+        value: 0
+      },
+      {
+        label: '7',
+        value: 7
+      },
+      {
+        label: '14',
+        value: 14
+      }
+    ]
     // 接口获取剩下的贷款天数
   }
 ]
@@ -183,7 +206,10 @@ export const getTableTitle = (cb?: (args: {}, type: string) => MouseEventHandler
     {
       title: 'Order type', // TODO 订单类型: 复贷订单\新订单 p4.1.1
       dataIndex: 'order_type',
-      key: 'order_type'
+      key: 'order_type',
+      render: (item: string) => {
+        return <span>{ORDER_TYPE_REFLECT[item]}</span>
+      }
     },
     {
       title: 'Name', // 客户姓名
