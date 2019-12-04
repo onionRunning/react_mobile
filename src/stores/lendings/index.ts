@@ -2,7 +2,7 @@ import { observable, action } from 'mobx'
 import api from 'api/index'
 import { CancelLoanReq, LendingsPayload, LoanOrRetryReq, LendingResItem, UpdateAutoLoanReq } from 'interface/lendings'
 import { Callback } from 'global/type'
-import { formatTime, formatTf } from 'global/method'
+import { formatTime } from 'global/method'
 import Message from 'components/message'
 
 class Lendings {
@@ -67,7 +67,7 @@ class Lendings {
    * 放款or重新放款
    * @params order_no,operator,operator_id
    */
-  @action createLoanRetry = (payload: LoanOrRetryReq, cb: Callback) => async () => {
+  @action createLoanRetry = async (payload: LoanOrRetryReq, cb: Callback) => {
     const res = await api.getLoanOrRetry(payload)
     if (res && res.success) {
       cb && cb()
@@ -87,9 +87,9 @@ class Lendings {
         loan_amount: obj.loan_flow.actual_loan_amount, // 实际放款金额（申请金额-砍头费）
         loan_days: obj.loan.loan_days, // 贷款每期天数
         channel: obj.loan.loan_channel, // 渠道
-        loan_status: formatTf(obj.loan.status), // 订单状态
+        loan_status: obj.loan.status, // 订单状态
         actual_loan_time: formatTime(obj.loan_flow.actual_loan_time), // 放款结果时间\成功放款时间
-        loan_flow_status: formatTf(obj.loan_flow.status), // 放款流水状态
+        loan_flow_status: obj.loan_flow.status, // 放款流水状态
         loan_flow_number: obj.loan_flow.loan_flow_no, // 放款流水号
         request_no: obj.loan_flow.loan_flow_no, // 请求支付编号,即放款流水号
         err_msg: obj.loan_flow.fail_reason, // 放款失败信息，支付系统返回的错误消息
