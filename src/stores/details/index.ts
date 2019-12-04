@@ -49,8 +49,10 @@ class Details {
     try {
       const res = await api.getLoanInfo(payload)
       if (res.success && res.data) {
-        console.log(res)
-        this.loanInfoList = []
+        const list = res.data.loan_flows.map(el => {
+          return { ...el, transfer_fee: el.fee.transfer_fee || 0 }
+        })
+        this.loanInfoList = list
       } else {
         Message.error(res.info)
       }

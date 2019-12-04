@@ -1,11 +1,14 @@
 // import * as method from 'global/method'
 
 // export const radioConfig = ['Approved', 'Rejected', 'Return', 'Loan cancellation']
-export const radioConfig = ['Approved', 'Rejected']
+export const radioConfig = [
+  { label: 'Approved', value: 'AuditingPassed' },
+  { label: 'Rejected', value: 'AuditingReject' }
+]
 
 export enum radioType {
-  APPROVED = 'Approved',
-  REJECTED = 'Rejected'
+  APPROVED = 'AuditingPassed',
+  REJECTED = 'AuditingReject'
 }
 
 // // 审批操作选择个数限制

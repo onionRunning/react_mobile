@@ -9,6 +9,7 @@ import { MixProps } from 'global/interface'
 import ApprovalStore from 'stores/details/approval'
 import { radioConfig, radioType } from './config'
 import { ReasonType } from 'api/params'
+import { RefuseList } from 'api/response'
 import errs from 'global/errors'
 import styles from './index.module.scss'
 
@@ -65,9 +66,9 @@ export class Operate extends Component<Props, State> {
       <Radio.Group size="large" onChange={this.handleChangeRadio}>
         {radioConfig.map((item, index) => {
           return (
-            <span className={styles.radio_item} key={index} id={`operate-${item.toLowerCase()}-btn`}>
-              <Radio name="application_status" value={item} />
-              {item}
+            <span className={styles.radio_item} key={index} id={`operate-${item.label.toLowerCase()}-btn`}>
+              <Radio name="application_status" value={item.value} />
+              {item.label}
             </span>
           )
         })}
@@ -105,7 +106,19 @@ export class Operate extends Component<Props, State> {
   handleChangeRadio = (e: RadioChangeEvent) => this.setState({ application_status: e.target.value })
 
   // 选择拒绝理由
-  handleChangeSelect = (value: any) => console.log(value)
+  handleChangeSelect = (value: string[]) => {
+    console.log(value)
+    const { refuseReasonList } = this.props.approval
+    const list: RefuseList[] = []
+    refuseReasonList.forEach(el => {
+      if (value.includes(el.reason_code)) {
+        list.push(el)
+      }
+    })
+    this.setState({
+      reasons: list
+    })
+  }
 
   // 输入备注
   handleChangeTextarea = (e: React.ChangeEvent<{ value: string }>) => {
