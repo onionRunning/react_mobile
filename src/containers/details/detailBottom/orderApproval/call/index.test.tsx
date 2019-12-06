@@ -58,7 +58,7 @@ describe('Call', () => {
   })
 
   it('renderPhone', () => {
-    expect(instance.renderPhone().props.children.length).toBe(2)
+    expect(instance.renderPhone().length).toBe(2)
   })
 
   it('getTelephoneVerifyInfo', () => {

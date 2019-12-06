@@ -1,14 +1,14 @@
 import { observable, action } from 'mobx'
 import api from 'api'
-import { RepaymentDetailReq, RepaymentInfoList } from 'interface/details/repaymentInfo'
+import { RepaymentDetailReq, RepaymentDetailList, RepaymentFlowsList } from 'interface/details/repaymentInfo'
 import { LoanInfoReq, LoanInfoList } from 'interface/details/loanInfo'
 import { SMSRecordReq, SendSmsReq, SMSRecordList } from 'interface/details/SMSRecord'
 import { StatusRecordReq, StatusRecordList } from 'interface/details/statusRecord'
 import Message from 'components/message'
 
 class Details {
-  @observable repaymentInfoList: RepaymentInfoList[] = []
-  // @observable repaymentInfoFlowList: RepaymentInfoFlowList[] = []
+  @observable repaymentInfoList: RepaymentDetailList[] = []
+  @observable repaymentInfoFlowList: RepaymentFlowsList[] = []
   @observable loanInfoList: LoanInfoList[] = []
   @observable SMSRecordList: SMSRecordList[] = []
   @observable statusRecordList: StatusRecordList[] = []
@@ -19,8 +19,8 @@ class Details {
       const res = await api.getRepaymentDetail(payload)
       if (res.success && res.data) {
         console.log(res)
-        // this.repaymentInfoList = res.data || []
-        this.repaymentInfoList = []
+        this.repaymentInfoList = res.data.schedules || []
+        this.repaymentInfoFlowList = res.data.schedules.flows || []
       } else {
         Message.error(res.info)
       }

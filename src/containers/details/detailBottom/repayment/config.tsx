@@ -1,61 +1,27 @@
 import React from 'react'
-// import { DetailRepaymentList } from 'api/response'
-import { formatTimeNoHour, numberSubtractionNumber, formatTime } from 'global/method'
+import { RepaymentDetailList } from 'interface/details/repaymentInfo'
+import { formatTime } from 'global/method'
 
-export const getDomlist = (value: number = 0) => {
-  return (
-    <ul>
-      <li>{value}</li>
-      <li>--</li>
-      <li>--</li>
-    </ul>
-  )
+export interface Columns {
+  title: string
+  dataIndex: string
+  render: (record: RepaymentDetailList) => React.ReactNode
+  width?: number
 }
 
-export interface DetailRepaymentList {
-  extend_period: number
-  due_date: string
-  actual_paid_off_date: string
-  principal: number
-  actual_principal: number
-  free_principal: number
-  interests_fee: number
-  actual_interests_fee: number
-  free_interests_fee: number
-  service_fee: number
-  actual_service_fee: number
-  free_service_fee: number
-  extend_fee: number
-  actual_extend_fee: number
-  try_extend_fee: number
-  free_extend_fee: number
-  late_days: number
-  late_penalty_fee: number
-  actual_late_penalty_fee: number
-  free_late_penalty_fee: number
-  late_fee: number
-  actual_late_fee: number
-  number: number
-  free_late_fee: number
-  late_interests_fee: number
-  actual_late_interests_fee: number
-  free_late_interests_fee: number
-  free_amount: number
-  repay_amount: number
-  actual_repay_amount: number
-}
-
-export const tableConfig = [
+export const tableConfig: Columns[] = [
   {
     title: 'Terms',
     dataIndex: 'extend_period',
-    render: (item: DetailRepaymentList) => {
-      return <p>{item.extend_period + 1}</p>
+    width: 50,
+    render: (record: RepaymentDetailList) => {
+      return <span>{record.extend_period}</span>
     }
   },
   {
     title: 'Status',
     dataIndex: 'pay_status',
+    width: 150,
     render: () => {
       return (
         <ul>
@@ -69,14 +35,14 @@ export const tableConfig = [
   {
     title: 'Date',
     dataIndex: 'date',
-    render: (item: DetailRepaymentList) => {
-      const { due_date, actual_paid_off_date } = item
+    render: (record: RepaymentDetailList) => {
+      // const { due_date, actual_paid_off_date } = item
       return (
         <ul>
           {/* 当期到期日期 */}
-          <li>{formatTimeNoHour(due_date)}</li>
-          {/* 本期实还日期 p3.12.2修改字段为actual_paid_off_date， p3.12.1为：current_actual_repay_date*/}
-          <li>{(actual_paid_off_date && formatTimeNoHour(actual_paid_off_date)) || '--'}</li>
+          <li>{formatTime(record.due_date)}</li>
+          {/* 本期实还日期*/}
+          <li>{formatTime(record.actual_paid_off_date) || '--'}</li>
           <li> -- </li>
         </ul>
       )
@@ -85,16 +51,15 @@ export const tableConfig = [
   {
     title: 'Principal',
     dataIndex: 'amount',
-    render: (item: DetailRepaymentList) => {
-      const { principal, actual_principal, free_principal } = item
-      const amount = numberSubtractionNumber(principal, actual_principal, free_principal)
+    render: (record: RepaymentDetailList) => {
+      const { principal_fee, actual_principal_fee } = record.fee
       return (
         <ul>
           {/* 本期应还本金 */}
-          <li>{principal}</li>
+          <li>{principal_fee}</li>
           {/* 本期实还本金 */}
-          <li>{actual_principal}</li>
-          <li>{amount < 0 ? 0 : amount} </li>
+          <li>{actual_principal_fee}</li>
+          <li>{principal_fee - actual_principal_fee} </li>
         </ul>
       )
     }
@@ -102,16 +67,16 @@ export const tableConfig = [
   {
     title: 'Interest',
     dataIndex: 'interest',
-    render: (item: DetailRepaymentList) => {
-      const { interests_fee, actual_interests_fee, free_interests_fee } = item
-      const amount = numberSubtractionNumber(interests_fee, actual_interests_fee, free_interests_fee)
+    render: (record: RepaymentDetailList) => {
+      const { interests_fee, actual_interests_fee } = record.fee
+      // const amount = numberSubtractionNumber(interests_fee, actual_interests_fee, free_interests_fee)
       return (
         <ul>
-          {/* p3.12.2注释改为：正常到期应还利息费 */}
+          {/*利息费 */}
           <li>{interests_fee}</li>
-          {/* p3.12.2注释改为：正常到期实付利息费 */}
+          {/*实付利息费*/}
           <li>{actual_interests_fee}</li>
-          <li>{amount < 0 ? 0 : amount}</li>
+          <li>{interests_fee - actual_interests_fee}</li>
         </ul>
       )
     }
@@ -119,16 +84,15 @@ export const tableConfig = [
   {
     title: 'Service fee',
     dataIndex: 'fee',
-    render: (item: DetailRepaymentList) => {
-      const { service_fee, actual_service_fee, free_service_fee } = item
-      const amount = numberSubtractionNumber(service_fee, actual_service_fee, free_service_fee)
+    render: (record: RepaymentDetailList) => {
+      const { manage_fee, actual_manage_fee } = record.fee
       return (
         <ul>
           {/* 贷款服务费 */}
-          <li>{service_fee}</li>
+          <li>{manage_fee}</li>
           {/* 实付贷款服务费 */}
-          <li>{actual_service_fee}</li>
-          <li>{amount < 0 ? 0 : amount}</li>
+          <li>{actual_manage_fee}</li>
+          <li>{manage_fee - actual_manage_fee}</li>
         </ul>
       )
     }
@@ -136,26 +100,15 @@ export const tableConfig = [
   {
     title: 'Extension fee',
     dataIndex: 'extend_fee',
-    render: (item: DetailRepaymentList) => {
-      const { extend_fee, actual_extend_fee, try_extend_fee, free_extend_fee } = item
-      const amount = numberSubtractionNumber(extend_fee, actual_extend_fee, free_extend_fee)
-      if (extend_fee === 0) {
-        return (
-          <ul>
-            {/* 展期试算费用 */}
-            <li>{try_extend_fee}</li>
-            <li>0</li>
-            <li>0</li>
-          </ul>
-        )
-      }
+    render: (record: RepaymentDetailList) => {
+      const { extend_fee, actual_extend_fee } = record.fee
       return (
         <ul>
-          {/* 展期应还手续费 */}
+          {/* 展期费 */}
           <li>{extend_fee}</li>
-          {/* 实付展期手续费 */}
+          {/* 实付展期费 */}
           <li>{actual_extend_fee}</li>
-          <li>{amount < 0 ? 0 : amount}</li>
+          <li>{extend_fee - actual_extend_fee}</li>
         </ul>
       )
     }
@@ -163,42 +116,29 @@ export const tableConfig = [
   {
     title: 'Day past due',
     dataIndex: 'overDue',
-    render: (item: DetailRepaymentList) => {
-      const { late_days } = item
-      // 逾期天数
-      return getDomlist(late_days)
-    }
-  },
-  {
-    title: 'Overdue penalty', // p4.1.1UAT验收修改关键字
-    dataIndex: 'overFee',
-    render: (item: DetailRepaymentList) => {
-      const { late_penalty_fee, actual_late_penalty_fee, free_late_penalty_fee } = item
-      const amount = numberSubtractionNumber(late_penalty_fee, actual_late_penalty_fee, free_late_penalty_fee)
+    render: (record: RepaymentDetailList) => {
+      const { overdue_days } = record
       return (
         <ul>
-          {/* 逾期应还违约金 */}
-          <li>{late_penalty_fee}</li>
-          {/* 实付逾期违约金 */}
-          <li>{actual_late_penalty_fee}</li>
-          <li>{amount < 0 ? 0 : amount}</li>
+          <li>{overdue_days}</li>
+          <li>--</li>
+          <li>--</li>
         </ul>
       )
     }
   },
   {
-    title: 'Late Payment Fee', // p4.1.1UAT验收修改关键字
+    title: 'Late Payment Fee',
     dataIndex: 'overlateFee',
-    render: (item: DetailRepaymentList) => {
-      const { late_fee, actual_late_fee, free_late_fee } = item
-      const amount = numberSubtractionNumber(late_fee, actual_late_fee, free_late_fee)
+    render: (record: RepaymentDetailList) => {
+      const { overdue_late_fee, actual_overdue_late_fee } = record.fee
       return (
         <ul>
           {/* 逾期应还滞纳金 */}
-          <li>{late_fee}</li>
+          <li>{overdue_late_fee}</li>
           {/* 实付逾期滞纳金 */}
-          <li>{actual_late_fee}</li>
-          <li>{amount < 0 ? 0 : amount}</li>
+          <li>{actual_overdue_late_fee}</li>
+          <li>{overdue_late_fee - actual_overdue_late_fee}</li>
         </ul>
       )
     }
@@ -206,79 +146,70 @@ export const tableConfig = [
   {
     title: 'Penalty Interest', // p4.1.1UAT验收修改关键字提示
     dataIndex: '',
-    render: (item: DetailRepaymentList) => {
-      const { late_interests_fee, actual_late_interests_fee, free_late_interests_fee } = item
-      const amount = numberSubtractionNumber(late_interests_fee, actual_late_interests_fee, free_late_interests_fee)
+    render: (record: RepaymentDetailList) => {
+      const { overdue_interests_fee, actual_overdue_interests_fee } = record.fee
       return (
         <ul>
-          {/* 逾期应还滞纳金 */}
-          <li>{late_interests_fee}</li>
-          {/* 实付逾期滞纳金 */}
-          <li>{actual_late_interests_fee}</li>
-          <li>{amount < 0 ? 0 : amount}</li>
+          {/* 逾期罚息 */}
+          <li>{overdue_interests_fee}</li>
+          {/* 实付逾期罚息 */}
+          <li>{actual_overdue_interests_fee}</li>
+          <li>{overdue_interests_fee - actual_overdue_interests_fee}</li>
         </ul>
       )
     }
   },
   {
-    widthStyle: 'min',
     title: 'Loan Deduction',
     dataIndex: 'free_amount',
-    render: (item: DetailRepaymentList) => {
+    render: (record: RepaymentDetailList) => {
       // 减免费用
-      const { free_amount } = item
+      const { reduce_fee } = record.fee
       return (
         <ul>
-          <li>{free_amount}</li>
-          <li>{free_amount}</li>
+          <li>{reduce_fee}</li>
+          <li>{reduce_fee}</li>
           <li>{'--'} </li>
         </ul>
       )
     }
   },
   {
-    widthStyle: 'min',
     title: 'Total',
     dataIndex: 'total',
-    render: (item: DetailRepaymentList) => {
-      const { repay_amount, actual_repay_amount, free_amount } = item
-      const amount = numberSubtractionNumber(repay_amount, actual_repay_amount, free_amount)
+    render: (record: RepaymentDetailList) => {
+      const { repay_amount, actual_repay_amount } = record.fee
       return (
         <ul>
-          {/* 本期应还总金额 */}
+          {/* 应还总金额 */}
           <li>{repay_amount}</li>
-          {/* 本期实还总金额 */}
+          {/* 实还总金额 */}
           <li>{actual_repay_amount}</li>
-          <li>{amount < 0 ? 0 : amount} </li>
+          <li>{repay_amount - actual_repay_amount} </li>
         </ul>
       )
     }
-  },
-  {
-    title: 'See details',
-    dataIndex: 'see',
-    showExpend: true
   }
 ]
 
 export const RepaymentInfoColumns = [
   {
     title: 'Deduction time', // 实际支付时间
-    dataIndex: 'actual_paid_time',
-    key: 'actual_paid_time',
-    render: (actual_paid_time: string) => {
-      return formatTime(actual_paid_time)
+    dataIndex: 'actual_paid_off_date',
+    key: 'actual_paid_off_date',
+    render: (time: string) => {
+      return formatTime(time)
     }
   },
   {
     title: 'Should refund the money', // current_remain_should_repay_amount
-    dataIndex: 'current_remain_should_repay_amount',
-    key: 'current_remain_should_repay_amount'
+    dataIndex: 'repay_amount',
+    key: 'repay_amount'
   },
   {
     title: 'Loan Deduction', // Loan Deduction
-    dataIndex: 'free_amount',
-    key: 'free_amount'
+    dataIndex: 'reduce_fee',
+    key: 'reduce_fee'
   },
   {
     title: 'Actual repayment amount', // 实还金额
@@ -286,9 +217,9 @@ export const RepaymentInfoColumns = [
     key: 'actual_repay_amount'
   },
   {
-    title: 'Repayment channel', // 还款渠道
-    dataIndex: 'pay_channel',
-    key: 'pay_channel'
+    title: 'Repayment channel', // 还款渠道: 0->线上、1->线下
+    dataIndex: 'is_offline',
+    key: 'is_offline'
   },
   // 4.9.1新需求
   {
@@ -301,18 +232,18 @@ export const RepaymentInfoColumns = [
   },
   {
     title: 'Repayment type', // 交易类型
-    dataIndex: 'business_type',
-    key: 'business_type'
+    dataIndex: 'repayment_type',
+    key: 'repayment_type'
   },
   {
     title: 'Repayment number', // 请求支付编号
-    dataIndex: 'request_no',
-    key: 'request_no'
+    dataIndex: 'repayment_flow_no',
+    key: 'repayment_flow_no'
   },
   {
     title: 'External Txnld', // TODO p4.2.1紧急需求增加 第三方还款流水号
-    dataIndex: 'out_flow_num',
-    key: 'out_flow_num'
+    dataIndex: 'out_flow_no',
+    key: 'out_flow_no'
   },
   {
     title: 'External RefNo', // TODO p4.2.1紧急需求增加 还款码
@@ -321,8 +252,8 @@ export const RepaymentInfoColumns = [
   },
   {
     title: 'Deduction status', // 支付状态
-    dataIndex: 'repayment_status',
-    key: 'repayment_status'
+    dataIndex: 'status',
+    key: 'status'
   },
   {
     title: 'Operator',

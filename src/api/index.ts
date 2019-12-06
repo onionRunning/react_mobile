@@ -177,7 +177,7 @@ export class Api {
 
   // 获取还款信息
   getRepaymentDetail = (payload: params.RepaymentDetailReq) => {
-    return this.post<response.RepaymentInfoList[]>(`/back_mgr/query_payment_info`, payload)
+    return this.post<response.RepaymentInfoRes>(`/back_mgr/query_payment_info`, payload)
   }
 
   // 获取还款流水

@@ -292,7 +292,7 @@ export interface BlacklistItem {
 // 审核结果
 export interface ApprovalResultRes {
   order_info: ApprovalResult
-  reasons: OrderReason
+  reasons: ReasonList[]
 }
 
 export interface ApprovalResult {
@@ -307,12 +307,6 @@ export interface ReasonList {
   reason_code: string
   reason_value: string
   value_chinese: string
-}
-
-export interface OrderReason {
-  reject_reason?: ReasonList[] // 当前版本只有 reject_reason
-  return_reason?: ReasonList[]
-  cancel_reason?: ReasonList[]
 }
 
 // 电话审核
@@ -355,6 +349,11 @@ export interface RefuseList {
 }
 
 // 还款详情
+export interface RepaymentInfoRes {
+  loan: any
+  schedules: any
+}
+
 export interface RepaymentInfoList {
   extend_period: number
   due_date: string

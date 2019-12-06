@@ -17,9 +17,14 @@ describe('StatusRecord', () => {
     getStatusRecord: jest.fn()
   }
 
+  const common: any = {
+    composeLoading: jest.fn()
+  }
+
   const mockProps = {
     ...mockRoute,
-    details
+    details,
+    common
   }
 
   let component: any, instance: StatusRecord
@@ -52,6 +57,11 @@ describe('StatusRecord', () => {
       remark: '111'
     }
     expect(instance.renderRemake(record1).props.children.length).toBe(2)
+  })
+
+  it('handleLoading', () => {
+    instance.handleLoading()
+    expect(mockProps.common.composeLoading).toBeCalledWith(instance.getStatusRecord)
   })
 
   it('getStatusRecord', () => {

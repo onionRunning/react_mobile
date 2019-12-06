@@ -14,17 +14,20 @@ describe('LoanInfo', () => {
   const details: any = {
     getLoanInfoList: jest.fn()
   }
-  const props = {
+  const common: any = {
+    composeLoading: jest.fn()
+  }
+  const mockProps = {
     ...mockRoute,
-    details
+    details,
+    common
   }
   let component: any, instance: any
   beforeEach(() => {
-    component = shallow(<LoanInfo {...props} />).dive()
+    component = shallow(<LoanInfo {...mockProps} />).dive()
     instance = component.instance()
     instance.setState({
       request: {
-        PermissionId: '',
         order_no: '',
         sort_order: '',
         sort_value: ''
@@ -37,10 +40,14 @@ describe('LoanInfo', () => {
     expect(component.find('div').length).toBe(0)
   })
 
+  it('handleLoading', () => {
+    instance.handleLoading()
+    expect(mockProps.common.composeLoading).toBeCalledWith(instance.getLoanInfo)
+  })
+
   it('getLoanInfo', () => {
     instance.getLoanInfo()
-
-    expect(props.details.getLoanInfoList).toBeCalledWith({
+    expect(mockProps.details.getLoanInfoList).toBeCalledWith({
       order_no: 'P2g201911150020',
       sort_order: '',
       sort_value: ''

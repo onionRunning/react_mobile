@@ -12,7 +12,7 @@ class Approval {
     operator_name: '',
     remark: ''
   }
-  @observable orderReason: response.OrderReason = {}
+  @observable orderReason: response.ReasonList[] = []
   @observable telephoneList: response.TelephoneList[] = []
   @observable refuseReasonList: response.RefuseList[] = []
 
@@ -22,8 +22,7 @@ class Approval {
       const res = await api.getOrderApprovalResult(payload)
       if (res.success && res.data) {
         this.approvalResult = { ...this.approvalResult, ...res.data.order_info }
-        this.orderReason = { ...res.data.reasons }
-      } else {
+        this.orderReason = res.data.reasons || []
         Message.error(res.info)
       }
     } catch (error) {

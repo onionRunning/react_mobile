@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { observer, inject } from 'mobx-react'
 import DetailsStore from 'stores/details'
+import CommonStore from 'stores/common'
 import InfoWrapper from 'containers/details/component/infoWrapper'
 import Table from 'components/table'
-// import { Table } from 'antd'
 import { PaginationConfig, SorterResult } from 'antd/lib/table'
 import { LoanInfoColumns } from './config'
 import { MixProps } from 'global/interface'
@@ -11,6 +11,7 @@ import { LoanInfoReq, LoanInfoList } from 'interface/details/loanInfo'
 
 interface Props extends MixProps {
   details: DetailsStore
+  common: CommonStore
 }
 
 interface State {
@@ -19,7 +20,7 @@ interface State {
 
 type TableSortType = 'ascend' | 'descend' | ''
 
-@inject('details')
+@inject('details', 'common')
 @observer
 export class LoanInfo extends Component<Props, State> {
   constructor(props: Props) {
@@ -34,15 +35,18 @@ export class LoanInfo extends Component<Props, State> {
   }
 
   componentDidMount() {
-    this.getLoanInfo()
+    this.handleLoading()
   }
 
   render() {
     const { loanInfoList } = this.props.details
     return (
       <Table tableTitle={LoanInfoColumns} tableData={loanInfoList} onChange={this.handleTableChange} size="small" />
-      // <Table columns={LoanInfoColumns} dataSource={loanInfoList} onChange={this.handleTableChange} size='small' />
     )
+  }
+
+  handleLoading = () => {
+    this.props.common.composeLoading(this.getLoanInfo)
   }
 
   // 获取放款信息
