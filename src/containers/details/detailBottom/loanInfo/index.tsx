@@ -4,6 +4,7 @@ import DetailsStore from 'stores/details'
 import CommonStore from 'stores/common'
 import InfoWrapper from 'containers/details/component/infoWrapper'
 import Table from 'components/table'
+import { transformSort } from 'global/method'
 import { PaginationConfig, SorterResult } from 'antd/lib/table'
 import { LoanInfoColumns } from './config'
 import { MixProps } from 'global/interface'
@@ -17,8 +18,6 @@ interface Props extends MixProps {
 interface State {
   request: LoanInfoReq
 }
-
-type TableSortType = 'ascend' | 'descend' | ''
 
 @inject('details', 'common')
 @observer
@@ -70,23 +69,11 @@ export class LoanInfo extends Component<Props, State> {
         request: {
           ...this.state.request,
           sort_value: columnKey,
-          sort_order: this.transformSort(order)
+          sort_order: transformSort(order)
         }
       },
       this.getLoanInfo
     )
-  }
-
-  // 转换排序字段
-  transformSort = (order: TableSortType) => {
-    switch (order) {
-      case 'descend':
-        return 'desc'
-      case 'ascend':
-        return 'asc'
-      default:
-        return ''
-    }
   }
 }
 

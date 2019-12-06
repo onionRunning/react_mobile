@@ -162,12 +162,6 @@ describe('userlist', () => {
     expect(instance.transformStatus('frozen')).toBe('unfreeze')
   })
 
-  it('transformSort', () => {
-    expect(instance.transformSort('')).toBe('')
-    expect(instance.transformSort('descend')).toBe('desc')
-    expect(instance.transformSort('ascend')).toBe('asc')
-  })
-
   it('getOppositeStatus', () => {
     expect(instance.getOppositeStatus('normal')).toBe('frozen')
     expect(instance.getOppositeStatus('frozen')).toBe('normal')

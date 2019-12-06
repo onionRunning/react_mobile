@@ -25,7 +25,7 @@ export default class CustomTable extends Component<Props, State> {
   render() {
     const { dataSource, expandedRowRender } = this.props
     return (
-      <>
+      <React.Fragment>
         <table className={styles.table}>
           <thead className={styles.thead}>
             <tr>
@@ -41,7 +41,7 @@ export default class CustomTable extends Component<Props, State> {
             <p>No data</p>
           </div>
         )}
-      </>
+      </React.Fragment>
     )
   }
 
@@ -59,10 +59,10 @@ export default class CustomTable extends Component<Props, State> {
   renderBody = () => {
     const { columns, dataSource, expandedRowRender } = this.props
     const { visible } = this.state
-    return dataSource.map((record, index) => {
+    return dataSource.map((record, recordIndex) => {
       return (
-        <>
-          <tr key={index}>
+        <React.Fragment key={recordIndex}>
+          <tr key={recordIndex}>
             {columns.map((item, index) => {
               return (
                 <td style={{ minWidth: item.width }} key={index}>
@@ -72,18 +72,18 @@ export default class CustomTable extends Component<Props, State> {
             })}
             {expandedRowRender && (
               <td
-                key={index}
+                key={`${recordIndex}-extra-td`}
                 className={`${styles.operation} ${visible ? styles.rotate : ''}`}
                 onClick={this.handleExpaned}
               />
             )}
           </tr>
           {expandedRowRender && this.state.visible && (
-            <tr className={styles.expanded_row}>
+            <tr key={`${recordIndex}-extra-row`} className={styles.expanded_row}>
               <td colSpan={columns.length + 1}>{expandedRowRender!()}</td>
             </tr>
           )}
-        </>
+        </React.Fragment>
       )
     })
   }

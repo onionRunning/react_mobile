@@ -44,18 +44,11 @@ export class Call extends Component<Props, State> {
     }
   }
   componentDidMount = async () => {
-    // const current = this.props.match.params.type === intoDetail.MYORDER
-    // current && this.getAppLists()
-
-    // this.getApproval()
-    // this.getAllCallLists()
-    // this.getCallRecordDetail()
     await this.getTelephoneVerifyInfo()
     await this.getCallRecordDetail()
   }
 
   render() {
-    // const { editPermission = true } = this.props
     const { visible, name, relation_ship } = this.state
     return (
       <div className="call-record">

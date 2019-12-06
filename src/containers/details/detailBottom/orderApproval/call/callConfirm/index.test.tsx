@@ -14,7 +14,7 @@ describe('CallConfirm', () => {
     dispatch: jest.fn(),
     show: true,
     name: 'test',
-    relation_ship: 'test',
+    relation_ship: 'Friend',
     onCancel: jest.fn(),
     onConfirm: jest.fn()
   }
@@ -80,7 +80,7 @@ describe('CallConfirm self', () => {
     dispatch: jest.fn(),
     show: true,
     name: 'test',
-    relation_ship: 'self',
+    relation_ship: 'Self',
     onCancel: jest.fn(),
     onConfirm: jest.fn()
   }

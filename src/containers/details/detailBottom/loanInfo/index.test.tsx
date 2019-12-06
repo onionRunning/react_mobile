@@ -64,10 +64,4 @@ describe('LoanInfo', () => {
     instance.handleTableChange(_, _, sorter)
     expect(instance.state.request.sort_order).toBe('desc')
   })
-
-  it('transformSort', () => {
-    expect(instance.transformSort('')).toBe('')
-    expect(instance.transformSort('descend')).toBe('desc')
-    expect(instance.transformSort('ascend')).toBe('asc')
-  })
 })

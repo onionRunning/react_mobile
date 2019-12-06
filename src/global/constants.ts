@@ -103,3 +103,12 @@ export const orderStatus = {
   ManualAuditing: 'ManualAuditing',
   AuditingReturn: 'AuditingReturn'
 }
+
+export type TableSortType = 'ascend' | 'descend' | ''
+
+export enum sortType {
+  DESCEND = 'descend',
+  ASCEND = 'ascend',
+  DESC = 'desc',
+  ASC = 'asc'
+}

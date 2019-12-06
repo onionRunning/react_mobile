@@ -27,4 +27,10 @@ describe('method', () => {
     expect(method.fixedTwo(0)).toBe(0)
     expect(method.fixedTwo(2059.7)).toBe(2059.7)
   })
+
+  it('transformSort', () => {
+    expect(method.transformSort('')).toBe('')
+    expect(method.transformSort('descend')).toBe('desc')
+    expect(method.transformSort('ascend')).toBe('asc')
+  })
 })

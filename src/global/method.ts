@@ -1,6 +1,6 @@
 import { isString, isArray, trim } from 'lodash'
 import moment from 'moment'
-import { order_type } from './constants'
+import { order_type, TableSortType, sortType } from './constants'
 
 export const _trim = trim
 
@@ -390,4 +390,15 @@ export const formatTimeNoHour = (t: string) => {
 
 export const isReadOnly = () => {
   return window.location.pathname.includes('readOnly') ? true : false
+}
+
+// 转换排序字段
+export const transformSort = (order: TableSortType) => {
+  if (order === sortType.DESCEND) {
+    return sortType.DESC
+  }
+  if (order === sortType.ASCEND) {
+    return sortType.ASC
+  }
+  return ''
 }

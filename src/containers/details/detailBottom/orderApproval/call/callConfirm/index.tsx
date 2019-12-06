@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Select, { ListItem, SelectOption } from 'components/select'
-import { selfAnswer, statusList, contactAnswer } from './config'
+import { relationShip, ANSWERED, selfAnswer, statusList, contactAnswer } from './config'
 import { Radio } from 'antd'
 import { RadioChangeEvent } from 'antd/lib/radio/interface'
 import Message from 'components/message'
@@ -34,7 +34,7 @@ export class CallConfirm extends Component<Props, State> {
   componentDidMount() {
     const { relation_ship } = this.props
     this.setState({
-      option: relation_ship === 'self' || relation_ship === 'self2' ? selfAnswer : contactAnswer
+      option: relation_ship === relationShip.SELF || relation_ship === relationShip.SELF2 ? selfAnswer : contactAnswer
     })
   }
 
@@ -93,7 +93,7 @@ export class CallConfirm extends Component<Props, State> {
   handleChangeRadio = (e: RadioChangeEvent) => {
     this.setState({ reason: e.target.value })
     // 非 Answered
-    if (e.target.value !== 'Answered') {
+    if (e.target.value !== ANSWERED) {
       this.setState({ remark: '' })
     }
   }
@@ -112,7 +112,7 @@ export class CallConfirm extends Component<Props, State> {
       Message.warning('Please select result')
       return
     }
-    if (reason === 'Answered' && !remark) {
+    if (reason === ANSWERED && !remark) {
       Message.warning('Please enter descrition')
       return
     }

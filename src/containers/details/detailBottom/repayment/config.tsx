@@ -1,6 +1,7 @@
 import React from 'react'
 import { RepaymentDetailList } from 'interface/details/repaymentInfo'
 import { formatTime } from 'global/method'
+import { TableTile } from 'global/interface'
 
 export interface Columns {
   title: string
@@ -192,7 +193,7 @@ export const tableConfig: Columns[] = [
   }
 ]
 
-export const RepaymentInfoColumns = [
+export const RepaymentInfoColumns: TableTile[] = [
   {
     title: 'Deduction time', // 实际支付时间
     dataIndex: 'actual_paid_off_date',
@@ -257,9 +258,8 @@ export const RepaymentInfoColumns = [
   },
   {
     title: 'Operator',
-    dataIndex: 'operator_name', // 操作人默认为系统：前端写死
-    key: 'operator_name',
-    render: (record: string) => record || 'system'
+    dataIndex: 'operator_name', // 操作人
+    key: 'operator_name'
   },
   {
     title: 'Remarks',

@@ -9,8 +9,9 @@ import styles from './index.module.scss'
 import { userPermission } from 'design/permission'
 import UserStore from 'stores/user'
 import CommonStore from 'stores/common'
-import { StatusType, TableSortType, UserListReq, UserListItem, ChangeUserReq } from 'interface/user'
+import { StatusType, UserListReq, UserListItem, ChangeUserReq } from 'interface/user'
 import { PaginationConfig, SorterResult } from 'antd/lib/table'
+import { transformSort } from 'global/method'
 
 interface Props extends RouteComponentProps {
   user: UserStore
@@ -61,7 +62,6 @@ class User extends Component<Props, State> {
   }
 
   renderOperate = (text: string, record: UserListItem, index: number) => {
-    // const { p40102, p40103, p40104, p40105 } = userPermission.finnalPermission!.user_func
     const { p40102, p40103, p40104 } = userPermission.finnalPermission!.user_func
     const { id, name, status } = record
     const statusText = this.transformStatus(status)
@@ -74,11 +74,6 @@ class User extends Component<Props, State> {
             {statusText}
           </span>
         )}
-        {/* {name !== 'admin' && p40105 && (
-          <a onClick={this.resetUsers(id)} id={`reset-pwd-${index}`}>
-            Reset Password
-          </a>
-        )} */}
       </div>
     )
   }
@@ -173,7 +168,7 @@ class User extends Component<Props, State> {
           ...this.state.request,
           page: current!,
           per_page: pageSize!,
-          sort: this.transformSort(order)
+          sort: transformSort(order)
         }
       },
       this.getUserList
@@ -186,18 +181,6 @@ class User extends Component<Props, State> {
       return 'freeze'
     } else {
       return 'unfreeze'
-    }
-  }
-
-  // 转换排序字段
-  transformSort = (order: TableSortType) => {
-    switch (order) {
-      case 'descend':
-        return 'desc'
-      case 'ascend':
-        return 'asc'
-      default:
-        return ''
     }
   }
 

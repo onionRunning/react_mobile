@@ -22,8 +22,7 @@ export class StatusRecord extends Component<Props> {
 
   render() {
     const { statusRecordList } = this.props.details
-    getTableTitle[getTableTitle.length - 1].render = this.renderRemake
-    return <Table tableTitle={getTableTitle} tableData={statusRecordList} size="small" />
+    return <Table tableTitle={getTableTitle(this.renderRemake)} tableData={statusRecordList} size="small" />
   }
 
   renderRemake = (record: response.StatusRecordList) => {
