@@ -60,8 +60,8 @@ describe('test checkRepeat', () => {
   //   expect(instance.state['checkLists']).toEqual(['111'])
   // })
 
-  it('test newClick', () => {
-    instance.newClick()
+  it('test rematch', () => {
+    instance.rematch()
     expect(mockProps.checkRepeat.retryChecklists).toBeCalled()
   })
 })

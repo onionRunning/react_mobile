@@ -56,7 +56,7 @@ export class CheckRepeat extends Component<Props, State> {
     })
   }
   // 重新匹配列表
-  newClick = () => {
+  rematch = () => {
     const { retryChecklists } = this.props.checkRepeat
     const {
       state: { order_no }
@@ -75,15 +75,15 @@ export class CheckRepeat extends Component<Props, State> {
   render() {
     const { currentList } = this.state
     const { viewType } = this.props.location.state
-    const headerConfig = headerLists(this.operating)
+    let headerConfig
+    if (viewType === intoDetail.MYORDER) {
+      headerConfig = headerLists(this.operating, this.rematch)
+    } else {
+      headerConfig = headerLists(this.operating)
+    }
     return (
       <div className={styles.checkRepeatWrap}>
         <div className={styles.tableWrap}>
-          {viewType === intoDetail.MYORDER && (
-            <button className={`${styles.rematchBtn} theme-btn`} onClick={this.newClick}>
-              Rematch
-            </button>
-          )}
           <Table tableTitle={headerConfig} tableData={currentList} />
         </div>
       </div>

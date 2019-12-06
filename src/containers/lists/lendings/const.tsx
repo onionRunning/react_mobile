@@ -268,9 +268,9 @@ export const filterData = [
 // 订单状态
 export const orderStatus = {
   No: '', // 没有状态信息
-  LoanFailed: 'Loan Failed', // 放款失败
-  CreateLoan: 'Create Loan', // 创建放款单
-  LoanProcessing: 'Loan Processing' // 放款中
+  LoanFailed: 'LoanFailed', // 放款失败
+  CreateLoan: 'LoanCreate', // 创建放款单
+  LoanProcessing: 'LoanProcessing' // 放款中
 }
 
 // 表格滚动条设置
