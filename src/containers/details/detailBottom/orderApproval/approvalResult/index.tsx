@@ -3,9 +3,7 @@ import { observer, inject } from 'mobx-react'
 import InfoWrapper from '../../../component/infoWrapper'
 import ApprovalStore from 'stores/details/approval'
 import { MixProps } from 'global/interface'
-import { reflect_status } from './config'
 import styles from './index.module.scss'
-import * as response from 'api/response'
 
 interface Props extends MixProps {
   approval: ApprovalStore
@@ -25,7 +23,7 @@ export class ApprovalResult extends Component<Props> {
         <p className={styles.item}>Results of review : {application_status}</p>
         <p className={styles.item}>Review time: {application_finish_time}</p>
         <p className={styles.item}>Reviewer: {operator_name}</p>
-        {this.showReason()}
+        {this.renderReason()}
         <p className={styles.item}>Remark: {remark}</p>
       </div>
     )
@@ -39,43 +37,13 @@ export class ApprovalResult extends Component<Props> {
     })
   }
 
-  // setResponseData = (data: response.ApprovalResult, type: string) => {
-  //   switch (type) {
-  //     case 'review':
-  //       return this.filterStatus(data) ? data.application_status : ''
-  //     case 'time':
-  //       return this.filterStatus(data)
-  //         ? data.application_status === orderStatus.AUDITINGRETURN
-  //           ? data.return_time
-  //           : data.application_finish_time
-  //         : ''
-  //     case 'reviewer':
-  //       return this.filterStatus(data) ? data.operator_name : ''
-  //     case 'remark':
-  //       return this.filterStatus(data) ? data.remark : ''
-  //     default:
-  //       return ''
-  //   }
-  // }
-
-  // isManualAuditing = (status: string) => {
-  //   return status !== orderStatus.WAITINGFORMANUALAUDITING && status !== orderStatus.MANUALAUDITING
-  // }
-
-  // filterStatus = (data: response.ApprovalResult) => {
-  //   return data.application_status !== orderStatus.WAITINGFORMANUALAUDITING && data.application_status !== orderStatus.MANUALAUDITING
-  // }
-
-  // 展示原因:机审拒绝 人审打回 人审拒绝 人审撤销
-  showReason = () => {
-    const { approvalResult, orderReason } = this.props.approval
-    const { application_status } = approvalResult
-    const key = reflect_status[application_status] as keyof typeof orderReason
-    const reasonList: response.ReasonList[] = orderReason[key]! || []
-    return reasonList.map((item, index) => {
+  // 渲染拒绝理由
+  renderReason = () => {
+    const { orderReason } = this.props.approval
+    return orderReason.map((item, index) => {
       return (
         <p key={index} className={styles.item}>
-          Reason for {reflect_status[application_status]}
+          Reason for reject_reason
           {index + 1}: {item.reason_value}
         </p>
       )

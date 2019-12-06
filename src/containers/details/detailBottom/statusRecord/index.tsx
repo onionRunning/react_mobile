@@ -3,19 +3,21 @@ import { observer, inject } from 'mobx-react'
 import InfoWrapper from 'containers/details/component/infoWrapper'
 import Table from 'components/table'
 import DetailsStore from 'stores/details'
+import CommonStore from 'stores/common'
 import { MixProps } from 'global/interface'
 import { getTableTitle, Reason } from './config'
 import * as response from 'api/response'
 
 interface Props extends MixProps {
   details: DetailsStore
+  common: CommonStore
 }
 
-@inject('details')
+@inject('details', 'common')
 @observer
 export class StatusRecord extends Component<Props> {
   componentDidMount() {
-    this.getStatusRecord()
+    this.handleLoading()
   }
 
   render() {
@@ -38,6 +40,10 @@ export class StatusRecord extends Component<Props> {
     } else {
       return <span>{record.remark}</span>
     }
+  }
+
+  handleLoading = () => {
+    this.props.common.composeLoading(this.getStatusRecord)
   }
 
   // 获取状态记录

@@ -28,6 +28,7 @@ describe('SMSRecord', () => {
   }
 
   const common: any = {
+    composeLoading: jest.fn(),
     changeConfirm: jest.fn()
   }
 
@@ -50,6 +51,11 @@ describe('SMSRecord', () => {
 
   it('renderSendMsgBtn', () => {
     expect(instance.renderSendMsgBtn().length).toBe(3)
+  })
+
+  it('handleLoading', () => {
+    instance.handleLoading()
+    expect(mockProps.common.composeLoading).toBeCalledWith(instance.getSMSRecordInfo)
   })
 
   it('getSMSRecordInfo', () => {

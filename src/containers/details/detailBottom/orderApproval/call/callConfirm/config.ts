@@ -60,7 +60,6 @@ export const justify = (detail: any[], same: string, back: string) => {
     detail &&
     detail
       .map(item => {
-        console.log(item.includes(same), 'item')
         return item.includes(same) || item.includes(back) ? item : null
       })
       .filter(item => item).length === 2
@@ -81,8 +80,8 @@ export const exsitArr = (detail: any[], arr: any[]) => {
 // 检测联系人互斥可选项
 export const justifyArr = (detail: any[], arrA: any, arrB: any) => {
   if (!detail) return false
-  let exsitA = exsitArr(detail, arrA)
-  let exsitB = exsitArr(detail, arrB)
+  const exsitA = exsitArr(detail, arrA)
+  const exsitB = exsitArr(detail, arrB)
   return exsitA && exsitB
 }
 

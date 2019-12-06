@@ -107,7 +107,6 @@ export class Operate extends Component<Props, State> {
 
   // 选择拒绝理由
   handleChangeSelect = (value: string[]) => {
-    console.log(value)
     const { refuseReasonList } = this.props.approval
     const list: RefuseList[] = []
     refuseReasonList.forEach(el => {
@@ -125,7 +124,8 @@ export class Operate extends Component<Props, State> {
     // 不允许输入汉字
     const value = e.target.value.replace(/[\u4E00-\u9FA5]/g, '')
     // 字符长度不允许超过1000
-    if (value.length > 1000) return
+    const maxLength = 1000
+    if (value.length > maxLength) return
     this.setState({
       remark: value
     })

@@ -30,7 +30,7 @@ export class SMSRecord extends Component<Props, State> {
   }
 
   componentDidMount() {
-    this.getSMSRecordInfo()
+    this.handleLoading()
   }
 
   render() {
@@ -58,6 +58,10 @@ export class SMSRecord extends Component<Props, State> {
         </Button>
       )
     })
+  }
+
+  handleLoading = () => {
+    this.props.common.composeLoading(this.getSMSRecordInfo)
   }
 
   // 获取短信记录
@@ -93,7 +97,7 @@ export class SMSRecord extends Component<Props, State> {
   // 发送成功后的回调
   sendMsgSuccess = () => {
     this.closeConfirm()
-    this.getSMSRecordInfo()
+    this.handleLoading()
   }
 
   // 关闭模态框

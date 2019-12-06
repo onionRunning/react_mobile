@@ -59,21 +59,14 @@ export class Call extends Component<Props, State> {
     const { visible, name, relation_ship } = this.state
     return (
       <div className="call-record">
-        <div className="call-record-cons">
-          <div className="call-record-cons-top">{this.renderPhone()}</div>
-          {/* {editPermission && (
-            <div className="call-record-cons-bot">
-              <AddCallRecord {...this.props} getAllCallLists={this.getAllCallLists} getApproval={this.getApproval} />
-            </div>
-          )} */}
-          <CallConfirm
-            show={visible}
-            name={name}
-            relation_ship={relation_ship}
-            onCancel={this.handleClickCancel}
-            onConfirm={this.handleClickConfirm}
-          />
-        </div>
+        <ul className={styles.content}>{this.renderPhone()}</ul>
+        <CallConfirm
+          show={visible}
+          name={name}
+          relation_ship={relation_ship}
+          onCancel={this.handleClickCancel}
+          onConfirm={this.handleClickConfirm}
+        />
       </div>
     )
   }
@@ -90,49 +83,47 @@ export class Call extends Component<Props, State> {
       callRecord.splice(1, 0, self2[0])
     }
     return (
-      <ul className={styles.content}>
-        {callRecord &&
-          callRecord.map((item, index) => {
-            return (
-              <li key={index} className={styles.item}>
-                <div className={styles.item_top}>
-                  <div>{item.relation_ship}</div>
-                  <div>
-                    <span>Name:</span>
-                    <span>{item.user_name}</span>
-                  </div>
-                  <div>
-                    <span>Phone number:</span>
-                    <span>{item.phone}</span>
-                  </div>
-                  <div className={styles.view_btn} onClick={this.handleClickView(index)}>
-                    View call history
-                  </div>
-                  {editPermission && (
-                    <div>
-                      <Select
-                        list={phoneOps}
-                        size="default"
-                        value={item.selectValue}
-                        onChange={this.handleChangeSelect(index)}
-                      />
-                    </div>
-                  )}
-                  {editPermission && (
-                    <div>
-                      <img src={PhoneIcon} alt="phone" onClick={this.handleclickphone(item)} />
-                    </div>
-                  )}
+      callRecord.length &&
+      callRecord.map((item, index) => {
+        return (
+          <li key={index} className={styles.item}>
+            <div className={styles.item_top}>
+              <div>{item.relation_ship}</div>
+              <div>
+                <span>Name:</span>
+                <span>{item.user_name}</span>
+              </div>
+              <div>
+                <span>Phone number:</span>
+                <span>{item.phone}</span>
+              </div>
+              <div className={styles.view_btn} onClick={this.handleClickView(index)}>
+                View call history
+              </div>
+              {editPermission && (
+                <div>
+                  <Select
+                    list={phoneOps}
+                    size="default"
+                    value={item.selectValue}
+                    onChange={this.handleChangeSelect(index)}
+                  />
                 </div>
-                {item.show && (
-                  <div key={index}>
-                    <Table columns={Columns} dataSource={item.detailList} size="small" pagination={false} />
-                  </div>
-                )}
-              </li>
-            )
-          })}
-      </ul>
+              )}
+              {editPermission && (
+                <div>
+                  <img src={PhoneIcon} alt="phone" onClick={this.handleclickphone(item)} />
+                </div>
+              )}
+            </div>
+            {item.show && (
+              <div key={index}>
+                <Table columns={Columns} dataSource={item.detailList} size="small" pagination={false} />
+              </div>
+            )}
+          </li>
+        )
+      })
     )
   }
 

@@ -2,7 +2,7 @@ import { formatTime, formatTf } from 'global/method'
 import { TableTile } from 'global/interface'
 import * as response from 'api/response'
 
-export type SendMsgType = 'UserAndContactMissedCall' | 'UserMissedCall' | 'contact'
+export type SendMsgType = 'UserAndContactMissedCall' | 'UserMissedCall' | 'ContactMissedCall'
 
 export const SendMsg = {
   UserAndContactMissedCall: {
@@ -15,7 +15,7 @@ export const SendMsg = {
     title: 'SMS reminder',
     text: 'Customer did not answer the phone'
   },
-  contact: {
+  ContactMissedCall: {
     align: 'center',
     title: 'SMS reminder',
     text: 'The contacts did not answer the phone'
@@ -32,17 +32,10 @@ export const SendMsgBtn = [
     text: 'Customer did not answer the phone'
   },
   {
-    type: 'contact',
+    type: 'ContactMissedCall',
     text: 'The contacts did not answer the phone'
   }
 ]
-
-// 转化传给后端时的数据值
-export const SendMsgType = {
-  self: '1',
-  contact: '2',
-  all: '3'
-}
 
 export const SMSRecordColumns: TableTile[] = [
   {
