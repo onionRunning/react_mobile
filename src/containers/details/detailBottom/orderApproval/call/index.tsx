@@ -82,49 +82,46 @@ export class Call extends Component<Props, State> {
       callRecord.splice(self2Index!, 1)
       callRecord.splice(1, 0, self2[0])
     }
-    return (
-      callRecord.length &&
-      callRecord.map((item, index) => {
-        return (
-          <li key={index} className={styles.item}>
-            <div className={styles.item_top}>
-              <div>{item.relation_ship}</div>
-              <div>
-                <span>Name:</span>
-                <span>{item.user_name}</span>
-              </div>
-              <div>
-                <span>Phone number:</span>
-                <span>{item.phone}</span>
-              </div>
-              <div className={styles.view_btn} onClick={this.handleClickView(index)}>
-                View call history
-              </div>
-              {editPermission && (
-                <div>
-                  <Select
-                    list={phoneOps}
-                    size="default"
-                    value={item.selectValue}
-                    onChange={this.handleChangeSelect(index)}
-                  />
-                </div>
-              )}
-              {editPermission && (
-                <div>
-                  <img src={PhoneIcon} alt="phone" onClick={this.handleclickphone(item)} />
-                </div>
-              )}
+    return callRecord.map((item, index) => {
+      return (
+        <li key={index} className={styles.item}>
+          <div className={styles.item_top}>
+            <div>{item.relation_ship}</div>
+            <div>
+              <span>Name:</span>
+              <span>{item.user_name}</span>
             </div>
-            {item.show && (
-              <div key={index}>
-                <Table columns={Columns} dataSource={item.detailList} size="small" pagination={false} />
+            <div>
+              <span>Phone number:</span>
+              <span>{item.phone}</span>
+            </div>
+            <div className={styles.view_btn} onClick={this.handleClickView(index)}>
+              View call history
+            </div>
+            {editPermission && (
+              <div>
+                <Select
+                  list={phoneOps}
+                  size="default"
+                  value={item.selectValue}
+                  onChange={this.handleChangeSelect(index)}
+                />
               </div>
             )}
-          </li>
-        )
-      })
-    )
+            {editPermission && (
+              <div>
+                <img src={PhoneIcon} alt="phone" onClick={this.handleclickphone(item)} />
+              </div>
+            )}
+          </div>
+          {item.show && (
+            <div key={index}>
+              <Table columns={Columns} dataSource={item.detailList} size="small" pagination={false} />
+            </div>
+          )}
+        </li>
+      )
+    })
   }
 
   // 获取联系人列表
