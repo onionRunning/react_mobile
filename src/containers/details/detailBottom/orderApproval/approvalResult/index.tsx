@@ -52,6 +52,3 @@ export class ApprovalResult extends Component<Props> {
 }
 
 export default InfoWrapper('Results of review')(ApprovalResult)
-
-// 展示逻辑是: 机审拒绝显示机审的内容
-// 人审结果优先展示

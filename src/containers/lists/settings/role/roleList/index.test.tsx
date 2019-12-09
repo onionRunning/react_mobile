@@ -79,10 +79,4 @@ describe('userlist', () => {
       sort: 'desc'
     })
   })
-
-  it('transformSort', () => {
-    expect(instance.transformSort('')).toBe('')
-    expect(instance.transformSort('descend')).toBe('desc')
-    expect(instance.transformSort('ascend')).toBe('asc')
-  })
 })

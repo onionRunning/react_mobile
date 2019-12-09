@@ -18,7 +18,10 @@ describe('Operate', () => {
   )
 
   const approval: any = {
-    refuseReasonList: [{ id: 1, reason_code: 'R107', reason_value: '需要补充证明' }],
+    refuseReasonList: [
+      { id: 1, reason_code: 'R107', reason_value: '需要补充证明' },
+      { id: 2, reason_code: 'R108', reason_value: '年龄不符合' }
+    ],
     getRefuseReason: jest.fn(),
     approvalOrder: jest.fn()
   }
@@ -69,7 +72,8 @@ describe('Operate', () => {
   })
 
   it('handleChangeSelect', () => {
-    instance.handleChangeSelect('test')
+    instance.handleChangeSelect(['R107'])
+    expect(instance.state.reasons).toEqual([{ id: 1, reason_code: 'R107', reason_value: '需要补充证明' }])
   })
 
   it('handleChangeTextarea', () => {

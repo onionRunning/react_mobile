@@ -1,12 +1,6 @@
 import { TableTile } from 'global/interface'
 import { formatTime } from 'global/method'
 import { ListItem } from 'components/select'
-export const phones = [
-  { relationship: '本人', name: '王大师1', phone: '15014006740' },
-  { relationship: '亲属', name: '王大师2', phone: '13014015002' },
-  { relationship: '其他', name: '王大师3', phone: '13014015003' },
-  { relationship: '通讯录', name: '王大师4', phone: '13014015004' }
-]
 
 // 云话机
 export const phoneOps: ListItem[] = [

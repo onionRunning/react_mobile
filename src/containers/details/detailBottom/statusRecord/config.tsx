@@ -7,7 +7,7 @@ export interface Reason {
   reason_code: string
 }
 
-export const getTableTitle: TableTile[] = [
+export const getTableTitle = (render: (record: response.StatusRecordList) => React.ReactNode): TableTile[] => [
   {
     align: 'center',
     title: 'Serial number',
@@ -40,6 +40,7 @@ export const getTableTitle: TableTile[] = [
     title: 'Remark',
     dataIndex: '',
     key: 'remark',
-    width: 400
+    width: 400,
+    render
   }
 ]

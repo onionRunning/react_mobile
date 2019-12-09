@@ -7,10 +7,10 @@ import Table from 'components/table'
 import { condition, btnItems, getTableTitle } from './config'
 import { userPermission } from 'design/permission'
 import Role from 'stores/role'
-import { TableSortType, RoleListReq } from 'interface/role'
+import { RoleListReq } from 'interface/role'
 import { PaginationConfig, SorterResult } from 'antd/lib/table'
 import * as response from 'api/response'
-
+import { transformSort } from 'global/method'
 import styles from './index.module.scss'
 
 interface Props extends RouteComponentProps {
@@ -124,23 +124,11 @@ class RoleList extends Component<Props, State> {
           ...this.state.request,
           page: current!,
           per_page: pageSize!,
-          sort: this.transformSort(order)
+          sort: transformSort(order)
         }
       },
       this.getRoleList
     )
-  }
-
-  // 转换排序字段
-  transformSort = (order: TableSortType) => {
-    switch (order) {
-      case 'descend':
-        return 'desc'
-      case 'ascend':
-        return 'asc'
-      default:
-        return ''
-    }
   }
 }
 
