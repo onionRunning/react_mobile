@@ -44,3 +44,5 @@ const exec = require('child_process').exec
     console.log(error, 'x')
   }
 })()
+
+// check 单元测试

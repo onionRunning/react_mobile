@@ -2,16 +2,16 @@
 
 set -e
 
-PROJECT_NAME="jimanagement"
-image_name="ind.dev.dr:5000/qy_${PROJECT_NAME}:1.0"
+PROJECT_NAME="hj"
+image_name="${PROJECT_NAME}:1.0"
 if [ $1 == "prod" ];then
-image_name="ind.prod.dr:5000/qy_${PROJECT_NAME}:2.0"
+image_name="${PROJECT_NAME}:2.0"
 fi
 if [ $1 == "preprod" ];then
-image_name="ind.preprod.dr:5000/qy_${PROJECT_NAME}:2.0"
+image_name="${PROJECT_NAME}:2.0"
 fi
 if [ $1 == "test" ];then
-image_name="ind.test.dr:5000/qy_${PROJECT_NAME}:1.0"
+image_name="${PROJECT_NAME}:1.0"
 fi
 
 dockerConfigPath=$(pwd)

@@ -7,7 +7,7 @@ const bodyParser = require('body-parser')
 const queryString = require('querystring')
 const compression = require('compression')
 
-const proxyHost = 'http://phl-gapigateway-mng:3001' // docker port
+const proxyHost = 'http://xxxx:3001' // docker port
 
 const pino = PinoLogger({
   prettyPrint: {
