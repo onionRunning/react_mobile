@@ -1,21 +1,32 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const { override, fixBabelImports, addLessLoader } = require('customize-cra')
+const { override, fixBabelImports, addPostcssPlugins } = require('customize-cra')
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const postcssPxToViewport = require('postcss-px-to-viewport')
 
 module.exports = override(
+  addPostcssPlugins([
+    postcssPxToViewport({
+      unitToConvert: 'px',
+      viewportWidth: 375,
+      unitPrecision: 5,
+      propList: ['*'],
+      viewportUnit: 'vw',
+      fontViewportUnit: 'vw',
+      selectorBlackList: [],
+      minPixelValue: 1,
+      mediaQuery: false,
+      replace: true,
+      exclude: [],
+      landscape: false,
+      landscapeUnit: 'vw',
+      landscapeWidth: 568
+    })
+  ]),
   fixBabelImports('import', {
-    libraryName: 'antd',
+    libraryName: 'antd-mobile',
     libraryDirectory: 'es',
     style: true
-  }),
-  addLessLoader({
-    javascriptEnabled: true,
-    modifyVars: {
-      '@primary-color': '#ff9a2f',
-      '@link-color': '#ff9a2f',
-      '@border-radius-base': '4px',
-      '@border-color-base': '#d9d9d9',
-      '@box-shadow-base': '0 2px 8px rgba(0, 0, 0, 0.15)'
-    }
   })
 )
 
