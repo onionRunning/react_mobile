@@ -1,24 +1,15 @@
 {
-  "name": "wc",
+  "name": "chenyu",
   "sideEffects": [
     "*.css"
   ],
   "dependencies": {
-    "antd-mobile": "^2.3.1",
-    "babel-plugin-import": "^1.13.0",
     "body-parser": "^1.19.0",
-    "customize-cra": "^0.9.1",
     "express": "^4.16.4",
     "http-proxy-middleware": "^0.19.1",
-    "less-loader": "^5.0.0",
-    "mobx": "^5.15.1",
-    "mobx-react": "^6.1.4",
-    "mobx-react-router": "^4.1.0",
     "pino": "^5.12.5",
     "pino-pretty": "^3.0.0",
-    "postcss-px-to-viewport": "^1.1.1",
-    "querystring": "^0.2.0",
-    "react-app-rewired": "^2.1.5"
+    "querystring": "^0.2.0"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx}": [
@@ -36,10 +27,10 @@
     "test": "react-app-rewired test",
     "test:ci": "CI=true yarn test",
     "test:cov": "CI=true yarn test --coverage",
-    "fix": "yarn fix:prettier && yarn fix:tslint",
+    "fix": "yarn fix:prettier && yarn fix:lint",
     "fix:prettier": "prettier --single-quote --write 'src/**/*.{js,jsx,ts,tsx,json,css}'",
     "fix:lint": "eslint --fix --ext .jsx,.js,.tsx,.ts ./src",
-    "eject": "react-scripts eject"
+    "5elint": "5elint"
   },
   "jest": {
     "coverageReporters": [
@@ -53,7 +44,6 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "proxy": "http://172.16.0.40:31000",
   "browserslist": [
     ">0.2%",
     "not ie <= 11",
@@ -81,29 +71,29 @@
     "@types/react-router-dom": "^4.3.1",
     "@types/react-select": "^2.0.17",
     "@types/webpack-env": "^1.13.9",
-    "@typescript-eslint/eslint-plugin": "^1.4.2",
-    "@typescript-eslint/parser": "^1.4.2",
+    "antd-mobile": "^2.3.1",
     "axios": "^0.18.0",
+    "babel-plugin-import": "^1.13.0",
     "connected-react-router": "^6.4.0",
-    "downloadjs": "^1.4.7",
+    "customize-cra": "^0.9.1",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.10.0",
-    "eslint-config-prettier": "^4.1.0",
-    "eslint-config-react-app": "^3.0.8",
-    "eslint-plugin-flowtype": "^3.4.2",
-    "eslint-plugin-import": "^2.16.0",
-    "eslint-plugin-jsx-a11y": "^6.2.1",
-    "eslint-plugin-prettier": "^3.0.1",
-    "eslint-plugin-react": "^7.12.4",
+    "eslint-config-5e": "^0.0.1",
     "hard-source-webpack-plugin": "^0.13.1",
     "history": "^4.7.2",
     "husky": "^1.3.1",
+    "less-loader": "^5.0.0",
     "lint-staged": "^8.1.5",
     "lodash": "^4.17.11",
+    "mobx": "^4.3.1",
+    "mobx-react": "^5.1.0",
+    "mobx-react-router": "^4.1.0",
     "moment": "^2.24.0",
     "node-sass": "npm:sass@^1.22.0",
+    "postcss-px-to-viewport": "^1.1.1",
     "prettier": "^1.16.4",
     "react": "^16.8.4",
+    "react-app-rewired": "^2.1.5",
     "react-dates": "^20.1.0",
     "react-dom": "^16.8.4",
     "react-router": "^5.0.0",
@@ -113,13 +103,12 @@
     "react-test-renderer": "^16.8.4",
     "react-viewer": "^2.8.1",
     "tslint": "^5.13.1",
-    "tslint-config-prettier": "^1.18.0",
-    "tslint-react": "^3.6.0",
-    "typescript": "3.3.3333"
+    "typescript": "^3.9.2"
   },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
     }
-  }
+  },
+  "proxy": "https://api.haowande.com"
 }

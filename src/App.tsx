@@ -9,18 +9,16 @@ const browserHistory = createBrowserHistory()
 const routingStore = new RouterStore()
 const history = syncHistoryWithStore(browserHistory, routingStore)
 
-class App extends React.Component {
-  public render() {
-    return (
-      <Suspense fallback={<div>Loading...</div>}>
-        <Provider {...RootStore}>
-          <Router history={history}>
-            <Route component={Routes} />
-          </Router>
-        </Provider>
-      </Suspense>
-    )
-  }
+const App = () => {
+  return (
+    <Suspense fallback={<div>加载中...</div>}>
+      <Provider {...RootStore}>
+        <Router history={history}>
+          <Route component={Routes} />
+        </Router>
+      </Provider>
+    </Suspense>
+  )
 }
 
 export default App

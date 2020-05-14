@@ -5,10 +5,9 @@ const proxy = require('http-proxy-middleware')
 const PinoLogger = require('pino')
 const bodyParser = require('body-parser')
 const queryString = require('querystring')
-const compression = require('compression')
+// const compression = require('compression')
 
-const proxyHost = 'http://xxxx:3001' // docker port
-
+const proxyHost = 'https://api.haowande.com' // docker port
 const pino = PinoLogger({
   prettyPrint: {
     translateTime: true,
@@ -16,16 +15,12 @@ const pino = PinoLogger({
     ignore: 'pid,hostname'
   }
 })
-
 const app = express()
-app.use(compression())
-
+// app.use(compression())
 app.use(bodyParser.json())
-
 app.use(express.static(path.join(__dirname, '..', 'build')))
-
 app.use(
-  '/api/v1',
+  '/chengyu',
   proxy({
     target: proxyHost,
     onProxyReq: (proxyReq, req) => {
@@ -60,11 +55,6 @@ app.use(
     }
   })
 ) // 代理http请求
-
-app.use('/assert', proxy({ target: proxyHost })) // 图片资源代理到网关
-
-app.use('/assert_call', proxy({ target: proxyHost })) // 图片资源录音资源代理到网关
-app.use('/group1', proxy({ target: proxyHost })) // 图片资源代理到网关
 
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, '..', 'build', 'index.html'))

@@ -10,7 +10,7 @@ const Login: React.FC<any> = () => {
         leftContent="返回"
         rightContent={[
           <Icon key="0" type="search" style={{ marginRight: '16px' }} />,
-          <Icon key="1" type="ellipsis" />
+          <Icon key="1" type="ellipsis" />,
         ]}
       >
         学习模块

@@ -1,0 +1,46 @@
+.logo{
+  width: 33px;
+  height: 33px;
+  border-radius: 50%;
+  margin-right: 4px;
+}
+.home{
+  display: flex;
+  align-items: center;
+  line-height: 42px;
+  padding: 0 23px;
+  letter-spacing:5px;
+  font-family:PingFangSC-Semibold,PingFang SC;
+  font-size: 29px;
+}
+.button{
+  width:319px;
+  height:55px;
+  line-height:55px;
+  background:rgba(255,109,109,1);
+  border-radius:16px;
+  color: #fff;
+  font-size:20px;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  box-shadow: 0px 5px 5px 5px #E6E6E6;
+}
+.wrapperButton{
+  margin-top: 40px;
+  position: relative;
+  img{
+    width: 40px;
+    height: 40px;
+  }
+  .beginShine{
+    width: 34px;
+    height: 34px;
+    position: absolute;
+    top: -25px;
+    right: 4px;
+  }
+}

@@ -1,3 +1,2 @@
-- bussiness 业务组件
-- pure 纯组件
+- 组件模块
 
