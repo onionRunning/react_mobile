@@ -30,5 +30,5 @@ react + typescript + mobx
 
 
 #### 需要考虑的规则
-- no-invalid-this ： mobx状态中,子class stroe 无法在箭头函数中使用 this
-- no-floating-promises: 我的异步任务已经在函数中处理， 我调用的地方是否需要返回值
+- no-invalid-this ： mobx状态中,子 stroe class 类中 无法在箭头函数中使用 this
+- no-floating-promises: 我的异步任务已经在函数中处理，我调用的地方是否需要返回值

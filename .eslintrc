@@ -1,3 +1,6 @@
 {
-  "extends": ["5e"]
+  "extends": ["5e"],
+  "rules": {
+    "no-invalid-this": "off"
+  }
 }

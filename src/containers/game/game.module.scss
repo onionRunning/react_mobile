@@ -46,6 +46,7 @@
   padding: 15px 15px 0;
   margin-top: 12px;
   box-shadow: 0px 0px 10px 0px rgba(181, 181, 181, 0.3);
+  font-size:0;
   .levelTitle{
     font-size:28px;
     font-family:PingFangSC-Semibold,PingFang SC;
@@ -59,5 +60,28 @@
   .idiomImg{
     width:300px;
     height:200px;
+  }
+  .chenyu{
+    display: flex;
+    justify-content: center;
+    height: 37px;
+    margin-top: 10px;
+    div{
+      &:nth-child(1){
+        margin-left: 0px;
+      }
+      margin-left: 10px;
+    }
+  }
+}
+
+.world{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-top: 17px;
+  justify-content: space-between;
+  div{
+    margin-top: 10px;
   }
 }

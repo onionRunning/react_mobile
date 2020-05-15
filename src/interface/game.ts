@@ -5,6 +5,13 @@ export interface IdiomLists {
   description: string
 }
 
+export interface WorldItem {
+  value: string
+  types: string
+  // 当前的编号
+  id?: number
+}
+
 export interface Res<T> {
   success: boolean
   data: T
