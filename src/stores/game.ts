@@ -10,6 +10,7 @@ const TYPES = {
   FILL: 'fill',
   EMPTY: 'empty',
   INIT: 'init',
+  ERR: 'error',
 }
 class GameStore {
   // 成语列表
@@ -68,10 +69,43 @@ class GameStore {
       return item.value === ''
     })
     temp[values] = { ...data[index], types: TYPES.FILL }
+    const validLength = temp.filter(item => {
+      return item.value !== ''
+    }).length
+    // console.log(validLength, 'validLength')
+    if (validLength === IDIOM_LENGTH) {
+      this.checkIdiomStatus(temp)
+      return
+    }
     this.idiomWorld = temp
   }
+  // 判断当前的四字成语成功(提示弹窗出现) 还是失败(显示红色报错)
+  checkIdiomStatus = (data: WorldItem[]) => {
+    const choseIdiomValue = data.reduce((current, pre) => {
+      return (current += pre.value)
+    }, '')
+    console.error(choseIdiomValue, 'choseIdiomValue')
+    if (choseIdiomValue === this.idiomLists[this.currentLevel].name) {
+      this.idiomWorld = [...data]
+      // 成功后的逻辑
+    } else {
+      this.idiomWorld = [...data].map(item => {
+        return { ...item, types: TYPES.ERR }
+      })
+    }
+  }
+  // 移除成语点击
   removeIdiom = (id: number, index: number) => {
-    const temp = [...this.idiomWorld]
+    let temp = [...this.idiomWorld]
+    // 用于把错误状态进行重置
+    const validLength = temp.filter(item => {
+      return item.types === TYPES.ERR
+    }).length
+    if (validLength === IDIOM_LENGTH) {
+      temp = temp.map(item => {
+        return { ...item, types: TYPES.FILL }
+      })
+    }
     temp[index] = { value: '', types: TYPES.INIT }
     this.idiomWorld = temp
     this.changeWorldStatus(id)
@@ -88,6 +122,13 @@ class GameStore {
       this.idiomLists = res.data.chengyu
     }
     return res.success
+  }
+  // 清回归最初状态
+  initWorldAndIdiom = () => {
+    this.idiomWorld = [...INIT_IDIOS]
+    this.worldLists = [...this.worldLists].map(item => {
+      return { ...item, types: TYPES.FILL }
+    })
   }
 }
 export default GameStore

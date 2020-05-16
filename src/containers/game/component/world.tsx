@@ -1,5 +1,4 @@
 import React from 'react'
-import { InitIdios } from '../utils'
 import Items from 'components/items/items'
 import { WorldItem } from 'interface/game'
 import gameStyle from '../game.module.scss'

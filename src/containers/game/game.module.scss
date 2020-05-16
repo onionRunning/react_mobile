@@ -66,12 +66,20 @@
     justify-content: center;
     height: 37px;
     margin-top: 10px;
+    position: relative;
     div{
       &:nth-child(1){
         margin-left: 0px;
       }
       margin-left: 10px;
     }
+  }
+  .clear{
+    width:23px;
+    height:15px;
+    position: absolute;
+    right: 25px;
+    bottom: 10px;
   }
 }
 

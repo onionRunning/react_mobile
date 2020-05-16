@@ -5,11 +5,16 @@ export const INIT_WORLD = '一二三十木禾上下土个八入大天人火文�
 export const INIT_NUMBER = {
   ZERO: 0,
   ONE: 1,
+  FOUR: 4,
   // 随机取20 长度的截取
   RANDOM_WORLD: 20,
   RANDOM_ONE: 9301,
   RANDOM_TWO: 49297,
   RANDOM_THR: 233280,
+}
+
+export const IDIOM_STATUS = {
+  ERROR: 'error',
 }
 
 // 初始化成语列表

@@ -28,7 +28,7 @@ class Game extends React.Component<Props> {
     return (
       <div className={gameStyle.gameBox}>
         <TopBack handleBack={this.handleBack} coins={10086} />
-        <Explains data={idiomWorld} onClick={this.clickIdiom} />
+        <Explains data={idiomWorld} onClick={this.clickIdiom} clickClear={this.clickClear} />
         <WorldLists onClick={this.clickWorld} data={worldLists} />
       </div>
     )
@@ -52,6 +52,11 @@ class Game extends React.Component<Props> {
       const { removeIdiom } = this.props.game
       removeIdiom(id, index)
     }
+  }
+  // 点击清除按钮进行重置
+  clickClear = () => {
+    const { initWorldAndIdiom } = this.props.game
+    initWorldAndIdiom()
   }
 }
 
