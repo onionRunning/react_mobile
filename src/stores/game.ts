@@ -1,7 +1,7 @@
 import { observable } from 'mobx'
 import { IdiomLists, WorldItem } from 'interface/game'
 import api from 'api'
-import { getRandomSeed, getRandomWorld, randomArray, generateRandom } from 'global/utils'
+import { getRandomSeed, getRandomWorld, randomArray, generateRandom, isString } from 'global/utils'
 import { INIT_IDIOS } from 'global/const'
 
 const INIT_LEVEL = 0
@@ -33,12 +33,17 @@ class GameStore {
   @observable coins = INIT_COINS
   // 初始化等级
   initLevel = () => {
-    const level = sessionStorage.getItem('level')!
-    this.currentLevel = parseInt(level, 2)
+    const level = localStorage.getItem('level')!
+    let isRightLevel = false
+    if (isString(level) && level !== 'NaN') {
+      isRightLevel = true
+    }
+    this.currentLevel = parseInt(isRightLevel ? level : INIT_LEVEL.toString(), 10)
   }
   // 储存等级
-  saveLevel = (l: string) => {
-    sessionStorage.setItem('level', l)
+  saveLevel = (l: number) => {
+    console.error(l, 'lll')
+    localStorage.setItem('level', l.toString())
   }
   // 初始化文字列表信息
   initWorld = (level: number = INIT_LEVEL) => {
@@ -188,6 +193,7 @@ class GameStore {
   updateNextIdioms = () => {
     this.updateLevel(this.currentLevel + ONE)
     this.initWorld(this.currentLevel)
+    this.saveLevel(this.currentLevel)
     this.isShowPop = false
     this.idiomWorld = [...INIT_IDIOS]
   }

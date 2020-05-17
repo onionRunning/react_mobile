@@ -18,7 +18,8 @@ interface Props extends RouteComponentProps {
 @observer
 class Game extends React.Component<Props> {
   async componentDidMount() {
-    const { setIdiomValue, initWorld } = this.props.game
+    const { setIdiomValue, initWorld, initLevel } = this.props.game
+    initLevel()
     const res = await setIdiomValue()
     initWorld()
     if (res) {

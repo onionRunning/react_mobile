@@ -33,3 +33,7 @@ export const getRandomWorld = (seed: number) => {
 export const getRandomSeed = () => {
   return new Date().getTime()
 }
+
+export const isString = (s: any) => {
+  return Object.prototype.toString.call(s) === '[object String]'
+}
