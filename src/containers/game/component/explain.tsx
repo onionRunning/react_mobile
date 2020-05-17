@@ -7,6 +7,8 @@ import gameStyle from '../game.module.scss'
 import { INIT_NUMBER, IDIOM_STATUS } from 'global/const'
 
 interface Props {
+  level?: number
+  name?: string
   data?: WorldItem[]
   // id 是属性， index 是序号
   onClick(id: number, index: number): () => void
@@ -14,7 +16,7 @@ interface Props {
 }
 
 const Explains = (props: Props) => {
-  const { data, onClick, clickClear } = props
+  const { data, onClick, clickClear, name, level } = props
   const createIdimos = (lists: WorldItem[]) => {
     return lists.map((item, index) => {
       return <Items key={index} types={item.types} value={item.value} onClick={onClick(item.id!, index)} />
@@ -31,8 +33,8 @@ const Explains = (props: Props) => {
   }
   return (
     <div className={gameStyle.explain}>
-      <p className={gameStyle.levelTitle}>第{1200}关</p>
-      <img className={gameStyle.idiomImg} src={getImgUrl('开门见山')} alt={'开门见山'} />
+      <p className={gameStyle.levelTitle}>第{`${level! + INIT_NUMBER.ONE}`}关</p>
+      <img className={gameStyle.idiomImg} src={getImgUrl(name!)} alt={'成语图片'} />
       <div className={gameStyle.chenyu}>
         {createIdimos(data!)}
         {showImg(data!)}

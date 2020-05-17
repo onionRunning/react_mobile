@@ -1,11 +1,17 @@
 import { observable } from 'mobx'
 import { IdiomLists, WorldItem } from 'interface/game'
 import api from 'api'
-import { getRandomSeed, getRandomWorld, randomArray } from 'global/utils'
+import { getRandomSeed, getRandomWorld, randomArray, generateRandom } from 'global/utils'
 import { INIT_IDIOS } from 'global/const'
 
 const INIT_LEVEL = 0
+const ZERO = 0
 const IDIOM_LENGTH = 4
+const ONE = 1
+const INIT_COINS = 100000
+// const ADD_RANGE = 5
+const REDUCE_RANGE = -3
+
 const TYPES = {
   FILL: 'fill',
   EMPTY: 'empty',
@@ -19,12 +25,20 @@ class GameStore {
   @observable worldLists: WorldItem[] = []
   // 四字的成语展示栏
   @observable idiomWorld: WorldItem[] = INIT_IDIOS
+  // 展示弹窗
+  @observable isShowPop = false
   // 当前等级
   @observable currentLevel = INIT_LEVEL
+  // 当前金额
+  @observable coins = INIT_COINS
   // 初始化等级
   initLevel = () => {
     const level = sessionStorage.getItem('level')!
     this.currentLevel = parseInt(level, 2)
+  }
+  // 储存等级
+  saveLevel = (l: string) => {
+    sessionStorage.setItem('level', l)
   }
   // 初始化文字列表信息
   initWorld = (level: number = INIT_LEVEL) => {
@@ -72,7 +86,6 @@ class GameStore {
     const validLength = temp.filter(item => {
       return item.value !== ''
     }).length
-    // console.log(validLength, 'validLength')
     if (validLength === IDIOM_LENGTH) {
       this.checkIdiomStatus(temp)
       return
@@ -84,10 +97,10 @@ class GameStore {
     const choseIdiomValue = data.reduce((current, pre) => {
       return (current += pre.value)
     }, '')
-    console.error(choseIdiomValue, 'choseIdiomValue')
     if (choseIdiomValue === this.idiomLists[this.currentLevel].name) {
       this.idiomWorld = [...data]
       // 成功后的逻辑
+      this.isShowPop = true
     } else {
       this.idiomWorld = [...data].map(item => {
         return { ...item, types: TYPES.ERR }
@@ -129,6 +142,54 @@ class GameStore {
     this.worldLists = [...this.worldLists].map(item => {
       return { ...item, types: TYPES.FILL }
     })
+  }
+  // 减少/增加 金额
+  updateCoins = (range: number) => {
+    this.coins = this.coins + range
+  }
+  // 点击获取提示按钮()1. 更新2份数据源 2. 更新金额
+  getTips = () => {
+    this.tipUpdateIdioms()
+    this.updateCoins(REDUCE_RANGE)
+  }
+  // 提示情况下更新成语展示
+  tipUpdateIdioms = () => {
+    const temp = [...this.idiomWorld]
+    const emptyIndexArr = temp
+      .map((item, index) => {
+        if (item.value === '') {
+          return index
+        }
+        return ''
+      })
+      .filter(i => {
+        return i !== ''
+      }) as number[]
+    const idiomArr = this.idiomLists[this.currentLevel].name.split('')
+    if (emptyIndexArr.length === ONE) {
+      temp[emptyIndexArr[ZERO]!] = {
+        ...temp[emptyIndexArr[ZERO]!],
+        value: idiomArr[emptyIndexArr[ZERO]!],
+        types: TYPES.FILL,
+      }
+      this.checkIdiomStatus(temp)
+      return
+    }
+    // 如果长度大于 1 需要进行随机处理
+    const radoms = generateRandom(getRandomSeed())(ZERO, emptyIndexArr.length)
+    temp[emptyIndexArr[radoms]!] = {
+      ...temp[emptyIndexArr[radoms]!],
+      value: idiomArr[emptyIndexArr[radoms]!],
+      types: TYPES.FILL,
+    }
+    this.idiomWorld = temp
+  }
+  // 更新新的题目
+  updateNextIdioms = () => {
+    this.updateLevel(this.currentLevel + ONE)
+    this.initWorld(this.currentLevel)
+    this.isShowPop = false
+    this.idiomWorld = [...INIT_IDIOS]
   }
 }
 export default GameStore
