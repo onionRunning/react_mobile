@@ -1,5 +1,5 @@
 import { observable } from 'mobx'
-import { IdiomLists, WorldItem } from 'interface/game'
+import { IdiomLists, WorldItem, Rewards } from 'interface/game'
 import api from 'api'
 import { getRandomSeed, getRandomWorld, randomArray, generateRandom, isString } from 'global/utils'
 import { INIT_IDIOS } from 'global/const'
@@ -33,6 +33,10 @@ class GameStore {
   @observable coins = INIT_COINS
   // 展示当前金币变化等级
   @observable rangeCoins = REDUCE_RANGE
+  // 展示成就模块
+  @observable showAchievement = false
+  // 成就页面展示的信息
+  @observable achievementInfo: Rewards = {}
   // 初始化等级
   initLevel = () => {
     const level = localStorage.getItem('level')!
@@ -228,10 +232,29 @@ class GameStore {
   // 更新新的题目
   updateNextIdioms = () => {
     this.updateLevel(this.currentLevel + ONE)
-    this.initWorld()
     this.saveLevel(this.currentLevel)
     this.isShowPop = false
+    this.initWorld()
     this.idiomWorld = [...INIT_IDIOS]
+  }
+  // 初始化信息
+  initObj = () => {
+    this.isShowPop = false
+    this.initWorld()
+    this.idiomWorld = [...INIT_IDIOS]
+  }
+  // 成就相关逻辑
+  handleAchievement = (s: boolean, info: Rewards) => {
+    this.updateAchievementStatus(s)
+    this.updateAchievementInfo(info)
+  }
+  // 打开或关闭成就模块
+  updateAchievementStatus = (status: boolean) => {
+    this.showAchievement = status
+  }
+  // 更新成就相关信息
+  updateAchievementInfo = (info: Rewards) => {
+    this.achievementInfo = info
   }
 }
 export default GameStore

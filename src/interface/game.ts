@@ -16,3 +16,10 @@ export interface Res<T> {
   success: boolean
   data: T
 }
+
+// 奖励信息
+export interface Rewards {
+  reward?: number
+  currentLevel?: number
+  rewardLevel?: number
+}

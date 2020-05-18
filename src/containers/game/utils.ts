@@ -9,3 +9,8 @@ export const InitIdios = [
   { value: '', types: 'init' },
   { value: '', types: 'init' },
 ]
+
+// 获取成就图片
+export const getAchievement = (l: number) => {
+  return `https://chengyu.static.haowande.com/badge/成就${l}.png`
+}

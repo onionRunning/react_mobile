@@ -1,4 +1,4 @@
-import { INIT_NUMBER, INIT_WORLD } from './const'
+import { INIT_NUMBER, INIT_WORLD, LEVEL_REWARDS } from './const'
 const { ZERO, ONE, RANDOM_WORLD, RANDOM_ONE, RANDOM_THR, RANDOM_TWO } = INIT_NUMBER
 
 // 随机函数
@@ -34,6 +34,28 @@ export const getRandomSeed = () => {
   return new Date().getTime()
 }
 
-export const isString = (s: any) => {
+// 判断类型是字符串
+export const isString = <T>(s: T): boolean => {
   return Object.prototype.toString.call(s) === '[object String]'
+}
+
+// 判断类型是object
+export const isObject = <T>(s: T): boolean => {
+  return Object.prototype.toString.call(s) === '[object Object]'
+}
+
+// 获取奖励等级 以及 各个等级对应的奖励金额
+interface Rewards {
+  reward: number
+  currentLevel: number
+  rewardLevel: number
+}
+// 触发按钮点击下一题时才触发
+export const getRewardsInfo = () => {
+  const records: Rewards[] = []
+  LEVEL_REWARDS.reduce((cur, pre, index) => {
+    records.push({ reward: pre, currentLevel: cur, rewardLevel: index })
+    return cur + pre
+  }, ZERO)
+  return records
 }
