@@ -2,8 +2,10 @@ import React, { useState, useEffect, useRef } from 'react'
 import COINS from 'assets/icon.png'
 import BACK from 'assets/back.png'
 import gameStyle from '../game.module.scss'
+import { INIT_NUMBER } from 'global/const'
 
 interface Props {
+  rangeCoins?: number
   coins?: number
   handleBack?(): void
 }
@@ -33,12 +35,13 @@ const useDelayResult = (data: number) => {
 }
 
 const TopBack: React.FC<Props> = (props: Props) => {
-  const { coins, handleBack } = props
+  const { coins, handleBack, rangeCoins } = props
   const isShowRecuce = useDelayResult(coins!)
 
   const createReduce = (isFlag: boolean) => {
     if (isFlag) {
-      return <span className={gameStyle.reduceConins}>-3</span>
+      const showLevel = rangeCoins! > INIT_NUMBER.ZERO ? `+${rangeCoins!.toString()}` : rangeCoins
+      return <span className={gameStyle.reduceConins}>{showLevel}</span>
     }
   }
   return (

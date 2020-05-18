@@ -9,7 +9,7 @@ const ZERO = 0
 const IDIOM_LENGTH = 4
 const ONE = 1
 const INIT_COINS = 100000
-// const ADD_RANGE = 5
+const ADD_RANGE = 5
 const REDUCE_RANGE = -3
 
 const TYPES = {
@@ -31,6 +31,8 @@ class GameStore {
   @observable currentLevel = INIT_LEVEL
   // 当前金额
   @observable coins = INIT_COINS
+  // 展示当前金币变化等级
+  @observable rangeCoins = REDUCE_RANGE
   // 初始化等级
   initLevel = () => {
     const level = localStorage.getItem('level')!
@@ -40,14 +42,24 @@ class GameStore {
     }
     this.currentLevel = parseInt(isRightLevel ? level : INIT_LEVEL.toString(), 10)
   }
+  // 初始化金额
+  initConins = () => {
+    const storageCoins = localStorage.getItem('coins')!
+    let isRightCoins = false
+    if (isString(storageCoins) && storageCoins !== 'NaN') {
+      isRightCoins = true
+    }
+    this.coins = parseInt(isRightCoins ? storageCoins : INIT_COINS.toString(), 10)
+  }
   // 储存等级
   saveLevel = (l: number) => {
-    console.error(l, 'lll')
+    // console.error(l, 'lll')
     localStorage.setItem('level', l.toString())
   }
   // 初始化文字列表信息
-  initWorld = (level: number = INIT_LEVEL) => {
-    const initIdiom = this.idiomLists[level].name
+  initWorld = () => {
+    // console.log(this.currentLevel, 'current', level)
+    const initIdiom = this.idiomLists[this.currentLevel].name
     const temp = [...getRandomWorld(getRandomSeed()), ...initIdiom.split('')]
     const randomArr = randomArray(temp, getRandomSeed())
     this.worldLists = randomArr.map((item, index) => {
@@ -106,6 +118,7 @@ class GameStore {
       this.idiomWorld = [...data]
       // 成功后的逻辑
       this.isShowPop = true
+      this.updateCoins(ADD_RANGE)
     } else {
       this.idiomWorld = [...data].map(item => {
         return { ...item, types: TYPES.ERR }
@@ -151,11 +164,32 @@ class GameStore {
   // 减少/增加 金额
   updateCoins = (range: number) => {
     this.coins = this.coins + range
+    this.rangeCoins = range
+    localStorage.setItem('coins', this.coins.toString())
   }
-  // 点击获取提示按钮()1. 更新2份数据源 2. 更新金额
+  // 点击获取提示按钮()1. 更新2份数据源 2. 更新金额 3. check 限制
   getTips = () => {
+    if (this.checkClick()) return
     this.tipUpdateIdioms()
     this.updateCoins(REDUCE_RANGE)
+  }
+  checkClick = () => {
+    const temp = [...this.idiomWorld]
+    return (
+      temp.filter(item => {
+        return item.value !== ''
+      }).length >= IDIOM_LENGTH
+    )
+  }
+  // 提示更新展示的world
+  tipUpdateWorld = (str: string) => {
+    const temp = [...this.worldLists].map(item => {
+      if (item.value === str) {
+        return { ...item, types: TYPES.EMPTY }
+      }
+      return item
+    })
+    this.worldLists = temp
   }
   // 提示情况下更新成语展示
   tipUpdateIdioms = () => {
@@ -177,6 +211,7 @@ class GameStore {
         value: idiomArr[emptyIndexArr[ZERO]!],
         types: TYPES.FILL,
       }
+      this.tipUpdateWorld(idiomArr[emptyIndexArr[ZERO]!])
       this.checkIdiomStatus(temp)
       return
     }
@@ -187,12 +222,13 @@ class GameStore {
       value: idiomArr[emptyIndexArr[radoms]!],
       types: TYPES.FILL,
     }
+    this.tipUpdateWorld(idiomArr[emptyIndexArr[radoms]!])
     this.idiomWorld = temp
   }
   // 更新新的题目
   updateNextIdioms = () => {
     this.updateLevel(this.currentLevel + ONE)
-    this.initWorld(this.currentLevel)
+    this.initWorld()
     this.saveLevel(this.currentLevel)
     this.isShowPop = false
     this.idiomWorld = [...INIT_IDIOS]

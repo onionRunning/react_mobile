@@ -18,9 +18,11 @@ interface Props extends RouteComponentProps {
 @observer
 class Game extends React.Component<Props> {
   async componentDidMount() {
-    const { setIdiomValue, initWorld, initLevel } = this.props.game
+    const { setIdiomValue, initWorld, initLevel, initConins, currentLevel } = this.props.game
     initLevel()
+    initConins()
     const res = await setIdiomValue()
+    console.error(currentLevel, '10086')
     initWorld()
     if (res) {
       console.error(res)
@@ -28,13 +30,13 @@ class Game extends React.Component<Props> {
   }
 
   render() {
-    const { idiomWorld, worldLists, idiomLists, currentLevel, coins, isShowPop } = this.props.game
+    const { idiomWorld, worldLists, idiomLists, currentLevel, coins, isShowPop, rangeCoins } = this.props.game
     if (idiomLists.length === INIT_NUMBER.ZERO) return null
     const name = idiomLists[currentLevel].name
     const world = idiomLists[currentLevel].description
     return (
       <div className={gameStyle.gameBox}>
-        <TopBack handleBack={this.handleBack} coins={coins} />
+        <TopBack handleBack={this.handleBack} coins={coins} rangeCoins={rangeCoins} />
         <Explains
           level={currentLevel}
           name={name}
