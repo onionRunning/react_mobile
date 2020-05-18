@@ -240,8 +240,7 @@ class GameStore {
   // 初始化信息
   initObj = () => {
     this.isShowPop = false
-    this.initWorld()
-    this.idiomWorld = [...INIT_IDIOS]
+    this.initWorldAndIdiom()
   }
   // 成就相关逻辑
   handleAchievement = (s: boolean, info: Rewards) => {
