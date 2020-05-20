@@ -1,0 +1,19 @@
+66b0cd53ff746330f1d35487125c86d4
+/**
+ * Converts `map` to its key-value pairs.
+ *
+ * @private
+ * @param {Object} map The map to convert.
+ * @returns {Array} Returns the key-value pairs.
+ */
+function mapToArray(map) {
+  var index = -1,
+      result = Array(map.size);
+  map.forEach(function (value, key) {
+    result[++index] = [key, value];
+  });
+  return result;
+}
+
+module.exports = mapToArray;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIl9tYXBUb0FycmF5LmpzIl0sIm5hbWVzIjpbIm1hcFRvQXJyYXkiLCJtYXAiLCJpbmRleCIsInJlc3VsdCIsIkFycmF5Iiwic2l6ZSIsImZvckVhY2giLCJ2YWx1ZSIsImtleSIsIm1vZHVsZSIsImV4cG9ydHMiXSwibWFwcGluZ3MiOiJBQUFBOzs7Ozs7O0FBT0EsU0FBU0EsVUFBVCxDQUFvQkMsR0FBcEIsRUFBeUI7QUFDdkIsTUFBSUMsS0FBSyxHQUFHLENBQUMsQ0FBYjtBQUFBLE1BQ0lDLE1BQU0sR0FBR0MsS0FBSyxDQUFDSCxHQUFHLENBQUNJLElBQUwsQ0FEbEI7QUFHQUosRUFBQUEsR0FBRyxDQUFDSyxPQUFKLENBQVksVUFBU0MsS0FBVCxFQUFnQkMsR0FBaEIsRUFBcUI7QUFDL0JMLElBQUFBLE1BQU0sQ0FBQyxFQUFFRCxLQUFILENBQU4sR0FBa0IsQ0FBQ00sR0FBRCxFQUFNRCxLQUFOLENBQWxCO0FBQ0QsR0FGRDtBQUdBLFNBQU9KLE1BQVA7QUFDRDs7QUFFRE0sTUFBTSxDQUFDQyxPQUFQLEdBQWlCVixVQUFqQiIsInNvdXJjZXNDb250ZW50IjpbIi8qKlxuICogQ29udmVydHMgYG1hcGAgdG8gaXRzIGtleS12YWx1ZSBwYWlycy5cbiAqXG4gKiBAcHJpdmF0ZVxuICogQHBhcmFtIHtPYmplY3R9IG1hcCBUaGUgbWFwIHRvIGNvbnZlcnQuXG4gKiBAcmV0dXJucyB7QXJyYXl9IFJldHVybnMgdGhlIGtleS12YWx1ZSBwYWlycy5cbiAqL1xuZnVuY3Rpb24gbWFwVG9BcnJheShtYXApIHtcbiAgdmFyIGluZGV4ID0gLTEsXG4gICAgICByZXN1bHQgPSBBcnJheShtYXAuc2l6ZSk7XG5cbiAgbWFwLmZvckVhY2goZnVuY3Rpb24odmFsdWUsIGtleSkge1xuICAgIHJlc3VsdFsrK2luZGV4XSA9IFtrZXksIHZhbHVlXTtcbiAgfSk7XG4gIHJldHVybiByZXN1bHQ7XG59XG5cbm1vZHVsZS5leHBvcnRzID0gbWFwVG9BcnJheTtcbiJdfQ==

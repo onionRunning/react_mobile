@@ -11,8 +11,10 @@ import Achievement from './component/achievement'
 import gameStyle from './game.module.scss'
 import { INIT_NUMBER } from 'global/const'
 import { getRewardsInfo, isObject } from 'global/utils'
+import { Toast } from 'antd-mobile'
 
 const INIT_ACHIEVEMENT = getRewardsInfo()
+// console.error(INIT_ACHIEVEMENT)
 interface Props extends RouteComponentProps {
   game: GameStore
 }
@@ -20,21 +22,15 @@ interface Props extends RouteComponentProps {
 @inject('game')
 @observer
 class Game extends React.Component<Props> {
-  async componentDidMount() {
-    const { setIdiomValue, initWorld, initLevel, initConins } = this.props.game
-    initLevel()
-    initConins()
-    const res = await setIdiomValue()
-    initWorld()
-    if (res) {
-      console.error(res)
-    }
+  componentDidMount() {
+    const { didMount } = this.props.game
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    didMount()
   }
   // 重置用户信息
   componentWillUnmount() {
-    const { handleAchievement, initObj } = this.props.game
-    handleAchievement(false, {})
-    initObj()
+    const { willUnMount } = this.props.game
+    willUnMount()
   }
 
   render() {
@@ -80,6 +76,7 @@ class Game extends React.Component<Props> {
           coins={coins}
           rangeCoins={rangeCoins}
           clickNext={this.checkToNext}
+          newStart={this.newStart}
         />
       </div>
     )
@@ -91,7 +88,6 @@ class Game extends React.Component<Props> {
   // 点击文字信息产生的交互
   clickWorld = (index: number) => {
     return () => {
-      // console.error(index, 'index')
       // check 超过4个值已经消失了
       const { uodateWorld } = this.props.game
       uodateWorld(index)
@@ -110,9 +106,13 @@ class Game extends React.Component<Props> {
     const { initWorldAndIdiom } = this.props.game
     initWorldAndIdiom()
   }
-  // 点击开始提示按钮
+  // 点击开始提示按钮(校验当前金币是否大于 3)
   startTips = () => {
-    const { getTips } = this.props.game
+    const { getTips, coins } = this.props.game
+    if (coins <= INIT_NUMBER.THREE) {
+      Toast.info('金币不足,多加思考哦!!!', INIT_NUMBER.TWO)
+      return
+    }
     getTips()
   }
   // 点击下一题, 初始化下个题目 (判断是否需要进入成就页面)
@@ -126,7 +126,7 @@ class Game extends React.Component<Props> {
       updateCoins(res.reward)
       return
     }
-    updateNextIdioms()
+    updateNextIdioms(INIT_NUMBER.ONE)
   }
   // check 当前规则是否需要进入成就页
   checkAchievement = () => {
@@ -135,11 +135,21 @@ class Game extends React.Component<Props> {
       return item.currentLevel === currentLevel + INIT_NUMBER.ONE
     })[INIT_NUMBER.ZERO]
   }
-  // 点击继续晋级
+  // 点击继续晋级下一关
   checkToNext = () => {
-    const { updateNextIdioms, handleAchievement } = this.props.game
+    const { updateNextIdioms, handleAchievement, achievementInfo } = this.props.game
+    let step = INIT_NUMBER.ONE
+    if (achievementInfo.rewardLevel === INIT_NUMBER.PASS_LEVEL) {
+      step = INIT_NUMBER.ZERO
+    }
     handleAchievement(false, {})
-    updateNextIdioms()
+    updateNextIdioms(step)
+  }
+  // 通关后重新开始 重置关卡(暂时回到 1199关)
+  newStart = () => {
+    const { updateNextIdioms, updateAchievementStatus } = this.props.game
+    updateNextIdioms(INIT_NUMBER.ZERO)
+    updateAchievementStatus(false)
   }
 }
 

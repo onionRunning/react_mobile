@@ -1,0 +1,52 @@
+52d7c73cd97c1c79ee8ace05f47853a1
+/** Error message constants. */
+var FUNC_ERROR_TEXT = 'Expected a function';
+/**
+ * Creates a function that negates the result of the predicate `func`. The
+ * `func` predicate is invoked with the `this` binding and arguments of the
+ * created function.
+ *
+ * @static
+ * @memberOf _
+ * @since 3.0.0
+ * @category Function
+ * @param {Function} predicate The predicate to negate.
+ * @returns {Function} Returns the new negated function.
+ * @example
+ *
+ * function isEven(n) {
+ *   return n % 2 == 0;
+ * }
+ *
+ * _.filter([1, 2, 3, 4, 5, 6], _.negate(isEven));
+ * // => [1, 3, 5]
+ */
+
+function negate(predicate) {
+  if (typeof predicate != 'function') {
+    throw new TypeError(FUNC_ERROR_TEXT);
+  }
+
+  return function () {
+    var args = arguments;
+
+    switch (args.length) {
+      case 0:
+        return !predicate.call(this);
+
+      case 1:
+        return !predicate.call(this, args[0]);
+
+      case 2:
+        return !predicate.call(this, args[0], args[1]);
+
+      case 3:
+        return !predicate.call(this, args[0], args[1], args[2]);
+    }
+
+    return !predicate.apply(this, args);
+  };
+}
+
+module.exports = negate;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm5lZ2F0ZS5qcyJdLCJuYW1lcyI6WyJGVU5DX0VSUk9SX1RFWFQiLCJuZWdhdGUiLCJwcmVkaWNhdGUiLCJUeXBlRXJyb3IiLCJhcmdzIiwiYXJndW1lbnRzIiwibGVuZ3RoIiwiY2FsbCIsImFwcGx5IiwibW9kdWxlIiwiZXhwb3J0cyJdLCJtYXBwaW5ncyI6IkFBQUE7QUFDQSxJQUFJQSxlQUFlLEdBQUcscUJBQXRCO0FBRUE7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQW9CQSxTQUFTQyxNQUFULENBQWdCQyxTQUFoQixFQUEyQjtBQUN6QixNQUFJLE9BQU9BLFNBQVAsSUFBb0IsVUFBeEIsRUFBb0M7QUFDbEMsVUFBTSxJQUFJQyxTQUFKLENBQWNILGVBQWQsQ0FBTjtBQUNEOztBQUNELFNBQU8sWUFBVztBQUNoQixRQUFJSSxJQUFJLEdBQUdDLFNBQVg7O0FBQ0EsWUFBUUQsSUFBSSxDQUFDRSxNQUFiO0FBQ0UsV0FBSyxDQUFMO0FBQVEsZUFBTyxDQUFDSixTQUFTLENBQUNLLElBQVYsQ0FBZSxJQUFmLENBQVI7O0FBQ1IsV0FBSyxDQUFMO0FBQVEsZUFBTyxDQUFDTCxTQUFTLENBQUNLLElBQVYsQ0FBZSxJQUFmLEVBQXFCSCxJQUFJLENBQUMsQ0FBRCxDQUF6QixDQUFSOztBQUNSLFdBQUssQ0FBTDtBQUFRLGVBQU8sQ0FBQ0YsU0FBUyxDQUFDSyxJQUFWLENBQWUsSUFBZixFQUFxQkgsSUFBSSxDQUFDLENBQUQsQ0FBekIsRUFBOEJBLElBQUksQ0FBQyxDQUFELENBQWxDLENBQVI7O0FBQ1IsV0FBSyxDQUFMO0FBQVEsZUFBTyxDQUFDRixTQUFTLENBQUNLLElBQVYsQ0FBZSxJQUFmLEVBQXFCSCxJQUFJLENBQUMsQ0FBRCxDQUF6QixFQUE4QkEsSUFBSSxDQUFDLENBQUQsQ0FBbEMsRUFBdUNBLElBQUksQ0FBQyxDQUFELENBQTNDLENBQVI7QUFKVjs7QUFNQSxXQUFPLENBQUNGLFNBQVMsQ0FBQ00sS0FBVixDQUFnQixJQUFoQixFQUFzQkosSUFBdEIsQ0FBUjtBQUNELEdBVEQ7QUFVRDs7QUFFREssTUFBTSxDQUFDQyxPQUFQLEdBQWlCVCxNQUFqQiIsInNvdXJjZXNDb250ZW50IjpbIi8qKiBFcnJvciBtZXNzYWdlIGNvbnN0YW50cy4gKi9cbnZhciBGVU5DX0VSUk9SX1RFWFQgPSAnRXhwZWN0ZWQgYSBmdW5jdGlvbic7XG5cbi8qKlxuICogQ3JlYXRlcyBhIGZ1bmN0aW9uIHRoYXQgbmVnYXRlcyB0aGUgcmVzdWx0IG9mIHRoZSBwcmVkaWNhdGUgYGZ1bmNgLiBUaGVcbiAqIGBmdW5jYCBwcmVkaWNhdGUgaXMgaW52b2tlZCB3aXRoIHRoZSBgdGhpc2AgYmluZGluZyBhbmQgYXJndW1lbnRzIG9mIHRoZVxuICogY3JlYXRlZCBmdW5jdGlvbi5cbiAqXG4gKiBAc3RhdGljXG4gKiBAbWVtYmVyT2YgX1xuICogQHNpbmNlIDMuMC4wXG4gKiBAY2F0ZWdvcnkgRnVuY3Rpb25cbiAqIEBwYXJhbSB7RnVuY3Rpb259IHByZWRpY2F0ZSBUaGUgcHJlZGljYXRlIHRvIG5lZ2F0ZS5cbiAqIEByZXR1cm5zIHtGdW5jdGlvbn0gUmV0dXJucyB0aGUgbmV3IG5lZ2F0ZWQgZnVuY3Rpb24uXG4gKiBAZXhhbXBsZVxuICpcbiAqIGZ1bmN0aW9uIGlzRXZlbihuKSB7XG4gKiAgIHJldHVybiBuICUgMiA9PSAwO1xuICogfVxuICpcbiAqIF8uZmlsdGVyKFsxLCAyLCAzLCA0LCA1LCA2XSwgXy5uZWdhdGUoaXNFdmVuKSk7XG4gKiAvLyA9PiBbMSwgMywgNV1cbiAqL1xuZnVuY3Rpb24gbmVnYXRlKHByZWRpY2F0ZSkge1xuICBpZiAodHlwZW9mIHByZWRpY2F0ZSAhPSAnZnVuY3Rpb24nKSB7XG4gICAgdGhyb3cgbmV3IFR5cGVFcnJvcihGVU5DX0VSUk9SX1RFWFQpO1xuICB9XG4gIHJldHVybiBmdW5jdGlvbigpIHtcbiAgICB2YXIgYXJncyA9IGFyZ3VtZW50cztcbiAgICBzd2l0Y2ggKGFyZ3MubGVuZ3RoKSB7XG4gICAgICBjYXNlIDA6IHJldHVybiAhcHJlZGljYXRlLmNhbGwodGhpcyk7XG4gICAgICBjYXNlIDE6IHJldHVybiAhcHJlZGljYXRlLmNhbGwodGhpcywgYXJnc1swXSk7XG4gICAgICBjYXNlIDI6IHJldHVybiAhcHJlZGljYXRlLmNhbGwodGhpcywgYXJnc1swXSwgYXJnc1sxXSk7XG4gICAgICBjYXNlIDM6IHJldHVybiAhcHJlZGljYXRlLmNhbGwodGhpcywgYXJnc1swXSwgYXJnc1sxXSwgYXJnc1syXSk7XG4gICAgfVxuICAgIHJldHVybiAhcHJlZGljYXRlLmFwcGx5KHRoaXMsIGFyZ3MpO1xuICB9O1xufVxuXG5tb2R1bGUuZXhwb3J0cyA9IG5lZ2F0ZTtcbiJdfQ==

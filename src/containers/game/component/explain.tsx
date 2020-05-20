@@ -18,6 +18,7 @@ interface Props {
 const Explains = (props: Props) => {
   const { data, onClick, clickClear, name, level } = props
   const createIdimos = (lists: WorldItem[]) => {
+    // console.error(JSON.stringify(lists), 'lists')
     return lists.map((item, index) => {
       return <Items key={index} types={item.types} value={item.value} onClick={onClick(item.id!, index)} />
     })
@@ -31,6 +32,7 @@ const Explains = (props: Props) => {
       return <img onClick={clickClear} className={gameStyle.clear} src={ERR_CLEAR} alt="清空" />
     }
   }
+  console.error(level, 'level')
   return (
     <div className={gameStyle.explain}>
       <p className={gameStyle.levelTitle}>第{`${level! + INIT_NUMBER.ONE}`}关</p>

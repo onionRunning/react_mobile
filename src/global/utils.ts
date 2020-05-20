@@ -54,7 +54,7 @@ interface Rewards {
 export const getRewardsInfo = () => {
   const records: Rewards[] = []
   LEVEL_REWARDS.reduce((cur, pre, index) => {
-    records.push({ reward: pre, currentLevel: cur, rewardLevel: index })
+    records.push({ reward: pre, currentLevel: cur + pre, rewardLevel: index })
     return cur + pre
   }, ZERO)
   return records

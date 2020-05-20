@@ -1,7 +1,7 @@
 .topBar{
   display: flex;
   line-height: 32px;
-  padding-top: 14px;
+  padding-top: 10px;
   .reduceConins{
     color: #ffd800;
     margin-left: 8px;
@@ -47,26 +47,26 @@
 // explain
 .explain{
   width:330px;
-  height:320px;
+  // height:320px;
   background:rgba(255,255,255,1);
   border-radius:11px;
-  padding: 15px 15px 0;
-  margin-top: 12px;
+  padding: 15px 15px 8px;
+  margin-top: 8px;
   box-shadow: 0px 0px 10px 0px rgba(181, 181, 181, 0.3);
   font-size:0;
   .levelTitle{
-    font-size:28px;
+    font-size:20px;
     font-family:PingFangSC-Semibold,PingFang SC;
     font-weight:600;
     color:rgba(96,96,96,1);
-    line-height:40px;
+    line-height:24px;
     letter-spacing:2px;
-    height:40px;
+    height:24px;
     margin-bottom: 10px;
   }
   .idiomImg{
     width:300px;
-    height:200px;
+    height:180px;
   }
   .chenyu{
     display: flex;
@@ -94,20 +94,21 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  margin-top: 17px;
+  margin-top: 4px;
   justify-content: space-between;
   div{
-    margin-top: 10px;
+    margin-top: 7px;
   }
 }
 // button bottom
 .botButs{
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;
+  margin-top: 16px;
+  background-color: rgba(249,249,249,1);
   .share{
     width:189px;
-    height:77px;
+    height:70px;
     background:rgba(255,109,109,1);
     border-radius:16px;
     color: #FFFFFF;
@@ -133,7 +134,7 @@
   }
   .tips{
     width:112px;
-    height:77px;
+    height:70px;
     background:rgba(95,179,240,1);
     border-radius:16px;
     color: #FFFFFF;
@@ -240,24 +241,24 @@
 .achievement{
   .hints{
     width:335px;
-    height:442px;
+    height:402px;
     background:rgba(255,216,0,1);
     box-shadow:0px 2px 10px 0px rgba(0,0,0,0.1);
     border-radius:19px;
     padding-top: 21px;
-    margin-top: 20px;
+    margin-top: 12px;
     position: relative;
     .thinkImg{
-      width: 110px;
-      height: 110px;
+      width: 100px;
+      height: 100px;
       position: absolute;
       bottom: 0;
       left: 50%;
-      margin-left: -55px;
+      margin-left: -50px;
     }
     .hintWorlds{
       width:269px;
-      height:289px;
+      height:269px;
       background:rgba(255,255,255,1);
       box-shadow:0px 2px 10px 0px rgba(0,0,0,0.1);
       border-radius:14px;
@@ -447,6 +448,161 @@
       height:54px;
       background:rgba(95,179,240,1);
       margin-left: 25px;
+    }
+  }
+}
+// passbarrier
+.passBut{
+  display: flex;
+  justify-content: center;
+  .newbut{
+    width:249px;
+    height:54px;
+    background:rgba(95,179,240,1);
+    border-radius:16px;
+    margin: 23px 0;
+    box-shadow: 0px 3px 0px 4px #E6E6E6;
+    p{
+      &:nth-child(1){
+        font-size:20px;
+        font-family:PingFangSC-Semibold,PingFang SC;
+        font-weight:600;
+        color:rgba(255,255,255,1);
+        line-height:25px;
+        letter-spacing:1px;
+      }
+      &:nth-child(2){
+        font-size:12px;
+        font-family:PingFangSC-Semibold,PingFang SC;
+        font-weight:600;
+        color:rgba(255,255,255,1);
+        line-height:25px;
+        letter-spacing:1px;
+      }
+    }
+  }
+}
+.passBarrier{
+  width:335px;
+  background:rgba(255,216,0,1);
+  box-shadow:0px 2px 10px 0px rgba(0,0,0,0.1);
+  border-radius:19px;
+  margin-top: 20px;
+  .passworld{
+    padding-top: 20px;
+    text-align: center;
+    font-weight:600;
+    color:rgba(51,51,51,1);
+    font-size: 20px;
+    letter-spacing:1px;
+    margin: 20px 0;
+  }
+  .newStart{
+    font-size:14px;
+    font-weight:500;
+    color:rgba(255,255,255,1);
+    line-height:20px;
+    letter-spacing:7px;
+    text-align: center;
+  }
+  .thinkImg{
+    width: 110px;
+    height: 110px;
+    margin: 0 auto;
+    display: block;
+    font-size: 0;
+  }
+  .barrierInfo{
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    width: 269px;
+    justify-content: space-between;
+    .barrierLevel,.barrierCoins{
+      text-align: center;
+      flex: 1;
+      p{
+        &:nth-child(1){
+          font-size:14px;
+          font-weight:600;
+          color:rgba(51,51,51,1);
+          line-height:14px;
+          letter-spacing:1px;
+        }
+        &:nth-child(2){
+          font-size:29px;
+          font-weight:600;
+          color:#fff;
+          line-height:40px;
+          letter-spacing:1px;
+        }
+      }
+    }
+  }
+  .line{
+    width:269px;
+    height:1px;
+    background:rgba(255,255,255,1);
+    margin: 20px auto;
+  }
+  .showImg{
+    margin: 0 auto;
+    padding-bottom: 1px;
+    width:269px;
+    // height:222px;
+    background:rgba(255,255,255,1);
+    box-shadow:0px 2px 10px 0px rgba(0,0,0,0.1);
+    border-radius:14px;
+    .commonWorld{
+      height:18px;
+      font-size:16px;
+      font-weight:600;
+      color:rgba(51,51,51,1);
+      line-height:18px;
+      letter-spacing:1px;
+      text-align: center;
+      margin-top: 4px;
+    }
+    .achieveName{
+      width:174px;
+      height:36px;
+      background:rgba(255,216,0,1);
+      border-radius:18px;
+      font-size:20px;
+      font-weight:600;
+      color:rgba(255,255,255,1);
+      line-height:36px;
+      letter-spacing:1px;
+      text-shadow:0px 1px 0px rgba(0,0,0,0.1);
+      margin: 10px auto;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    .rotateBg{
+      width:128px;
+      height:128px;
+      margin: 11px auto 0px;
+      position: relative;
+      .rotateImg{
+        width:128px;
+        height:128px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        animation: play 1.5s linear infinite;
+        -webkit-animation: play 1.5s linear infinite;
+        @keyframes play{
+          from { transform: rotate(0deg);}
+          to { transform: rotate(180deg);}
+        };
+      }
+      .achieveBg{
+        position: absolute;
+        left: 22px;
+        top: 22px;
+        width:84px;
+        height:84px;
+      }
     }
   }
 }

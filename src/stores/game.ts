@@ -8,9 +8,10 @@ const INIT_LEVEL = 0
 const ZERO = 0
 const IDIOM_LENGTH = 4
 const ONE = 1
-const INIT_COINS = 100000
+const INIT_COINS = 100
 const ADD_RANGE = 5
 const REDUCE_RANGE = -3
+const ALL_LEVEL = 1200
 
 const TYPES = {
   FILL: 'fill',
@@ -19,13 +20,13 @@ const TYPES = {
   ERR: 'error',
 }
 class GameStore {
-  // 成语列表
+  // 成语列表 后端返回
   @observable idiomLists: IdiomLists[] = []
   // 当前关卡的文字列表
   @observable worldLists: WorldItem[] = []
   // 四字的成语展示栏
   @observable idiomWorld: WorldItem[] = INIT_IDIOS
-  // 展示弹窗
+  // 展示成功输入成功后的弹窗
   @observable isShowPop = false
   // 当前等级
   @observable currentLevel = INIT_LEVEL
@@ -37,6 +38,32 @@ class GameStore {
   @observable showAchievement = false
   // 成就页面展示的信息
   @observable achievementInfo: Rewards = {}
+  // 通关的次数(预留)
+  @observable passNumber = INIT_LEVEL
+  // 临时变量储存随机的文字列表
+  @observable randomWorlds: string[] = []
+  // 页面加载执行的函数
+  didMount = async() => {
+    this.initLevel()
+    this.initConins()
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    await this.setIdiomValue()
+    this.getRandomWorlds(ZERO)
+    this.initWorld()
+  }
+  // 页面离开时执行函数
+  willUnMount = () => {
+    this.initAllInfo()
+  }
+  // 更新通关次数
+  updatePassNum = () => {
+    const nums = localStorage.getItem('pass_num')!
+    let isRightNum = false
+    if (isString(nums) && nums !== 'NaN') {
+      isRightNum = true
+    }
+    this.passNumber = parseInt(isRightNum ? nums : INIT_LEVEL.toString(), 10) + ONE
+  }
   // 初始化等级
   initLevel = () => {
     const level = localStorage.getItem('level')!
@@ -57,20 +84,25 @@ class GameStore {
   }
   // 储存等级
   saveLevel = (l: number) => {
-    // console.error(l, 'lll')
     localStorage.setItem('level', l.toString())
+  }
+  // 获取随机当前关卡的下一关文字变量
+  getRandomWorlds = (step = ONE) => {
+    if (this.currentLevel === ALL_LEVEL - ONE) {
+      step = ZERO
+    }
+    const initIdiom = this.idiomLists[this.currentLevel + step].name
+    const temp = [...getRandomWorld(getRandomSeed()), ...initIdiom.split('')]
+    this.randomWorlds = randomArray(temp, getRandomSeed())
   }
   // 初始化文字列表信息
   initWorld = () => {
-    // console.log(this.currentLevel, 'current', level)
-    const initIdiom = this.idiomLists[this.currentLevel].name
-    const temp = [...getRandomWorld(getRandomSeed()), ...initIdiom.split('')]
-    const randomArr = randomArray(temp, getRandomSeed())
+    const randomArr = [...this.randomWorlds]
     this.worldLists = randomArr.map((item, index) => {
       return { value: item, types: TYPES.FILL, id: index }
     })
   }
-  // 更新文字信息列表显示状态
+  // 更新文字信息列表显示状态(文字列表点击更新为空, 成语展示显示)
   uodateWorld = (id: number) => {
     if (this.checkUpdate()) return
     const temp = [...this.worldLists]
@@ -83,7 +115,7 @@ class GameStore {
     this.worldLists = values
     this.updateIdiom(values, id)
   }
-  // 更新状态
+  // 更新文字状态
   changeWorldStatus = (id: number) => {
     const temp = [...this.worldLists]
     temp[id] = { ...temp[id], types: TYPES.FILL }
@@ -122,6 +154,7 @@ class GameStore {
       this.idiomWorld = [...data]
       // 成功后的逻辑
       this.isShowPop = true
+      this.getRandomWorlds() // 把下一关的随机文字先准备好
       this.updateCoins(ADD_RANGE)
     } else {
       this.idiomWorld = [...data].map(item => {
@@ -158,7 +191,7 @@ class GameStore {
     }
     return res.success
   }
-  // 清回归最初状态
+  // 成语 和文字信息 清回归最初状态
   initWorldAndIdiom = () => {
     this.idiomWorld = [...INIT_IDIOS]
     this.worldLists = [...this.worldLists].map(item => {
@@ -230,17 +263,18 @@ class GameStore {
     this.idiomWorld = temp
   }
   // 更新新的题目
-  updateNextIdioms = () => {
-    this.updateLevel(this.currentLevel + ONE)
+  updateNextIdioms = (l = ONE) => {
+    this.updateLevel(this.currentLevel + l)
     this.saveLevel(this.currentLevel)
     this.isShowPop = false
     this.initWorld()
     this.idiomWorld = [...INIT_IDIOS]
   }
   // 初始化信息
-  initObj = () => {
+  initAllInfo = () => {
     this.isShowPop = false
     this.initWorldAndIdiom()
+    this.handleAchievement(false, {})
   }
   // 成就相关逻辑
   handleAchievement = (s: boolean, info: Rewards) => {

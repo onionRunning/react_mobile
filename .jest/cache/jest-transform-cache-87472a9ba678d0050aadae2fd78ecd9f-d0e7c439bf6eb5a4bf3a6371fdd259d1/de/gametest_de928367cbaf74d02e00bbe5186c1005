@@ -1,0 +1,62 @@
+09d54aa46c2a26e5ed12761fd6d47f6a
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var game_1 = __importDefault(require("../game"));
+var game = new game_1.default();
+// hwo to test store
+// 1. 准备数据 2. 按照顺序从上网下进行测试
+// describe 描述你要测试的文件内容
+// it 测试你的函数，函数可能有多个分支，可以自己决定 写多少个 it， 但是每个分支都要有自己的断言，如果没有断言则需要看你函数内嵌套的函数是否执行
+describe('game store test', function () {
+    it('didmount', function () { return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, game.didMount()];
+                case 1:
+                    _a.sent();
+                    expect(game.initLevel).toBeCalled();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+});
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiL1VzZXJzL3dhbmdjb25nL3dvcmtzcGFjZS9obC9mb250L3JlYWN0X21vYmlsZS9zcmMvc3RvcmVzL3Rlc3QvZ2FtZS50ZXN0LnRzIiwic291cmNlcyI6WyIvVXNlcnMvd2FuZ2Nvbmcvd29ya3NwYWNlL2hsL2ZvbnQvcmVhY3RfbW9iaWxlL3NyYy9zdG9yZXMvdGVzdC9nYW1lLnRlc3QudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFBQSxpREFBK0I7QUFDL0IsSUFBTSxJQUFJLEdBQUcsSUFBSSxjQUFTLEVBQUUsQ0FBQTtBQUU1QixvQkFBb0I7QUFDcEIsMEJBQTBCO0FBQzFCLHVCQUF1QjtBQUN2Qiw2RUFBNkU7QUFDN0UsUUFBUSxDQUFDLGlCQUFpQixFQUFFO0lBQzFCLEVBQUUsQ0FBQyxVQUFVLEVBQUU7Ozt3QkFDYixxQkFBTSxJQUFJLENBQUMsUUFBUSxFQUFFLEVBQUE7O29CQUFyQixTQUFxQixDQUFBO29CQUNyQixNQUFNLENBQUMsSUFBSSxDQUFDLFNBQVMsQ0FBQyxDQUFDLFVBQVUsRUFBRSxDQUFBOzs7O1NBQ3BDLENBQUMsQ0FBQTtBQUNKLENBQUMsQ0FBQyxDQUFBIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IGdhbWVTdG9yZSBmcm9tICcuLi9nYW1lJ1xuY29uc3QgZ2FtZSA9IG5ldyBnYW1lU3RvcmUoKVxuXG4vLyBod28gdG8gdGVzdCBzdG9yZVxuLy8gMS4g5YeG5aSH5pWw5o2uIDIuIOaMieeFp+mhuuW6j+S7juS4iue9keS4i+i/m+ihjOa1i+ivlVxuLy8gZGVzY3JpYmUg5o+P6L+w5L2g6KaB5rWL6K+V55qE5paH5Lu25YaF5a65XG4vLyBpdCDmtYvor5XkvaDnmoTlh73mlbDvvIzlh73mlbDlj6/og73mnInlpJrkuKrliIbmlK/vvIzlj6/ku6Xoh6rlt7HlhrPlrpog5YaZ5aSa5bCR5LiqIGl077yMIOS9huaYr+avj+S4quWIhuaUr+mDveimgeacieiHquW3seeahOaWreiogO+8jOWmguaenOayoeacieaWreiogOWImemcgOimgeeci+S9oOWHveaVsOWGheW1jOWll+eahOWHveaVsOaYr+WQpuaJp+ihjFxuZGVzY3JpYmUoJ2dhbWUgc3RvcmUgdGVzdCcsICgpID0+IHtcbiAgaXQoJ2RpZG1vdW50JywgYXN5bmMoKSA9PiB7XG4gICAgYXdhaXQgZ2FtZS5kaWRNb3VudCgpXG4gICAgZXhwZWN0KGdhbWUuaW5pdExldmVsKS50b0JlQ2FsbGVkKClcbiAgfSlcbn0pXG4iXX0=

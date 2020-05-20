@@ -1,0 +1,16 @@
+64549a6b2b184c50c4b545865bb36b4e
+var baseSetToString = require('./_baseSetToString'),
+    shortOut = require('./_shortOut');
+/**
+ * Sets the `toString` method of `func` to return `string`.
+ *
+ * @private
+ * @param {Function} func The function to modify.
+ * @param {Function} string The `toString` result.
+ * @returns {Function} Returns `func`.
+ */
+
+
+var setToString = shortOut(baseSetToString);
+module.exports = setToString;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIl9zZXRUb1N0cmluZy5qcyJdLCJuYW1lcyI6WyJiYXNlU2V0VG9TdHJpbmciLCJyZXF1aXJlIiwic2hvcnRPdXQiLCJzZXRUb1N0cmluZyIsIm1vZHVsZSIsImV4cG9ydHMiXSwibWFwcGluZ3MiOiJBQUFBLElBQUlBLGVBQWUsR0FBR0MsT0FBTyxDQUFDLG9CQUFELENBQTdCO0FBQUEsSUFDSUMsUUFBUSxHQUFHRCxPQUFPLENBQUMsYUFBRCxDQUR0QjtBQUdBOzs7Ozs7Ozs7O0FBUUEsSUFBSUUsV0FBVyxHQUFHRCxRQUFRLENBQUNGLGVBQUQsQ0FBMUI7QUFFQUksTUFBTSxDQUFDQyxPQUFQLEdBQWlCRixXQUFqQiIsInNvdXJjZXNDb250ZW50IjpbInZhciBiYXNlU2V0VG9TdHJpbmcgPSByZXF1aXJlKCcuL19iYXNlU2V0VG9TdHJpbmcnKSxcbiAgICBzaG9ydE91dCA9IHJlcXVpcmUoJy4vX3Nob3J0T3V0Jyk7XG5cbi8qKlxuICogU2V0cyB0aGUgYHRvU3RyaW5nYCBtZXRob2Qgb2YgYGZ1bmNgIHRvIHJldHVybiBgc3RyaW5nYC5cbiAqXG4gKiBAcHJpdmF0ZVxuICogQHBhcmFtIHtGdW5jdGlvbn0gZnVuYyBUaGUgZnVuY3Rpb24gdG8gbW9kaWZ5LlxuICogQHBhcmFtIHtGdW5jdGlvbn0gc3RyaW5nIFRoZSBgdG9TdHJpbmdgIHJlc3VsdC5cbiAqIEByZXR1cm5zIHtGdW5jdGlvbn0gUmV0dXJucyBgZnVuY2AuXG4gKi9cbnZhciBzZXRUb1N0cmluZyA9IHNob3J0T3V0KGJhc2VTZXRUb1N0cmluZyk7XG5cbm1vZHVsZS5leHBvcnRzID0gc2V0VG9TdHJpbmc7XG4iXX0=

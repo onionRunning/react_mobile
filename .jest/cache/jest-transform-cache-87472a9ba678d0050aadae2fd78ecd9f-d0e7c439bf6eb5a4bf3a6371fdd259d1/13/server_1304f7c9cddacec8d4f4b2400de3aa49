@@ -1,0 +1,5 @@
+4277929cd9aac440750513146c4a1884
+'use strict';
+
+module.exports = require('./server.node');
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNlcnZlci5qcyJdLCJuYW1lcyI6WyJtb2R1bGUiLCJleHBvcnRzIiwicmVxdWlyZSJdLCJtYXBwaW5ncyI6IkFBQUE7O0FBRUFBLE1BQU0sQ0FBQ0MsT0FBUCxHQUFpQkMsT0FBTyxDQUFDLGVBQUQsQ0FBeEIiLCJzb3VyY2VzQ29udGVudCI6WyIndXNlIHN0cmljdCc7XG5cbm1vZHVsZS5leHBvcnRzID0gcmVxdWlyZSgnLi9zZXJ2ZXIubm9kZScpO1xuIl19

@@ -1,7 +1,8 @@
 import React from 'react'
 import TopBack from 'containers/game/component/topBack'
+import PassBarrier from './passBarrier'
 import { getAchievement } from '../utils'
-import { AchievementLevel } from 'global/const'
+import { AchievementLevel, INIT_NUMBER } from 'global/const'
 import BULING from 'assets/badge-bg.png'
 import ICONS from 'assets/coins2.png'
 import BOT from 'assets/bot.png'
@@ -11,12 +12,23 @@ import gameStyle from '../game.module.scss'
 interface Props extends Rewards {
   rangeCoins?: number
   coins?: number
+  currentLevel?: number
   handleBack?(): void
   clickNext?(): void
+  newStart?(): void
 }
 
 const Achievement: React.FC<Props> = (props: Props) => {
-  const { coins, rangeCoins, handleBack, clickNext, rewardLevel, reward } = props
+  const { coins, rangeCoins, handleBack, clickNext, rewardLevel, reward, newStart } = props
+  if (rewardLevel === INIT_NUMBER.RANDOM_THR) {
+    // 暂时隐藏掉
+    return (
+      <div className={gameStyle.achievement}>
+        <TopBack handleBack={handleBack} coins={coins} rangeCoins={rangeCoins} />
+        <PassBarrier {...props} newStart={newStart} />
+      </div>
+    )
+  }
   return (
     <div className={gameStyle.achievement}>
       <TopBack handleBack={handleBack} coins={coins} rangeCoins={rangeCoins} />

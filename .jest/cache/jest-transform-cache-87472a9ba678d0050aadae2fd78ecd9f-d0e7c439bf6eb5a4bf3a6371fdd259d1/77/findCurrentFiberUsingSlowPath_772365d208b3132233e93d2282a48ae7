@@ -1,0 +1,124 @@
+0c9de50a46fb4d5c779429721d308986
+'use strict'; // Extracted from https://github.com/facebook/react/blob/7bdf93b17a35a5d8fcf0ceae0bf48ed5e6b16688/src/renderers/shared/fiber/ReactFiberTreeReflection.js#L104-L228
+
+function findCurrentFiberUsingSlowPath(fiber) {
+  var alternate = fiber.alternate;
+
+  if (!alternate) {
+    return fiber;
+  } // If we have two possible branches, we'll walk backwards up to the root
+  // to see what path the root points to. On the way we may hit one of the
+  // special cases and we'll deal with them.
+
+
+  var a = fiber;
+  var b = alternate;
+
+  while (true) {
+    // eslint-disable-line
+    var parentA = a['return'];
+    var parentB = parentA ? parentA.alternate : null;
+
+    if (!parentA || !parentB) {
+      // We're at the root.
+      break;
+    } // If both copies of the parent fiber point to the same child, we can
+    // assume that the child is current. This happens when we bailout on low
+    // priority: the bailed out fiber's child reuses the current child.
+
+
+    if (parentA.child === parentB.child) {
+      var child = parentA.child;
+
+      while (child) {
+        if (child === a) {
+          // We've determined that A is the current branch.
+          return fiber;
+        }
+
+        if (child === b) {
+          // We've determined that B is the current branch.
+          return alternate;
+        }
+
+        child = child.sibling;
+      } // We should never have an alternate for any mounting node. So the only
+      // way this could possibly happen is if this was unmounted, if at all.
+
+
+      throw new Error('Unable to find node on an unmounted component.');
+    }
+
+    if (a['return'] !== b['return']) {
+      // The return pointer of A and the return pointer of B point to different
+      // fibers. We assume that return pointers never criss-cross, so A must
+      // belong to the child set of A.return, and B must belong to the child
+      // set of B.return.
+      a = parentA;
+      b = parentB;
+    } else {
+      // The return pointers point to the same fiber. We'll have to use the
+      // default, slow path: scan the child sets of each parent alternate to see
+      // which child belongs to which set.
+      //
+      // Search parent A's child set
+      var didFindChild = false;
+      var _child = parentA.child;
+
+      while (_child) {
+        if (_child === a) {
+          didFindChild = true;
+          a = parentA;
+          b = parentB;
+          break;
+        }
+
+        if (_child === b) {
+          didFindChild = true;
+          b = parentA;
+          a = parentB;
+          break;
+        }
+
+        _child = _child.sibling;
+      }
+
+      if (!didFindChild) {
+        _child = parentB.child; // Search parent B's child set
+
+        while (_child) {
+          if (_child === a) {
+            didFindChild = true;
+            a = parentB;
+            b = parentA;
+            break;
+          }
+
+          if (_child === b) {
+            didFindChild = true;
+            b = parentB;
+            a = parentA;
+            break;
+          }
+
+          _child = _child.sibling;
+        }
+
+        if (!didFindChild) {
+          throw new Error('Child was not found in either parent set. This indicates a bug ' + 'in React related to the return pointer. Please file an issue.');
+        }
+      }
+    }
+  }
+
+  if (a.stateNode.current === a) {
+    // We've determined that A is the current branch.
+    return fiber;
+  } // Otherwise B has to be current branch.
+
+
+  return alternate;
+}
+
+module.exports = findCurrentFiberUsingSlowPath; //# sourceMappingURL=findCurrentFiberUsingSlowPath.js.map
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9maW5kQ3VycmVudEZpYmVyVXNpbmdTbG93UGF0aC5qcyJdLCJuYW1lcyI6WyJhbHRlcm5hdGUiLCJmaWJlciIsImEiLCJiIiwicGFyZW50QSIsInBhcmVudEIiLCJjaGlsZCIsImRpZEZpbmRDaGlsZCIsIm1vZHVsZSJdLCJtYXBwaW5ncyI6ImNBQUE7O0FBQ0EsU0FBQSw2QkFBQSxDQUFBLEtBQUEsRUFBOEM7QUFBQSxNQUNwQ0EsU0FEb0MsR0FDdEJDLEtBRHNCLENBQUEsU0FBQTs7QUFFNUMsTUFBSSxDQUFKLFNBQUEsRUFBZ0I7QUFDZCxXQUFBLEtBQUE7QUFDRCxHQUoyQyxDQUs1QztBQUNBO0FBQ0E7OztBQUNBLE1BQUlDLENBQUFBLEdBQUosS0FBQTtBQUNBLE1BQUlDLENBQUFBLEdBQUosU0FBQTs7QUFDQSxTQUFBLElBQUEsRUFBYTtBQUFFO0FBQ2IsUUFBTUMsT0FBQUEsR0FBVUYsQ0FBQUEsQ0FBaEIsUUFBZ0JBLENBQWhCO0FBQ0EsUUFBTUcsT0FBQUEsR0FBVUQsT0FBQUEsR0FBVUEsT0FBQUEsQ0FBVkEsU0FBQUEsR0FBaEIsSUFBQTs7QUFDQSxRQUFJLENBQUEsT0FBQSxJQUFZLENBQWhCLE9BQUEsRUFBMEI7QUFDeEI7QUFDQTtBQUNELEtBTlUsQ0FRWDtBQUNBO0FBQ0E7OztBQUNBLFFBQUlBLE9BQUFBLENBQUFBLEtBQUFBLEtBQWtCQyxPQUFBQSxDQUF0QixLQUFBLEVBQXFDO0FBQUEsVUFDN0JDLEtBRDZCLEdBQ25CRixPQURtQixDQUFBLEtBQUE7O0FBRW5DLGFBQUEsS0FBQSxFQUFjO0FBQ1osWUFBSUUsS0FBQUEsS0FBSixDQUFBLEVBQWlCO0FBQ2Y7QUFDQSxpQkFBQSxLQUFBO0FBQ0Q7O0FBQ0QsWUFBSUEsS0FBQUEsS0FBSixDQUFBLEVBQWlCO0FBQ2Y7QUFDQSxpQkFBQSxTQUFBO0FBQ0Q7O0FBQ0RBLFFBQUFBLEtBQUFBLEdBQVFBLEtBQUFBLENBQVJBLE9BQUFBO0FBQ0QsT0Faa0MsQ0FhbkM7QUFDQTs7O0FBQ0EsWUFBTSxJQUFBLEtBQUEsQ0FBTixnREFBTSxDQUFOO0FBQ0Q7O0FBRUQsUUFBSUosQ0FBQUEsQ0FBQUEsUUFBQUEsQ0FBQUEsS0FBYUMsQ0FBQUEsQ0FBakIsUUFBaUJBLENBQWpCLEVBQTJCO0FBQ3pCO0FBQ0E7QUFDQTtBQUNBO0FBQ0FELE1BQUFBLENBQUFBLEdBQUFBLE9BQUFBO0FBQ0FDLE1BQUFBLENBQUFBLEdBQUFBLE9BQUFBO0FBTkYsS0FBQSxNQU9PO0FBQ0w7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBLFVBQUlJLFlBQUFBLEdBQUosS0FBQTtBQU5LLFVBT0NELE1BUEQsR0FPV0YsT0FQWCxDQUFBLEtBQUE7O0FBUUwsYUFBQSxNQUFBLEVBQWM7QUFDWixZQUFJRSxNQUFBQSxLQUFKLENBQUEsRUFBaUI7QUFDZkMsVUFBQUEsWUFBQUEsR0FBQUEsSUFBQUE7QUFDQUwsVUFBQUEsQ0FBQUEsR0FBQUEsT0FBQUE7QUFDQUMsVUFBQUEsQ0FBQUEsR0FBQUEsT0FBQUE7QUFDQTtBQUNEOztBQUNELFlBQUlHLE1BQUFBLEtBQUosQ0FBQSxFQUFpQjtBQUNmQyxVQUFBQSxZQUFBQSxHQUFBQSxJQUFBQTtBQUNBSixVQUFBQSxDQUFBQSxHQUFBQSxPQUFBQTtBQUNBRCxVQUFBQSxDQUFBQSxHQUFBQSxPQUFBQTtBQUNBO0FBQ0Q7O0FBQ0RJLFFBQUFBLE1BQUFBLEdBQVFBLE1BQUFBLENBQVJBLE9BQUFBO0FBQ0Q7O0FBQ0QsVUFBSSxDQUFKLFlBQUEsRUFBbUI7QUFFZEEsUUFBQUEsTUFGYyxHQUVKRCxPQUZJLENBQUEsS0FFZEMsQ0FGYyxDQUNqQjs7QUFFQSxlQUFBLE1BQUEsRUFBYztBQUNaLGNBQUlBLE1BQUFBLEtBQUosQ0FBQSxFQUFpQjtBQUNmQyxZQUFBQSxZQUFBQSxHQUFBQSxJQUFBQTtBQUNBTCxZQUFBQSxDQUFBQSxHQUFBQSxPQUFBQTtBQUNBQyxZQUFBQSxDQUFBQSxHQUFBQSxPQUFBQTtBQUNBO0FBQ0Q7O0FBQ0QsY0FBSUcsTUFBQUEsS0FBSixDQUFBLEVBQWlCO0FBQ2ZDLFlBQUFBLFlBQUFBLEdBQUFBLElBQUFBO0FBQ0FKLFlBQUFBLENBQUFBLEdBQUFBLE9BQUFBO0FBQ0FELFlBQUFBLENBQUFBLEdBQUFBLE9BQUFBO0FBQ0E7QUFDRDs7QUFDREksVUFBQUEsTUFBQUEsR0FBUUEsTUFBQUEsQ0FBUkEsT0FBQUE7QUFDRDs7QUFDRCxZQUFJLENBQUosWUFBQSxFQUFtQjtBQUNqQixnQkFBTSxJQUFBLEtBQUEsQ0FBVSxvRUFBaEIsK0RBQU0sQ0FBTjtBQUVEO0FBQ0Y7QUFDRjtBQUNGOztBQUNELE1BQUlKLENBQUFBLENBQUFBLFNBQUFBLENBQUFBLE9BQUFBLEtBQUosQ0FBQSxFQUErQjtBQUM3QjtBQUNBLFdBQUEsS0FBQTtBQUNELEdBakcyQyxDQWtHNUM7OztBQUNBLFNBQUEsU0FBQTtBQUNEOztBQUVETSxNQUFBQSxDQUFBQSxPQUFBQSxHQUFBQSw2QkFBQUEsQyIsInNvdXJjZXNDb250ZW50IjpbIi8vIEV4dHJhY3RlZCBmcm9tIGh0dHBzOi8vZ2l0aHViLmNvbS9mYWNlYm9vay9yZWFjdC9ibG9iLzdiZGY5M2IxN2EzNWE1ZDhmY2YwY2VhZTBiZjQ4ZWQ1ZTZiMTY2ODgvc3JjL3JlbmRlcmVycy9zaGFyZWQvZmliZXIvUmVhY3RGaWJlclRyZWVSZWZsZWN0aW9uLmpzI0wxMDQtTDIyOFxuZnVuY3Rpb24gZmluZEN1cnJlbnRGaWJlclVzaW5nU2xvd1BhdGgoZmliZXIpIHtcbiAgY29uc3QgeyBhbHRlcm5hdGUgfSA9IGZpYmVyO1xuICBpZiAoIWFsdGVybmF0ZSkge1xuICAgIHJldHVybiBmaWJlcjtcbiAgfVxuICAvLyBJZiB3ZSBoYXZlIHR3byBwb3NzaWJsZSBicmFuY2hlcywgd2UnbGwgd2FsayBiYWNrd2FyZHMgdXAgdG8gdGhlIHJvb3RcbiAgLy8gdG8gc2VlIHdoYXQgcGF0aCB0aGUgcm9vdCBwb2ludHMgdG8uIE9uIHRoZSB3YXkgd2UgbWF5IGhpdCBvbmUgb2YgdGhlXG4gIC8vIHNwZWNpYWwgY2FzZXMgYW5kIHdlJ2xsIGRlYWwgd2l0aCB0aGVtLlxuICBsZXQgYSA9IGZpYmVyO1xuICBsZXQgYiA9IGFsdGVybmF0ZTtcbiAgd2hpbGUgKHRydWUpIHsgLy8gZXNsaW50LWRpc2FibGUtbGluZVxuICAgIGNvbnN0IHBhcmVudEEgPSBhLnJldHVybjtcbiAgICBjb25zdCBwYXJlbnRCID0gcGFyZW50QSA/IHBhcmVudEEuYWx0ZXJuYXRlIDogbnVsbDtcbiAgICBpZiAoIXBhcmVudEEgfHwgIXBhcmVudEIpIHtcbiAgICAgIC8vIFdlJ3JlIGF0IHRoZSByb290LlxuICAgICAgYnJlYWs7XG4gICAgfVxuXG4gICAgLy8gSWYgYm90aCBjb3BpZXMgb2YgdGhlIHBhcmVudCBmaWJlciBwb2ludCB0byB0aGUgc2FtZSBjaGlsZCwgd2UgY2FuXG4gICAgLy8gYXNzdW1lIHRoYXQgdGhlIGNoaWxkIGlzIGN1cnJlbnQuIFRoaXMgaGFwcGVucyB3aGVuIHdlIGJhaWxvdXQgb24gbG93XG4gICAgLy8gcHJpb3JpdHk6IHRoZSBiYWlsZWQgb3V0IGZpYmVyJ3MgY2hpbGQgcmV1c2VzIHRoZSBjdXJyZW50IGNoaWxkLlxuICAgIGlmIChwYXJlbnRBLmNoaWxkID09PSBwYXJlbnRCLmNoaWxkKSB7XG4gICAgICBsZXQgeyBjaGlsZCB9ID0gcGFyZW50QTtcbiAgICAgIHdoaWxlIChjaGlsZCkge1xuICAgICAgICBpZiAoY2hpbGQgPT09IGEpIHtcbiAgICAgICAgICAvLyBXZSd2ZSBkZXRlcm1pbmVkIHRoYXQgQSBpcyB0aGUgY3VycmVudCBicmFuY2guXG4gICAgICAgICAgcmV0dXJuIGZpYmVyO1xuICAgICAgICB9XG4gICAgICAgIGlmIChjaGlsZCA9PT0gYikge1xuICAgICAgICAgIC8vIFdlJ3ZlIGRldGVybWluZWQgdGhhdCBCIGlzIHRoZSBjdXJyZW50IGJyYW5jaC5cbiAgICAgICAgICByZXR1cm4gYWx0ZXJuYXRlO1xuICAgICAgICB9XG4gICAgICAgIGNoaWxkID0gY2hpbGQuc2libGluZztcbiAgICAgIH1cbiAgICAgIC8vIFdlIHNob3VsZCBuZXZlciBoYXZlIGFuIGFsdGVybmF0ZSBmb3IgYW55IG1vdW50aW5nIG5vZGUuIFNvIHRoZSBvbmx5XG4gICAgICAvLyB3YXkgdGhpcyBjb3VsZCBwb3NzaWJseSBoYXBwZW4gaXMgaWYgdGhpcyB3YXMgdW5tb3VudGVkLCBpZiBhdCBhbGwuXG4gICAgICB0aHJvdyBuZXcgRXJyb3IoJ1VuYWJsZSB0byBmaW5kIG5vZGUgb24gYW4gdW5tb3VudGVkIGNvbXBvbmVudC4nKTtcbiAgICB9XG5cbiAgICBpZiAoYS5yZXR1cm4gIT09IGIucmV0dXJuKSB7XG4gICAgICAvLyBUaGUgcmV0dXJuIHBvaW50ZXIgb2YgQSBhbmQgdGhlIHJldHVybiBwb2ludGVyIG9mIEIgcG9pbnQgdG8gZGlmZmVyZW50XG4gICAgICAvLyBmaWJlcnMuIFdlIGFzc3VtZSB0aGF0IHJldHVybiBwb2ludGVycyBuZXZlciBjcmlzcy1jcm9zcywgc28gQSBtdXN0XG4gICAgICAvLyBiZWxvbmcgdG8gdGhlIGNoaWxkIHNldCBvZiBBLnJldHVybiwgYW5kIEIgbXVzdCBiZWxvbmcgdG8gdGhlIGNoaWxkXG4gICAgICAvLyBzZXQgb2YgQi5yZXR1cm4uXG4gICAgICBhID0gcGFyZW50QTtcbiAgICAgIGIgPSBwYXJlbnRCO1xuICAgIH0gZWxzZSB7XG4gICAgICAvLyBUaGUgcmV0dXJuIHBvaW50ZXJzIHBvaW50IHRvIHRoZSBzYW1lIGZpYmVyLiBXZSdsbCBoYXZlIHRvIHVzZSB0aGVcbiAgICAgIC8vIGRlZmF1bHQsIHNsb3cgcGF0aDogc2NhbiB0aGUgY2hpbGQgc2V0cyBvZiBlYWNoIHBhcmVudCBhbHRlcm5hdGUgdG8gc2VlXG4gICAgICAvLyB3aGljaCBjaGlsZCBiZWxvbmdzIHRvIHdoaWNoIHNldC5cbiAgICAgIC8vXG4gICAgICAvLyBTZWFyY2ggcGFyZW50IEEncyBjaGlsZCBzZXRcbiAgICAgIGxldCBkaWRGaW5kQ2hpbGQgPSBmYWxzZTtcbiAgICAgIGxldCB7IGNoaWxkIH0gPSBwYXJlbnRBO1xuICAgICAgd2hpbGUgKGNoaWxkKSB7XG4gICAgICAgIGlmIChjaGlsZCA9PT0gYSkge1xuICAgICAgICAgIGRpZEZpbmRDaGlsZCA9IHRydWU7XG4gICAgICAgICAgYSA9IHBhcmVudEE7XG4gICAgICAgICAgYiA9IHBhcmVudEI7XG4gICAgICAgICAgYnJlYWs7XG4gICAgICAgIH1cbiAgICAgICAgaWYgKGNoaWxkID09PSBiKSB7XG4gICAgICAgICAgZGlkRmluZENoaWxkID0gdHJ1ZTtcbiAgICAgICAgICBiID0gcGFyZW50QTtcbiAgICAgICAgICBhID0gcGFyZW50QjtcbiAgICAgICAgICBicmVhaztcbiAgICAgICAgfVxuICAgICAgICBjaGlsZCA9IGNoaWxkLnNpYmxpbmc7XG4gICAgICB9XG4gICAgICBpZiAoIWRpZEZpbmRDaGlsZCkge1xuICAgICAgICAvLyBTZWFyY2ggcGFyZW50IEIncyBjaGlsZCBzZXRcbiAgICAgICAgKHsgY2hpbGQgfSA9IHBhcmVudEIpO1xuICAgICAgICB3aGlsZSAoY2hpbGQpIHtcbiAgICAgICAgICBpZiAoY2hpbGQgPT09IGEpIHtcbiAgICAgICAgICAgIGRpZEZpbmRDaGlsZCA9IHRydWU7XG4gICAgICAgICAgICBhID0gcGFyZW50QjtcbiAgICAgICAgICAgIGIgPSBwYXJlbnRBO1xuICAgICAgICAgICAgYnJlYWs7XG4gICAgICAgICAgfVxuICAgICAgICAgIGlmIChjaGlsZCA9PT0gYikge1xuICAgICAgICAgICAgZGlkRmluZENoaWxkID0gdHJ1ZTtcbiAgICAgICAgICAgIGIgPSBwYXJlbnRCO1xuICAgICAgICAgICAgYSA9IHBhcmVudEE7XG4gICAgICAgICAgICBicmVhaztcbiAgICAgICAgICB9XG4gICAgICAgICAgY2hpbGQgPSBjaGlsZC5zaWJsaW5nO1xuICAgICAgICB9XG4gICAgICAgIGlmICghZGlkRmluZENoaWxkKSB7XG4gICAgICAgICAgdGhyb3cgbmV3IEVycm9yKCdDaGlsZCB3YXMgbm90IGZvdW5kIGluIGVpdGhlciBwYXJlbnQgc2V0LiBUaGlzIGluZGljYXRlcyBhIGJ1ZyAnXG4gICAgICAgICAgICArICdpbiBSZWFjdCByZWxhdGVkIHRvIHRoZSByZXR1cm4gcG9pbnRlci4gUGxlYXNlIGZpbGUgYW4gaXNzdWUuJyk7XG4gICAgICAgIH1cbiAgICAgIH1cbiAgICB9XG4gIH1cbiAgaWYgKGEuc3RhdGVOb2RlLmN1cnJlbnQgPT09IGEpIHtcbiAgICAvLyBXZSd2ZSBkZXRlcm1pbmVkIHRoYXQgQSBpcyB0aGUgY3VycmVudCBicmFuY2guXG4gICAgcmV0dXJuIGZpYmVyO1xuICB9XG4gIC8vIE90aGVyd2lzZSBCIGhhcyB0byBiZSBjdXJyZW50IGJyYW5jaC5cbiAgcmV0dXJuIGFsdGVybmF0ZTtcbn1cblxubW9kdWxlLmV4cG9ydHMgPSBmaW5kQ3VycmVudEZpYmVyVXNpbmdTbG93UGF0aDtcbiJdfQ==

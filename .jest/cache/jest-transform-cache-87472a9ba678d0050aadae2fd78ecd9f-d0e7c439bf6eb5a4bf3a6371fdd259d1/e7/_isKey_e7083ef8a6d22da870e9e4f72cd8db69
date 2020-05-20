@@ -1,0 +1,33 @@
+6024a0d3fc36082b75ce4d206ece10e3
+var isArray = require('./isArray'),
+    isSymbol = require('./isSymbol');
+/** Used to match property names within property paths. */
+
+
+var reIsDeepProp = /\.|\[(?:[^[\]]*|(["'])(?:(?!\1)[^\\]|\\.)*?\1)\]/,
+    reIsPlainProp = /^\w*$/;
+/**
+ * Checks if `value` is a property name and not a property path.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @param {Object} [object] The object to query keys on.
+ * @returns {boolean} Returns `true` if `value` is a property name, else `false`.
+ */
+
+function isKey(value, object) {
+  if (isArray(value)) {
+    return false;
+  }
+
+  var type = typeof value;
+
+  if (type == 'number' || type == 'symbol' || type == 'boolean' || value == null || isSymbol(value)) {
+    return true;
+  }
+
+  return reIsPlainProp.test(value) || !reIsDeepProp.test(value) || object != null && value in Object(object);
+}
+
+module.exports = isKey;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIl9pc0tleS5qcyJdLCJuYW1lcyI6WyJpc0FycmF5IiwicmVxdWlyZSIsImlzU3ltYm9sIiwicmVJc0RlZXBQcm9wIiwicmVJc1BsYWluUHJvcCIsImlzS2V5IiwidmFsdWUiLCJvYmplY3QiLCJ0eXBlIiwidGVzdCIsIk9iamVjdCIsIm1vZHVsZSIsImV4cG9ydHMiXSwibWFwcGluZ3MiOiJBQUFBLElBQUlBLE9BQU8sR0FBR0MsT0FBTyxDQUFDLFdBQUQsQ0FBckI7QUFBQSxJQUNJQyxRQUFRLEdBQUdELE9BQU8sQ0FBQyxZQUFELENBRHRCO0FBR0E7OztBQUNBLElBQUlFLFlBQVksR0FBRyxrREFBbkI7QUFBQSxJQUNJQyxhQUFhLEdBQUcsT0FEcEI7QUFHQTs7Ozs7Ozs7O0FBUUEsU0FBU0MsS0FBVCxDQUFlQyxLQUFmLEVBQXNCQyxNQUF0QixFQUE4QjtBQUM1QixNQUFJUCxPQUFPLENBQUNNLEtBQUQsQ0FBWCxFQUFvQjtBQUNsQixXQUFPLEtBQVA7QUFDRDs7QUFDRCxNQUFJRSxJQUFJLEdBQUcsT0FBT0YsS0FBbEI7O0FBQ0EsTUFBSUUsSUFBSSxJQUFJLFFBQVIsSUFBb0JBLElBQUksSUFBSSxRQUE1QixJQUF3Q0EsSUFBSSxJQUFJLFNBQWhELElBQ0FGLEtBQUssSUFBSSxJQURULElBQ2lCSixRQUFRLENBQUNJLEtBQUQsQ0FEN0IsRUFDc0M7QUFDcEMsV0FBTyxJQUFQO0FBQ0Q7O0FBQ0QsU0FBT0YsYUFBYSxDQUFDSyxJQUFkLENBQW1CSCxLQUFuQixLQUE2QixDQUFDSCxZQUFZLENBQUNNLElBQWIsQ0FBa0JILEtBQWxCLENBQTlCLElBQ0pDLE1BQU0sSUFBSSxJQUFWLElBQWtCRCxLQUFLLElBQUlJLE1BQU0sQ0FBQ0gsTUFBRCxDQURwQztBQUVEOztBQUVESSxNQUFNLENBQUNDLE9BQVAsR0FBaUJQLEtBQWpCIiwic291cmNlc0NvbnRlbnQiOlsidmFyIGlzQXJyYXkgPSByZXF1aXJlKCcuL2lzQXJyYXknKSxcbiAgICBpc1N5bWJvbCA9IHJlcXVpcmUoJy4vaXNTeW1ib2wnKTtcblxuLyoqIFVzZWQgdG8gbWF0Y2ggcHJvcGVydHkgbmFtZXMgd2l0aGluIHByb3BlcnR5IHBhdGhzLiAqL1xudmFyIHJlSXNEZWVwUHJvcCA9IC9cXC58XFxbKD86W15bXFxdXSp8KFtcIiddKSg/Oig/IVxcMSlbXlxcXFxdfFxcXFwuKSo/XFwxKVxcXS8sXG4gICAgcmVJc1BsYWluUHJvcCA9IC9eXFx3KiQvO1xuXG4vKipcbiAqIENoZWNrcyBpZiBgdmFsdWVgIGlzIGEgcHJvcGVydHkgbmFtZSBhbmQgbm90IGEgcHJvcGVydHkgcGF0aC5cbiAqXG4gKiBAcHJpdmF0ZVxuICogQHBhcmFtIHsqfSB2YWx1ZSBUaGUgdmFsdWUgdG8gY2hlY2suXG4gKiBAcGFyYW0ge09iamVjdH0gW29iamVjdF0gVGhlIG9iamVjdCB0byBxdWVyeSBrZXlzIG9uLlxuICogQHJldHVybnMge2Jvb2xlYW59IFJldHVybnMgYHRydWVgIGlmIGB2YWx1ZWAgaXMgYSBwcm9wZXJ0eSBuYW1lLCBlbHNlIGBmYWxzZWAuXG4gKi9cbmZ1bmN0aW9uIGlzS2V5KHZhbHVlLCBvYmplY3QpIHtcbiAgaWYgKGlzQXJyYXkodmFsdWUpKSB7XG4gICAgcmV0dXJuIGZhbHNlO1xuICB9XG4gIHZhciB0eXBlID0gdHlwZW9mIHZhbHVlO1xuICBpZiAodHlwZSA9PSAnbnVtYmVyJyB8fCB0eXBlID09ICdzeW1ib2wnIHx8IHR5cGUgPT0gJ2Jvb2xlYW4nIHx8XG4gICAgICB2YWx1ZSA9PSBudWxsIHx8IGlzU3ltYm9sKHZhbHVlKSkge1xuICAgIHJldHVybiB0cnVlO1xuICB9XG4gIHJldHVybiByZUlzUGxhaW5Qcm9wLnRlc3QodmFsdWUpIHx8ICFyZUlzRGVlcFByb3AudGVzdCh2YWx1ZSkgfHxcbiAgICAob2JqZWN0ICE9IG51bGwgJiYgdmFsdWUgaW4gT2JqZWN0KG9iamVjdCkpO1xufVxuXG5tb2R1bGUuZXhwb3J0cyA9IGlzS2V5O1xuIl19

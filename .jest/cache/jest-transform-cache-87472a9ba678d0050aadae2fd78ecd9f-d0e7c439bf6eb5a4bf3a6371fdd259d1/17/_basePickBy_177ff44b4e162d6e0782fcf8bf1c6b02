@@ -1,0 +1,34 @@
+756a442daa97238883fe3e619f092b21
+var baseGet = require('./_baseGet'),
+    baseSet = require('./_baseSet'),
+    castPath = require('./_castPath');
+/**
+ * The base implementation of  `_.pickBy` without support for iteratee shorthands.
+ *
+ * @private
+ * @param {Object} object The source object.
+ * @param {string[]} paths The property paths to pick.
+ * @param {Function} predicate The function invoked per property.
+ * @returns {Object} Returns the new object.
+ */
+
+
+function basePickBy(object, paths, predicate) {
+  var index = -1,
+      length = paths.length,
+      result = {};
+
+  while (++index < length) {
+    var path = paths[index],
+        value = baseGet(object, path);
+
+    if (predicate(value, path)) {
+      baseSet(result, castPath(path, object), value);
+    }
+  }
+
+  return result;
+}
+
+module.exports = basePickBy;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIl9iYXNlUGlja0J5LmpzIl0sIm5hbWVzIjpbImJhc2VHZXQiLCJyZXF1aXJlIiwiYmFzZVNldCIsImNhc3RQYXRoIiwiYmFzZVBpY2tCeSIsIm9iamVjdCIsInBhdGhzIiwicHJlZGljYXRlIiwiaW5kZXgiLCJsZW5ndGgiLCJyZXN1bHQiLCJwYXRoIiwidmFsdWUiLCJtb2R1bGUiLCJleHBvcnRzIl0sIm1hcHBpbmdzIjoiQUFBQSxJQUFJQSxPQUFPLEdBQUdDLE9BQU8sQ0FBQyxZQUFELENBQXJCO0FBQUEsSUFDSUMsT0FBTyxHQUFHRCxPQUFPLENBQUMsWUFBRCxDQURyQjtBQUFBLElBRUlFLFFBQVEsR0FBR0YsT0FBTyxDQUFDLGFBQUQsQ0FGdEI7QUFJQTs7Ozs7Ozs7Ozs7QUFTQSxTQUFTRyxVQUFULENBQW9CQyxNQUFwQixFQUE0QkMsS0FBNUIsRUFBbUNDLFNBQW5DLEVBQThDO0FBQzVDLE1BQUlDLEtBQUssR0FBRyxDQUFDLENBQWI7QUFBQSxNQUNJQyxNQUFNLEdBQUdILEtBQUssQ0FBQ0csTUFEbkI7QUFBQSxNQUVJQyxNQUFNLEdBQUcsRUFGYjs7QUFJQSxTQUFPLEVBQUVGLEtBQUYsR0FBVUMsTUFBakIsRUFBeUI7QUFDdkIsUUFBSUUsSUFBSSxHQUFHTCxLQUFLLENBQUNFLEtBQUQsQ0FBaEI7QUFBQSxRQUNJSSxLQUFLLEdBQUdaLE9BQU8sQ0FBQ0ssTUFBRCxFQUFTTSxJQUFULENBRG5COztBQUdBLFFBQUlKLFNBQVMsQ0FBQ0ssS0FBRCxFQUFRRCxJQUFSLENBQWIsRUFBNEI7QUFDMUJULE1BQUFBLE9BQU8sQ0FBQ1EsTUFBRCxFQUFTUCxRQUFRLENBQUNRLElBQUQsRUFBT04sTUFBUCxDQUFqQixFQUFpQ08sS0FBakMsQ0FBUDtBQUNEO0FBQ0Y7O0FBQ0QsU0FBT0YsTUFBUDtBQUNEOztBQUVERyxNQUFNLENBQUNDLE9BQVAsR0FBaUJWLFVBQWpCIiwic291cmNlc0NvbnRlbnQiOlsidmFyIGJhc2VHZXQgPSByZXF1aXJlKCcuL19iYXNlR2V0JyksXG4gICAgYmFzZVNldCA9IHJlcXVpcmUoJy4vX2Jhc2VTZXQnKSxcbiAgICBjYXN0UGF0aCA9IHJlcXVpcmUoJy4vX2Nhc3RQYXRoJyk7XG5cbi8qKlxuICogVGhlIGJhc2UgaW1wbGVtZW50YXRpb24gb2YgIGBfLnBpY2tCeWAgd2l0aG91dCBzdXBwb3J0IGZvciBpdGVyYXRlZSBzaG9ydGhhbmRzLlxuICpcbiAqIEBwcml2YXRlXG4gKiBAcGFyYW0ge09iamVjdH0gb2JqZWN0IFRoZSBzb3VyY2Ugb2JqZWN0LlxuICogQHBhcmFtIHtzdHJpbmdbXX0gcGF0aHMgVGhlIHByb3BlcnR5IHBhdGhzIHRvIHBpY2suXG4gKiBAcGFyYW0ge0Z1bmN0aW9ufSBwcmVkaWNhdGUgVGhlIGZ1bmN0aW9uIGludm9rZWQgcGVyIHByb3BlcnR5LlxuICogQHJldHVybnMge09iamVjdH0gUmV0dXJucyB0aGUgbmV3IG9iamVjdC5cbiAqL1xuZnVuY3Rpb24gYmFzZVBpY2tCeShvYmplY3QsIHBhdGhzLCBwcmVkaWNhdGUpIHtcbiAgdmFyIGluZGV4ID0gLTEsXG4gICAgICBsZW5ndGggPSBwYXRocy5sZW5ndGgsXG4gICAgICByZXN1bHQgPSB7fTtcblxuICB3aGlsZSAoKytpbmRleCA8IGxlbmd0aCkge1xuICAgIHZhciBwYXRoID0gcGF0aHNbaW5kZXhdLFxuICAgICAgICB2YWx1ZSA9IGJhc2VHZXQob2JqZWN0LCBwYXRoKTtcblxuICAgIGlmIChwcmVkaWNhdGUodmFsdWUsIHBhdGgpKSB7XG4gICAgICBiYXNlU2V0KHJlc3VsdCwgY2FzdFBhdGgocGF0aCwgb2JqZWN0KSwgdmFsdWUpO1xuICAgIH1cbiAgfVxuICByZXR1cm4gcmVzdWx0O1xufVxuXG5tb2R1bGUuZXhwb3J0cyA9IGJhc2VQaWNrQnk7XG4iXX0=

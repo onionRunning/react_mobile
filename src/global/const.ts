@@ -9,9 +9,12 @@ export const AchievementLevel = '稚气乖宝宝 天真小学生 淘气初中生
 export const INIT_NUMBER = {
   ZERO: 0,
   ONE: 1,
+  TWO: 2,
+  THREE: 3,
   FOUR: 4,
   FIVE: 5,
   // 随机取20 长度的截取
+  PASS_LEVEL: 19,
   RANDOM_WORLD: 20,
   RANDOM_ONE: 9301,
   RANDOM_TWO: 49297,

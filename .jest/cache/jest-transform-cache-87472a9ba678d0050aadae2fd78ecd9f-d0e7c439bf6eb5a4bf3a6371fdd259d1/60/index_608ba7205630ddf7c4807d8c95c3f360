@@ -1,0 +1,6 @@
+d3e40abb3ee738459cf18eea374f93f5
+'use strict';
+/* eslint global-require: 0 */
+
+module.exports = require('./ReactSixteenAdapter'); //# sourceMappingURL=index.js.map
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9pbmRleC5qcyJdLCJuYW1lcyI6WyJtb2R1bGUiLCJyZXF1aXJlIl0sIm1hcHBpbmdzIjoiO0FBQUE7O0FBQ0FBLE1BQUFBLENBQUFBLE9BQUFBLEdBQWlCQyxPQUFBQSxDQUFqQkQsdUJBQWlCQyxDQUFqQkQsQyIsInNvdXJjZXNDb250ZW50IjpbIi8qIGVzbGludCBnbG9iYWwtcmVxdWlyZTogMCAqL1xubW9kdWxlLmV4cG9ydHMgPSByZXF1aXJlKCcuL1JlYWN0U2l4dGVlbkFkYXB0ZXInKTtcbiJdfQ==

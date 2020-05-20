@@ -1,0 +1,22 @@
+50b428d1dc4ad255fecbf514ff61ba61
+var baseSetData = require('./_baseSetData'),
+    shortOut = require('./_shortOut');
+/**
+ * Sets metadata for `func`.
+ *
+ * **Note:** If this function becomes hot, i.e. is invoked a lot in a short
+ * period of time, it will trip its breaker and transition to an identity
+ * function to avoid garbage collection pauses in V8. See
+ * [V8 issue 2070](https://bugs.chromium.org/p/v8/issues/detail?id=2070)
+ * for more details.
+ *
+ * @private
+ * @param {Function} func The function to associate metadata with.
+ * @param {*} data The metadata.
+ * @returns {Function} Returns `func`.
+ */
+
+
+var setData = shortOut(baseSetData);
+module.exports = setData;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIl9zZXREYXRhLmpzIl0sIm5hbWVzIjpbImJhc2VTZXREYXRhIiwicmVxdWlyZSIsInNob3J0T3V0Iiwic2V0RGF0YSIsIm1vZHVsZSIsImV4cG9ydHMiXSwibWFwcGluZ3MiOiJBQUFBLElBQUlBLFdBQVcsR0FBR0MsT0FBTyxDQUFDLGdCQUFELENBQXpCO0FBQUEsSUFDSUMsUUFBUSxHQUFHRCxPQUFPLENBQUMsYUFBRCxDQUR0QjtBQUdBOzs7Ozs7Ozs7Ozs7Ozs7O0FBY0EsSUFBSUUsT0FBTyxHQUFHRCxRQUFRLENBQUNGLFdBQUQsQ0FBdEI7QUFFQUksTUFBTSxDQUFDQyxPQUFQLEdBQWlCRixPQUFqQiIsInNvdXJjZXNDb250ZW50IjpbInZhciBiYXNlU2V0RGF0YSA9IHJlcXVpcmUoJy4vX2Jhc2VTZXREYXRhJyksXG4gICAgc2hvcnRPdXQgPSByZXF1aXJlKCcuL19zaG9ydE91dCcpO1xuXG4vKipcbiAqIFNldHMgbWV0YWRhdGEgZm9yIGBmdW5jYC5cbiAqXG4gKiAqKk5vdGU6KiogSWYgdGhpcyBmdW5jdGlvbiBiZWNvbWVzIGhvdCwgaS5lLiBpcyBpbnZva2VkIGEgbG90IGluIGEgc2hvcnRcbiAqIHBlcmlvZCBvZiB0aW1lLCBpdCB3aWxsIHRyaXAgaXRzIGJyZWFrZXIgYW5kIHRyYW5zaXRpb24gdG8gYW4gaWRlbnRpdHlcbiAqIGZ1bmN0aW9uIHRvIGF2b2lkIGdhcmJhZ2UgY29sbGVjdGlvbiBwYXVzZXMgaW4gVjguIFNlZVxuICogW1Y4IGlzc3VlIDIwNzBdKGh0dHBzOi8vYnVncy5jaHJvbWl1bS5vcmcvcC92OC9pc3N1ZXMvZGV0YWlsP2lkPTIwNzApXG4gKiBmb3IgbW9yZSBkZXRhaWxzLlxuICpcbiAqIEBwcml2YXRlXG4gKiBAcGFyYW0ge0Z1bmN0aW9ufSBmdW5jIFRoZSBmdW5jdGlvbiB0byBhc3NvY2lhdGUgbWV0YWRhdGEgd2l0aC5cbiAqIEBwYXJhbSB7Kn0gZGF0YSBUaGUgbWV0YWRhdGEuXG4gKiBAcmV0dXJucyB7RnVuY3Rpb259IFJldHVybnMgYGZ1bmNgLlxuICovXG52YXIgc2V0RGF0YSA9IHNob3J0T3V0KGJhc2VTZXREYXRhKTtcblxubW9kdWxlLmV4cG9ydHMgPSBzZXREYXRhO1xuIl19

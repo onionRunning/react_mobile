@@ -1,0 +1,11 @@
+7880a7fe86a5d7628c009e8066cd2105
+/**
+ * Export cheerio (with )
+ */
+exports = module.exports = require('./lib/cheerio');
+/*
+  Export the version
+*/
+
+exports.version = require('./package.json').version;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImluZGV4LmpzIl0sIm5hbWVzIjpbImV4cG9ydHMiLCJtb2R1bGUiLCJyZXF1aXJlIiwidmVyc2lvbiJdLCJtYXBwaW5ncyI6IkFBQUE7OztBQUlBQSxPQUFPLEdBQUdDLE1BQU0sQ0FBQ0QsT0FBUCxHQUFpQkUsT0FBTyxDQUFDLGVBQUQsQ0FBbEM7QUFFQTs7OztBQUlBRixPQUFPLENBQUNHLE9BQVIsR0FBa0JELE9BQU8sQ0FBQyxnQkFBRCxDQUFQLENBQTBCQyxPQUE1QyIsInNvdXJjZXNDb250ZW50IjpbIi8qKlxuICogRXhwb3J0IGNoZWVyaW8gKHdpdGggKVxuICovXG5cbmV4cG9ydHMgPSBtb2R1bGUuZXhwb3J0cyA9IHJlcXVpcmUoJy4vbGliL2NoZWVyaW8nKTtcblxuLypcbiAgRXhwb3J0IHRoZSB2ZXJzaW9uXG4qL1xuXG5leHBvcnRzLnZlcnNpb24gPSByZXF1aXJlKCcuL3BhY2thZ2UuanNvbicpLnZlcnNpb247XG4iXX0=

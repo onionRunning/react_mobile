@@ -1,0 +1,48 @@
+e3539796bc604836b0279438ffae7c28
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports['default'] = render;
+
+var _object = require('object.assign');
+
+var _object2 = _interopRequireDefault(_object);
+
+var _getAdapter = require('./getAdapter');
+
+var _getAdapter2 = _interopRequireDefault(_getAdapter);
+
+var _Utils = require('./Utils');
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    'default': obj
+  };
+}
+/**
+ * Renders a react component into static HTML and provides a cheerio wrapper around it. This is
+ * somewhat asymmetric with `mount` and `shallow`, which don't use any external libraries, but
+ * Cheerio's API is pretty close to what we actually want and has a significant amount of utility
+ * that would be recreating the wheel if we didn't use it.
+ *
+ * I think there are a lot of good use cases to use `render` instead of `shallow` or `mount`, and
+ * thus I'd like to keep this API in here even though it's not really "ours".
+ *
+ * @param node
+ * @param options
+ * @returns {Cheerio}
+ */
+
+
+function render(node) {
+  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  var adapter = (0, _getAdapter2['default'])(options);
+  var renderer = adapter.createRenderer((0, _object2['default'])({
+    mode: 'string'
+  }, options));
+  var html = renderer.render(node, options.context);
+  return (0, _Utils.loadCheerioRoot)(html);
+} //# sourceMappingURL=render.js.map
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9yZW5kZXIuanMiXSwibmFtZXMiOlsicmVuZGVyIiwib3B0aW9ucyIsImFkYXB0ZXIiLCJyZW5kZXJlciIsIm1vZGUiLCJodG1sIl0sIm1hcHBpbmdzIjoiOzs7OztxQkFpQndCQSxNOzs7Ozs7QUFqQnhCLElBQUEsV0FBQSxHQUFBLE9BQUEsQ0FBQSxjQUFBLENBQUE7Ozs7QUFDQSxJQUFBLE1BQUEsR0FBQSxPQUFBLENBQUEsU0FBQSxDQUFBOzs7Ozs7O0FBRUE7Ozs7Ozs7Ozs7Ozs7OztBQWNlLFNBQUEsTUFBQSxDQUFBLElBQUEsRUFBb0M7QUFBQSxNQUFkQyxPQUFjLEdBQUEsU0FBQSxDQUFBLE1BQUEsR0FBQSxDQUFBLElBQUEsU0FBQSxDQUFBLENBQUEsQ0FBQSxLQUFBLFNBQUEsR0FBQSxTQUFBLENBQUEsQ0FBQSxDQUFBLEdBQUosRUFBSTtBQUNqRCxNQUFNQyxPQUFBQSxHQUFVLENBQUEsR0FBQSxZQUFBLENBQUEsU0FBQSxDQUFBLEVBQWhCLE9BQWdCLENBQWhCO0FBQ0EsTUFBTUMsUUFBQUEsR0FBV0QsT0FBQUEsQ0FBQUEsY0FBQUEsQ0FBQUEsQ0FBQUEsR0FBQUEsUUFBQUEsQ0FBQUEsU0FBQUEsQ0FBQUEsRUFBQUE7QUFBeUJFLElBQUFBLElBQUFBLEVBQXpCRjtBQUFBQSxHQUFBQSxFQUFqQixPQUFpQkEsQ0FBQUEsQ0FBakI7QUFDQSxNQUFNRyxJQUFBQSxHQUFPRixRQUFBQSxDQUFBQSxNQUFBQSxDQUFBQSxJQUFBQSxFQUFzQkYsT0FBQUEsQ0FBbkMsT0FBYUUsQ0FBYjtBQUNBLFNBQU8sQ0FBQSxHQUFBLE1BQUEsQ0FBQSxlQUFBLEVBQVAsSUFBTyxDQUFQO0FBQ0QsQyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBnZXRBZGFwdGVyIGZyb20gJy4vZ2V0QWRhcHRlcic7XG5pbXBvcnQgeyBsb2FkQ2hlZXJpb1Jvb3QgfSBmcm9tICcuL1V0aWxzJztcblxuLyoqXG4gKiBSZW5kZXJzIGEgcmVhY3QgY29tcG9uZW50IGludG8gc3RhdGljIEhUTUwgYW5kIHByb3ZpZGVzIGEgY2hlZXJpbyB3cmFwcGVyIGFyb3VuZCBpdC4gVGhpcyBpc1xuICogc29tZXdoYXQgYXN5bW1ldHJpYyB3aXRoIGBtb3VudGAgYW5kIGBzaGFsbG93YCwgd2hpY2ggZG9uJ3QgdXNlIGFueSBleHRlcm5hbCBsaWJyYXJpZXMsIGJ1dFxuICogQ2hlZXJpbydzIEFQSSBpcyBwcmV0dHkgY2xvc2UgdG8gd2hhdCB3ZSBhY3R1YWxseSB3YW50IGFuZCBoYXMgYSBzaWduaWZpY2FudCBhbW91bnQgb2YgdXRpbGl0eVxuICogdGhhdCB3b3VsZCBiZSByZWNyZWF0aW5nIHRoZSB3aGVlbCBpZiB3ZSBkaWRuJ3QgdXNlIGl0LlxuICpcbiAqIEkgdGhpbmsgdGhlcmUgYXJlIGEgbG90IG9mIGdvb2QgdXNlIGNhc2VzIHRvIHVzZSBgcmVuZGVyYCBpbnN0ZWFkIG9mIGBzaGFsbG93YCBvciBgbW91bnRgLCBhbmRcbiAqIHRodXMgSSdkIGxpa2UgdG8ga2VlcCB0aGlzIEFQSSBpbiBoZXJlIGV2ZW4gdGhvdWdoIGl0J3Mgbm90IHJlYWxseSBcIm91cnNcIi5cbiAqXG4gKiBAcGFyYW0gbm9kZVxuICogQHBhcmFtIG9wdGlvbnNcbiAqIEByZXR1cm5zIHtDaGVlcmlvfVxuICovXG5cbmV4cG9ydCBkZWZhdWx0IGZ1bmN0aW9uIHJlbmRlcihub2RlLCBvcHRpb25zID0ge30pIHtcbiAgY29uc3QgYWRhcHRlciA9IGdldEFkYXB0ZXIob3B0aW9ucyk7XG4gIGNvbnN0IHJlbmRlcmVyID0gYWRhcHRlci5jcmVhdGVSZW5kZXJlcih7IG1vZGU6ICdzdHJpbmcnLCAuLi5vcHRpb25zIH0pO1xuICBjb25zdCBodG1sID0gcmVuZGVyZXIucmVuZGVyKG5vZGUsIG9wdGlvbnMuY29udGV4dCk7XG4gIHJldHVybiBsb2FkQ2hlZXJpb1Jvb3QoaHRtbCk7XG59XG4iXX0=

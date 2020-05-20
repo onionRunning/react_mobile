@@ -1,0 +1,7 @@
+fe7bf7bf651430f4bd7aa929126689ee
+'use strict';
+
+module.exports = function sign(number) {
+  return number >= 0 ? 1 : -1;
+};
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNpZ24uanMiXSwibmFtZXMiOlsibW9kdWxlIiwiZXhwb3J0cyIsInNpZ24iLCJudW1iZXIiXSwibWFwcGluZ3MiOiJBQUFBOztBQUVBQSxNQUFNLENBQUNDLE9BQVAsR0FBaUIsU0FBU0MsSUFBVCxDQUFjQyxNQUFkLEVBQXNCO0FBQ3RDLFNBQU9BLE1BQU0sSUFBSSxDQUFWLEdBQWMsQ0FBZCxHQUFrQixDQUFDLENBQTFCO0FBQ0EsQ0FGRCIsInNvdXJjZXNDb250ZW50IjpbIid1c2Ugc3RyaWN0JztcblxubW9kdWxlLmV4cG9ydHMgPSBmdW5jdGlvbiBzaWduKG51bWJlcikge1xuXHRyZXR1cm4gbnVtYmVyID49IDAgPyAxIDogLTE7XG59O1xuIl19

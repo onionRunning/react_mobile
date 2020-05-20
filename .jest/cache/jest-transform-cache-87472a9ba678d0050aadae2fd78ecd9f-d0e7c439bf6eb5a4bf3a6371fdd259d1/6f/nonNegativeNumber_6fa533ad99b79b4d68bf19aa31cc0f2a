@@ -1,0 +1,50 @@
+c02926d4ebd467ec28ba4ce2981ab860
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+
+var _objectIs = _interopRequireDefault(require("object-is"));
+
+var _wrapValidator = _interopRequireDefault(require("./helpers/wrapValidator"));
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    "default": obj
+  };
+}
+
+function isNonNegative(x) {
+  return typeof x === 'number' && isFinite(x) && x >= 0 && !(0, _objectIs["default"])(x, -0);
+}
+
+function nonNegativeNumber(props, propName, componentName) {
+  var value = props[propName];
+
+  if (value == null || isNonNegative(value)) {
+    return null;
+  }
+
+  return new RangeError("".concat(propName, " in ").concat(componentName, " must be a non-negative number"));
+}
+
+function requiredNonNegativeNumber(props, propName, componentName) {
+  var value = props[propName];
+
+  if (isNonNegative(value)) {
+    return null;
+  }
+
+  return new RangeError("".concat(propName, " in ").concat(componentName, " must be a non-negative number"));
+}
+
+nonNegativeNumber.isRequired = requiredNonNegativeNumber;
+
+var _default = function _default() {
+  return (0, _wrapValidator["default"])(nonNegativeNumber, 'nonNegativeNumber');
+};
+
+exports["default"] = _default;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9ub25OZWdhdGl2ZU51bWJlci5qcyJdLCJuYW1lcyI6WyJpc0Zpbml0ZSIsIngiLCJ2YWx1ZSIsInByb3BzIiwiaXNOb25OZWdhdGl2ZSIsIm5vbk5lZ2F0aXZlTnVtYmVyIl0sIm1hcHBpbmdzIjoiOzs7Ozs7O0FBQUEsSUFBQSxTQUFBLEdBQUEsc0JBQUEsQ0FBQSxPQUFBLENBQUEsV0FBQSxDQUFBLENBQUE7O0FBQ0EsSUFBQSxjQUFBLEdBQUEsc0JBQUEsQ0FBQSxPQUFBLENBQUEseUJBQUEsQ0FBQSxDQUFBOzs7Ozs7OztBQUVBLFNBQUEsYUFBQSxDQUFBLENBQUEsRUFBMEI7QUFDeEIsU0FBTyxPQUFBLENBQUEsS0FBQSxRQUFBLElBQXlCQSxRQUFRLENBQWpDLENBQWlDLENBQWpDLElBQXdDQyxDQUFDLElBQXpDLENBQUEsSUFBa0QsQ0FBQyxDQUFBLEdBQUEsU0FBQSxDQUFBLFNBQUEsQ0FBQSxFQUFBLENBQUEsRUFBTSxDQUFoRSxDQUEwRCxDQUExRDtBQUNEOztBQUVELFNBQUEsaUJBQUEsQ0FBQSxLQUFBLEVBQUEsUUFBQSxFQUFBLGFBQUEsRUFBMkQ7QUFDekQsTUFBTUMsS0FBSyxHQUFHQyxLQUFLLENBQW5CLFFBQW1CLENBQW5COztBQUVBLE1BQUlELEtBQUssSUFBTEEsSUFBQUEsSUFBaUJFLGFBQWEsQ0FBbEMsS0FBa0MsQ0FBbEMsRUFBMkM7QUFDekMsV0FBQSxJQUFBO0FBQ0Q7O0FBRUQsU0FBTyxJQUFBLFVBQUEsQ0FBQSxHQUFBLE1BQUEsQ0FBQSxRQUFBLEVBQUEsTUFBQSxFQUFBLE1BQUEsQ0FBQSxhQUFBLEVBQVAsZ0NBQU8sQ0FBQSxDQUFQO0FBQ0Q7O0FBRUQsU0FBQSx5QkFBQSxDQUFBLEtBQUEsRUFBQSxRQUFBLEVBQUEsYUFBQSxFQUFtRTtBQUNqRSxNQUFNRixLQUFLLEdBQUdDLEtBQUssQ0FBbkIsUUFBbUIsQ0FBbkI7O0FBRUEsTUFBSUMsYUFBYSxDQUFqQixLQUFpQixDQUFqQixFQUEwQjtBQUN4QixXQUFBLElBQUE7QUFDRDs7QUFFRCxTQUFPLElBQUEsVUFBQSxDQUFBLEdBQUEsTUFBQSxDQUFBLFFBQUEsRUFBQSxNQUFBLEVBQUEsTUFBQSxDQUFBLGFBQUEsRUFBUCxnQ0FBTyxDQUFBLENBQVA7QUFDRDs7QUFFREMsaUJBQWlCLENBQWpCQSxVQUFBQSxHQUFBQSx5QkFBQUE7O2VBRWUsU0FBQSxRQUFBLEdBQUE7QUFBQSxTQUFNLENBQUEsR0FBQSxjQUFBLENBQUEsU0FBQSxDQUFBLEVBQUEsaUJBQUEsRUFBTixtQkFBTSxDQUFOIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IGlzIGZyb20gJ29iamVjdC1pcyc7XG5pbXBvcnQgd3JhcFZhbGlkYXRvciBmcm9tICcuL2hlbHBlcnMvd3JhcFZhbGlkYXRvcic7XG5cbmZ1bmN0aW9uIGlzTm9uTmVnYXRpdmUoeCkge1xuICByZXR1cm4gdHlwZW9mIHggPT09ICdudW1iZXInICYmIGlzRmluaXRlKHgpICYmIHggPj0gMCAmJiAhaXMoeCwgLTApO1xufVxuXG5mdW5jdGlvbiBub25OZWdhdGl2ZU51bWJlcihwcm9wcywgcHJvcE5hbWUsIGNvbXBvbmVudE5hbWUpIHtcbiAgY29uc3QgdmFsdWUgPSBwcm9wc1twcm9wTmFtZV07XG5cbiAgaWYgKHZhbHVlID09IG51bGwgfHwgaXNOb25OZWdhdGl2ZSh2YWx1ZSkpIHtcbiAgICByZXR1cm4gbnVsbDtcbiAgfVxuXG4gIHJldHVybiBuZXcgUmFuZ2VFcnJvcihgJHtwcm9wTmFtZX0gaW4gJHtjb21wb25lbnROYW1lfSBtdXN0IGJlIGEgbm9uLW5lZ2F0aXZlIG51bWJlcmApO1xufVxuXG5mdW5jdGlvbiByZXF1aXJlZE5vbk5lZ2F0aXZlTnVtYmVyKHByb3BzLCBwcm9wTmFtZSwgY29tcG9uZW50TmFtZSkge1xuICBjb25zdCB2YWx1ZSA9IHByb3BzW3Byb3BOYW1lXTtcblxuICBpZiAoaXNOb25OZWdhdGl2ZSh2YWx1ZSkpIHtcbiAgICByZXR1cm4gbnVsbDtcbiAgfVxuXG4gIHJldHVybiBuZXcgUmFuZ2VFcnJvcihgJHtwcm9wTmFtZX0gaW4gJHtjb21wb25lbnROYW1lfSBtdXN0IGJlIGEgbm9uLW5lZ2F0aXZlIG51bWJlcmApO1xufVxuXG5ub25OZWdhdGl2ZU51bWJlci5pc1JlcXVpcmVkID0gcmVxdWlyZWROb25OZWdhdGl2ZU51bWJlcjtcblxuZXhwb3J0IGRlZmF1bHQgKCkgPT4gd3JhcFZhbGlkYXRvcihub25OZWdhdGl2ZU51bWJlciwgJ25vbk5lZ2F0aXZlTnVtYmVyJyk7XG4iXX0=

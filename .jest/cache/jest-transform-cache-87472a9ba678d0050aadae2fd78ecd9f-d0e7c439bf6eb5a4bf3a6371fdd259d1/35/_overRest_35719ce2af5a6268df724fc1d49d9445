@@ -1,0 +1,42 @@
+c5bdd196bd075af638f3ec3808b7cc37
+var apply = require('./_apply');
+/* Built-in method references for those with the same name as other `lodash` methods. */
+
+
+var nativeMax = Math.max;
+/**
+ * A specialized version of `baseRest` which transforms the rest array.
+ *
+ * @private
+ * @param {Function} func The function to apply a rest parameter to.
+ * @param {number} [start=func.length-1] The start position of the rest parameter.
+ * @param {Function} transform The rest array transform.
+ * @returns {Function} Returns the new function.
+ */
+
+function overRest(func, start, transform) {
+  start = nativeMax(start === undefined ? func.length - 1 : start, 0);
+  return function () {
+    var args = arguments,
+        index = -1,
+        length = nativeMax(args.length - start, 0),
+        array = Array(length);
+
+    while (++index < length) {
+      array[index] = args[start + index];
+    }
+
+    index = -1;
+    var otherArgs = Array(start + 1);
+
+    while (++index < start) {
+      otherArgs[index] = args[index];
+    }
+
+    otherArgs[start] = transform(array);
+    return apply(func, this, otherArgs);
+  };
+}
+
+module.exports = overRest;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIl9vdmVyUmVzdC5qcyJdLCJuYW1lcyI6WyJhcHBseSIsInJlcXVpcmUiLCJuYXRpdmVNYXgiLCJNYXRoIiwibWF4Iiwib3ZlclJlc3QiLCJmdW5jIiwic3RhcnQiLCJ0cmFuc2Zvcm0iLCJ1bmRlZmluZWQiLCJsZW5ndGgiLCJhcmdzIiwiYXJndW1lbnRzIiwiaW5kZXgiLCJhcnJheSIsIkFycmF5Iiwib3RoZXJBcmdzIiwibW9kdWxlIiwiZXhwb3J0cyJdLCJtYXBwaW5ncyI6IkFBQUEsSUFBSUEsS0FBSyxHQUFHQyxPQUFPLENBQUMsVUFBRCxDQUFuQjtBQUVBOzs7QUFDQSxJQUFJQyxTQUFTLEdBQUdDLElBQUksQ0FBQ0MsR0FBckI7QUFFQTs7Ozs7Ozs7OztBQVNBLFNBQVNDLFFBQVQsQ0FBa0JDLElBQWxCLEVBQXdCQyxLQUF4QixFQUErQkMsU0FBL0IsRUFBMEM7QUFDeENELEVBQUFBLEtBQUssR0FBR0wsU0FBUyxDQUFDSyxLQUFLLEtBQUtFLFNBQVYsR0FBdUJILElBQUksQ0FBQ0ksTUFBTCxHQUFjLENBQXJDLEdBQTBDSCxLQUEzQyxFQUFrRCxDQUFsRCxDQUFqQjtBQUNBLFNBQU8sWUFBVztBQUNoQixRQUFJSSxJQUFJLEdBQUdDLFNBQVg7QUFBQSxRQUNJQyxLQUFLLEdBQUcsQ0FBQyxDQURiO0FBQUEsUUFFSUgsTUFBTSxHQUFHUixTQUFTLENBQUNTLElBQUksQ0FBQ0QsTUFBTCxHQUFjSCxLQUFmLEVBQXNCLENBQXRCLENBRnRCO0FBQUEsUUFHSU8sS0FBSyxHQUFHQyxLQUFLLENBQUNMLE1BQUQsQ0FIakI7O0FBS0EsV0FBTyxFQUFFRyxLQUFGLEdBQVVILE1BQWpCLEVBQXlCO0FBQ3ZCSSxNQUFBQSxLQUFLLENBQUNELEtBQUQsQ0FBTCxHQUFlRixJQUFJLENBQUNKLEtBQUssR0FBR00sS0FBVCxDQUFuQjtBQUNEOztBQUNEQSxJQUFBQSxLQUFLLEdBQUcsQ0FBQyxDQUFUO0FBQ0EsUUFBSUcsU0FBUyxHQUFHRCxLQUFLLENBQUNSLEtBQUssR0FBRyxDQUFULENBQXJCOztBQUNBLFdBQU8sRUFBRU0sS0FBRixHQUFVTixLQUFqQixFQUF3QjtBQUN0QlMsTUFBQUEsU0FBUyxDQUFDSCxLQUFELENBQVQsR0FBbUJGLElBQUksQ0FBQ0UsS0FBRCxDQUF2QjtBQUNEOztBQUNERyxJQUFBQSxTQUFTLENBQUNULEtBQUQsQ0FBVCxHQUFtQkMsU0FBUyxDQUFDTSxLQUFELENBQTVCO0FBQ0EsV0FBT2QsS0FBSyxDQUFDTSxJQUFELEVBQU8sSUFBUCxFQUFhVSxTQUFiLENBQVo7QUFDRCxHQWhCRDtBQWlCRDs7QUFFREMsTUFBTSxDQUFDQyxPQUFQLEdBQWlCYixRQUFqQiIsInNvdXJjZXNDb250ZW50IjpbInZhciBhcHBseSA9IHJlcXVpcmUoJy4vX2FwcGx5Jyk7XG5cbi8qIEJ1aWx0LWluIG1ldGhvZCByZWZlcmVuY2VzIGZvciB0aG9zZSB3aXRoIHRoZSBzYW1lIG5hbWUgYXMgb3RoZXIgYGxvZGFzaGAgbWV0aG9kcy4gKi9cbnZhciBuYXRpdmVNYXggPSBNYXRoLm1heDtcblxuLyoqXG4gKiBBIHNwZWNpYWxpemVkIHZlcnNpb24gb2YgYGJhc2VSZXN0YCB3aGljaCB0cmFuc2Zvcm1zIHRoZSByZXN0IGFycmF5LlxuICpcbiAqIEBwcml2YXRlXG4gKiBAcGFyYW0ge0Z1bmN0aW9ufSBmdW5jIFRoZSBmdW5jdGlvbiB0byBhcHBseSBhIHJlc3QgcGFyYW1ldGVyIHRvLlxuICogQHBhcmFtIHtudW1iZXJ9IFtzdGFydD1mdW5jLmxlbmd0aC0xXSBUaGUgc3RhcnQgcG9zaXRpb24gb2YgdGhlIHJlc3QgcGFyYW1ldGVyLlxuICogQHBhcmFtIHtGdW5jdGlvbn0gdHJhbnNmb3JtIFRoZSByZXN0IGFycmF5IHRyYW5zZm9ybS5cbiAqIEByZXR1cm5zIHtGdW5jdGlvbn0gUmV0dXJucyB0aGUgbmV3IGZ1bmN0aW9uLlxuICovXG5mdW5jdGlvbiBvdmVyUmVzdChmdW5jLCBzdGFydCwgdHJhbnNmb3JtKSB7XG4gIHN0YXJ0ID0gbmF0aXZlTWF4KHN0YXJ0ID09PSB1bmRlZmluZWQgPyAoZnVuYy5sZW5ndGggLSAxKSA6IHN0YXJ0LCAwKTtcbiAgcmV0dXJuIGZ1bmN0aW9uKCkge1xuICAgIHZhciBhcmdzID0gYXJndW1lbnRzLFxuICAgICAgICBpbmRleCA9IC0xLFxuICAgICAgICBsZW5ndGggPSBuYXRpdmVNYXgoYXJncy5sZW5ndGggLSBzdGFydCwgMCksXG4gICAgICAgIGFycmF5ID0gQXJyYXkobGVuZ3RoKTtcblxuICAgIHdoaWxlICgrK2luZGV4IDwgbGVuZ3RoKSB7XG4gICAgICBhcnJheVtpbmRleF0gPSBhcmdzW3N0YXJ0ICsgaW5kZXhdO1xuICAgIH1cbiAgICBpbmRleCA9IC0xO1xuICAgIHZhciBvdGhlckFyZ3MgPSBBcnJheShzdGFydCArIDEpO1xuICAgIHdoaWxlICgrK2luZGV4IDwgc3RhcnQpIHtcbiAgICAgIG90aGVyQXJnc1tpbmRleF0gPSBhcmdzW2luZGV4XTtcbiAgICB9XG4gICAgb3RoZXJBcmdzW3N0YXJ0XSA9IHRyYW5zZm9ybShhcnJheSk7XG4gICAgcmV0dXJuIGFwcGx5KGZ1bmMsIHRoaXMsIG90aGVyQXJncyk7XG4gIH07XG59XG5cbm1vZHVsZS5leHBvcnRzID0gb3ZlclJlc3Q7XG4iXX0=

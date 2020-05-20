@@ -1,0 +1,42 @@
+9f6abca1eacd02cdb320784203f6d14b
+var arrayPush = require('./_arrayPush'),
+    isFlattenable = require('./_isFlattenable');
+/**
+ * The base implementation of `_.flatten` with support for restricting flattening.
+ *
+ * @private
+ * @param {Array} array The array to flatten.
+ * @param {number} depth The maximum recursion depth.
+ * @param {boolean} [predicate=isFlattenable] The function invoked per iteration.
+ * @param {boolean} [isStrict] Restrict to values that pass `predicate` checks.
+ * @param {Array} [result=[]] The initial result value.
+ * @returns {Array} Returns the new flattened array.
+ */
+
+
+function baseFlatten(array, depth, predicate, isStrict, result) {
+  var index = -1,
+      length = array.length;
+  predicate || (predicate = isFlattenable);
+  result || (result = []);
+
+  while (++index < length) {
+    var value = array[index];
+
+    if (depth > 0 && predicate(value)) {
+      if (depth > 1) {
+        // Recursively flatten arrays (susceptible to call stack limits).
+        baseFlatten(value, depth - 1, predicate, isStrict, result);
+      } else {
+        arrayPush(result, value);
+      }
+    } else if (!isStrict) {
+      result[result.length] = value;
+    }
+  }
+
+  return result;
+}
+
+module.exports = baseFlatten;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIl9iYXNlRmxhdHRlbi5qcyJdLCJuYW1lcyI6WyJhcnJheVB1c2giLCJyZXF1aXJlIiwiaXNGbGF0dGVuYWJsZSIsImJhc2VGbGF0dGVuIiwiYXJyYXkiLCJkZXB0aCIsInByZWRpY2F0ZSIsImlzU3RyaWN0IiwicmVzdWx0IiwiaW5kZXgiLCJsZW5ndGgiLCJ2YWx1ZSIsIm1vZHVsZSIsImV4cG9ydHMiXSwibWFwcGluZ3MiOiJBQUFBLElBQUlBLFNBQVMsR0FBR0MsT0FBTyxDQUFDLGNBQUQsQ0FBdkI7QUFBQSxJQUNJQyxhQUFhLEdBQUdELE9BQU8sQ0FBQyxrQkFBRCxDQUQzQjtBQUdBOzs7Ozs7Ozs7Ozs7O0FBV0EsU0FBU0UsV0FBVCxDQUFxQkMsS0FBckIsRUFBNEJDLEtBQTVCLEVBQW1DQyxTQUFuQyxFQUE4Q0MsUUFBOUMsRUFBd0RDLE1BQXhELEVBQWdFO0FBQzlELE1BQUlDLEtBQUssR0FBRyxDQUFDLENBQWI7QUFBQSxNQUNJQyxNQUFNLEdBQUdOLEtBQUssQ0FBQ00sTUFEbkI7QUFHQUosRUFBQUEsU0FBUyxLQUFLQSxTQUFTLEdBQUdKLGFBQWpCLENBQVQ7QUFDQU0sRUFBQUEsTUFBTSxLQUFLQSxNQUFNLEdBQUcsRUFBZCxDQUFOOztBQUVBLFNBQU8sRUFBRUMsS0FBRixHQUFVQyxNQUFqQixFQUF5QjtBQUN2QixRQUFJQyxLQUFLLEdBQUdQLEtBQUssQ0FBQ0ssS0FBRCxDQUFqQjs7QUFDQSxRQUFJSixLQUFLLEdBQUcsQ0FBUixJQUFhQyxTQUFTLENBQUNLLEtBQUQsQ0FBMUIsRUFBbUM7QUFDakMsVUFBSU4sS0FBSyxHQUFHLENBQVosRUFBZTtBQUNiO0FBQ0FGLFFBQUFBLFdBQVcsQ0FBQ1EsS0FBRCxFQUFRTixLQUFLLEdBQUcsQ0FBaEIsRUFBbUJDLFNBQW5CLEVBQThCQyxRQUE5QixFQUF3Q0MsTUFBeEMsQ0FBWDtBQUNELE9BSEQsTUFHTztBQUNMUixRQUFBQSxTQUFTLENBQUNRLE1BQUQsRUFBU0csS0FBVCxDQUFUO0FBQ0Q7QUFDRixLQVBELE1BT08sSUFBSSxDQUFDSixRQUFMLEVBQWU7QUFDcEJDLE1BQUFBLE1BQU0sQ0FBQ0EsTUFBTSxDQUFDRSxNQUFSLENBQU4sR0FBd0JDLEtBQXhCO0FBQ0Q7QUFDRjs7QUFDRCxTQUFPSCxNQUFQO0FBQ0Q7O0FBRURJLE1BQU0sQ0FBQ0MsT0FBUCxHQUFpQlYsV0FBakIiLCJzb3VyY2VzQ29udGVudCI6WyJ2YXIgYXJyYXlQdXNoID0gcmVxdWlyZSgnLi9fYXJyYXlQdXNoJyksXG4gICAgaXNGbGF0dGVuYWJsZSA9IHJlcXVpcmUoJy4vX2lzRmxhdHRlbmFibGUnKTtcblxuLyoqXG4gKiBUaGUgYmFzZSBpbXBsZW1lbnRhdGlvbiBvZiBgXy5mbGF0dGVuYCB3aXRoIHN1cHBvcnQgZm9yIHJlc3RyaWN0aW5nIGZsYXR0ZW5pbmcuXG4gKlxuICogQHByaXZhdGVcbiAqIEBwYXJhbSB7QXJyYXl9IGFycmF5IFRoZSBhcnJheSB0byBmbGF0dGVuLlxuICogQHBhcmFtIHtudW1iZXJ9IGRlcHRoIFRoZSBtYXhpbXVtIHJlY3Vyc2lvbiBkZXB0aC5cbiAqIEBwYXJhbSB7Ym9vbGVhbn0gW3ByZWRpY2F0ZT1pc0ZsYXR0ZW5hYmxlXSBUaGUgZnVuY3Rpb24gaW52b2tlZCBwZXIgaXRlcmF0aW9uLlxuICogQHBhcmFtIHtib29sZWFufSBbaXNTdHJpY3RdIFJlc3RyaWN0IHRvIHZhbHVlcyB0aGF0IHBhc3MgYHByZWRpY2F0ZWAgY2hlY2tzLlxuICogQHBhcmFtIHtBcnJheX0gW3Jlc3VsdD1bXV0gVGhlIGluaXRpYWwgcmVzdWx0IHZhbHVlLlxuICogQHJldHVybnMge0FycmF5fSBSZXR1cm5zIHRoZSBuZXcgZmxhdHRlbmVkIGFycmF5LlxuICovXG5mdW5jdGlvbiBiYXNlRmxhdHRlbihhcnJheSwgZGVwdGgsIHByZWRpY2F0ZSwgaXNTdHJpY3QsIHJlc3VsdCkge1xuICB2YXIgaW5kZXggPSAtMSxcbiAgICAgIGxlbmd0aCA9IGFycmF5Lmxlbmd0aDtcblxuICBwcmVkaWNhdGUgfHwgKHByZWRpY2F0ZSA9IGlzRmxhdHRlbmFibGUpO1xuICByZXN1bHQgfHwgKHJlc3VsdCA9IFtdKTtcblxuICB3aGlsZSAoKytpbmRleCA8IGxlbmd0aCkge1xuICAgIHZhciB2YWx1ZSA9IGFycmF5W2luZGV4XTtcbiAgICBpZiAoZGVwdGggPiAwICYmIHByZWRpY2F0ZSh2YWx1ZSkpIHtcbiAgICAgIGlmIChkZXB0aCA+IDEpIHtcbiAgICAgICAgLy8gUmVjdXJzaXZlbHkgZmxhdHRlbiBhcnJheXMgKHN1c2NlcHRpYmxlIHRvIGNhbGwgc3RhY2sgbGltaXRzKS5cbiAgICAgICAgYmFzZUZsYXR0ZW4odmFsdWUsIGRlcHRoIC0gMSwgcHJlZGljYXRlLCBpc1N0cmljdCwgcmVzdWx0KTtcbiAgICAgIH0gZWxzZSB7XG4gICAgICAgIGFycmF5UHVzaChyZXN1bHQsIHZhbHVlKTtcbiAgICAgIH1cbiAgICB9IGVsc2UgaWYgKCFpc1N0cmljdCkge1xuICAgICAgcmVzdWx0W3Jlc3VsdC5sZW5ndGhdID0gdmFsdWU7XG4gICAgfVxuICB9XG4gIHJldHVybiByZXN1bHQ7XG59XG5cbm1vZHVsZS5leHBvcnRzID0gYmFzZUZsYXR0ZW47XG4iXX0=

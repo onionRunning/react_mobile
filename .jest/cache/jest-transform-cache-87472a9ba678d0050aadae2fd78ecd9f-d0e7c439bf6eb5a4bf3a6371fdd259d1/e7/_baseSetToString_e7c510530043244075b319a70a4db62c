@@ -1,0 +1,24 @@
+5744fdfd6a1a7e05a0155425bd5bb088
+var constant = require('./constant'),
+    defineProperty = require('./_defineProperty'),
+    identity = require('./identity');
+/**
+ * The base implementation of `setToString` without support for hot loop shorting.
+ *
+ * @private
+ * @param {Function} func The function to modify.
+ * @param {Function} string The `toString` result.
+ * @returns {Function} Returns `func`.
+ */
+
+
+var baseSetToString = !defineProperty ? identity : function (func, string) {
+  return defineProperty(func, 'toString', {
+    'configurable': true,
+    'enumerable': false,
+    'value': constant(string),
+    'writable': true
+  });
+};
+module.exports = baseSetToString;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIl9iYXNlU2V0VG9TdHJpbmcuanMiXSwibmFtZXMiOlsiY29uc3RhbnQiLCJyZXF1aXJlIiwiZGVmaW5lUHJvcGVydHkiLCJpZGVudGl0eSIsImJhc2VTZXRUb1N0cmluZyIsImZ1bmMiLCJzdHJpbmciLCJtb2R1bGUiLCJleHBvcnRzIl0sIm1hcHBpbmdzIjoiQUFBQSxJQUFJQSxRQUFRLEdBQUdDLE9BQU8sQ0FBQyxZQUFELENBQXRCO0FBQUEsSUFDSUMsY0FBYyxHQUFHRCxPQUFPLENBQUMsbUJBQUQsQ0FENUI7QUFBQSxJQUVJRSxRQUFRLEdBQUdGLE9BQU8sQ0FBQyxZQUFELENBRnRCO0FBSUE7Ozs7Ozs7Ozs7QUFRQSxJQUFJRyxlQUFlLEdBQUcsQ0FBQ0YsY0FBRCxHQUFrQkMsUUFBbEIsR0FBNkIsVUFBU0UsSUFBVCxFQUFlQyxNQUFmLEVBQXVCO0FBQ3hFLFNBQU9KLGNBQWMsQ0FBQ0csSUFBRCxFQUFPLFVBQVAsRUFBbUI7QUFDdEMsb0JBQWdCLElBRHNCO0FBRXRDLGtCQUFjLEtBRndCO0FBR3RDLGFBQVNMLFFBQVEsQ0FBQ00sTUFBRCxDQUhxQjtBQUl0QyxnQkFBWTtBQUowQixHQUFuQixDQUFyQjtBQU1ELENBUEQ7QUFTQUMsTUFBTSxDQUFDQyxPQUFQLEdBQWlCSixlQUFqQiIsInNvdXJjZXNDb250ZW50IjpbInZhciBjb25zdGFudCA9IHJlcXVpcmUoJy4vY29uc3RhbnQnKSxcbiAgICBkZWZpbmVQcm9wZXJ0eSA9IHJlcXVpcmUoJy4vX2RlZmluZVByb3BlcnR5JyksXG4gICAgaWRlbnRpdHkgPSByZXF1aXJlKCcuL2lkZW50aXR5Jyk7XG5cbi8qKlxuICogVGhlIGJhc2UgaW1wbGVtZW50YXRpb24gb2YgYHNldFRvU3RyaW5nYCB3aXRob3V0IHN1cHBvcnQgZm9yIGhvdCBsb29wIHNob3J0aW5nLlxuICpcbiAqIEBwcml2YXRlXG4gKiBAcGFyYW0ge0Z1bmN0aW9ufSBmdW5jIFRoZSBmdW5jdGlvbiB0byBtb2RpZnkuXG4gKiBAcGFyYW0ge0Z1bmN0aW9ufSBzdHJpbmcgVGhlIGB0b1N0cmluZ2AgcmVzdWx0LlxuICogQHJldHVybnMge0Z1bmN0aW9ufSBSZXR1cm5zIGBmdW5jYC5cbiAqL1xudmFyIGJhc2VTZXRUb1N0cmluZyA9ICFkZWZpbmVQcm9wZXJ0eSA/IGlkZW50aXR5IDogZnVuY3Rpb24oZnVuYywgc3RyaW5nKSB7XG4gIHJldHVybiBkZWZpbmVQcm9wZXJ0eShmdW5jLCAndG9TdHJpbmcnLCB7XG4gICAgJ2NvbmZpZ3VyYWJsZSc6IHRydWUsXG4gICAgJ2VudW1lcmFibGUnOiBmYWxzZSxcbiAgICAndmFsdWUnOiBjb25zdGFudChzdHJpbmcpLFxuICAgICd3cml0YWJsZSc6IHRydWVcbiAgfSk7XG59O1xuXG5tb2R1bGUuZXhwb3J0cyA9IGJhc2VTZXRUb1N0cmluZztcbiJdfQ==

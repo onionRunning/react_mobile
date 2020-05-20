@@ -1,0 +1,1 @@
+{"version":3,"sources":["sign.js"],"names":["module","exports","sign","number"],"mappings":"AAAA;;AAEAA,MAAM,CAACC,OAAP,GAAiB,SAASC,IAAT,CAAcC,MAAd,EAAsB;AACtC,SAAOA,MAAM,IAAI,CAAV,GAAc,CAAd,GAAkB,CAAC,CAA1B;AACA,CAFD","sourcesContent":["'use strict';\n\nmodule.exports = function sign(number) {\n\treturn number >= 0 ? 1 : -1;\n};\n"]}

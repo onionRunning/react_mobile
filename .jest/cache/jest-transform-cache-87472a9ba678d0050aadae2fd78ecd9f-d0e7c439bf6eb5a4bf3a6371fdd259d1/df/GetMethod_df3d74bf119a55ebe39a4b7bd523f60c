@@ -1,0 +1,45 @@
+b831a361d57288c6c9d1d9b42b2e95b8
+'use strict';
+
+var GetIntrinsic = require('../GetIntrinsic');
+
+var $TypeError = GetIntrinsic('%TypeError%');
+
+var GetV = require('./GetV');
+
+var IsCallable = require('./IsCallable');
+
+var IsPropertyKey = require('./IsPropertyKey');
+/**
+ * 7.3.9 - https://ecma-international.org/ecma-262/6.0/#sec-getmethod
+ * 1. Assert: IsPropertyKey(P) is true.
+ * 2. Let func be GetV(O, P).
+ * 3. ReturnIfAbrupt(func).
+ * 4. If func is either undefined or null, return undefined.
+ * 5. If IsCallable(func) is false, throw a TypeError exception.
+ * 6. Return func.
+ */
+
+
+module.exports = function GetMethod(O, P) {
+  // 7.3.9.1
+  if (!IsPropertyKey(P)) {
+    throw new $TypeError('Assertion failed: IsPropertyKey(P) is not true');
+  } // 7.3.9.2
+
+
+  var func = GetV(O, P); // 7.3.9.4
+
+  if (func == null) {
+    return void 0;
+  } // 7.3.9.5
+
+
+  if (!IsCallable(func)) {
+    throw new $TypeError(P + 'is not a function');
+  } // 7.3.9.6
+
+
+  return func;
+};
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkdldE1ldGhvZC5qcyJdLCJuYW1lcyI6WyJHZXRJbnRyaW5zaWMiLCJyZXF1aXJlIiwiJFR5cGVFcnJvciIsIkdldFYiLCJJc0NhbGxhYmxlIiwiSXNQcm9wZXJ0eUtleSIsIm1vZHVsZSIsImV4cG9ydHMiLCJHZXRNZXRob2QiLCJPIiwiUCIsImZ1bmMiXSwibWFwcGluZ3MiOiJBQUFBOztBQUVBLElBQUlBLFlBQVksR0FBR0MsT0FBTyxDQUFDLGlCQUFELENBQTFCOztBQUVBLElBQUlDLFVBQVUsR0FBR0YsWUFBWSxDQUFDLGFBQUQsQ0FBN0I7O0FBRUEsSUFBSUcsSUFBSSxHQUFHRixPQUFPLENBQUMsUUFBRCxDQUFsQjs7QUFDQSxJQUFJRyxVQUFVLEdBQUdILE9BQU8sQ0FBQyxjQUFELENBQXhCOztBQUNBLElBQUlJLGFBQWEsR0FBR0osT0FBTyxDQUFDLGlCQUFELENBQTNCO0FBRUE7Ozs7Ozs7Ozs7O0FBVUFLLE1BQU0sQ0FBQ0MsT0FBUCxHQUFpQixTQUFTQyxTQUFULENBQW1CQyxDQUFuQixFQUFzQkMsQ0FBdEIsRUFBeUI7QUFDekM7QUFDQSxNQUFJLENBQUNMLGFBQWEsQ0FBQ0ssQ0FBRCxDQUFsQixFQUF1QjtBQUN0QixVQUFNLElBQUlSLFVBQUosQ0FBZSxnREFBZixDQUFOO0FBQ0EsR0FKd0MsQ0FNekM7OztBQUNBLE1BQUlTLElBQUksR0FBR1IsSUFBSSxDQUFDTSxDQUFELEVBQUlDLENBQUosQ0FBZixDQVB5QyxDQVN6Qzs7QUFDQSxNQUFJQyxJQUFJLElBQUksSUFBWixFQUFrQjtBQUNqQixXQUFPLEtBQUssQ0FBWjtBQUNBLEdBWndDLENBY3pDOzs7QUFDQSxNQUFJLENBQUNQLFVBQVUsQ0FBQ08sSUFBRCxDQUFmLEVBQXVCO0FBQ3RCLFVBQU0sSUFBSVQsVUFBSixDQUFlUSxDQUFDLEdBQUcsbUJBQW5CLENBQU47QUFDQSxHQWpCd0MsQ0FtQnpDOzs7QUFDQSxTQUFPQyxJQUFQO0FBQ0EsQ0FyQkQiLCJzb3VyY2VzQ29udGVudCI6WyIndXNlIHN0cmljdCc7XG5cbnZhciBHZXRJbnRyaW5zaWMgPSByZXF1aXJlKCcuLi9HZXRJbnRyaW5zaWMnKTtcblxudmFyICRUeXBlRXJyb3IgPSBHZXRJbnRyaW5zaWMoJyVUeXBlRXJyb3IlJyk7XG5cbnZhciBHZXRWID0gcmVxdWlyZSgnLi9HZXRWJyk7XG52YXIgSXNDYWxsYWJsZSA9IHJlcXVpcmUoJy4vSXNDYWxsYWJsZScpO1xudmFyIElzUHJvcGVydHlLZXkgPSByZXF1aXJlKCcuL0lzUHJvcGVydHlLZXknKTtcblxuLyoqXG4gKiA3LjMuOSAtIGh0dHBzOi8vZWNtYS1pbnRlcm5hdGlvbmFsLm9yZy9lY21hLTI2Mi82LjAvI3NlYy1nZXRtZXRob2RcbiAqIDEuIEFzc2VydDogSXNQcm9wZXJ0eUtleShQKSBpcyB0cnVlLlxuICogMi4gTGV0IGZ1bmMgYmUgR2V0VihPLCBQKS5cbiAqIDMuIFJldHVybklmQWJydXB0KGZ1bmMpLlxuICogNC4gSWYgZnVuYyBpcyBlaXRoZXIgdW5kZWZpbmVkIG9yIG51bGwsIHJldHVybiB1bmRlZmluZWQuXG4gKiA1LiBJZiBJc0NhbGxhYmxlKGZ1bmMpIGlzIGZhbHNlLCB0aHJvdyBhIFR5cGVFcnJvciBleGNlcHRpb24uXG4gKiA2LiBSZXR1cm4gZnVuYy5cbiAqL1xuXG5tb2R1bGUuZXhwb3J0cyA9IGZ1bmN0aW9uIEdldE1ldGhvZChPLCBQKSB7XG5cdC8vIDcuMy45LjFcblx0aWYgKCFJc1Byb3BlcnR5S2V5KFApKSB7XG5cdFx0dGhyb3cgbmV3ICRUeXBlRXJyb3IoJ0Fzc2VydGlvbiBmYWlsZWQ6IElzUHJvcGVydHlLZXkoUCkgaXMgbm90IHRydWUnKTtcblx0fVxuXG5cdC8vIDcuMy45LjJcblx0dmFyIGZ1bmMgPSBHZXRWKE8sIFApO1xuXG5cdC8vIDcuMy45LjRcblx0aWYgKGZ1bmMgPT0gbnVsbCkge1xuXHRcdHJldHVybiB2b2lkIDA7XG5cdH1cblxuXHQvLyA3LjMuOS41XG5cdGlmICghSXNDYWxsYWJsZShmdW5jKSkge1xuXHRcdHRocm93IG5ldyAkVHlwZUVycm9yKFAgKyAnaXMgbm90IGEgZnVuY3Rpb24nKTtcblx0fVxuXG5cdC8vIDcuMy45LjZcblx0cmV0dXJuIGZ1bmM7XG59O1xuIl19

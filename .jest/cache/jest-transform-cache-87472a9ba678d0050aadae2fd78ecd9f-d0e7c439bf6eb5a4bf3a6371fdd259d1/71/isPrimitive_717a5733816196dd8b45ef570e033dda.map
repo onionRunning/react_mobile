@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../src/helpers/isPrimitive.js"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;AAAe,SAAA,WAAA,CAAA,CAAA,EAAwB;AACrC,SAAO,CAAA,CAAA,IAAO,OAAA,CAAA,CAAA,CAAA,KAAA,QAAA,IAAyB,OAAA,CAAA,KAAvC,UAAA;AACD","sourcesContent":["export default function isPrimitive(x) {\n  return !x || (typeof x !== 'object' && typeof x !== 'function');\n}\n"]}

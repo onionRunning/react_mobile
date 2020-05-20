@@ -9,6 +9,7 @@ module.exports = override(
     postcssPxToViewport({
       unitToConvert: 'px',
       viewportWidth: 375,
+      viewportHeight: 667,
       unitPrecision: 5,
       propList: ['*'],
       viewportUnit: 'vw',

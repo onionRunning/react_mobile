@@ -1,0 +1,29 @@
+ececa4a22bcbee4bee544461a2203f93
+/**
+ * Creates a base function for methods like `_.forIn` and `_.forOwn`.
+ *
+ * @private
+ * @param {boolean} [fromRight] Specify iterating from right to left.
+ * @returns {Function} Returns the new base function.
+ */
+function createBaseFor(fromRight) {
+  return function (object, iteratee, keysFunc) {
+    var index = -1,
+        iterable = Object(object),
+        props = keysFunc(object),
+        length = props.length;
+
+    while (length--) {
+      var key = props[fromRight ? length : ++index];
+
+      if (iteratee(iterable[key], key, iterable) === false) {
+        break;
+      }
+    }
+
+    return object;
+  };
+}
+
+module.exports = createBaseFor;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIl9jcmVhdGVCYXNlRm9yLmpzIl0sIm5hbWVzIjpbImNyZWF0ZUJhc2VGb3IiLCJmcm9tUmlnaHQiLCJvYmplY3QiLCJpdGVyYXRlZSIsImtleXNGdW5jIiwiaW5kZXgiLCJpdGVyYWJsZSIsIk9iamVjdCIsInByb3BzIiwibGVuZ3RoIiwia2V5IiwibW9kdWxlIiwiZXhwb3J0cyJdLCJtYXBwaW5ncyI6IkFBQUE7Ozs7Ozs7QUFPQSxTQUFTQSxhQUFULENBQXVCQyxTQUF2QixFQUFrQztBQUNoQyxTQUFPLFVBQVNDLE1BQVQsRUFBaUJDLFFBQWpCLEVBQTJCQyxRQUEzQixFQUFxQztBQUMxQyxRQUFJQyxLQUFLLEdBQUcsQ0FBQyxDQUFiO0FBQUEsUUFDSUMsUUFBUSxHQUFHQyxNQUFNLENBQUNMLE1BQUQsQ0FEckI7QUFBQSxRQUVJTSxLQUFLLEdBQUdKLFFBQVEsQ0FBQ0YsTUFBRCxDQUZwQjtBQUFBLFFBR0lPLE1BQU0sR0FBR0QsS0FBSyxDQUFDQyxNQUhuQjs7QUFLQSxXQUFPQSxNQUFNLEVBQWIsRUFBaUI7QUFDZixVQUFJQyxHQUFHLEdBQUdGLEtBQUssQ0FBQ1AsU0FBUyxHQUFHUSxNQUFILEdBQVksRUFBRUosS0FBeEIsQ0FBZjs7QUFDQSxVQUFJRixRQUFRLENBQUNHLFFBQVEsQ0FBQ0ksR0FBRCxDQUFULEVBQWdCQSxHQUFoQixFQUFxQkosUUFBckIsQ0FBUixLQUEyQyxLQUEvQyxFQUFzRDtBQUNwRDtBQUNEO0FBQ0Y7O0FBQ0QsV0FBT0osTUFBUDtBQUNELEdBYkQ7QUFjRDs7QUFFRFMsTUFBTSxDQUFDQyxPQUFQLEdBQWlCWixhQUFqQiIsInNvdXJjZXNDb250ZW50IjpbIi8qKlxuICogQ3JlYXRlcyBhIGJhc2UgZnVuY3Rpb24gZm9yIG1ldGhvZHMgbGlrZSBgXy5mb3JJbmAgYW5kIGBfLmZvck93bmAuXG4gKlxuICogQHByaXZhdGVcbiAqIEBwYXJhbSB7Ym9vbGVhbn0gW2Zyb21SaWdodF0gU3BlY2lmeSBpdGVyYXRpbmcgZnJvbSByaWdodCB0byBsZWZ0LlxuICogQHJldHVybnMge0Z1bmN0aW9ufSBSZXR1cm5zIHRoZSBuZXcgYmFzZSBmdW5jdGlvbi5cbiAqL1xuZnVuY3Rpb24gY3JlYXRlQmFzZUZvcihmcm9tUmlnaHQpIHtcbiAgcmV0dXJuIGZ1bmN0aW9uKG9iamVjdCwgaXRlcmF0ZWUsIGtleXNGdW5jKSB7XG4gICAgdmFyIGluZGV4ID0gLTEsXG4gICAgICAgIGl0ZXJhYmxlID0gT2JqZWN0KG9iamVjdCksXG4gICAgICAgIHByb3BzID0ga2V5c0Z1bmMob2JqZWN0KSxcbiAgICAgICAgbGVuZ3RoID0gcHJvcHMubGVuZ3RoO1xuXG4gICAgd2hpbGUgKGxlbmd0aC0tKSB7XG4gICAgICB2YXIga2V5ID0gcHJvcHNbZnJvbVJpZ2h0ID8gbGVuZ3RoIDogKytpbmRleF07XG4gICAgICBpZiAoaXRlcmF0ZWUoaXRlcmFibGVba2V5XSwga2V5LCBpdGVyYWJsZSkgPT09IGZhbHNlKSB7XG4gICAgICAgIGJyZWFrO1xuICAgICAgfVxuICAgIH1cbiAgICByZXR1cm4gb2JqZWN0O1xuICB9O1xufVxuXG5tb2R1bGUuZXhwb3J0cyA9IGNyZWF0ZUJhc2VGb3I7XG4iXX0=

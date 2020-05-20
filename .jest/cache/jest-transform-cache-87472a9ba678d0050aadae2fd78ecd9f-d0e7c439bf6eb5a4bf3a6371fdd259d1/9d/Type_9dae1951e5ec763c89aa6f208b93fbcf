@@ -1,0 +1,14 @@
+baf41243f9acaa64c420785ebb83dc8e
+'use strict';
+
+var ES5Type = require('../5/Type'); // https://www.ecma-international.org/ecma-262/6.0/#sec-tostring
+
+
+module.exports = function Type(x) {
+  if (typeof x === 'symbol') {
+    return 'Symbol';
+  }
+
+  return ES5Type(x);
+};
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIlR5cGUuanMiXSwibmFtZXMiOlsiRVM1VHlwZSIsInJlcXVpcmUiLCJtb2R1bGUiLCJleHBvcnRzIiwiVHlwZSIsIngiXSwibWFwcGluZ3MiOiJBQUFBOztBQUVBLElBQUlBLE9BQU8sR0FBR0MsT0FBTyxDQUFDLFdBQUQsQ0FBckIsQyxDQUVBOzs7QUFFQUMsTUFBTSxDQUFDQyxPQUFQLEdBQWlCLFNBQVNDLElBQVQsQ0FBY0MsQ0FBZCxFQUFpQjtBQUNqQyxNQUFJLE9BQU9BLENBQVAsS0FBYSxRQUFqQixFQUEyQjtBQUMxQixXQUFPLFFBQVA7QUFDQTs7QUFDRCxTQUFPTCxPQUFPLENBQUNLLENBQUQsQ0FBZDtBQUNBLENBTEQiLCJzb3VyY2VzQ29udGVudCI6WyIndXNlIHN0cmljdCc7XG5cbnZhciBFUzVUeXBlID0gcmVxdWlyZSgnLi4vNS9UeXBlJyk7XG5cbi8vIGh0dHBzOi8vd3d3LmVjbWEtaW50ZXJuYXRpb25hbC5vcmcvZWNtYS0yNjIvNi4wLyNzZWMtdG9zdHJpbmdcblxubW9kdWxlLmV4cG9ydHMgPSBmdW5jdGlvbiBUeXBlKHgpIHtcblx0aWYgKHR5cGVvZiB4ID09PSAnc3ltYm9sJykge1xuXHRcdHJldHVybiAnU3ltYm9sJztcblx0fVxuXHRyZXR1cm4gRVM1VHlwZSh4KTtcbn07XG4iXX0=
