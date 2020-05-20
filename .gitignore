@@ -25,3 +25,4 @@ tmp
 temp.txt
 lastgitcommit.text
 # yarn lock
+.jest
